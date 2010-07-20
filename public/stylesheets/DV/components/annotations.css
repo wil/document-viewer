@@ -395,7 +395,7 @@
   background: rgba(107, 194, 248, 0.9);
 }
 .DV-activeAnnotation.DV-pageNote{
-  margin-top:0;
+  margin: 0 10px 20px;
 }
 .DV-pageNote .DV-annotationContent{
   display:block;
@@ -409,6 +409,10 @@
 }
 .DV-layer-page .DV-pageNumber{
   margin-top:15px;
+}
+
+.DV-pageNoteInsert {
+  display: none;
 }
 
 /* ---------------------------------------------------- hack for load */

@@ -8,6 +8,7 @@ DV.page = DV.Class.extend({
     this.el               = $j(this.el);
     this.parent           = this.el.parent();
     this.pageNumberEl     = this.el.find('span.DV-pageNumber');
+    this.pageInsertEl     = this.el.find('.DV-pageNoteInsert');
     this.pageImageEl      = this.getPageImage();
 
     this.pageEl           = this.el.find('div.DV-page');
@@ -160,6 +161,7 @@ DV.page = DV.Class.extend({
         }
       }
 
+      this.pageInsertEl.toggleClass('visible', !this.hasLayerPage);
       this.renderMeta({ pageNumber: this.index+1 });
     }
     // Update the page type
@@ -243,7 +245,7 @@ DV.page = DV.Class.extend({
     this.pageImageEl.css({width: width, height: height});
 
     // Resize the page container.
-    this.el.css({height: height+this.model_document.additionalPaddingOnPage, width: width});
+    this.el.css({height: height, width: width});
 
     // Resize the page.
     this.pageEl.css({height: height, width: width});

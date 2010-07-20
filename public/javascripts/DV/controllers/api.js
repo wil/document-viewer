@@ -5,6 +5,12 @@ DV.api = {
     return DV.controller.models.document.currentPage();
   },
 
+  // Return the page number for one of the three physical page DOM elements, by id:
+  getPageNumberForId : function(id) {
+    var page = DV.controller.pageSet.pages[id];
+    return page.index + 1;
+  },
+
   // Return the current zoom factor of the document.
   currentZoom : function() {
     var doc = DV.controller.models.document;
@@ -72,12 +78,16 @@ DV.api = {
 
   // Redraw the UI. Call redraw(true) to also redraw annotations and pages.
   redraw : function(redrawAll) {
-    if (redrawAll) DV.controller.models.annotations.renderAnnotations();
+    if (redrawAll) {
+      DV.controller.models.annotations.renderAnnotations();
+      DV.controller.models.document.computeOffsets();
+    }
     DV.controller.helpers.renderNavigation();
     DV.controller.helpers.renderComponents();
     if (redrawAll) {
       DV.controller.elements.window.removeClass('DV-coverVisible');
       DV.controller.pageSet.buildPages({noNotes : true});
+      DV.controller.pageSet.reflowPages();
     }
   },
 

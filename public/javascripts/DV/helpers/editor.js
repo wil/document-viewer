@@ -1,8 +1,11 @@
 _.extend(DV.Schema.helpers,{
   showAnnotationEdit : function(e) {
     var annoEl = $j(e.target).closest(this.annotationClassName);
+    var area   = $j('.DV-annotationTextArea', annoEl);
+    var height = $j('.DV-annotationBody', annoEl).height();
+    area.css({height : height - 65}); // 65 being the fudge difference...
     annoEl.addClass('DV-editing');
-    $j('.DV-annotationTextArea', annoEl).focus();
+    area.focus();
   },
   cancelAnnotationEdit : function(e) {
     var annoEl = $j(e.target).closest(this.annotationClassName);
