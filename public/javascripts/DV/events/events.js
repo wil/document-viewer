@@ -134,10 +134,8 @@ DV.Schema.events = {
         trackAnnotation.id = annotation.id;
         helpers.setActiveAnnotationLimits(annotation);
       }
-
-      if(scrollPosition > trackAnnotation.h || scrollPosition < trackAnnotation.combined){
-
-
+      if(!application.activeAnnotation.annotationEl.hasClass('DV-editing') &&
+         (scrollPosition > (trackAnnotation.h) || scrollPosition < trackAnnotation.combined)) {
         annotation.hide(true);
         application.pageSet.setActiveAnnotation(null);
         application.activeAnnotation      = null;

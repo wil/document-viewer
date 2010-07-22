@@ -71,10 +71,10 @@ _.extend(DV.Schema.helpers, {
     var _trackAnnotation = this.events.trackAnnotation;
 
     if(annotation.type === 'page'){
-      _trackAnnotation.h          = aEl.find('div.DV-annotationBG').outerHeight()+aPage.getOffset();
+      _trackAnnotation.h          = aEl.outerHeight()+aPage.getOffset();
       _trackAnnotation.combined   = (aPage.getOffset()) - elements.window.height();
     }else{
-      _trackAnnotation.h          = aEl.find('div.DV-annotationBG').height()+aPosTop+20+aPage.getOffset();
+      _trackAnnotation.h          = aEl.height()+aPosTop+20+aPage.getOffset();
       _trackAnnotation.combined   = (aPosTop+20+aPage.getOffset()) - elements.window.height();
     }
 
