@@ -74,8 +74,8 @@ _.extend(DV.Schema.helpers, {
       _trackAnnotation.h          = aEl.outerHeight()+aPage.getOffset();
       _trackAnnotation.combined   = (aPage.getOffset()) - elements.window.height();
     }else{
-      _trackAnnotation.h          = aEl.height()+aPosTop+20+aPage.getOffset();
-      _trackAnnotation.combined   = (aPosTop+20+aPage.getOffset()) - elements.window.height();
+      _trackAnnotation.h          = aEl.height()+aPosTop-20+aPage.getOffset();
+      _trackAnnotation.combined   = (aPosTop-20+aPage.getOffset()) - elements.window.height();
     }
 
 
