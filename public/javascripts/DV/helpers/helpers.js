@@ -10,9 +10,16 @@ DV.Schema.helpers = {
       var boundZoom = this.events.compile('zoom');
       var doc = context.models.document;
       var value = _.indexOf(doc.ZOOM_RANGES, doc.zoomLevel) * 24.7;
-      this.application.slider = $j('#DV-zoomBox').slider({ step: 24.7, value: value, change: function(el,d){
-        boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value / 24.7, 10)]);
-      }});
+      this.application.slider = $j('#DV-zoomBox').slider({ 
+        step: 24.7, 
+        value: value, 
+        slide: function(el,d){
+          boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value / 24.7, 10)]);
+        },
+        change: function(el,d){
+          boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value / 24.7, 10)]);
+        }
+      });
 
       // next/previous
       var compiled        = this.application.compiled;
