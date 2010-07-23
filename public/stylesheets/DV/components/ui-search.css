@@ -87,6 +87,14 @@
   display:none;
 }
 
+#DV-searchBar ::selection {
+  background: transparent;
+}
+
+#DV-searchBar ::-moz-selection {
+  background: transparent;
+}
+
 .DV-searchMatch{
   background-color:#c7c7c7;
   -moz-box-shadow: 0 1px 5px #999;
