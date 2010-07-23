@@ -68,9 +68,12 @@ _.extend(DV.Schema.helpers, {
         break;
       }
     }
+
+    // Replaces spaces in query with `\s+` to match newlines in textContent.
+    var query             = response.query.replace(/\s+/g, '\\s+');
     var textContent       = $j('#DV-textContents');
     var currentPageText   = textContent.text();
-    var pattern           = new RegExp(response.query,"ig");
+    var pattern           = new RegExp(query,"ig");
     var replacement       = currentPageText.replace(pattern,'<span class="DV-searchMatch">$&</span>');
 
     textContent.html(replacement);
