@@ -394,7 +394,11 @@
   background: rgb(107, 194, 248);
   background: rgba(107, 194, 248, 0.9);
 }
+.DV-coverVisible .DV-pageNote {
+  opacity: 0.25;
+}
 .DV-activeAnnotation.DV-pageNote{
+  opacity: 1;
   margin: 0 10px 20px;
 }
 .DV-pageNote .DV-annotationContent{

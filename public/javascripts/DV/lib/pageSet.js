@@ -127,7 +127,7 @@ DV.pageSet = DV.Class.extend({
     if (this.pages['p1']) this.pages['p1'].draw({ force: true, forceAnnotationRedraw : redrawAnnotations });
     if (this.pages['p2']) this.pages['p2'].draw({ force: true, forceAnnotationRedraw : redrawAnnotations });
 
-    if(this.application.activeAnnotation){
+    if(redrawAnnotations && this.application.activeAnnotation){
       this.application.helpers.jump(this.application.activeAnnotation.page.index,this.application.activeAnnotation.position.top - 37);
     }
   },

@@ -5,17 +5,20 @@
   var pageModel = new DV.model(DV.Schema, {
 
     // Real page heights
-    pageHeights   : [],
+    pageHeights     : [],
+
+    // Real page note heights.
+    pageNoteHeights : [],
 
     // In pixels.
-    BASE_WIDTH    : 700,
-    BASE_HEIGHT   : 906,
+    BASE_WIDTH      : 700,
+    BASE_HEIGHT     : 906,
 
     // Factors for scaling from image size to zoomlevel.
-    SCALE_FACTORS : {'500': 0.714, '700': 1.0, '800': 0.8, '900': 0.9, '1000': 1.0},
+    SCALE_FACTORS   : {'500': 0.714, '700': 1.0, '800': 0.8, '900': 0.9, '1000': 1.0},
 
     // For viewing page text.
-    TEXT_PADDING  : 100,
+    TEXT_PADDING    : 100,
 
     // Initializing the page model guesses at a default pageHeight -- we'll
     // know for sure when the first page image is loaded.

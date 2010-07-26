@@ -129,6 +129,7 @@
       var documentModel         = this.application.models.document;
       var annotationsContainer  = $j('div#DV-annotations');
       var pageAnnotationEls     = annotationsContainer.find('.DV-pageNote');
+      var pageNoteHeights       = DV.controller.models.pages.pageNoteHeights;
       var me = this;
 
       if($j('div#DV-docViewer').hasClass('DV-viewAnnotations') == false){
@@ -147,9 +148,11 @@
 
       // Then, loop through the pages and store the cumulative offset due to
       // page annotations.
-      for (var i = 0, len = documentModel.totalPages; i < len; i++) {
+      for (var i = 0, len = documentModel.totalPages; i <= len; i++) {
+        pageNoteHeights[i] = 0;
         if (pageAnnos[i]) {
           var height = ($j(pageAnnos[i].el).height() + 26);
+          pageNoteHeights[i - 1] = height;
           this.offsetAdjustmentSum += height;
         }
         this.offsetsAdjustments[i] = this.offsetAdjustmentSum;
