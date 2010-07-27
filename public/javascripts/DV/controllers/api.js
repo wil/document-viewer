@@ -96,7 +96,7 @@ DV.api = {
     anno = DV.Schema.loadAnnotation(anno);
     DV.controller.models.annotations.sortAnnotations();
     this.redraw(true);
-    DV.controller.pageSet.showAnnotation(anno, {active: true, noJump : true, edit : true});
+    DV.controller.pageSet.showAnnotation(anno, {active: true, noJump : false, edit : true});
     return anno;
   },
 
