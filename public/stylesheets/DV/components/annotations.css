@@ -16,14 +16,8 @@
     border-radius:  3px;
     margin-left:10px;
     margin-right:10px;
-    -webkit-user-select:none;
-    -moz-user-select:none;
-
   }
   .DV-annotationRegion {
-    -webkit-user-select:none;
-    -moz-user-select:none;
-
     background: rgb(255, 227, 37);
     background: rgba(255, 227, 37, 0.2);
 
@@ -255,8 +249,6 @@
   .DV-annotationBody{
     font: 13px/18px Georgia, Times, serif;
     cursor:text;
-    -webkit-user-select:text;
-    -moz-user-select:text;
     color: #333;
   }
   /* ---------------------------------------------------- tabs */
