@@ -65,7 +65,8 @@
     box-shadow: 1px 2px 7px rgb(0,0,0);
     box-shadow: 1px 2px 7px rgba(0,0,0,.2);
   }
-  .DV-private .DV-annotationRegion:hover {
+  .DV-private .DV-annotationRegion:hover,
+  .DV-private.DV-annotationRegion:hover {
     border: 3px solid rgb(107, 194, 248);
   }
   .DV-annotationContent{
