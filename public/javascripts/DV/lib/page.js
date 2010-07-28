@@ -84,7 +84,7 @@ DV.page = DV.Class.extend({
   getOffset: function(){
     return this.model_document.offsets[this.index];
   },
-  
+
   getPageNoteHeight : function() {
     return this.model_pages.pageNoteHeights[this.index];
   },

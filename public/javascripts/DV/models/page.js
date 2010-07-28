@@ -4,7 +4,10 @@
   // image sources for each page, and the page proportions.
   var pageModel = new DV.model(DV.Schema, {
 
-    // Real page heights
+    // Rolling average page height.
+    averageHeight   : 0,
+
+    // Real page heights.
     pageHeights     : [],
 
     // Real page note heights.
@@ -80,7 +83,6 @@
       this.setPageHeight(pageIndex, height);
       this.updateBaseHeightBasedOnAveragePageHeight(image);
       DV.controller.models.document.computeOffsets();
-      // DV.controller.pageSet.reflowPages();
       DV.controller.pageSet.simpleReflowPages();
     },
 
@@ -97,7 +99,7 @@
           this.height = newAverage;
           this.baseHeight = Math.round(this.height / this.zoomFactor());
         }
-      }, this), 500);
+      }, this), 100);
     },
 
     // set the real page height
