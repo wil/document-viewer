@@ -102,12 +102,9 @@ DV.page = DV.Class.extend({
 
     var source    = this.model_pages.imageURL(this.index);
 
-    if(this.imgSource != source){
+    if (this.imgSource != source) {
       this.imgSource = source;
-      var me = this;
-      _.defer($j.proxy(this.loadImage,this));
-    }else{
-
+      this.loadImage();
     }
     this.sizeImage();
 
@@ -229,7 +226,7 @@ DV.page = DV.Class.extend({
       });
 
       var src = me.model_pages.imageURL(me.index);
-      preloader[0].src = '#';
+      preloader[0].src = '';
       preloader[0].src = src;
     };
 
