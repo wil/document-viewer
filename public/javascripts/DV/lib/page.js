@@ -226,7 +226,6 @@ DV.page = DV.Class.extend({
       });
 
       var src = me.model_pages.imageURL(me.index);
-      preloader[0].src = '';
       preloader[0].src = src;
     };
 
