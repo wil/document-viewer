@@ -46,6 +46,7 @@ DV.api = {
     DV.Schema.document.description = desc;
     $j('#DV-description').remove();
     $j('.DV-navigation').prepend(JST.descriptionContainer({description: desc}));
+    DV.controller.helpers.displayNavigation();
   },
 
   // Get the document's related article url.

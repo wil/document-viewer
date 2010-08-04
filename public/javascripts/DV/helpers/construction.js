@@ -26,86 +26,96 @@ _.extend(DV.Schema.helpers, {
       }
     ));
   },
-   renderNavigation : function() {
-     var chapterViews = [], bolds = [], expandIcons = [], expanded = [], navigationExpander = JST.navigationExpander({}),nav=[],notes = [],chapters = [];
 
-     /* ---------------------------------------------------- start the nav helper methods */
-     var getAnnotionsByRange = function(rangeStart, rangeEnd){
-       var annotations = [];
-       for(var i = rangeStart, len = rangeEnd; i < len; i++){
-         if(notes[i]){
-           annotations.push(notes[i]);
-           nav[i] = '';
-         }
-       }
-       return annotations.join('');
-     };
+  // If there is no description, no navigation, and no sections, tighten up
+  // the sidebar.
+  displayNavigation : function() {
+    var doc = DV.Schema.document;
+    var missing = (!doc.description && !_.size(DV.Schema.data.annotationsById) && !DV.Schema.data.sections.length);
+    $j('#DV-supplemental').toggleClass('DV-noNavigation', missing);
+  },
 
-     var createChapter = function(chapter){
-       var selectionRule = "#DV-selectedChapter-" + chapter.id + " #DV-chapter-" + chapter.id;
+  renderNavigation : function() {
+    var chapterViews = [], bolds = [], expandIcons = [], expanded = [], navigationExpander = JST.navigationExpander({}),nav=[],notes = [],chapters = [];
 
-       bolds.push(selectionRule+" .DV-first span.DV-trigger");
-       return (JST.chapterNav(chapter));
-     };
+    /* ---------------------------------------------------- start the nav helper methods */
+    var getAnnotionsByRange = function(rangeStart, rangeEnd){
+      var annotations = [];
+      for(var i = rangeStart, len = rangeEnd; i < len; i++){
+        if(notes[i]){
+          annotations.push(notes[i]);
+          nav[i] = '';
+        }
+      }
+      return annotations.join('');
+    };
 
-     var createNavAnnotations = function(annotationIndex){
-       var renderedAnnotations = [];
-       var annotations = DV.Schema.data.annotationsByPage[annotationIndex];
+    var createChapter = function(chapter){
+      var selectionRule = "#DV-selectedChapter-" + chapter.id + " #DV-chapter-" + chapter.id;
 
-       for (var j=0; j<annotations.length; j++) {
-         var annotation = annotations[j];
-         renderedAnnotations.push(JST.annotationNav(annotation));
-         bolds.push("#DV-selectedAnnotation-" + annotation.id + " #DV-annotationMarker-" + annotation.id + " span.DV-trigger");
-       }
-       return renderedAnnotations.join('');
-     };
-     /* ---------------------------------------------------- end the nav helper methods */
+      bolds.push(selectionRule+" .DV-first span.DV-trigger");
+      return (JST.chapterNav(chapter));
+    };
 
-     for(var i = 0,len = this.models.document.totalPages; i < len;i++){
-       if(DV.Schema.data.annotationsByPage[i]){
-         nav[i]   = createNavAnnotations(i);
-         notes[i] = nav[i];
-       }
-     }
+    var createNavAnnotations = function(annotationIndex){
+      var renderedAnnotations = [];
+      var annotations = DV.Schema.data.annotationsByPage[annotationIndex];
 
-     if(DV.Schema.data.sections.length >= 1){
-       for(var i=0; i<DV.Schema.data.sections.length; i++){
-         var chapter        = DV.Schema.data.sections[i];
-         var range          = chapter.pages.split('-');
-         var annotations    = getAnnotionsByRange(range[0]-1,range[1]);
-         chapter.pageNumber = range[0];
+      for (var j=0; j<annotations.length; j++) {
+        var annotation = annotations[j];
+        renderedAnnotations.push(JST.annotationNav(annotation));
+        bolds.push("#DV-selectedAnnotation-" + annotation.id + " #DV-annotationMarker-" + annotation.id + " span.DV-trigger");
+      }
+      return renderedAnnotations.join('');
+    };
+    /* ---------------------------------------------------- end the nav helper methods */
 
-         if(annotations != ''){
-           chapter.navigationExpander       = navigationExpander;
-           chapter.navigationExpanderClass  = 'DV-hasChildren';
-           chapter.noteViews                = annotations;
-           nav[range[0]-1]                  = createChapter(chapter);
-         }else{
-           chapter.navigationExpanderClass  = 'DV-noChildren';
-           chapter.noteViews                = '';
-           chapter.navigationExpander       = '';
-           nav[range[0]-1]                  = createChapter(chapter);
-         }
-       }
-     }
+    for(var i = 0,len = this.models.document.totalPages; i < len;i++){
+      if(DV.Schema.data.annotationsByPage[i]){
+        nav[i]   = createNavAnnotations(i);
+        notes[i] = nav[i];
+      }
+    }
 
-     // insert and observe the nav
-     var navigationView = nav.join('');
+    if(DV.Schema.data.sections.length >= 1){
+      for(var i=0; i<DV.Schema.data.sections.length; i++){
+        var chapter        = DV.Schema.data.sections[i];
+        var range          = chapter.pages.split('-');
+        var annotations    = getAnnotionsByRange(range[0]-1,range[1]);
+        chapter.pageNumber = range[0];
 
-     var chaptersContainer = $j('div.DV-chaptersContainer');
-     chaptersContainer.html(navigationView);
-     chaptersContainer.live('click',this.events.compile('handleNavigation'));
-     DV.Schema.data.sections.length || _.size(DV.Schema.data.annotationsById) ?
-        chaptersContainer.show() : chaptersContainer.hide();
+        if(annotations != ''){
+          chapter.navigationExpander       = navigationExpander;
+          chapter.navigationExpanderClass  = 'DV-hasChildren';
+          chapter.noteViews                = annotations;
+          nav[range[0]-1]                  = createChapter(chapter);
+        }else{
+          chapter.navigationExpanderClass  = 'DV-noChildren';
+          chapter.noteViews                = '';
+          chapter.navigationExpander       = '';
+          nav[range[0]-1]                  = createChapter(chapter);
+        }
+      }
+    }
 
-     $j('#DV-navigationBolds', document.head).remove();
-     var boldsContents = bolds.join(", ") + ' { font-weight:bold; color:#000 !important; }';
-     var navStylesheet = '<style id="DV-navigationBolds" type="text/css" media="screen,print">\n' + boldsContents +'\n</style>';
-     $j('head').append(navStylesheet);
-     // cleanup
-     chaptersContainer = null;
+    // insert and observe the nav
+    var navigationView = nav.join('');
 
-   },
+    var chaptersContainer = $j('div.DV-chaptersContainer');
+    chaptersContainer.html(navigationView);
+    chaptersContainer.live('click',this.events.compile('handleNavigation'));
+    DV.Schema.data.sections.length || _.size(DV.Schema.data.annotationsById) ?
+       chaptersContainer.show() : chaptersContainer.hide();
+    this.displayNavigation();
+
+    $j('#DV-navigationBolds', document.head).remove();
+    var boldsContents = bolds.join(", ") + ' { font-weight:bold; color:#000 !important; }';
+    var navStylesheet = '<style id="DV-navigationBolds" type="text/css" media="screen,print">\n' + boldsContents +'\n</style>';
+    $j('head').append(navStylesheet);
+    // cleanup
+    chaptersContainer = null;
+
+  },
 
   // Hide or show all of the comoponents on the page that may or may not be
   // present, depending on what the document provides.
