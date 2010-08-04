@@ -67,7 +67,7 @@ _.extend(DV.Schema.helpers, {
     var elements  = this.elements;
     var aPage     = annotation.page;
     var aEl       = annotation.annotationEl;
-    var aPosTop   = annotation.position.top;
+    var aPosTop   = annotation.position.top * this.models.pages.zoomFactor();
     var _trackAnnotation = this.events.trackAnnotation;
 
     if(annotation.type === 'page'){
