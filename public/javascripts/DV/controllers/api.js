@@ -110,16 +110,6 @@ DV.api = {
     DV.controller.models.annotations.deleteCallbacks.push(callback);
   },
 
-  // Request the loading of an external CSS file.
-  loadCSS : function(url) {
-    var link = document.createElement('link');
-    $j(link).attr({
-      rel:  "stylesheet",
-      type: "text/css",
-      href: url
-    }).appendTo($j('head'));
-  },
-
   // Request the loading of an external JS file.
   loadJS : function(url, callback) {
     $j.getScript(url, callback);
