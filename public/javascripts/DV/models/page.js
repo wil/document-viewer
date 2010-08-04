@@ -97,7 +97,7 @@
         var newAverage = Math.round(this.averageHeight);
         if (Math.abs(newAverage - this.height) > 10) {
           this.height = newAverage;
-          this.baseHeight = Math.round(this.height / this.zoomFactor());
+          this.baseHeight = Math.round(this.height * this.zoomFactor());
           DV.controller.models.document.computeOffsets();
           DV.controller.pageSet.simpleReflowPages();
         }
