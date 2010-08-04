@@ -160,7 +160,9 @@ DV.pageSet = DV.Class.extend({
       }
       this.setActiveAnnotation(argHash.id, showHash.edit);
 
-      var offset = argHash.top-36;
+      var isPage = this.application.models.annotations.byId[argHash.id].type == 'page';
+      var nudge  = isPage ? -7 : 36;
+      var offset = (argHash.top * this.application.models.pages.zoomFactor()) - nudge;
 
       // this.application.helpers.jump(this.application.models.document.currentIndex(),this.application.activeAnnotation.position.top - 37);
       //
