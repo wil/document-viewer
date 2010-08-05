@@ -69,8 +69,9 @@ _.extend(DV.Schema.helpers, {
       }
     }
 
-    // Replaces spaces in query with `\s+` to match newlines in textContent.
-    var query             = response.query.replace(/\s+/g, '\\s+');
+    // Replaces spaces in query with `\s+` to match newlines in textContent,
+    // escape regex char contents (like "()"), and only match on word boundaries.
+    var query             = '\\b' + response.query.replace(/[-[\]{}()*+?.,\\^$|#]/g, "\\$&").replace(/\s+/g, '\\s+') + '\\b';
     var textContent       = $j('#DV-textContents');
     var currentPageText   = textContent.text();
     var pattern           = new RegExp(query,"ig");
