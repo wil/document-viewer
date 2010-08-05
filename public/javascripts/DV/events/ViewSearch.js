@@ -10,6 +10,7 @@ DV.Schema.events.ViewSearch = {
 
   },
   search: function(e){
+    e.preventDefault();
     this.helpers.getSearchResponse(this.elements.searchInput.val());
 
     return false;
