@@ -10,9 +10,9 @@ DV.Schema.helpers = {
       var boundZoom = this.events.compile('zoom');
       var doc = context.models.document;
       var value = _.indexOf(doc.ZOOM_RANGES, doc.zoomLevel) * 24.7;
-      this.application.slider = $j('#DV-zoomBox').slider({ 
-        step: 24.7, 
-        value: value, 
+      this.application.slider = $j('#DV-zoomBox').slider({
+        step: 24.7,
+        value: value,
         slide: function(el,d){
           boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value / 24.7, 10)]);
         },
@@ -246,11 +246,6 @@ DV.Schema.helpers = {
       var scrollTopShift  = windowEl.scrollTop() + argHash.delta;
 
       windowEl.scrollTop(scrollTopShift);
-    },
-    shiftEase: function(delta){
-      var windowEl        = this.elements.window;
-      var scrollTopShift  = windowEl.scrollTop() + delta;
-      windowEl.animate({ scrollTop: scrollTopShift },"easeOutSine");
     },
     getAppState: function(){
       var docModel = this.models.document;
