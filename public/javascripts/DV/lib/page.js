@@ -20,18 +20,18 @@ DV.page = function(argHash){
   this.imgSource        = null;
 
 
-  this.offset        = null;
-  this.pageNumber      = null;
-  this.zoom        = 1;
-  this.annotations    = [];
-  this.activeAnnotation   = null;
+  this.offset           = null;
+  this.pageNumber       = null;
+  this.zoom             = 1;
+  this.annotations      = [];
+  this.activeAnnotation = null;
 
   // optimizations
   var m = this.application.models;
-  this.model_document    = m.document;
-  this.model_pages    = m.pages;
-  this.model_annotations  = m.annotations;
-  this.model_chapters    = m.chapters;
+  this.model_document   = m.document;
+  this.model_pages      = m.pages;
+  this.model_annotations= m.annotations;
+  this.model_chapters   = m.chapters;
 };
 
 // Set the image reference for the page for future updates
@@ -42,40 +42,6 @@ DV.page.prototype.setPageImage = function(){
 // get page image to update
 DV.page.prototype.getPageImage = function(){
   return this.el.find('img.DV-pageImage');
-};
-
-// Bridge annotation methods
-DV.page.prototype.annotationBridge = function(argHash){
-  switch(argHash.data.action){
-    case 'previous':
-      argHash.data.page.activeAnnotation.previous();
-    break;
-
-    case 'next':
-      argHash.data.page.activeAnnotation.next();
-    break;
-
-    case 'show':
-    var _t     = argHash.data.page || this;
-    for(var i = 0; i < _t.annotations.length; i++){
-      if(_t.annotations[i].annotationEl[0].id==$j(argHash.element).closest('.DV-annotation')[0].id){
-        _t.annotations[i].show();
-        break;
-      }
-    }
-    break;
-
-    case 'hide':
-      var _t     = argHash.data.page || this;
-      for(var i = 0; i < _t.annotations.length; i++){
-        if(_t.annotations[i].annotationEl[0].id==$j(argHash.element).closest('.DV-annotation')[0].id){
-          _t.annotations[i].hide(true);
-          break;
-        }
-      }
-    break;
-
-  }
 };
 
 // Get the offset for the page at its current index
@@ -90,25 +56,25 @@ DV.page.prototype.getPageNoteHeight = function() {
 // Draw the current page and its associated layers/annotations
 // Will stop if page index appears the same or force boolean is passed
 DV.page.prototype.draw = function(argHash) {
+
   // Return immeditately if we don't need to redraw the page.
   if(this.index === argHash.index && !argHash.force && this.imgSource == this.model_pages.imageURL(this.index)){
     return;
   }
 
-  this.index   = (argHash.force === true) ? this.index : argHash.index;
+  this.index = (argHash.force === true) ? this.index : argHash.index;
   var _types = [];
-
-  var source    = this.model_pages.imageURL(this.index);
+  var source = this.model_pages.imageURL(this.index);
 
   if (this.imgSource != source) {
     this.imgSource = source;
     this.loadImage();
   }
   this.sizeImage();
-
   this.position();
 
-  // Only draw annotations if page number has changed or forceAnnotationRedraw boolean is passed
+  // Only draw annotations if page number has changed or the
+  // forceAnnotationRedraw flag is true.
   if(this.pageNumber != this.index+1 || argHash.forceAnnotationRedraw === true){
     for(var i = 0; i < this.annotations.length;i++){
       this.annotations[i].remove();
