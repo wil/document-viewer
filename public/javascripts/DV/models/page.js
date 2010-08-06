@@ -72,6 +72,7 @@
       }
       DV.controller.elements.sets.width(this.zoomLevel);
       DV.controller.elements.collection.css({width : this.width + 110 });
+      DV.controller.elements.textContents.css({'font-size' : this.zoomLevel * 0.02 + 'px'});
     },
 
     // TODO: figure out why this isn't working on the demo doc.
