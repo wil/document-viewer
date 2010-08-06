@@ -3,7 +3,8 @@
   var LEFT_MARGIN = 25;
   var PAGE_NOTE_FUDGE = 26;
 
-  DV.Schema.models.annotations = new DV.model(DV.Schema, {
+  DV.Schema.models.annotations = {
+    application:            DV.Schema,
     offsetsAdjustments:     [],
     offsetAdjustmentSum:    0,
 
@@ -194,6 +195,6 @@
       return this.byId[identifier];
     }
 
-  });
+  };
 
 }).call(this);

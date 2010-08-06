@@ -20,7 +20,6 @@ DV.Schema.states = {
 
       // Insert the Document Viewer HTML into the DOM.
       this.helpers.renderViewer();
-      this.scrollBarWidth = ($j.browser.msie === true) ? 19 : 17;
 
       // Assign element references.
       this.events.elements = this.helpers.elements = this.elements = new DV.Elements(this.pendingElements);
