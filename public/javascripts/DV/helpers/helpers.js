@@ -1,4 +1,3 @@
-
 DV.Schema.helpers = {
 
     HOST_EXTRACTOR : (/https?:\/\/([^\/]+)\//),
@@ -83,7 +82,6 @@ DV.Schema.helpers = {
 
       var cleanUp = $j.proxy(this.application.pageSet.cleanUp, this);
 
-
       this.elements.window.live('mousedown',
         function(e){
           var el = $j(e.target);
@@ -112,6 +110,7 @@ DV.Schema.helpers = {
       this.application.acceptInput = this.elements.currentPage.acceptInput({ changeCallBack: $j.proxy(this.acceptInputCallBack,this) });
 
     },
+
     startCheckTimer: function(){
       var _t = this.application;
       var _check = function(){
@@ -119,9 +118,11 @@ DV.Schema.helpers = {
       };
       this.application.checkTimer = setInterval(_check,100);
     },
+
     stopCheckTimer: function(){
       clearTimeout(this.application.checkTimer);
     },
+
     blurWindow: function(){
       if(this.application.isFocus === true){
         this.application.isFocus = false;
@@ -131,6 +132,7 @@ DV.Schema.helpers = {
         return;
       }
     },
+
     focusOut: function(){
       if(this.application.activeElement != document.activeElement){
         this.application.activeElement = document.activeElement;
@@ -142,6 +144,7 @@ DV.Schema.helpers = {
         return;
       }
     },
+
     focusWindow: function(){
       if(this.application.isFocus === true){
         return;
@@ -151,10 +154,12 @@ DV.Schema.helpers = {
         this.startCheckTimer();
       }
     },
+
     setDocHeight:   function(height,diff) {
       this.elements.window[0].scrollTop += diff;
       this.elements.bar.css('height', height);
     },
+
     getWindowDimensions: function(){
       var d = {
         height: window.innerHeight ? window.innerHeight : this.elements.browserWindow.height(),
@@ -168,9 +173,11 @@ DV.Schema.helpers = {
       var match = url.match(this.HOST_EXTRACTOR);
       return match && (match[1] != window.location.host);
     },
+
     resetScrollState: function(){
       this.elements.window.scrollTop(0);
     },
+
     gotoPage: function(e){
       e.preventDefault();
       var aid           = $j(e.target).parents('.DV-annotation').attr('rel').replace('aid-','');
@@ -178,30 +185,24 @@ DV.Schema.helpers = {
       var application   = this.application;
 
       if(application.state !== 'ViewDocument'){
-
         this.models.document.setPageIndex(annotation.index);
         application.states.ViewDocument();
         DV.history.save('document/p'+(parseInt(annotation.index,10)+1));
-
       }
-
     },
 
     // Determine the correct DOM page ordering for a given page index.
     sortPages : function(pageIndex) {
-      if (pageIndex == 0)     return ['p0', 'p1', 'p2'];
-      if (pageIndex % 3 == 1) return ['p0', 'p1', 'p2'];
-      if (pageIndex % 3 == 2) return ['p1', 'p2', 'p0'];
-      if (pageIndex % 3 == 0) return ['p2', 'p0', 'p1'];
-
+      if (pageIndex == 0 || pageIndex % 3 == 1) return ['p0', 'p1', 'p2'];
+      if (pageIndex % 3 == 2)                   return ['p1', 'p2', 'p0'];
+      if (pageIndex % 3 == 0)                   return ['p2', 'p0', 'p1'];
     },
 
     addObserver: function(observerName){
-
       this.removeObserver(observerName);
       this.application.observers.push(observerName);
-
     },
+
     removeObserver: function(observerName){
       var observers = this.application.observers;
       for(var i = 0,len=observers.length;i<len;i++){
@@ -210,11 +211,10 @@ DV.Schema.helpers = {
         }
       }
     },
-    setWindowSize: function(windowDimensions){
 
+    setWindowSize: function(windowDimensions){
         var application     = this.application;
         var elements        = this.elements;
-
         var headerHeight    = elements.header.outerHeight() + 15;
         var offset          = $j(DV.container).offset().top;
         var uiHeight        = Math.round((windowDimensions.height) - headerHeight - offset);
@@ -247,6 +247,7 @@ DV.Schema.helpers = {
 
       windowEl.scrollTop(scrollTopShift);
     },
+
     getAppState: function(){
       var docModel = this.models.document;
       var currentPage = (docModel.currentIndex() == 0) ? 1 : docModel.currentPage();
@@ -256,7 +257,6 @@ DV.Schema.helpers = {
 
     constructPages: function(){
       var pages = [];
-
       var totalPagesToCreate = (DV.Schema.data.totalPages < 3) ? DV.Schema.data.totalPages : 3;
 
       for(var i = 0;i < totalPagesToCreate; i++){
@@ -264,7 +264,6 @@ DV.Schema.helpers = {
       }
 
       return pages.join('');
-
     },
 
     // Position the viewer on the page. For a full screen viewer, this means
@@ -278,15 +277,6 @@ DV.Schema.helpers = {
       if (!($j.browser.msie && $j.browser.version <= "6.0")) return false;
       $j(DV.container).html(JST.unsupported({}));
       return true;
-    },
-
-    loadAssets: function(assets){
-      for(var i = 0,len = assets.length; i<len; i++){
-        this.loadAsset(assets[i]);
-      }
-    },
-    loadAsset: function(asset){
-      $j('head').append(asset);
     },
 
     registerHashChangeEvents: function(){
@@ -322,6 +312,3 @@ DV.Schema.helpers = {
       if(!initialRouteMatch) this.states.ViewDocument();
     }
 };
-
-
-
