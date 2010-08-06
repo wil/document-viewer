@@ -1,8 +1,9 @@
 (function(){
 
   var LEFT_MARGIN = 25;
+  var PAGE_NOTE_FUDGE = 26;
 
-  var annotationModel = new DV.model(DV.Schema,{
+  DV.Schema.models.annotations = new DV.model(DV.Schema, {
     offsetsAdjustments:     [],
     offsetAdjustmentSum:    0,
 
@@ -56,8 +57,8 @@
       adata.DSOffset                = 3;
 
       adata.orderClass = '';
-      if (adata.first == true) adata.orderClass += ' DV-firstAnnotation';
-      if (adata.last == true)  adata.orderClass += ' DV-lastAnnotation';
+      if (adata.position == 1) adata.orderClass += ' DV-firstAnnotation';
+      if (adata.position == this.bySortOrder.length) adata.orderClass += ' DV-lastAnnotation';
 
       var template = (adata.type === 'page') ? 'pageAnnotation' : 'annotation';
       return JST[template](adata);
@@ -77,8 +78,6 @@
         var anno      = this.bySortOrder[i];
         anno.of       = _.indexOf(this.byPage[anno.page - 1], anno);
         anno.position = i + 1;
-        anno.first    = i == 0;
-        anno.last     = i == this.bySortOrder.length - 1;
         anno.html     = this.render(anno);
       }
       this.renderAnnotationsByIndex();
@@ -148,7 +147,7 @@
       for (var i = 0, len = documentModel.totalPages; i <= len; i++) {
         pageNoteHeights[i] = 0;
         if (pageAnnos[i]) {
-          var height = ($j(pageAnnos[i].el).height() + 26);
+          var height = ($j(pageAnnos[i].el).height() + PAGE_NOTE_FUDGE);
           pageNoteHeights[i - 1] = height;
           this.offsetAdjustmentSum += height;
         }
@@ -196,7 +195,5 @@
     }
 
   });
-
-  DV.Schema.models.annotations = annotationModel;
 
 }).call(this);
