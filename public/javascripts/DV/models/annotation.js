@@ -1,5 +1,7 @@
 (function(){
 
+  var LEFT_MARGIN = 25;
+
   var annotationModel = new DV.model(DV.Schema,{
     offsetsAdjustments:     [],
     offsetAdjustmentSum:    0,
@@ -10,52 +12,46 @@
       this.byId                     = DV.Schema.data.annotationsById;
       this.byPage                   = DV.Schema.data.annotationsByPage;
       this.bySortOrder              = this.sortAnnotations();
-      this.annotationLeftPageBuffer = 25;
     },
 
+    // Render an annotation model to HTML, calculating all of the dimenstions
+    // and offsets, and running a template function.
     render: function(annotation){
       var documentModel             = this.application.models.document;
       var pageModel                 = this.application.models.pages;
       var zoom                      = pageModel.zoomFactor();
       var adata                     = annotation;
-      var _default = 0;
+      var x1, x2, y1, y2;
 
       if(adata.type === 'page'){
-
-        adata._y1                   = _default;
-        adata._y2                   = _default;
-        adata._x1                   = _default;
-        adata._x2                   = _default;
-        adata.top                   = _default;
-
+        x1 = x2 = y1 = y2           = 0;
+        adata.top                   = 0;
       }else{
-        adata._y1                   = Math.round(adata.y1 * zoom);
-        adata._y2                   = Math.round(adata.y2 * zoom);
-        if(adata.x1 < this.annotationLeftPageBuffer){
-          adata.x1 = this.annotationLeftPageBuffer;
-        }
-        adata._x1                   = Math.round(adata.x1 * zoom);
-        adata._x2                   = Math.round(adata.x2 * zoom);
-        adata.top                   = adata._y1 - 6;
+        y1                          = Math.round(adata.y1 * zoom);
+        y2                          = Math.round(adata.y2 * zoom);
+        if (x1 < LEFT_MARGIN) x1    = LEFT_MARGIN;
+        x1                          = Math.round(adata.x1 * zoom);
+        x2                          = Math.round(adata.x2 * zoom);
+        adata.top                   = y1 - 6;
       }
 
       adata.width                   = pageModel.width;
       adata.pageNumber              = adata.page;
       adata.bgWidth                 = adata.width;
       adata.bWidth                  = adata.width - 66;
-      adata.excerptWidth            = (adata._x2 - adata._x1) - 10;
-      adata.excerptMarginLeft       = adata._x1 - 18;
-      adata.excerptLeft             = adata._x1 - 25;
-      adata.excerptHeight           = adata._y2 - adata._y1;
+      adata.excerptWidth            = (x2 - x1) - 10;
+      adata.excerptMarginLeft       = x1 - 18;
+      adata.excerptLeft             = x1 - 25;
+      adata.excerptHeight           = y2 - y1;
       adata.index                   = adata.page - 1;
       adata.image                   = pageModel.imageURL(adata.index);
-      adata.imageLeft               = adata._x1;
-      adata.imageTop                = adata._y1 + 2;
+      adata.imageLeft               = x1;
+      adata.imageTop                = y1 + 2;
       adata.imageWidth              = pageModel.width;
       adata.imageHeight             = Math.round(pageModel.height * zoom);
-      adata.regionLeft              = adata._x1;
-      adata.regionWidth             = adata._x2 - adata._x1 ;
-      adata.regionHeight            = adata._y2 - adata._y1;
+      adata.regionLeft              = x1;
+      adata.regionWidth             = x2 - x1 ;
+      adata.regionHeight            = y2 - y1;
       adata.excerptDSHeight         = adata.excerptHeight - 6;
       adata.DSOffset                = 3;
 
@@ -67,7 +63,8 @@
       return JST[template](adata);
     },
 
-    // Re-sort the list of annotations when its contents change.
+    // Re-sort the list of annotations when its contents change. Annotations
+    // are ordered by page primarily, and then their y position on the page.
     sortAnnotations : function() {
       return this.bySortOrder = _.sortBy(_.values(this.byId), function(anno) {
         return anno.page * 10000 + anno.y1;
@@ -80,8 +77,8 @@
         var anno      = this.bySortOrder[i];
         anno.of       = _.indexOf(this.byPage[anno.page - 1], anno);
         anno.position = i + 1;
-        anno.first    = (i==0) ? true : false;
-        anno.last     = (i==this.bySortOrder.length-1) ? true : false;
+        anno.first    = i == 0;
+        anno.last     = i == this.bySortOrder.length - 1;
         anno.html     = this.render(anno);
       }
       this.renderAnnotationsByIndex();
