@@ -65,7 +65,7 @@ DV.Schema.events = {
     var processText = function(text) {
 
       var pageNumber = parseInt(pageIndex,10)+1;
-      me.handleTextResponse(text);
+      $j('#DV-textContents').text(text);
       me.elements.currentPage.text(pageNumber);
       me.elements.textCurrentPage.text('p. '+(pageNumber));
       me.models.document.setPageIndex(pageIndex);
@@ -80,7 +80,6 @@ DV.Schema.events = {
     }
 
     var handleResponse = $j.proxy(function(response) {
-
       processText(DV.Schema.text[pageIndex] = response);
     }, this);
 
@@ -92,9 +91,6 @@ DV.Schema.events = {
     $j[crossDomain ? 'getJSON' : 'get'](textURI, {}, handleResponse);
   },
 
-  handleTextResponse: function(text){
-    $j('#DV-textContents').text(text);
-  },
   resetTracker: function(){
     this.application.activeAnnotation = null;
     this.trackAnnotation.combined     = null;
