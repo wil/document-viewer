@@ -146,7 +146,7 @@ _.extend(DV.Schema.helpers, {
     var match = $j('#DV-textContents span.DV-searchMatch:eq('+index+')');
     match.addClass('DV-highlightedMatch');
 
-    this.elements.window.scrollTo(match.position().top-50,{  axis: 'y' });
+    this.elements.window[0].scrollTop = match.position().top - 50;
     if (searchResponse) searchResponse.highlighted = index;
 
     // cleanup

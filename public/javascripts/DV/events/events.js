@@ -19,48 +19,28 @@ DV.Schema.events = {
     var doc           = this.models.document;
     var offsets       = doc.baseHeightsPortionOffsets;
     var scrollPos     = this.application.scrollPosition = this.elements.window[0].scrollTop;
-
     var currentPage   = _.sortedIndex(offsets, scrollPos);
     if (offsets[currentPage] == scrollPos) currentPage++;
     var currentIndex  = currentPage - 1;
     var pageIds       = this.helpers.sortPages(currentIndex);
-
-
-
     var total         = doc.totalPages;
     if (doc.currentPage() != currentPage) doc.setPageIndex(currentIndex);
-
-    if (currentPage === 1)     return this.drawFirstPage(pageIds);
-    if (currentPage === total) return this.drawLastPage(pageIds);
-                               return this.drawPageAt(pageIds, currentIndex);
-  },
-
-  // Draw the first page of the document.
-  drawFirstPage : function(pageIds) {
-    this.application.pageSet.draw(
-      [ { label: pageIds[0], index: 0, currentPage: true },
-        { label: pageIds[1], index: 1 },
-        { label: pageIds[2], index: 2 } ]
-    );
-
-  },
-
-  // Draw the final page of the document.
-  drawLastPage : function(pageIds) {
-    var i = this.models.document.totalPages - 1;
-    this.application.pageSet.draw(
-      [ { label: pageIds[0], index: i-1 },
-        { label: pageIds[1], index: i, currentPage: true } ]
-    );
+    this.drawPageAt(pageIds, currentIndex);
   },
 
   // Draw the page at the given index.
   drawPageAt : function(pageIds, index) {
-    this.application.pageSet.draw(
-      [ { label: pageIds[0], index: index - 1 },
-        { label: pageIds[1], index: index, currentPage: true },
-        { label: pageIds[2], index: index + 1 } ]
-    );
+    var first = index == 0;
+    var last  = index == this.models.document.totalPages - 1;
+    if (first) index += 1;
+    var pages = [
+      { label: pageIds[0], index: index - 1 },
+      { label: pageIds[1], index: index },
+      { label: pageIds[2], index: index + 1 }
+    ];
+    if (last) pages.pop();
+    pages[first ? 0 : pages.length - 1].currentPage = true;
+    this.application.pageSet.draw(pages);
   },
 
   check: function(){
@@ -85,7 +65,7 @@ DV.Schema.events = {
     var processText = function(text) {
 
       var pageNumber = parseInt(pageIndex,10)+1;
-      me.handleTextResponse(text);
+      $j('#DV-textContents').text(text);
       me.elements.currentPage.text(pageNumber);
       me.elements.textCurrentPage.text('p. '+(pageNumber));
       me.models.document.setPageIndex(pageIndex);
@@ -100,7 +80,6 @@ DV.Schema.events = {
     }
 
     var handleResponse = $j.proxy(function(response) {
-
       processText(DV.Schema.text[pageIndex] = response);
     }, this);
 
@@ -112,9 +91,6 @@ DV.Schema.events = {
     $j[crossDomain ? 'getJSON' : 'get'](textURI, {}, handleResponse);
   },
 
-  handleTextResponse: function(text){
-    $j('#DV-textContents').text(text);
-  },
   resetTracker: function(){
     this.application.activeAnnotation = null;
     this.trackAnnotation.combined     = null;
