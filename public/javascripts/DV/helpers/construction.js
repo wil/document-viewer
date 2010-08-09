@@ -123,7 +123,7 @@ _.extend(DV.Schema.helpers, {
     // Hide the overflow of the body, unless we're positioned.
     var position = $j(DV.container).css('position');
     if (position != 'relative' && position != 'absolute') {
-      $j(document.body).css({margin : 0, padding : 0, overflow : 'hidden'});
+      $j(document.body).css({overflow : 'hidden'});
     }
 
     // Hide annotations, if there are none:
