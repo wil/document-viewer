@@ -120,8 +120,9 @@ _.extend(DV.Schema.helpers, {
   // Hide or show all of the comoponents on the page that may or may not be
   // present, depending on what the document provides.
   renderComponents : function() {
-    // Hide the overflow of the body, if we're at the top level.
-    if (DV.container == document.body) {
+    // Hide the overflow of the body, unless we're positioned.
+    var position = $j(DV.container).css('position');
+    if (position != 'relative' && position != 'absolute') {
       $j(document.body).css({margin : 0, padding : 0, overflow : 'hidden'});
     }
 

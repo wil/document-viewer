@@ -57,8 +57,8 @@ DV.api = {
   // Set the document's related article url.
   setRelatedArticle : function(url) {
     DV.Schema.document.resources.related_article = url;
-    $('#DV-storyLink a').attr({href : url});
-    $('#DV-storyLink').toggle(!!url);
+    $j('#DV-storyLink a').attr({href : url});
+    $j('#DV-storyLink').toggle(!!url);
   },
 
   // Get the document's title.
