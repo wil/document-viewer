@@ -9,7 +9,7 @@ DV.Schema.models.document = {
   totalPages:                 0,
   additionalPaddingOnPage:    0,
 
-  ZOOM_RANGES:                [500, 700, 800, 900, 1000],
+  ZOOM_RANGES:                [300, 500, 700, 800, 900, 1000],
 
   init: function(){
     var data                      = DV.Schema.data;
@@ -18,10 +18,15 @@ DV.Schema.models.document = {
     this.baseImageURL             = data.baseImageURL;
     this.additionalPaddingOnPage  = data.additionalPaddingOnPage;
     this.pageWidthPadding         = data.pageWidthPadding;
-    this.zoomLevel                = DV.options.zoom || data.zoomLevel;
     this.totalPages               = data.totalPages;
     this.chapterModel             = DV.controller.models.chapters;
     this.pageModel                = this.application.models.pages;
+
+    if (DV.options.zoom == 'auto') {
+        this.zoomLevel            = data.zoomLevel;
+    } else {
+        this.zoomLevel            = DV.options.zoom || data.zoomLevel;
+    }
 
   },
   setPageIndex : function(index) {

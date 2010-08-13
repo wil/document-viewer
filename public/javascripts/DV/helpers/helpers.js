@@ -307,6 +307,15 @@ DV.Schema.helpers = {
       // Handle search requests
       history.register(/search\/p(\d*)\/(.*)$/,$j.proxy(events.handleHashChangeViewSearchRequest,this.events));
     },
+    
+    autoZoomPage: function() {
+        if (DV.options.zoom == 'auto') {
+            var windowWidth = this.elements.window.outerWidth(true);
+            var zoom = windowWidth - 116;
+            this.events.zoom(zoom);
+        }
+    },
+    
     handleInitialState: function(){
       var initialRouteMatch = DV.history.loadURL(true);
       if(!initialRouteMatch) this.states.ViewDocument();

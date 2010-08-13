@@ -17,14 +17,22 @@ _.extend(DV.Schema.helpers, {
     var pdfURL   = doc.resources.pdf;
     pdfURL       = pdfURL ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF)</a>' : '';
 
-    $j(DV.container).html(JST.viewer(
-      { pages: pagesHTML,
+    var viewerOptions = { 
+        pages: pagesHTML,
         header: headerHTML,
         pdf_url: pdfURL,
         story_url: storyURL,
         descriptionContainer: JST.descriptionContainer({ description: description})
-      }
-    ));
+    };
+    
+    if (DV.options.minimode) {
+        $j(DV.container).css({position: 'relative'});
+        if (DV.options.width) $j(DV.container).css({width: DV.options.width});
+        if (DV.options.height) $j(DV.container).css({height: DV.options.height});
+        $j(DV.container).html(JST.minimodeViewer(viewerOptions));
+    } else {
+        $j(DV.container).html(JST.viewer(viewerOptions));
+    }
   },
 
   // If there is no description, no navigation, and no sections, tighten up
@@ -146,7 +154,7 @@ _.extend(DV.Schema.helpers, {
 
     $j('#DV-well .DV-navControlsContainer').html(navControls);
     $j('#DV-sidebar').show();
-
+    
     // Set the currentPage element reference.
     this.elements.currentPage = $j('span#DV-currentPage');
     this.models.document.setPageIndex(this.models.document.currentIndex());

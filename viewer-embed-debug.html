@@ -23,6 +23,7 @@
   <link href="public/stylesheets/DV/components/view-search.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="public/stylesheets/DV/components/view-text.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="public/stylesheets/DV/components/unsupported.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="public/stylesheets/DV/components/minimode.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="public/stylesheets/DV/plain.css" media="screen" rel="stylesheet" type="text/css" />
 
 </head>
@@ -81,7 +82,13 @@
 <script src="public/assets/templates.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-  DV.load('http://dev.dcloud.org/documents/49-bayesian-filtering-binary-classification.json', { container: '#DV-container' });
+  DV.load('http://dev.dcloud.org/documents/49-bayesian-filtering-binary-classification.json', {
+    container: '#DV-container', 
+    minimode: true, 
+    width: 600, 
+    height: 300, 
+    zoom: 'auto'
+  });
 </script>
 
 </body>
