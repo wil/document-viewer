@@ -13,7 +13,9 @@
   display:inline;
   margin:0 0 0 10px; padding:0;
 }
-
+.DV-views.DV-hide {
+  display: none;
+}
 .DV-views div{
   list-style-type:none;
   float:left;

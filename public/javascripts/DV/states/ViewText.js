@@ -16,7 +16,7 @@ DV.Schema.states.ViewText = {
   },
   exit: function(destinationState){
     this.helpers.resetNavigationState();
-    this.elements.collection.width(this.models.pages.width + 110);
+    // this.elements.collection.width(this.models.pages.width + 110);
     return true;
   }
 };

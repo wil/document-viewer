@@ -18,8 +18,8 @@
   display: none;
   position: static;
   float: right;
-  width: 255px;
-  margin-top: 6px;
+/*  width: 255px;*/
+  margin: 6px 6px 0 0;
 }
 
 #DV-docViewer.DV-searchable #DV-searchBox {
@@ -219,4 +219,8 @@ span.DV-highlighted{
   -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
   filter: alpha(opacity=80);
   border-bottom:1px solid #ddd;
+}
+
+#DV-searchBox.DV-hide {
+  display: none !important;
 }

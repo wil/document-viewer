@@ -12,6 +12,10 @@
   border: 1px solid #ababab; border-left: 0; border-right: 0;
 }
 
+#DV-docViewer-Container.DV-hide-header{
+  top: 0;
+}
+
 #DV-bar{
   width:1px;
 }
@@ -89,4 +93,12 @@
 #DV-loadingDocument strong{
   font-weight:normal;
   color:#666;
+}
+
+#DV-sidebar.DV-hide {
+  display: none !important;
+}
+
+#DV-pages.DV-hide-sidebar {
+  right: 0;
 }

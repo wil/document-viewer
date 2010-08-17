@@ -1,7 +1,7 @@
 #DV-textPage{
   min-height:867px;
   background-color:#fff;
-  margin: 10px auto;
+  margin: 0 auto 10px;
   -moz-box-shadow: 0 0 1em #a9a9a9;
   -webkit-box-shadow: 0 0 1em #a9a9a9;
 }
@@ -13,7 +13,7 @@
   position:absolute;
   left:0;
   padding-left:8px;
-  top:30px;
+  top:20px;
   font-weight:bold;
 }
 

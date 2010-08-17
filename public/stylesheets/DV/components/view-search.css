@@ -6,10 +6,6 @@
   background-color:#eee;
 }
 
-.DV-viewSearch .DV-zoomControls{
-  display:none;
-}
-
 .DV-viewSearch #DV-pageCollection{
   cursor: text;
 }

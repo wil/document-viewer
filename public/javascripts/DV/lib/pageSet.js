@@ -107,10 +107,13 @@ DV.pageSet.prototype.zoom = function(argHash){
 // Zoom the text container.
 DV.pageSet.prototype.zoomText = function() {
   var padding = this.application.models.pages.TEXT_PADDING;
-  var width   = this.application.models.pages.zoomLevel - padding;
-  $j('#DV-textContents').width(width);
-  $j('#DV-textPage').width(width + padding);
-  this.application.elements.collection.css({'width' : width + padding + padding});
+  var width   = this.application.models.pages.zoomLevel;
+  $j('#DV-textContents').width(width - padding);
+  $j('#DV-textPage').width(width);
+  if (DV.options.zoom = 'auto') {
+    padding = this.application.models.pages.MINIMODE_TEXT_PADDING;
+  }
+  this.application.elements.collection.css({'width' : width + padding});
 };
 
 // draw the pages

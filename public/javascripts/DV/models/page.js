@@ -21,6 +21,9 @@ DV.Schema.models.pages = {
 
   // For viewing page text.
   TEXT_PADDING    : 100,
+  
+  // Embed reduces padding.
+  MINIMODE_TEXT_PADDING : 44,
 
   // Initializing the page model guesses at a default pageHeight -- we'll
   // know for sure when the first page image is loaded.
@@ -32,8 +35,6 @@ DV.Schema.models.pages = {
     this.width      = this.zoomLevel;
     this.height     = this.baseHeight * this.zoomFactor();
     this.numPagesLoaded = 0;
-
-    zoomRanges      = DV.controller.models.document.ZOOM_RANGES;
   },
 
   // Get the complete image URL for a particular page.
@@ -60,6 +61,7 @@ DV.Schema.models.pages = {
 
   // Resize or zoom the pages width and height.
   resize : function(zoomLevel) {
+    var padding = DV.controller.models.pages.TEXT_PADDING;
     if (zoomLevel) {
       if (zoomLevel == this.zoomLevel) return;
       var previousFactor  = this.zoomFactor();
@@ -69,8 +71,9 @@ DV.Schema.models.pages = {
       this.height         = Math.round(this.height * scale);
       this.averageHeight  = Math.round(this.averageHeight * scale);
     }
+    
     DV.controller.elements.sets.width(this.zoomLevel);
-    DV.controller.elements.collection.css({width : this.width + 110 });
+    DV.controller.elements.collection.css({width : this.width + padding });
     DV.controller.elements.textContents.css({'font-size' : this.zoomLevel * 0.02 + 'px'});
   },
 

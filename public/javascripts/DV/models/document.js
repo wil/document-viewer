@@ -9,7 +9,7 @@ DV.Schema.models.document = {
   totalPages:                 0,
   additionalPaddingOnPage:    0,
 
-  ZOOM_RANGES:                [300, 500, 700, 800, 900, 1000],
+  ZOOM_RANGES:                [500, 700, 800, 900, 1000],
 
   init: function(){
     var data                      = DV.Schema.data;

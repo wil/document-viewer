@@ -1,7 +1,11 @@
 <div class="DV-annotation <%= orderClass %> DV-<%= access %>" style="top:<%= top %>px;" id="DV-annotation-<%= id %>">
 
   <div class="DV-annotationTab">
-    <div class="DV-annotationClose DV-trigger">Close</div>
+    <div class="DV-annotationClose DV-trigger">
+      <% if (DV.options.zoom != 'auto') { %>
+        Close
+      <% } %>
+    </div>
   </div>
 
   <div class="DV-annotationRegion" style="margin-left:<%= excerptMarginLeft %>px; height:<%= excerptHeight %>px; width:<%= excerptWidth %>px;"></div>

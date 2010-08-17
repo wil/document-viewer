@@ -2,7 +2,7 @@
 <!--[if IE 8]><div id="DV-docViewer" class="clearfix DV-viewDocument DV-ie DV-ie8"><![endif]-->
 <!--[if !IE]><!--><div id="DV-docViewer" class="clearfix DV-viewDocument"><!-- <![endif]-->
   <%= header %>
-  <div id="DV-docViewer-Container">
+  <div id="DV-docViewer-Container" class="<% if (!DV.options.displayHeader) { %>DV-hide-header<% } %>">
 
     <div id="DV-searchBarWrapper">
       <div id="DV-searchBar">
@@ -20,7 +20,7 @@
     </div>
   </div>
 
-  <div id="DV-pages" class="">
+  <div id="DV-pages" class="<% if (!DV.options.displaySidebar) { %>DV-hide-sidebar<% } %>">
     <div id="DV-pageCollection">
       <div id="DV-bar" style=""></div>
       <div id="DV-annotations">
@@ -39,8 +39,7 @@
     </div>
   </div>
 
-
-  <div id="DV-sidebar" width="265px" style="display:none;">
+  <div id="DV-sidebar" width="265px" class="<% if (!DV.options.displaySidebar) { %>DV-hide<% } %>" style="display:none;">
     <div id="DV-well">
 
       <div class="DV-navControlsContainer">

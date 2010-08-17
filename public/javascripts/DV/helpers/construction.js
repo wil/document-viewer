@@ -25,7 +25,7 @@ _.extend(DV.Schema.helpers, {
         descriptionContainer: JST.descriptionContainer({ description: description})
     };
     
-    if (DV.options.minimode) {
+    if (DV.options.zoom == 'auto') {
         $j(DV.container).css({position: 'relative'});
         if (DV.options.width) $j(DV.container).css({width: DV.options.width});
         if (DV.options.height) $j(DV.container).css({height: DV.options.height});
@@ -153,7 +153,9 @@ _.extend(DV.Schema.helpers, {
     });
 
     $j('#DV-well .DV-navControlsContainer').html(navControls);
-    $j('#DV-sidebar').show();
+    if (DV.options.displaySidebar) {
+      $j('#DV-sidebar').show();
+    }
     
     // Set the currentPage element reference.
     this.elements.currentPage = $j('span#DV-currentPage');

@@ -9,10 +9,18 @@ DV.controller   = new DV.stateMachine(DV.Schema.states,
 
 // The origin function, kicking off the entire documentViewer render.
 DV.load = function(documentRep, options) {
-  options       = options || {};
+  var defaults = {
+    displayHeader : true,
+    displaySidebar : true,
+    displayZoomControls : true,
+    displaySearch : true,
+    displayViewTabs : true,
+    allowHistoryChanges : true
+  };
+  options       = _.extend({}, defaults, options);
   DV.container  = options.container || document.body;
   DV.options    = options;
-
+  console.log(["Options", options]);
   // Once we have the JSON representation in-hand, finish loading the viewer.
   var continueLoad = DV.loadJSON = function(json) {
     DV.Schema.importCanonicalDocument(json);
