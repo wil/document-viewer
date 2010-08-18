@@ -22,17 +22,17 @@ _.extend(DV.Schema.helpers, {
         header: headerHTML,
         pdf_url: pdfURL,
         story_url: storyURL,
-        descriptionContainer: JST.descriptionContainer({ description: description})
+        descriptionContainer: JST.descriptionContainer({ description: description}),
+        autoZoom: DV.options.zoom == 'auto'
     };
     
-    if (DV.options.zoom == 'auto') {
-        $j(DV.container).css({position: 'relative'});
-        if (DV.options.width) $j(DV.container).css({width: DV.options.width});
-        if (DV.options.height) $j(DV.container).css({height: DV.options.height});
-        $j(DV.container).html(JST.minimodeViewer(viewerOptions));
-    } else {
-        $j(DV.container).html(JST.viewer(viewerOptions));
+    if (DV.options.width || DV.options.height) {
+      $j(DV.container).css({position: 'relative'});
+      if (DV.options.width) $j(DV.container).css({width: DV.options.width});
+      if (DV.options.height) $j(DV.container).css({height: DV.options.height});
     }
+
+    $j(DV.container).html(JST.viewer(viewerOptions));
   },
 
   // If there is no description, no navigation, and no sections, tighten up

@@ -310,22 +310,22 @@ DV.Schema.helpers = {
     
     autoZoomPage: function() {
         if (DV.options.zoom == 'auto') {
-            var windowWidth = this.elements.window.outerWidth(true);
-            var zoom = windowWidth - (DV.controller.models.pages.MINIMODE_TEXT_PADDING*2);
-            
-            // Setup ranges for auto-width zooming
-            var ranges = [];
-            if (zoom <= 700) {
-              var zoom2 = ((1000 - 700) / 3) + zoom;
-              var zoom3 = ((1000 - 700) / 3)*2 + zoom;
-              ranges = [.66*zoom, zoom, zoom2, zoom3, 1000];
-            } else {
-              var zoom2 = ((1000 - 700) / 2) + zoom;
-              ranges = [.66*zoom, 700, zoom, zoom2, 1000];
-            }
-            DV.controller.models.document.ZOOM_RANGES = ranges;
-            
-            this.events.zoom(zoom);
+          var windowWidth = this.elements.window.outerWidth(true);
+          var zoom = windowWidth - (DV.controller.models.pages.MINIMODE_TEXT_PADDING*2);
+          
+          // Setup ranges for auto-width zooming
+          var ranges = [];
+          if (zoom <= 700) {
+            var zoom2 = ((1000 - 700) / 3) + zoom;
+            var zoom3 = ((1000 - 700) / 3)*2 + zoom;
+            ranges = [.66*zoom, zoom, zoom2, zoom3, 1000];
+          } else {
+            var zoom2 = ((1000 - 700) / 2) + zoom;
+            ranges = [.66*zoom, 700, zoom, zoom2, 1000];
+          }
+          DV.controller.models.document.ZOOM_RANGES = ranges;
+          
+          this.events.zoom(zoom);
         }
     },
     

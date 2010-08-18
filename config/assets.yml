@@ -8,7 +8,6 @@ javascripts:
     - public/javascripts/DV/vendor/underscore.js
     - public/javascripts/DV/vendor/jquery.acceptInput.js
     - public/javascripts/DV/lib/initializer.js
-    - public/javascripts/DV/lib/class.js
     - public/javascripts/DV/lib/history.js
     - public/javascripts/DV/lib/*.js
     - public/javascripts/DV/schema/*.js

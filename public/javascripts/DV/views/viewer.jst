@@ -1,6 +1,6 @@
-<!--[if IE 7]><div id="DV-docViewer" class="clearfix DV-viewDocument DV-ie DV-ie7"><![endif]-->
-<!--[if IE 8]><div id="DV-docViewer" class="clearfix DV-viewDocument DV-ie DV-ie8"><![endif]-->
-<!--[if !IE]><!--><div id="DV-docViewer" class="clearfix DV-viewDocument"><!-- <![endif]-->
+<!--[if IE 7]><div id="DV-docViewer" class="clearfix DV-viewDocument DV-ie DV-ie7 <% if (autoZoom) { %>DV-minimode<% } %>"><![endif]-->
+<!--[if IE 8]><div id="DV-docViewer" class="clearfix DV-viewDocument DV-ie DV-ie8 <% if (autoZoom) { %>DV-minimode<% } %>"><![endif]-->
+<!--[if !IE]><!--><div id="DV-docViewer" class="clearfix DV-viewDocument <% if (autoZoom) { %>DV-minimode<% } %>"><!-- <![endif]-->
   <%= header %>
   <div id="DV-docViewer-Container" class="<% if (!DV.options.displayHeader) { %>DV-hide-header<% } %>">
 

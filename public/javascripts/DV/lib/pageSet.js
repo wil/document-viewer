@@ -110,7 +110,7 @@ DV.pageSet.prototype.zoomText = function() {
   var width   = this.application.models.pages.zoomLevel;
   $j('#DV-textContents').width(width - padding);
   $j('#DV-textPage').width(width);
-  if (DV.options.zoom = 'auto') {
+  if (DV.options.zoom == 'auto') {
     padding = this.application.models.pages.MINIMODE_TEXT_PADDING;
   }
   this.application.elements.collection.css({'width' : width + padding});
