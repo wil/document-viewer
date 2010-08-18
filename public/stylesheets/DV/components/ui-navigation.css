@@ -75,7 +75,8 @@
 .DV-pageNumberContainer{
   width:154px;
   text-align:center;
-  margin: 10px auto 0;
+  padding: 10px 0 0;
+  margin: 0 auto;
 }
 
 .DV-ie .DV-pageNumberContainer{
@@ -119,7 +120,7 @@
 }
 
 #DV-well #DV-navControls{
-  height: 40px;
+  height: 50px;
   background-position: 0 bottom;
 }
 
