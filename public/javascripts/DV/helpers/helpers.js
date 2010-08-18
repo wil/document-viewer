@@ -51,6 +51,7 @@ DV.Schema.helpers = {
         DV.history.save('text/p'+context.models.document.currentPage());
         states.ViewText();
       });
+      $j('#DV-searchBox').delegate('.DV-searchInput-cancel', 'click', $j.proxy(this.clearSearch, this));
 
       $j('#DV-searchResults').delegate('span.DV-resultPrevious','click', $j.proxy(this.highlightPreviousMatch, this));
 
@@ -333,4 +334,5 @@ DV.Schema.helpers = {
       var initialRouteMatch = DV.history.loadURL(true);
       if(!initialRouteMatch) this.states.ViewDocument();
     }
+    
 };

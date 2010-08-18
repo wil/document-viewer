@@ -173,6 +173,10 @@ _.extend(DV.Schema.helpers, {
     e.preventDefault(e);
     this.highlightMatch(this.application.searchResponse.highlighted+1);
   },
+  
+  clearSearch: function(e) {
+    this.elements.searchInput.val('').keyup().focus();
+  },
 
   showEntity: function(name, offset, length) {
     $j('span#DV-totalSearchResult').text('');
@@ -184,5 +188,7 @@ _.extend(DV.Schema.helpers, {
     var application = this.application;
     application.searchResponse   = null;
     application.toHighLight      = null;
+    this.elements.searchInput.keyup().blur();
   }
+  
 });

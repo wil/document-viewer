@@ -26,10 +26,12 @@ _.extend(DV.Schema.helpers, {
         autoZoom: DV.options.zoom == 'auto'
     };
     
-    if (DV.options.width || DV.options.height) {
-      $j(DV.container).css({position: 'relative'});
-      if (DV.options.width) $j(DV.container).css({width: DV.options.width});
-      if (DV.options.height) $j(DV.container).css({height: DV.options.height});
+    if (DV.options.width && DV.options.height) {
+      $j(DV.container).css({
+        position: 'relative',
+        width: DV.options.width,
+        height: DV.options.height
+      });
     }
 
     $j(DV.container).html(JST.viewer(viewerOptions));
@@ -140,7 +142,13 @@ _.extend(DV.Schema.helpers, {
 
     // Hide the searchBox, if it's disabled.
     var showSearch = !!DV.Schema.document.resources.search;
-    if (showSearch) this.elements.viewer.addClass('DV-searchable');
+    if (showSearch) {
+      this.elements.viewer.addClass('DV-searchable');
+      this.elements.searchInput.placeholder({
+        message: 'Search Document',
+        clearClassName: 'DV-searchInput-show-search-cancel'
+      });
+    }
 
     // Hide the entire sidebar, if there are no annotations or sections.
     var showChapters = this.models.chapters.chapters.length > 0;

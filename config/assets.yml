@@ -7,6 +7,7 @@ javascripts:
     - public/javascripts/DV/vendor/jquery-ui-1.8.1.custom.min.js
     - public/javascripts/DV/vendor/underscore.js
     - public/javascripts/DV/vendor/jquery.acceptInput.js
+    - public/javascripts/DV/vendor/jquery.placeholder.js
     - public/javascripts/DV/lib/initializer.js
     - public/javascripts/DV/lib/history.js
     - public/javascripts/DV/lib/*.js

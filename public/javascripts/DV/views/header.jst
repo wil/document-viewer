@@ -20,6 +20,7 @@
     <div id="DV-searchBox" class="clearfix <% if (!DV.options.displaySearch) { %>DV-hide<% } %>">
       <form action="#" method="get" id="DV-searchDocument">
         <span class="DV-searchInput">
+          <div class="DV-searchInput-cancel"></div>
           <input id="DV-searchInput" type="<%= search_type %>" autosave="DV-<%= id %>" results="10" placeholder="Search Document" />
         </span>
         <span class="DV-searchSubmit">

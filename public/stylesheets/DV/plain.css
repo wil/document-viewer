@@ -31,10 +31,9 @@ body, html {
     overflow: hidden;
   }
     #DV-searchInput {
-      width: 170px;
       border: 1px solid #999;
-      padding: 3px 3px;
-      -moz-border-radius: 4px;
+      -moz-border-radius: 16px;
+      border-radius: 16px;
     }
     #DV-searchSubmit {
       background: #e7e7e7;

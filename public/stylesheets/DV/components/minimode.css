@@ -6,12 +6,12 @@
   right: 16px;
 }
 
-.DV-minimode #DV-searchInput {
-  width: 136px;
-}
-
 .DV-minimode #DV-docViewer #DV-searchBox {
   width: 194px;
+}
+
+.DV-minimode #DV-searchInput {
+  width: 100px;
 }
 
 /* ================== */

@@ -45,21 +45,28 @@
 
 #DV-searchInput{
   display:block;
-  background-color:#fff;
   border:1px solid #dadada;
-  font-size:12px;
-  padding:4px 2px 3px;
-  height:16px;
-  width:173px;
-  margin-right:5px;
+  margin: 2px 5px 0 0;
+  padding: 4px 20px 3px;
+  width:213px;
+  font-size: 11px;
+  height: 14px;
+  background: #FFF url(../../../images/DV/embed/search_icon.png) no-repeat 5px 5px;
 }
+
+.DV-searchSubmit {
+  display: none;
+}
+
 
 #DV-searchInput[type="search"] {
   margin: 4px 10px 0 0;
 }
+#DV-searchInput.placeholder {
+  color: #A0A0A0;
+}
 
 .DV-ie #DV-searchInput{
-  margin-top:-1px;
 }
 
 #DV-searchInput:focus{
@@ -67,8 +74,24 @@
 }
 
 .DV-searchInput{
-  float:left;
-  display:inline;
+  float: left;
+  display: inline;
+  position: relative;
+}
+
+#DV-searchDocument .DV-searchInput-cancel {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  background: transparent url(../../../images/DV/embed/close.png) no-repeat 0 0;
+  width: 11px;
+  height: 11px;
+  display: none;
+  cursor: pointer;
+}
+
+#DV-searchDocument .DV-searchInput.DV-searchInput-show-search-cancel .DV-searchInput-cancel {
+  display: block;
 }
 
 #DV-searchBarWrapper {
