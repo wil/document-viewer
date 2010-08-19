@@ -140,8 +140,12 @@ _.extend(DV.Schema.helpers, {
 
     // Hide annotations, if there are none:
     var showAnnotations = _.any(this.models.annotations.byId);
-    $j('#DV-annotationView')[showAnnotations ? 'show' : 'hide']();
-
+    var $annotationsView = $j('#DV-annotationView');
+    $annotationsView[showAnnotations ? 'show' : 'hide']();
+    if (!showAnnotations && !DV.options.displayTextTab) {
+      $j('#DV-documentView').addClass('DV-last');
+    }
+    
     // Hide the searchBox, if it's disabled.
     var showSearch = !!DV.Schema.document.resources.search;
     if (showSearch) {

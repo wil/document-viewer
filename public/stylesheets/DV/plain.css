@@ -87,10 +87,10 @@ body, html {
     background: -moz-linear-gradient(top, #EAEAEA, #C2C2C2);
     filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#EAEAEA', EndColorStr='#C2C2C2');
   }
-    .DV-views #DV-documentView span {
+    .DV-views .DV-first span {
       -webkit-border-top-left-radius: 5px; -moz-border-radius-topleft: 5px;
     }
-    #DV-textView span {
+    .DV-views .DV-last span {
       -webkit-border-top-right-radius: 5px; -moz-border-radius-topright: 5px;
     }
     .DV-viewDocument .DV-views #DV-documentView span,

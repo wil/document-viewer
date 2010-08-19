@@ -13,11 +13,11 @@
   <div id="DV-Controls">
     <div class="DV-views <% if (!DV.options.displayViewTabs) { %>DV-hide<% } %>" id="DV-views">
       <div id="DV-documentView" class="DV-first"><span class="DV-trigger DV-selected">Document</span></div>
-      <div id="DV-annotationView" style="display:none;"><span class="DV-trigger">Annotations</span></div>
-      <div id="DV-textView" class="DV-last"><span class="DV-trigger">Text</span></div>
+      <div id="DV-annotationView" style="display:none;" class="<% if (!DV.options.displayTextTab) { %>DV-last<% } %>"><span class="DV-trigger">Annotations</span></div>
+      <div id="DV-textView" class="<% if (DV.options.displayTextTab) { %>DV-last<% } else { %>DV-hide<% } %>"><span class="DV-trigger">Text</span></div>
     </div>
 
-    <div id="DV-searchBox" class="clearfix <% if (!DV.options.displaySearch) { %>DV-hide<% } %>">
+    <div id="DV-searchBox" class="clearfix <% if (!DV.options.displaySearch || !DV.options.displayTextTab) { %>DV-hide<% } %>">
       <form action="#" method="get" id="DV-searchDocument">
         <span class="DV-searchInput">
           <div class="DV-searchInput-cancel"></div>

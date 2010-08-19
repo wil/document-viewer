@@ -84,12 +84,15 @@
 <script src="public/assets/templates.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-  DV.load('http://dev.dcloud.org/documents/49-bayesian-filtering-binary-classification.json', {
+  var docUrl = 'http://dev.dcloud.org/documents/218-bigtable.js';
+  var docUrl = 'http://dev.dcloud.org/documents/49-bayesian-filtering-binary-classification.json';
+  DV.load(docUrl, {
     container: '#DV-container',
     width: 683,
     height: 500,
     zoom: 'auto',
     navigation: 'footer',
+    displayTextTab: false,
     displaySidebar: false,
     displayZoomControls: true,
     displaySearch: true,

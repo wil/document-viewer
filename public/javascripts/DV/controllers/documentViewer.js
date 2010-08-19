@@ -12,6 +12,7 @@ DV.load = function(documentRep, options) {
   var defaults = {
     zoom : 700,
     navigation : 'sidebar',
+    displayTextTab : true,
     displayHeader : true,
     displayFooter: false,
     displaySidebar : true,

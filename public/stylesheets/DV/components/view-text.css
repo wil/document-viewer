@@ -42,3 +42,6 @@
 #DV-docViewer.DV-searchable #DV-textView{
   display:inline;
 }
+#DV-docViewer.DV-searchable #DV-textView.DV-hide{
+  display:none;
+}

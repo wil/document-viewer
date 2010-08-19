@@ -22,7 +22,9 @@
   display:inline;
   margin:8px 0 0; padding:0;
 }
-
+.DV-views .DV-hide {
+  display: none;
+}
 .DV-ie6 .DV-views{
   position:absolute;
 }
