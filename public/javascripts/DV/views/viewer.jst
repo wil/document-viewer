@@ -2,7 +2,7 @@
 <!--[if IE 8]><div id="DV-docViewer" class="clearfix DV-viewDocument DV-ie DV-ie8 <% if (autoZoom) { %>DV-minimode<% } %>"><![endif]-->
 <!--[if !IE]><!--><div id="DV-docViewer" class="clearfix DV-viewDocument <% if (autoZoom) { %>DV-minimode<% } %>"><!-- <![endif]-->
   <%= header %>
-  <div id="DV-docViewer-Container" class="<% if (!DV.options.displayHeader) { %>DV-hide-header<% } %> <% if (!DV.options.displayFooter) { %>DV-hide-footer<% } %>">
+  <div id="DV-docViewer-Container" class="<% if (!DV.options.showHeader) { %>DV-hide-header<% } %> <% if (DV.options.showSidebar) { %>DV-hide-footer<% } %>">
 
     <div id="DV-searchBarWrapper">
       <div id="DV-searchBar">
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div id="DV-pages" class="<% if (!DV.options.displaySidebar) { %>DV-hide-sidebar<% } %>">
+    <div id="DV-pages" class="<% if (!DV.options.showSidebar) { %>DV-hide-sidebar<% } %>">
       <div id="DV-pageCollection">
         <div id="DV-bar" style=""></div>
         <div id="DV-annotations">
@@ -38,10 +38,10 @@
       </div>
     </div>
 
-    <div id="DV-sidebar" width="265px" class="<% if (!DV.options.displaySidebar) { %>DV-hide<% } %>" style="display:none;">
+    <div id="DV-sidebar" width="265px" class="<% if (!DV.options.showSidebar) { %>DV-hide<% } %>" style="display:none;">
       <div id="DV-well">
         
-        <% if (DV.options.navigation == 'sidebar') { %>
+        <% if (DV.options.showSidebar) { %>
           <div class="DV-navControlsContainer">
           </div>
         <% } %>

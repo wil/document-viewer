@@ -10,16 +10,12 @@ DV.controller   = new DV.stateMachine(DV.Schema.states,
 // The origin function, kicking off the entire documentViewer render.
 DV.load = function(documentRep, options) {
   var defaults = {
-    zoom : 700,
-    navigation : 'sidebar',
-    displayTextTab : true,
-    displayHeader : true,
-    displayFooter: false,
-    displaySidebar : true,
-    displayZoomControls : true,
-    displaySearch : true,
-    displayViewTabs : true,
-    allowHistoryChanges : true
+    zoom : 'auto',
+    showSidebar : true,
+    showText : true,
+    showSearch : true,
+    showHeader : true,
+    enableUrlChanges : true
   };
   options       = _.extend({}, defaults, options);
   DV.container  = options.container || document.body;

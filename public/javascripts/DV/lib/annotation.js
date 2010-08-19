@@ -97,6 +97,7 @@ DV.Annotation.prototype.show = function(argHash) {
 
 // Hide annotation
 DV.Annotation.prototype.hide = function(forceOverlayHide){
+  var pageNumber = parseInt(this.application.elements.currentPage.text(),10);
 
   if(this.type !== 'page'){
     this.annotationEl.find('div.DV-annotationBG').css({ opacity: 0, display: 'none' });
@@ -130,6 +131,7 @@ DV.Annotation.prototype.hide = function(forceOverlayHide){
   this.application.helpers.setActiveAnnotationInNav();
   this.active = false;
   this.pageEl.parent('.DV-set').removeClass('DV-activePage');
+  DV.history.save('document/p'+pageNumber);
   // cleanup active state
   this.removeConnector(true);
 

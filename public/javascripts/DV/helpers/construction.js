@@ -142,7 +142,7 @@ _.extend(DV.Schema.helpers, {
     var showAnnotations = _.any(this.models.annotations.byId);
     var $annotationsView = $j('#DV-annotationView');
     $annotationsView[showAnnotations ? 'show' : 'hide']();
-    if (!showAnnotations && !DV.options.displayTextTab) {
+    if (!showAnnotations && !DV.options.showText) {
       $j('#DV-documentView').addClass('DV-last');
     }
     
@@ -167,7 +167,7 @@ _.extend(DV.Schema.helpers, {
     });
 
     $j('.DV-navControlsContainer').html(navControls);
-    if (DV.options.displaySidebar) {
+    if (DV.options.showSidebar) {
       $j('#DV-sidebar').show();
     }
     

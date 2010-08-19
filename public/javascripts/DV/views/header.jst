@@ -1,4 +1,4 @@
-<div id="DV-header" class="<% if (!DV.options.displayHeader) { %>DV-hide<% } %>">
+<div id="DV-header" class="<% if (!DV.options.showHeader) { %>DV-hide<% } %>">
   <div id="DV-headerHat" class="clearfix">
     <div id="DV-branding">
       <% if (story_url) { %>
@@ -11,13 +11,13 @@
   </div>
 
   <div id="DV-Controls">
-    <div class="DV-views <% if (!DV.options.displayViewTabs) { %>DV-hide<% } %>" id="DV-views">
+    <div class="DV-views" id="DV-views">
       <div id="DV-documentView" class="DV-first"><span class="DV-trigger DV-selected">Document</span></div>
-      <div id="DV-annotationView" style="display:none;" class="<% if (!DV.options.displayTextTab) { %>DV-last<% } %>"><span class="DV-trigger">Annotations</span></div>
-      <div id="DV-textView" class="<% if (DV.options.displayTextTab) { %>DV-last<% } else { %>DV-hide<% } %>"><span class="DV-trigger">Text</span></div>
+      <div id="DV-annotationView" style="display:none;" class="<% if (!DV.options.showText) { %>DV-last<% } %>"><span class="DV-trigger">Annotations</span></div>
+      <div id="DV-textView" class="<% if (DV.options.showText) { %>DV-last<% } else { %>DV-hide<% } %>"><span class="DV-trigger">Text</span></div>
     </div>
 
-    <div id="DV-searchBox" class="clearfix <% if (!DV.options.displaySearch || !DV.options.displayTextTab) { %>DV-hide<% } %>">
+    <div id="DV-searchBox" class="clearfix <% if (!DV.options.showSearch || !DV.options.showText) { %>DV-hide<% } %>">
       <form action="#" method="get" id="DV-searchDocument">
         <span class="DV-searchInput">
           <div class="DV-searchInput-cancel"></div>
@@ -29,12 +29,7 @@
       </form>
     </div>
 
-    <% if (DV.options.navigation == 'header') { %>
-      <div class="DV-navControlsContainer">
-      </div>
-    <% } %>
-
-    <div class="DV-zoomControls <% if (!DV.options.displayZoomControls) { %>DV-hide<% } %>">
+    <div class="DV-zoomControls">
       <span class="DV-zoomLabel">Zoom</span>
       <div id="DV-zoomBox">
       </div>
