@@ -14,6 +14,11 @@
         <span class="DV-trigger DV-annotationPrevious" title="Previous Annotation">Previous</span>
         <span class="DV-trigger DV-annotationNext" title="Next Annotation">Next</span>
       </div>
+      <% if (access == 'private') { %>
+        <div class="DV-annotationWarning DV-editVisible">This private note is only visible to you.</div>
+      <% } else { %>
+        <div class="DV-annotationWarning DV-editVisible">All viewers of this document can see this public note.</div>
+      <% } %>
       <div class="DV-annotationGoto DV-editHidden"><div class="DV-trigger">Go to Page <%= pageNumber %></div></div>
       <div class="DV-annotationTitle DV-editHidden"><%= title %></div>
       <input class="DV-annotationTitleInput DV-editVisible" type="text" placeholder="Annotation Title" value="<%= title %>" />
