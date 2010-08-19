@@ -37,7 +37,7 @@
 }
 
 #DV-previous, #DV-next {
-  background-image:url(../../../images/DV/embed/controlsArrows.gif);
+  background-image:url(../../../images/DV/embed/controlsArrows.png);
   background-repeat: no-repeat;
   width:34px; height:24px;
   position:absolute;
@@ -75,9 +75,8 @@
 .DV-pageNumberContainer{
   width:154px;
   text-align:center;
-  position:absolute;
-  left:45px;
-  top:10px;
+  padding: 10px 0 0;
+  margin: 0 auto;
 }
 
 .DV-ie .DV-pageNumberContainer{
