@@ -19,7 +19,7 @@ DV.Schema.states.ViewDocument = {
       this.pageSet.cleanUp();
     }
     this.helpers.removeObserver('drawPages');
-    this.elements.chaptersContainer[0].id = '';
+    if (this.elements.chaptersContainer.length) this.elements.chaptersContainer[0].id = '';
     this.dragReporter.unBind();
     return true;
   }

@@ -13,6 +13,7 @@ _.extend(DV.Schema.helpers, {
       story_url   : storyURL,
       title       : doc.title || ''
     });
+    var footerHTML = JST.footer({});
 
     var pdfURL   = doc.resources.pdf;
     pdfURL       = pdfURL ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF)</a>' : '';
@@ -20,6 +21,7 @@ _.extend(DV.Schema.helpers, {
     var viewerOptions = { 
         pages: pagesHTML,
         header: headerHTML,
+        footer: footerHTML,
         pdf_url: pdfURL,
         story_url: storyURL,
         descriptionContainer: JST.descriptionContainer({ description: description}),
@@ -160,7 +162,7 @@ _.extend(DV.Schema.helpers, {
       totalAnnotations: DV.Schema.data.totalAnnotations
     });
 
-    $j('#DV-well .DV-navControlsContainer').html(navControls);
+    $j('.DV-navControlsContainer').html(navControls);
     if (DV.options.displaySidebar) {
       $j('#DV-sidebar').show();
     }

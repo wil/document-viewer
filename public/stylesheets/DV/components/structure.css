@@ -6,7 +6,7 @@
 
 #DV-docViewer-Container{
   position:absolute;
-  top: 39px; bottom: 0px; left: 0px; right: 0px;
+  top: 39px; bottom: 33px; left: 0px; right: 0px;
   margin: 0;
   overflow: hidden;
   border: 1px solid #ababab; border-left: 0; border-right: 0;
@@ -14,6 +14,9 @@
 
 #DV-docViewer-Container.DV-hide-header{
   top: 0;
+}
+#DV-docViewer-Container.DV-hide-footer{
+  bottom: 0;
 }
 
 #DV-bar{
@@ -43,7 +46,7 @@
   background: white;
 }
 
-#DV-navControls{
+#DV-well #DV-navControls{
   background-color: #fff;
   background-repeat: repeat-x;
   background-image: url(../../../images/DV/embed/shadow-white.gif);

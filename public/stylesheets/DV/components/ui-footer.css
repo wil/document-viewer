@@ -1,0 +1,41 @@
+#DV-footer {
+  position: absolute;
+  bottom: 0;
+  height: 33px;
+  left: 0;
+  right: 0;
+}
+
+#DV-footer.DV-hide {
+  display: none;
+}
+
+#DV-footer {
+  border-top: 1px solid #B0B0B0;
+  z-index: 20000;
+  box-shadow: 0 0 25px rgba(0,0,0,.05); -webkit-box-shadow: 0 0 25px rgba(0,0,0,.05); -moz-box-shadow: 0 0 25px rgba(0,0,0,.05);
+  background: #d7d7d7;
+  background: -webkit-gradient(linear, left top, left bottom, from(#F0F0F0), to(#D0D0D0));
+  background: -moz-linear-gradient(top, #F0F0F0, #D0D0D0);
+  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#EAEAEA', EndColorStr='#C2C2C2');
+  text-shadow: 0px 1px 1px #fff;
+  color: #2C2C2C;
+  overflow: hidden;
+}
+
+#DV-footer .DV-navControlsContainer {
+  position: relative;
+  width: 230px;
+  margin: 0 auto;
+}
+
+#DV-footer #DV-navControls {
+  right: 0;
+  top: 0;
+}
+  #DV-footer .DV-trigger {
+    top: 4px;
+  }
+  #DV-footer .DV-pageNumberContainer {
+    padding-top: 5px;
+  }

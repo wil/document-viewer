@@ -29,8 +29,10 @@
       </form>
     </div>
 
-    <div class="DV-navControlsContainer">
-    </div>
+    <% if (DV.options.navigation == 'header') { %>
+      <div class="DV-navControlsContainer">
+      </div>
+    <% } %>
 
     <div class="DV-zoomControls <% if (!DV.options.displayZoomControls) { %>DV-hide<% } %>">
       <span class="DV-zoomLabel">Zoom</span>

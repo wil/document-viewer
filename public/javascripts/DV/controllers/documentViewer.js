@@ -11,7 +11,9 @@ DV.controller   = new DV.stateMachine(DV.Schema.states,
 DV.load = function(documentRep, options) {
   var defaults = {
     zoom : 700,
+    navigation : 'sidebar',
     displayHeader : true,
+    displayFooter: false,
     displaySidebar : true,
     displayZoomControls : true,
     displaySearch : true,
