@@ -60,12 +60,12 @@
 }
 
 #DV-next{
-  background-position: -68px 0;
+  background-position: -102px 0;
   right: 10px;
 }
 
 #DV-next:hover{
-  background-position: -102px 0;
+  background-position: -68px 0;
 }
 
 #DV-next:focus {
