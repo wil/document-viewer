@@ -9,6 +9,7 @@ DV.Schema.helpers = {
       var boundZoom = this.events.compile('zoom');
       var doc = context.models.document;
       var value = _.indexOf(doc.ZOOM_RANGES, doc.zoomLevel) * 24.7;
+      console.log(['Slider', value, doc.ZOOM_RANGES]);
       this.application.slider = $j('#DV-zoomBox').slider({
         step: 24.7,
         value: value,
@@ -316,16 +317,23 @@ DV.Schema.helpers = {
           
           // Setup ranges for auto-width zooming
           var ranges = [];
-          if (zoom <= 700) {
+          if (zoom <= 750) {
             var zoom2 = ((1000 - 700) / 3) + zoom;
             var zoom3 = ((1000 - 700) / 3)*2 + zoom;
             ranges = [.66*zoom, zoom, zoom2, zoom3, 1000];
-          } else {
-            var zoom2 = ((1000 - 700) / 2) + zoom;
+          } else if (750 < zoom && zoom <= 850){
+            var zoom2 = ((1000 - zoom) / 2) + zoom;
             ranges = [.66*zoom, 700, zoom, zoom2, 1000];
+          } else if (850 < zoom && zoom < 1000){
+            var zoom2 = ((zoom - 700) / 2) + 700;
+            console.log(['850 - 1000', zoom, zoom2]);
+          } else if (zoom >= 1000) {
+            zoom = 1000;
+            ranges = DV.controller.models.document.ZOOM_RANGES;
+            ranges[5] = zoom;
           }
           DV.controller.models.document.ZOOM_RANGES = ranges;
-          
+          this.application.slider.slider({'value': parseInt(_.indexOf(ranges, zoom) * 24.7, 10)});
           this.events.zoom(zoom);
         }
     },

@@ -9,7 +9,6 @@ _.extend(DV.Schema.helpers, {
     var headerHTML  = JST.header(
     {
       id          : doc.id,
-      search_type : (window.navigator.userAgent.match(/webkit/i)) ? 'search' : 'text',
       story_url   : storyURL,
       title       : doc.title || ''
     });
