@@ -25,7 +25,8 @@ _.extend(DV.Schema.helpers, {
         pdf_url: pdfURL,
         story_url: storyURL,
         descriptionContainer: JST.descriptionContainer({ description: description}),
-        autoZoom: DV.options.zoom == 'auto'
+        autoZoom: DV.options.zoom == 'auto',
+        hideSidebar: !DV.options.showSidebar
     };
     
     if (DV.options.width && DV.options.height) {

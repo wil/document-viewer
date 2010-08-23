@@ -2,29 +2,25 @@
 /* = Header = */
 /* ========== */
 
-.DV-minimode #DV-searchBar {
+.DV-hideSidebar #DV-searchBar {
   right: 16px;
 }
 
-.DV-minimode #DV-docViewer #DV-searchBox {
-  width: 194px;
-}
-
-.DV-minimode #DV-searchInput {
-  width: 100px;
+.DV-hideSidebar #DV-searchInput {
+  width: 110px;
 }
 
 /* ================== */
 /* = Page Container = */
 /* ================== */
 
-.DV-minimode #DV-textPage {
+.DV-autoZoom #DV-textPage {
   margin-left: 35px;
 }
 
-.DV-minimode #p0,
-.DV-minimode #p1,
-.DV-minimode #p2 {
+.DV-autoZoom #p0,
+.DV-autoZoom #p1,
+.DV-autoZoom #p2 {
   padding-left: 35px;
 }
 
@@ -32,8 +28,8 @@
 /* = Page Elements = */
 /* ================= */
 
-.DV-minimode .DV-pageNumber,
-.DV-minimode #DV-textCurrentPage {
+.DV-autoZoom .DV-pageNumber,
+.DV-autoZoom #DV-textCurrentPage {
   text-align: center;
   width: 29px;
   padding-left: 2px;
@@ -43,19 +39,19 @@
 /* = Annotations = */
 /* =============== */
 
-.DV-minimode .DV-annotationTab {
+.DV-autoZoom .DV-annotationTab {
   left: -34px;
   width: 40px;
 }
 
-.DV-minimode .DV-annotationClose {
+.DV-autoZoom .DV-annotationClose {
   width: 5px;
 }
 
-.DV-minimode .DV-activeAnnotation .DV-annotationTab {
+.DV-autoZoom .DV-activeAnnotation .DV-annotationTab {
   width: 34px;
 }
 
-.DV-minimode .DV-activeAnnotation .DV-annotationClose {
+.DV-autoZoom .DV-activeAnnotation .DV-annotationClose {
   background: transparent url(../../../images/DV/embed/close.png) no-repeat 6px 7px;
 }
