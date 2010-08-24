@@ -33,7 +33,10 @@
         } else {
           $this.parent().removeClass(options.clearClassName);
         }
-      }).blur();
+      });
+      _.defer(function(){
+        $this.keyup().blur();
+      });
     });
     
   };
