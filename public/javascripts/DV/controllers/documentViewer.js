@@ -17,9 +17,10 @@ DV.load = function(documentRep, options) {
     showHeader : true,
     enableUrlChanges : true
   };
-  options       = _.extend({}, defaults, options);
-  DV.container  = options.container || document.body;
-  DV.options    = options;
+  options            = _.extend({}, defaults, options);
+  options.fixedSize  = !!(options.width || options.height);
+  DV.container       = options.container || document.body;
+  DV.options         = options;
   // Once we have the JSON representation in-hand, finish loading the viewer.
   var continueLoad = DV.loadJSON = function(json) {
     DV.Schema.importCanonicalDocument(json);

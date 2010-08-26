@@ -134,7 +134,7 @@ _.extend(DV.Schema.helpers, {
   renderComponents : function() {
     // Hide the overflow of the body, unless we're positioned.
     var position = $j(DV.container).css('position');
-    if (position != 'relative' && position != 'absolute') {
+    if (position != 'relative' && position != 'absolute' && !DV.options.fixedSize) {
       $j(document.body).css({overflow : 'hidden'});
     }
 
@@ -150,7 +150,7 @@ _.extend(DV.Schema.helpers, {
     var showSearch = !!DV.Schema.document.resources.search;
     if (showSearch) {
       this.elements.viewer.addClass('DV-searchable');
-      this.elements.searchInput.placeholder({
+      $j('input#DV-searchInput', DV.options.container).placeholder({
         message: 'Search Document',
         clearClassName: 'DV-searchInput-show-search-cancel'
       });
