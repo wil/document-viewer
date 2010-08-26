@@ -23,10 +23,14 @@ DV.Schema.models.document = {
     this.pageModel                = this.application.models.pages;
 
     if (DV.options.zoom == 'auto') {
-        this.zoomLevel            = data.zoomLevel;
+      this.zoomLevel              = data.zoomLevel;
     } else {
-        this.zoomLevel            = DV.options.zoom || data.zoomLevel;
+      this.zoomLevel              = DV.options.zoom || data.zoomLevel;
     }
+
+    // The zoom level cannot go over the maximum image width.
+    var maxZoom = _.last(this.ZOOM_RANGES);
+    if (this.zoomLevel > maxZoom) this.zoomLevel = maxZoom;
 
   },
   setPageIndex : function(index) {
