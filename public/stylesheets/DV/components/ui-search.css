@@ -6,6 +6,7 @@
   text-decoration:uppercase;
   background-color:#fff;
   font-family:Arial,Helvetica,sans-serif;
+  line-height: 22px;
 }
 
 #DV-searchBox.clearfix {
