@@ -20,7 +20,7 @@
   display:block;
 }
 
-.DV-viewSearch #DV-totalAnnotations,  
+.DV-viewSearch #DV-totalAnnotations,
 .DV-viewSearch #DV-currentAnnotationPrefix{
   display:none;
 }

@@ -308,37 +308,45 @@ DV.Schema.helpers = {
       // Handle search requests
       history.register(/search\/p(\d*)\/(.*)$/,$j.proxy(events.handleHashChangeViewSearchRequest,this.events));
     },
-    
+
+    // Sets up the zoom slider to match the appropriate for the specified
+    // initial zoom level, and real document page sizes.
     autoZoomPage: function() {
-        if (DV.options.zoom == 'auto') {
-          var windowWidth = this.elements.window.outerWidth(true);
-          var zoom = windowWidth - (DV.controller.models.pages.MINIMODE_TEXT_PADDING*2);
-          
-          // Setup ranges for auto-width zooming
-          var ranges = [];
-          if (zoom <= 750) {
-            var zoom2 = ((1000 - 700) / 3) + zoom;
-            var zoom3 = ((1000 - 700) / 3)*2 + zoom;
-            ranges = [.66*zoom, zoom, zoom2, zoom3, 1000];
-          } else if (750 < zoom && zoom <= 850){
-            var zoom2 = ((1000 - zoom) / 2) + zoom;
-            ranges = [.66*zoom, 700, zoom, zoom2, 1000];
-          } else if (850 < zoom && zoom < 1000){
-            var zoom2 = ((zoom - 700) / 2) + 700;
-          } else if (zoom >= 1000) {
-            zoom = 1000;
-            ranges = DV.controller.models.document.ZOOM_RANGES;
-            ranges[5] = zoom;
-          }
-          DV.controller.models.document.ZOOM_RANGES = ranges;
-          this.application.slider.slider({'value': parseInt(_.indexOf(ranges, zoom) * 24.7, 10)});
-          this.events.zoom(zoom);
-        }
+      var windowWidth = this.elements.window.outerWidth(true);
+      var zoom;
+      if (DV.options.zoom == 'auto') {
+        zoom = windowWidth - (DV.controller.models.pages.MINIMODE_TEXT_PADDING*2);
+      } else {
+        zoom = DV.options.zoom;
+      }
+
+      // Setup ranges for auto-width zooming
+      var ranges = [];
+      if (zoom <= 500) {
+        var zoom2 = (zoom + 700) / 2;
+        ranges = [zoom, zoom2, 700, 850, 1000];
+      } else if (zoom <= 750) {
+        var zoom2 = ((1000 - 700) / 3) + zoom;
+        var zoom3 = ((1000 - 700) / 3)*2 + zoom;
+        ranges = [.66*zoom, zoom, zoom2, zoom3, 1000];
+      } else if (750 < zoom && zoom <= 850){
+        var zoom2 = ((1000 - zoom) / 2) + zoom;
+        ranges = [.66*zoom, 700, zoom, zoom2, 1000];
+      } else if (850 < zoom && zoom < 1000){
+        var zoom2 = ((zoom - 700) / 2) + 700;
+        ranges = [.66*zoom, 700, zoom2, zoom, 1000];
+      } else if (zoom >= 1000) {
+        zoom = 1000;
+        ranges = DV.controller.models.document.ZOOM_RANGES;
+      }
+      DV.controller.models.document.ZOOM_RANGES = ranges;
+      this.application.slider.slider({'value': parseInt(_.indexOf(ranges, zoom) * 24.7, 10)});
+      this.events.zoom(zoom);
     },
-    
+
     handleInitialState: function(){
       var initialRouteMatch = DV.history.loadURL(true);
       if(!initialRouteMatch) this.states.ViewDocument();
     }
-    
+
 };

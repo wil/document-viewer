@@ -177,8 +177,10 @@ DV.page.prototype.loadImage = function(argHash) {
       clearTimeout(me.loadTimer);
       delete me.loadTimer;
     }
+
     preloader.bind('load readystatechange',function(e){
        if(this.complete || (this.readyState == 'complete' && e.type == 'readystatechange')){
+         if (preloader[0].src != me._currentSrc) return;
          pageModel.updateHeight(preloader[0], me.index);
          me.drawImage(preloader[0].src);
          clearTimeout(me.loadTimer);
@@ -187,6 +189,7 @@ DV.page.prototype.loadImage = function(argHash) {
     });
 
     var src = me.model_pages.imageURL(me.index);
+    me._currentSrc = src;
     preloader[0].src = src;
   };
 

@@ -27,23 +27,6 @@
   display:inline;
 }
 
-#DV-searchSubmit{
-  display:block;
-  background-color:#f7f7f7;
-  border:1px solid #ccc;
-  padding:2px 3px 4px;
-  height:25px;
-  border-radius:2px;
-  -moz-border-radius:2px;
-  -webkit-border-radius:2px;
-  vertical-align:middle;
-}
-
-.DV-searchSubmit{
-  float:left;
-  display:inline;
-}
-
 #DV-searchInput{
   display:block;
   border:1px solid #dadada;
@@ -56,19 +39,11 @@
   outline: none;
 }
 
-.DV-searchSubmit {
-  display: none;
-}
-
-
 #DV-searchInput[type="search"] {
   margin: 4px 10px 0 0;
 }
 #DV-searchInput.placeholder {
   color: #A0A0A0;
-}
-
-.DV-ie #DV-searchInput{
 }
 
 #DV-searchInput:focus{
@@ -77,39 +52,41 @@
 
 .DV-searchInput{
   float: left;
-  display: inline;
+  display: block;
   position: relative;
 }
 
 #DV-searchDocument .DV-searchInput-cancel {
+  visibility: hidden;
   position: absolute;
   right: 12px;
   top: 8px;
   background: transparent url(../../../images/DV/embed/close.png) no-repeat 0 0;
   width: 11px;
   height: 11px;
-  display: none;
   cursor: pointer;
 }
+  .DV-ie #DV-searchDocument .DV-searchInput-cancel {
+    top: 7px;
+  }
 
 #DV-searchDocument .DV-searchInput.DV-searchInput-show-search-cancel .DV-searchInput-cancel {
-  display: block;
+  visibility: visible;
 }
 
 #DV-searchBarWrapper {
-  position: relative;
+  position: absolute;
+  width: 100%;
   z-index:10002;
 }
 
 #DV-searchBar{
-  position:absolute;
-  top:0px;
-  left:0px;
-  right: 282px;
-  height:50px;
+  position: absolute;
+  top: 0px; left: 0px; right: 282px;
+  height: 50px;
   background: url(../../../images/DV/embed/shadow.png) repeat-x 0 bottom;
-  font-family:Arial,Helvetica,sans-serif;
-  display:none;
+  font-family: Arial,Helvetica,sans-serif;
+  display: none;
 }
 
 #DV-searchBar ::selection {
@@ -141,10 +118,6 @@
   border: 1px solid #f5e800;
   padding: 1px;
   color:#000;
-}
-
-.DV-ViewSearch #DV-searchBar{
-  display:block;
 }
 
 #DV-closeSearch{
