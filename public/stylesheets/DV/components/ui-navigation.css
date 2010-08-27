@@ -311,3 +311,25 @@
   margin-top:-5px;
 }
 
+/* ====================== */
+/* = Fullscreen Control = */
+/* ====================== */
+
+
+#DV-fullscreen {
+  background-image:url(../../../images/DV/embed/controlsArrows.png);
+  background-repeat: no-repeat;
+  width:34px; height:24px;
+  position:absolute;
+  cursor:pointer;
+  text-indent:-1000em;
+  background-position: 0 0;
+}
+
+#DV-fullscreen:hover{
+  background-position: -34px 0;
+}
+
+#DV-fullscreen:focus {
+  outline: 0;
+}

@@ -165,8 +165,11 @@ _.extend(DV.Schema.helpers, {
       totalPages: DV.Schema.data.totalPages,
       totalAnnotations: DV.Schema.data.totalAnnotations
     });
+    $j('#DV-fullscreenControl').remove();
+    var fullscreenControl = JST.fullscreenControl({});
 
     $j('.DV-navControlsContainer').html(navControls);
+    $j('#DV-fullscreenContainer').html(fullscreenControl);
     if (DV.options.showSidebar) {
       $j('#DV-sidebar').show();
     }

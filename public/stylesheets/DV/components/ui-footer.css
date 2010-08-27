@@ -39,3 +39,9 @@
   #DV-footer .DV-pageNumberContainer {
     padding-top: 5px;
   }
+
+#DV-footer #DV-fullscreenControl {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+}
