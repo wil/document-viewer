@@ -8,31 +8,31 @@
   margin-bottom: 15px;
 }
 
-#DV-supplemental{
+.DV-supplemental{
   margin-top: 15px;
   padding-top:8px;
   border-top:1px solid #ccc;
 }
-  #DV-supplemental.DV-noNavigation {
+  .DV-supplemental.DV-noNavigation {
     margin: 0;
     padding: 0;
     border: 0;
   }
 
 .DV-storyLink,
-#DV-pdfLink {
+.DV-pdfLink {
   padding-left: 0;
   padding-bottom: 4px;
 }
 
 .DV-storyLink a,
-#DV-pdfLink a {
+.DV-pdfLink a {
   font: normal 11px Arial, sans-serif;
   text-decoration: none;
 }
 
 .DV-storyLink a:hover,
-#DV-pdfLink a:hover {
+.DV-pdfLink a:hover {
   text-decoration:underline;
 }
 
@@ -127,17 +127,13 @@
   margin-top:-5px;
 }
 
-#DV-well .DV-navControls{
+.DV-well .DV-navControls{
   height: 50px;
   background-position: 0 bottom;
 }
 
 .DV-navigation{
   padding: 10px;
-}
-
-#DV-ie7 .DV-navigation{
-  margin-top:30px;
 }
 
 .DV-contentsHeader,

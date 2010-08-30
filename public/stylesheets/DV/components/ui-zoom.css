@@ -6,7 +6,7 @@
   position: relative;
 }
 
-#DV-docViewer.DV-searchable .DV-zoomControls {
+.DV-docViewer.DV-searchable .DV-zoomControls {
 /*  right:235px;*/
 }
 

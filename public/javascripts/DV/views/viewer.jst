@@ -1,46 +1,46 @@
-<!--[if IE 7]><div id="DV-docViewer" class="clearfix DV-viewDocument DV-ie DV-ie7 <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (hideSidebar) { %>DV-hideSidebar<% } %>"><![endif]-->
-<!--[if IE 8]><div id="DV-docViewer" class="clearfix DV-viewDocument DV-ie DV-ie8 <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (hideSidebar) { %>DV-hideSidebar<% } %>"><![endif]-->
-<!--[if !IE]><!--><div id="DV-docViewer" class="clearfix DV-viewDocument <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (hideSidebar) { %>DV-hideSidebar<% } %>"><!-- <![endif]-->
+<!--[if IE 7]><div class="DV-docViewer clearfix DV-viewDocument DV-ie DV-ie7 <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (hideSidebar) { %>DV-hideSidebar<% } %>"><![endif]-->
+<!--[if IE 8]><div class="DV-docViewer clearfix DV-viewDocument DV-ie DV-ie8 <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (hideSidebar) { %>DV-hideSidebar<% } %>"><![endif]-->
+<!--[if !IE]><!--><div class="DV-docViewer clearfix DV-viewDocument <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (hideSidebar) { %>DV-hideSidebar<% } %>"><!-- <![endif]-->
   <%= header %>
-  <div id="DV-docViewer-Container" class="<% if (!DV.options.showHeader) { %>DV-hide-header<% } %> <% if (DV.options.showSidebar) { %>DV-hide-footer<% } %>">
+  <div class="DV-docViewer-Container <% if (!DV.options.showHeader) { %>DV-hide-header<% } %> <% if (DV.options.showSidebar) { %>DV-hide-footer<% } %>">
 
-    <div id="DV-searchBarWrapper">
-      <div id="DV-searchBar">
-        <span class="DV-trigger" id="DV-closeSearch">CLOSE</span>
-        <div class="DV-searchPagination" class="DV-foundResult">
-          <div id="DV-searchResults">
+    <div class="DV-searchBarWrapper">
+      <div class="DV-searchBar">
+        <span class="DV-trigger DV-closeSearch">CLOSE</span>
+        <div class="DV-searchPagination DV-foundResult">
+          <div class="DV-searchResults">
             <span class="DV-resultPrevious DV-trigger">Previous</span>
-            <span id="DV-currentSearchResult"></span>
-            <span id="DV-totalSearchResult"></span>
-            <span> for &ldquo;<span id="DV-searchQuery"></span>&rdquo;</span>
+            <span class="DV-currentSearchResult"></span>
+            <span class="DV-totalSearchResult"></span>
+            <span> for &ldquo;<span class="DV-searchQuery"></span>&rdquo;</span>
             <span class="DV-resultNext DV-trigger">Next</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div id="DV-pages" class="<% if (!DV.options.showSidebar) { %>DV-hide-sidebar<% } %>">
-      <div id="DV-pageCollection">
-        <div id="DV-bar" style=""></div>
-        <div id="DV-annotations">
+    <div class="DV-pages <% if (!DV.options.showSidebar) { %>DV-hide-sidebar<% } %>">
+      <div class="DV-pageCollection">
+        <div class="DV-bar" style=""></div>
+        <div class="DV-allAnnotations">
 
         </div>
-        <div id="DV-text">
-          <div id="DV-textSearch" class="clearfix">
+        <div class="DV-text">
+          <div class="DV-textSearch clearfix">
 
           </div>
-          <div id="DV-textPage">
-            <span id="DV-textCurrentPage"></span>
-            <pre id="DV-textContents"></pre>
+          <div class="DV-textPage">
+            <span class="DV-textCurrentPage"></span>
+            <pre class="DV-textContents"></pre>
           </div>
         </div>
         <%= pages %>
       </div>
     </div>
 
-    <div id="DV-sidebar" width="265px" class="<% if (!DV.options.showSidebar) { %>DV-hide<% } %>" style="display:none;">
-      <div id="DV-well">
-        
+    <div width="265px" class="DV-sidebar <% if (!DV.options.showSidebar) { %>DV-hide<% } %>" style="display:none;">
+      <div class="DV-well">
+
         <% if (DV.options.showSidebar) { %>
           <div class="DV-navControlsContainer">
           </div>
@@ -51,20 +51,20 @@
           <div class="DV-contentsHeader">Contents</div>
           <div class="DV-chaptersContainer">
           </div>
-          <div id="DV-supplemental">
+          <div class="DV-supplemental">
             <% if (pdf_url) { %>
-              <div id="DV-pdfLink"><%= pdf_url %></div>
+              <div class="DV-pdfLink"><%= pdf_url %></div>
             <% } %>
-            <div id="DV-storyLink" style="<%= story_url ? '' : 'display:none' %>">
+            <div class="DV-storyLink" style="<%= story_url ? '' : 'display:none' %>">
               <a target="_blank" href="<%= story_url %>">Related Article &raquo;</a>
             </div>
           </div>
-          <div id="DV-logo"><a id="DV-logoLink" href="#"></a></div>
+          <div class="DV-logo"><a class="DV-logoLink" href="#"></a></div>
         </div>
       </div>
     </div>
   </div>
-  
+
   <%= footer %>
 
 </div>

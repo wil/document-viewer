@@ -2,7 +2,7 @@
 /* = Header = */
 /* ========== */
 
-.DV-hideSidebar #DV-searchBar {
+.DV-hideSidebar .DV-searchBar {
   right: 16px;
 }
 
@@ -14,7 +14,7 @@
 /* = Page Container = */
 /* ================== */
 
-.DV-autoZoom #DV-textPage {
+.DV-autoZoom .DV-textPage {
   margin-left: 35px;
 }
 
@@ -29,7 +29,7 @@
 /* ================= */
 
 .DV-autoZoom .DV-pageNumber,
-.DV-autoZoom #DV-textCurrentPage {
+.DV-autoZoom .DV-textCurrentPage {
   text-align: center;
   width: 29px;
   padding-left: 2px;

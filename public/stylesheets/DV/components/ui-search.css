@@ -15,7 +15,7 @@
   display: none;
 }
 
-#DV-docViewer .DV-searchBox {
+.DV-docViewer .DV-searchBox {
   display: none;
   position: static;
   float: right;
@@ -23,7 +23,7 @@
   margin: 6px 6px 0 0;
 }
 
-#DV-docViewer.DV-searchable .DV-searchBox {
+.DV-docViewer.DV-searchable .DV-searchBox {
   display:inline;
 }
 
@@ -78,13 +78,13 @@
   visibility: visible;
 }
 
-#DV-searchBarWrapper {
+.DV-searchBarWrapper {
   position: absolute;
   width: 100%;
   z-index:10002;
 }
 
-#DV-searchBar{
+.DV-searchBar{
   position: absolute;
   top: 0px; left: 0px; right: 282px;
   height: 50px;
@@ -93,11 +93,11 @@
   display: none;
 }
 
-#DV-searchBar ::selection {
+.DV-searchBar ::selection {
   background: transparent;
 }
 
-#DV-searchBar ::-moz-selection {
+.DV-searchBar ::-moz-selection {
   background: transparent;
 }
 
@@ -124,7 +124,7 @@
   color:#000;
 }
 
-#DV-closeSearch{
+.DV-closeSearch{
   float:right;
   display:inline;
   margin: 16px 15px 0 0;
@@ -138,7 +138,7 @@
   text-decoration:none;
 }
 
-#DV-closeSearch:hover,
+.DV-closeSearch:hover,
 .DV-resultPrevious:hover,
 .DV-resultNext:hover{
   text-decoration:underline;
@@ -174,20 +174,20 @@
   margin-left:10px;
 }
 
-#DV-searchResults span{
+.DV-searchResults span{
   font-weight:bold;
   font-size:11px;
   color:#000;
 }
 
-#DV-searchResults{
+.DV-searchResults{
   margin: 10px auto;
   padding-left:45px;
   text-align:center;
   width:auto;
 }
-#DV-searchResults.DV-noResults .DV-resultPrevious,
-#DV-searchResults.DV-noResults .DV-resultNext{
+.DV-searchResults.DV-noResults .DV-resultPrevious,
+.DV-searchResults.DV-noResults .DV-resultNext{
   display:none;
 }
 
@@ -205,11 +205,11 @@ span.DV-highlighted{
   -webkit-border-radius: 2px;
 }
 
-#DV-textSearch{
+.DV-textSearch{
   display:none;
 }
 
-.DV-searchingText #DV-textSearch{
+.DV-searchingText .DV-textSearch{
   position:absolute;
   display:block;
   top:0;

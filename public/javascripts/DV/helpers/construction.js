@@ -44,7 +44,7 @@ _.extend(DV.Schema.helpers, {
   displayNavigation : function() {
     var doc = DV.Schema.document;
     var missing = (!doc.description && !_.size(DV.Schema.data.annotationsById) && !DV.Schema.data.sections.length);
-    $j('#DV-supplemental').toggleClass('DV-noNavigation', missing);
+    $j('.DV-supplemental').toggleClass('DV-noNavigation', missing);
   },
 
   renderNavigation : function() {
@@ -120,7 +120,7 @@ _.extend(DV.Schema.helpers, {
        chaptersContainer.show() : chaptersContainer.hide();
     this.displayNavigation();
 
-    $j('#DV-navigationBolds', document.head).remove();
+    $j('.DV-navigationBolds', document.head).remove();
     var boldsContents = bolds.join(", ") + ' { font-weight:bold; color:#000 !important; }';
     var navStylesheet = '<style id="DV-navigationBolds" type="text/css" media="screen,print">\n' + boldsContents +'\n</style>';
     $j('head').append(navStylesheet);
@@ -174,7 +174,7 @@ _.extend(DV.Schema.helpers, {
     }
 
     if (DV.options.showSidebar) {
-      $j('#DV-sidebar').show();
+      $j('.DV-sidebar').show();
     }
 
     // Set the currentPage element reference.

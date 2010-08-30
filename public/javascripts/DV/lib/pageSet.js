@@ -108,8 +108,8 @@ DV.pageSet.prototype.zoom = function(argHash){
 DV.pageSet.prototype.zoomText = function() {
   var padding = this.application.models.pages.TEXT_PADDING;
   var width   = this.application.models.pages.zoomLevel;
-  $j('#DV-textContents').width(width - padding);
-  $j('#DV-textPage').width(width);
+  $j('.DV-textContents').width(width - padding);
+  $j('.DV-textPage').width(width);
   if (DV.options.zoom == 'auto') {
     padding = this.application.models.pages.MINIMODE_TEXT_PADDING;
   }
@@ -151,7 +151,7 @@ DV.pageSet.prototype.showAnnotation = function(argHash, showHash){
   // NOTE: This needs work
   if(this.application.state === 'ViewAnnotation'){
 
-    var offset = $j('#DV-annotations div[rel=aid-'+argHash.id+']')[0].offsetTop;
+    var offset = $j('.DV-annotations div[rel=aid-'+argHash.id+']')[0].offsetTop;
     this.application.elements.window.scrollTop(offset+10,'fast');
     this.application.helpers.setActiveAnnotationInNav(argHash.id);
     this.application.activeAnnotationId = argHash.id;

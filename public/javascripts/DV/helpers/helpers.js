@@ -43,19 +43,19 @@ DV.Schema.helpers = {
         DV.history.save('text/p'+context.models.document.currentPage());
         states.ViewText();
       });
-      $j('#DV-annotations').delegate('.DV-annotationGoto .DV-trigger','click', $j.proxy(this.gotoPage, this));
+      $j('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', $j.proxy(this.gotoPage, this));
 
       $j('form.DV-searchDocument').submit(this.events.compile('search'));
-      $j('#DV-searchBar').delegate('#DV-closeSearch','click',function(e){
+      $j('.DV-searchBar').delegate('.DV-closeSearch','click',function(e){
         e.preventDefault();
         DV.history.save('text/p'+context.models.document.currentPage());
         states.ViewText();
       });
       $j('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', $j.proxy(this.clearSearch, this));
 
-      $j('#DV-searchResults').delegate('span.DV-resultPrevious','click', $j.proxy(this.highlightPreviousMatch, this));
+      $j('.DV-searchResults').delegate('span.DV-resultPrevious','click', $j.proxy(this.highlightPreviousMatch, this));
 
-      $j('#DV-searchResults').delegate('span.DV-resultNext','click', $j.proxy(this.highlightNextMatch, this));
+      $j('.DV-searchResults').delegate('span.DV-resultNext','click', $j.proxy(this.highlightNextMatch, this));
 
       // Prevent navigation elements from being selectable when clicked.
       $j('.DV-trigger').bind('selectstart', function(){ return false; });

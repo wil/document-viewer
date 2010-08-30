@@ -65,7 +65,7 @@ DV.Schema.events = {
     var processText = function(text) {
 
       var pageNumber = parseInt(pageIndex,10)+1;
-      $j('#DV-textContents').text(text);
+      $j('.DV-textContents').text(text);
       me.elements.currentPage.text(pageNumber);
       me.elements.textCurrentPage.text('p. '+(pageNumber));
       me.models.document.setPageIndex(pageIndex);
@@ -83,7 +83,7 @@ DV.Schema.events = {
       processText(DV.Schema.text[pageIndex] = response);
     }, this);
 
-    $j('#DV-textContents').text('');
+    $j('.DV-textContents').text('');
 
     var textURI = DV.Schema.document.resources.page.text.replace('{page}', pageIndex + 1);
     var crossDomain = this.helpers.isCrossDomain(textURI);

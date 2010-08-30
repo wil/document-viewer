@@ -1,11 +1,11 @@
 .DV-viewAnnotations .DV-set,
-.DV-viewAnnotations #DV-text,
-.DV-viewAnnotations #DV-search,
-.DV-viewAnnotations #DV-bar{
+.DV-viewAnnotations .DV-text,
+.DV-viewAnnotations .DV-search,
+.DV-viewAnnotations .DV-bar{
   display:none;
 }
 
-.DV-viewAnnotations #DV-annotations,
+.DV-viewAnnotations .DV-allAnnotations,
 .DV-viewAnnotations .DV-annotationContent{
   display:block;
 }

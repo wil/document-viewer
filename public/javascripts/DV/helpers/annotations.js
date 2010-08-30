@@ -8,7 +8,7 @@ _.extend(DV.Schema.helpers, {
 
     var annotation    = $j(annotation);
     var annotationId  = annotation.attr('id').replace(/DV\-annotation\-|DV\-listAnnotation\-/,'');
-    var pageId        = annotation.closest('div.DV-set').attr('id');
+    var pageId        = annotation.closest('div.DV-set').attr('data-id');
 
     for(var i = 0; (annotationObject = this.application.pageSet.pages[pageId].annotations[i]); i++){
       if(annotationObject.id == annotationId){

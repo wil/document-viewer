@@ -105,7 +105,7 @@ DV.page.prototype.draw = function(argHash) {
         }
 
         var newAnno = new DV.Annotation({
-          renderedHTML: $j('#DV-annotations .DV-annotation[rel=aid-'+anno.id+']').clone().attr('id','DV-annotation-'+anno.id),
+          renderedHTML: $j('.DV-allAnnotations .DV-annotation[rel=aid-'+anno.id+']').clone().attr('id','DV-annotation-'+anno.id),
           id:           anno.id,
           page:         this,
           pageEl:       this.pageEl,

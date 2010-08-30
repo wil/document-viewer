@@ -5,8 +5,8 @@ _.extend(DV.Schema.helpers, {
       var hasResults = (response.results.length > 0) ? true : false;
 
       var text = hasResults ? 'of '+response.results.length + ' ' : ' ';
-      $j('span#DV-totalSearchResult').text(text);
-      $j('span#DV-searchQuery').text(response.query);
+      $j('span.DV-totalSearchResult').text(text);
+      $j('span.DV-searchQuery').text(response.query);
       if (hasResults) {
         DV.history.save('search/p'+response.results[0]+'/'+response.query);
         this.events.loadText(response.results[0] - 1, this.highlightSearchResponses);
@@ -16,9 +16,9 @@ _.extend(DV.Schema.helpers, {
     }, this);
 
     var failResponse = function() {
-      $j('#DV-currentSearchResult').text('Search is not available at this time');
-      $j('span#DV-searchQuery').text(query);
-      $j('#DV-searchResults').addClass('DV-noResults');
+      $j('.DV-currentSearchResult').text('Search is not available at this time');
+      $j('span.DV-searchQuery').text(query);
+      $j('.DV-searchResults').addClass('DV-noResults');
     };
 
     var searchURI = DV.Schema.document.resources.search.replace('{query}', encodeURIComponent(query));
@@ -54,13 +54,13 @@ _.extend(DV.Schema.helpers, {
     if(!response) return false;
 
     var results         = response.results;
-    var currentResultEl = $j('#DV-currentSearchResult');
+    var currentResultEl = $j('.DV-currentSearchResult');
 
     if (results.length == 0){
       currentResultEl.text('No Results');
-      $j('#DV-searchResults').addClass('DV-noResults');
+      $j('.DV-searchResults').addClass('DV-noResults');
     }else{
-      $j('#DV-searchResults').removeClass('DV-noResults');
+      $j('.DV-searchResults').removeClass('DV-noResults');
     }
     for(var i = 0; i < response.results.length; i++){
       if(this.models.document.currentPage() === response.results[i]){
@@ -72,7 +72,7 @@ _.extend(DV.Schema.helpers, {
     // Replaces spaces in query with `\s+` to match newlines in textContent,
     // escape regex char contents (like "()"), and only match on word boundaries.
     var query             = '\\b' + response.query.replace(/[-[\]{}()*+?.,\\^$|#]/g, "\\$&").replace(/\s+/g, '\\s+') + '\\b';
-    var textContent       = $j('#DV-textContents');
+    var textContent       = $j('.DV-textContents');
     var currentPageText   = textContent.text();
     var pattern           = new RegExp(query,"ig");
     var replacement       = currentPageText.replace(pattern,'<span class="DV-searchMatch">$&</span>');
@@ -91,8 +91,8 @@ _.extend(DV.Schema.helpers, {
   // convert into proper UTF8 before trying to get the entity length, and
   // then back into UTF16 again.
   highlightEntity: function(offset, length) {
-    $j('#DV-searchResults').addClass('DV-noResults');
-    var textContent = $j('#DV-textContents');
+    $j('.DV-searchResults').addClass('DV-noResults');
+    var textContent = $j('.DV-textContents');
     var text        = textContent.text();
     var pre         = text.substr(0, offset);
     var entity      = text.substr(offset, length);
@@ -103,7 +103,7 @@ _.extend(DV.Schema.helpers, {
   },
 
   highlightMatch: function(index){
-    var highlightsOnThisPage   = $j('#DV-textContents span.DV-searchMatch');
+    var highlightsOnThisPage   = $j('.DV-textContents span.DV-searchMatch');
     if (highlightsOnThisPage.length == 0) return false;
     var currentPageIndex    = this.getCurrentSearchPageIndex();
     var toHighLight         = this.application.toHighLight;
@@ -143,7 +143,7 @@ _.extend(DV.Schema.helpers, {
       highlightsOnThisPage.removeClass('DV-highlightedMatch');
     }
 
-    var match = $j('#DV-textContents span.DV-searchMatch:eq('+index+')');
+    var match = $j('.DV-textContents span.DV-searchMatch:eq('+index+')');
     match.addClass('DV-highlightedMatch');
 
     this.elements.window[0].scrollTop = match.position().top - 50;
@@ -179,9 +179,9 @@ _.extend(DV.Schema.helpers, {
   },
 
   showEntity: function(name, offset, length) {
-    $j('span#DV-totalSearchResult').text('');
-    $j('span#DV-searchQuery').text(name);
-    $j('span#DV-currentSearchResult').text("Searching");
+    $j('span.DV-totalSearchResult').text('');
+    $j('span.DV-searchQuery').text(name);
+    $j('span.DV-currentSearchResult').text("Searching");
     this.events.loadText(this.models.document.currentIndex(), _.bind(DV.controller.helpers.highlightEntity, DV.controller.helpers, offset, length));
   },
   cleanUpSearch: function(){

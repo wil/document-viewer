@@ -6,7 +6,7 @@ body, html {
   padding: 0;
 }
 
-#DV-docViewer {
+.DV-docViewer {
   border: 1px solid #c3c3c3;
 }
 .DV-headerHat, .DV-title, .DV-contentsHeader {
@@ -36,15 +36,15 @@ body, html {
       border-radius: 16px;
     }
 
-#DV-docViewer-Container {
+.DV-docViewer-Container {
   margin: 0;
   border: 0;
 }
-#DV-pages {
+.DV-pages {
   background: #bbb;
 }
 
-#DV-well {
+.DV-well {
   padding-bottom: 16px;
 }
 .DV-descriptionHead {

@@ -52,7 +52,7 @@ DV.Schema.states = {
       this.helpers.autoZoomPage();
     },
     exit: function(destinationState){
-      this.dragReporter = new DV.dragReporter('#DV-pageCollection',$j.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationRegion,.DV-annotationContent' });
+      this.dragReporter = new DV.dragReporter('.DV-pageCollection',$j.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationRegion,.DV-annotationContent' });
       // Start polling every 100ms
       this.helpers.startCheckTimer();
     }

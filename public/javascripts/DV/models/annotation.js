@@ -91,7 +91,7 @@
         return 'id="DV-listAnnotation-' + id + '" rel="aid-' + id + '"';
       });
 
-      $j('div#DV-annotations').html(html);
+      $j('div.DV-allAnnotations').html(html);
 
       this.renderAnnotationsByIndex.rendered  = true;
       this.renderAnnotationsByIndex.zoomLevel = this.zoomLevel;
@@ -124,12 +124,12 @@
       this.offsetsAdjustments   = [];
       this.offsetAdjustmentSum  = 0;
       var documentModel         = this.application.models.document;
-      var annotationsContainer  = $j('div#DV-annotations');
+      var annotationsContainer  = $j('div.DV-allAnnotations');
       var pageAnnotationEls     = annotationsContainer.find('.DV-pageNote');
       var pageNoteHeights       = DV.controller.models.pages.pageNoteHeights;
       var me = this;
 
-      if($j('div#DV-docViewer').hasClass('DV-viewAnnotations') == false){
+      if($j('div.DV-docViewer').hasClass('DV-viewAnnotations') == false){
         annotationsContainer.addClass('DV-getHeights');
       }
 

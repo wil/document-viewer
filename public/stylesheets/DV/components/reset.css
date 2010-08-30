@@ -1,4 +1,4 @@
-#DV-docViewer .clearfix:after {
+.DV-docViewer .clearfix:after {
     content: ".";
     display: block;
     height: 0;
@@ -6,18 +6,18 @@
     visibility: hidden;
 }
 
-#DV-docViewer .clearfix {display: inline-block;}
+.DV-docViewer .clearfix {display: inline-block;}
 
 /* Hides from IE-mac \*/
-* html #DV-docViewer .clearfix {height: 1%;}
-#DV-docViewer .clearfix {display: block;}
+* html .DV-docViewer .clearfix {height: 1%;}
+.DV-docViewer .clearfix {display: block;}
 /* End hide from IE-mac */  
 
-#DV-docViewer a,
-#DV-docViewer a:visited{
+.DV-docViewer a,
+.DV-docViewer a:visited{
   color:#004276;
 }
 
-#DV-docViewer{
+.DV-docViewer{
  overflow:hidden;  
 }

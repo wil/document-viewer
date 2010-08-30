@@ -1,11 +1,3 @@
-#DV-documentCell{
-  background-color:#ccc;
-}
-
-#DV-documentCell.DV-coverVisible{
-  background-color:#444;
-}
-
 .DV-cover{
   left:0;
   position:absolute;
@@ -90,24 +82,24 @@
   -ms-interpolation-mode: bicubic;
 }
 
-#DV-pages.DV-coverVisible{
+.DV-pages.DV-coverVisible{
   background-color:#444;
   cursor:pointer;
 }
 
-#DV-pages.DV-coverVisible .DV-page{
+.DV-pages.DV-coverVisible .DV-page{
   -moz-box-shadow: 0 0 1em #333;
   -webkit-box-shadow: 0 0 1em #333;
   background-color:#fff;
 }
 
-#DV-pages.DV-coverVisible .DV-pageImage{
+.DV-pages.DV-coverVisible .DV-pageImage{
   opacity:.4;
   background-color:#000;
 }
 
 /* different opacity to handle IE opacity rendering bug */
-.DV-ie #DV-pages.DV-coverVisible .DV-pageImage{
+.DV-ie .DV-pages.DV-coverVisible .DV-pageImage{
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=45)";
   filter: alpha(opacity=45);
 }
@@ -121,7 +113,7 @@
 }
 
 .DV-coverVisible .DV-page,
-.DV-coverVisible #DV-pageCollection{
+.DV-coverVisible .DV-pageCollection{
   cursor:pointer !important;
 }
 
