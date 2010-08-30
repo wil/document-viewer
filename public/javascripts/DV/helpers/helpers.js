@@ -182,14 +182,13 @@ DV.Schema.helpers = {
     },
     
     fullscreen: function() {
-      var fullscreenViewer = JST.fullscreenViewer({
-        title: DV.Schema.document.title
-      });
       var url = DV.Schema.canonicalUrl;
-      if (DV.options.enableUrlChanges) {
-        url += DV.history.hash;
+      if (url) {
+        if (DV.options.enableUrlChanges) {
+          url += DV.history.hash;
+        }
+        window.fullscreenWin = window.open(url, 'DV-fullscreenViewer');
       }
-      window.fullscreenWin = window.open(url, 'DV-fullscreenViewer');
     },
     
     gotoPage: function(e){
