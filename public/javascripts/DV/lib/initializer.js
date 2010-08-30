@@ -6,7 +6,3 @@ DV.register = function(_name, _instance) {
     window.DV[_name] = _instance;
   }
 };
-// IE6 backgroundImageCache hack
-if($j.browser.msie === true && $j.browser.version == 6){
-  document.execCommand('BackgroundImageCache', false, true);
-}
