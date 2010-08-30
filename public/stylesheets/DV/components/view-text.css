@@ -35,13 +35,13 @@
   margin-left:14px;
 }
 
-#DV-textView{
+.DV-textView{
   display:none;
 }
 
-#DV-docViewer.DV-searchable #DV-textView{
+#DV-docViewer.DV-searchable .DV-textView{
   display:inline;
 }
-#DV-docViewer.DV-searchable #DV-textView.DV-hide{
+#DV-docViewer.DV-searchable .DV-textView.DV-hide{
   display:none;
 }

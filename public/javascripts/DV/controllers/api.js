@@ -44,7 +44,7 @@ DV.api = {
   // Set the document's description and update the sidebar.
   setDescription : function(desc) {
     DV.Schema.document.description = desc;
-    $j('#DV-description').remove();
+    $j('.DV-description').remove();
     $j('.DV-navigation').prepend(JST.descriptionContainer({description: desc}));
     DV.controller.helpers.displayNavigation();
   },
@@ -57,8 +57,8 @@ DV.api = {
   // Set the document's related article url.
   setRelatedArticle : function(url) {
     DV.Schema.document.resources.related_article = url;
-    $j('#DV-storyLink a').attr({href : url});
-    $j('#DV-storyLink').toggle(!!url);
+    $j('.DV-storyLink a').attr({href : url});
+    $j('.DV-storyLink').toggle(!!url);
   },
 
   // Get the document's title.

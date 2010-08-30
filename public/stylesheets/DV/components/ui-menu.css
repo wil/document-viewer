@@ -1,4 +1,4 @@
-#DV-Controls{
+.DV-controls{
   background-color:#f0f4f5;
   height:37px;
   border-bottom:1px solid #ABABAB;
@@ -54,10 +54,10 @@
 }
 
 .DV-views div span:hover,
-.DV-viewDocument .DV-views #DV-documentView span,
-.DV-viewAnnotations .DV-views #DV-annotationView span,
-.DV-viewText .DV-views #DV-textView span,
-.DV-viewSearch .DV-views #DV-textView span{
+.DV-viewDocument .DV-views .DV-documentView span,
+.DV-viewAnnotations .DV-views .DV-annotationView span,
+.DV-viewText .DV-views .DV-textView span,
+.DV-viewSearch .DV-views .DV-textView span{
   text-decoration:none;
   background-color:#fff;
   color:#000;
@@ -67,10 +67,10 @@
   outline:0;
 }
 
-.DV-viewDocument .DV-views #DV-documentView span,
-.DV-viewAnnotations .DV-views #DV-annotationView span,
-.DV-viewText .DV-views #DV-textView span,
-.DV-viewSearch .DV-views #DV-textView span{
+.DV-viewDocument .DV-views .DV-documentView span,
+.DV-viewAnnotations .DV-views .DV-annotationView span,
+.DV-viewText .DV-views .DV-textView span,
+.DV-viewSearch .DV-views .DV-textView span{
   border-bottom:1px solid #fff;
   font-weight:bold;
 }

@@ -17,7 +17,7 @@ _.extend(DV.Schema.helpers, {
     var pdfURL   = doc.resources.pdf;
     pdfURL       = pdfURL ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF)</a>' : '';
 
-    var viewerOptions = { 
+    var viewerOptions = {
         pages: pagesHTML,
         header: headerHTML,
         footer: footerHTML,
@@ -27,7 +27,7 @@ _.extend(DV.Schema.helpers, {
         autoZoom: DV.options.zoom == 'auto',
         hideSidebar: !DV.options.showSidebar
     };
-    
+
     if (DV.options.width && DV.options.height) {
       $j(DV.container).css({
         position: 'relative',
@@ -140,17 +140,17 @@ _.extend(DV.Schema.helpers, {
 
     // Hide annotations, if there are none:
     var showAnnotations = _.any(this.models.annotations.byId);
-    var $annotationsView = $j('#DV-annotationView');
+    var $annotationsView = $j('.DV-annotationView');
     $annotationsView[showAnnotations ? 'show' : 'hide']();
     if (!showAnnotations && !DV.options.showText) {
-      $j('#DV-documentView').addClass('DV-last');
+      $j('.DV-documentView').addClass('DV-last');
     }
-    
+
     // Hide the searchBox, if it's disabled.
     var showSearch = !!DV.Schema.document.resources.search;
     if (showSearch) {
       this.elements.viewer.addClass('DV-searchable');
-      $j('input#DV-searchInput', DV.options.container).placeholder({
+      $j('input.DV-searchInput', DV.options.container).placeholder({
         message: 'Search Document',
         clearClassName: 'DV-searchInput-show-search-cancel'
       });
@@ -166,18 +166,17 @@ _.extend(DV.Schema.helpers, {
       totalAnnotations: DV.Schema.data.totalAnnotations
     });
     $j('.DV-navControlsContainer').html(navControls);
-    
-    $j('#DV-fullscreenControl').remove();
-    console.log(['DV.Schema.canonicalUrl', DV.Schema, DV.Schema.canonicalUrl]);
+
+    $j('.DV-fullscreenControl').remove();
     if (DV.Schema.canonicalUrl) {
       var fullscreenControl = JST.fullscreenControl({});
-      $j('#DV-fullscreenContainer').html(fullscreenControl);
+      $j('.DV-fullscreenContainer').html(fullscreenControl);
     }
-    
+
     if (DV.options.showSidebar) {
       $j('#DV-sidebar').show();
     }
-    
+
     // Set the currentPage element reference.
     this.elements.currentPage = $j('span#DV-currentPage');
     this.models.document.setPageIndex(this.models.document.currentIndex());

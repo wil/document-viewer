@@ -9,13 +9,13 @@
   line-height: 22px;
 }
 
-#DV-searchBox.clearfix {
+.DV-searchBox.clearfix {
   position: absolute;
   right: 8px; top: 7px;
   display: none;
 }
 
-#DV-docViewer #DV-searchBox {
+#DV-docViewer .DV-searchBox {
   display: none;
   position: static;
   float: right;
@@ -23,11 +23,11 @@
   margin: 6px 6px 0 0;
 }
 
-#DV-docViewer.DV-searchable #DV-searchBox {
+#DV-docViewer.DV-searchable .DV-searchBox {
   display:inline;
 }
 
-#DV-searchInput{
+.DV-searchInput{
   display:block;
   border:1px solid #dadada;
   margin: 2px 5px 0 0;
@@ -39,24 +39,27 @@
   outline: none;
 }
 
-#DV-searchInput[type="search"] {
+.DV-searchInput[type="search"] {
   margin: 4px 10px 0 0;
 }
-#DV-searchInput.placeholder {
+.DV-searchInput.placeholder {
   color: #A0A0A0;
 }
 
-#DV-searchInput:focus{
+.DV-searchInput:focus{
   border:1px solid #aaa;
+}
+
+.DV-searchInputWrap {
+  position: relative;
 }
 
 .DV-searchInput{
   float: left;
   display: block;
-  position: relative;
 }
 
-#DV-searchDocument .DV-searchInput-cancel {
+.DV-searchDocument .DV-searchInput-cancel {
   visibility: hidden;
   position: absolute;
   right: 12px;
@@ -65,12 +68,13 @@
   width: 11px;
   height: 11px;
   cursor: pointer;
+  z-index: 5;
 }
-  .DV-ie #DV-searchDocument .DV-searchInput-cancel {
+  .DV-ie .DV-searchDocument .DV-searchInput-cancel {
     top: 7px;
   }
 
-#DV-searchDocument .DV-searchInput.DV-searchInput-show-search-cancel .DV-searchInput-cancel {
+.DV-searchDocument .DV-searchInputWrap.DV-searchInput-show-search-cancel .DV-searchInput-cancel {
   visibility: visible;
 }
 
@@ -219,6 +223,6 @@ span.DV-highlighted{
   border-bottom:1px solid #ddd;
 }
 
-#DV-searchBox.DV-hide {
+.DV-searchBox.DV-hide {
   display: none !important;
 }

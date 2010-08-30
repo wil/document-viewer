@@ -9,7 +9,7 @@ DV.Schema.helpers = {
       var boundZoom = this.events.compile('zoom');
       var doc = context.models.document;
       var value = _.indexOf(doc.ZOOM_RANGES, doc.zoomLevel) * 24.7;
-      this.application.slider = $j('#DV-zoomBox').slider({
+      this.application.slider = $j('.DV-zoomBox').slider({
         step: 24.7,
         value: value,
         slide: function(el,d){
@@ -30,35 +30,33 @@ DV.Schema.helpers = {
       $j('#DV-navControls').delegate('span#DV-next','click', compiled.next);
       $j('#DV-navControls').delegate('span#DV-previous','click', compiled.previous);
 
-      $j('#DV-annotationView').delegate('.DV-trigger','click',function(e){
+      $j('.DV-annotationView').delegate('.DV-trigger','click',function(e){
         e.preventDefault();
         states.ViewAnnotation();
       });
-      $j('#DV-documentView').delegate('.DV-trigger','click',function(e){
+      $j('.DV-documentView').delegate('.DV-trigger','click',function(e){
         DV.history.save('document/p'+context.models.document.currentPage());
         states.ViewDocument();
       });
-      $j('#DV-textView').delegate('.DV-trigger','click',function(e){
+      $j('.DV-textView').delegate('.DV-trigger','click',function(e){
 
         DV.history.save('text/p'+context.models.document.currentPage());
         states.ViewText();
       });
       $j('#DV-annotations').delegate('.DV-annotationGoto .DV-trigger','click', $j.proxy(this.gotoPage, this));
 
-      $j('form#DV-searchDocument').submit(this.events.compile('search'));
+      $j('form.DV-searchDocument').submit(this.events.compile('search'));
       $j('#DV-searchBar').delegate('#DV-closeSearch','click',function(e){
         e.preventDefault();
         DV.history.save('text/p'+context.models.document.currentPage());
         states.ViewText();
       });
-      $j('#DV-searchBox').delegate('.DV-searchInput-cancel', 'click', $j.proxy(this.clearSearch, this));
+      $j('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', $j.proxy(this.clearSearch, this));
 
       $j('#DV-searchResults').delegate('span.DV-resultPrevious','click', $j.proxy(this.highlightPreviousMatch, this));
 
       $j('#DV-searchResults').delegate('span.DV-resultNext','click', $j.proxy(this.highlightNextMatch, this));
 
-      $j('#DV-fullscreenContainer').delegate('#DV-fullscreen', 'click', $j.proxy(this.fullscreen, this));
-      
       // Prevent navigation elements from being selectable when clicked.
       $j('.DV-trigger').bind('selectstart', function(){ return false; });
 
@@ -74,12 +72,12 @@ DV.Schema.helpers = {
       collection.delegate('.DV-saveAnnotation','click', $j.proxy(this.saveAnnotation, this));
       collection.delegate('.DV-deleteAnnotation','click', $j.proxy(this.deleteAnnotation, this));
 
-      $j('#DV-descriptionToggle').live('click',function(e){
+      $j('.DV-descriptionToggle').live('click',function(e){
         e.preventDefault();
         e.stopPropagation();
 
-        $j('#DV-descriptionText').slideToggle(300,function(){
-          $j('#DV-descriptionToggle').toggleClass('DV-showDescription');
+        $j('.DV-descriptionText').slideToggle(300,function(){
+          $j('.DV-descriptionToggle').toggleClass('DV-showDescription');
         });
       });
 
@@ -180,17 +178,7 @@ DV.Schema.helpers = {
     resetScrollState: function(){
       this.elements.window.scrollTop(0);
     },
-    
-    fullscreen: function() {
-      var url = DV.Schema.canonicalUrl;
-      if (url) {
-        if (DV.options.enableUrlChanges) {
-          url += DV.history.hash;
-        }
-        window.fullscreenWin = window.open(url, 'DV-fullscreenViewer');
-      }
-    },
-    
+
     gotoPage: function(e){
       e.preventDefault();
       var aid           = $j(e.target).parents('.DV-annotation').attr('rel').replace('aid-','');

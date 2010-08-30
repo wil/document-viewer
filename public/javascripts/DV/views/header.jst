@@ -1,34 +1,34 @@
-<div id="DV-header" class="<% if (!DV.options.showHeader) { %>DV-hide<% } %>">
-  <div id="DV-headerHat" class="clearfix">
-    <div id="DV-branding">
+<div class="DV-header <% if (!DV.options.showHeader) { %>DV-hide<% } %>">
+  <div class="DV-headerHat" class="clearfix">
+    <div class="DV-branding">
       <% if (story_url) { %>
-        <span id="DV-storyLink"><%= story_url %></span>
-      <% } %>      
+        <span class="DV-storyLink"><%= story_url %></span>
+      <% } %>
     </div>
-    <div id="DV-title">
-      <%= title %>  
+    <div class="DV-title">
+      <%= title %>
     </div>
   </div>
 
-  <div id="DV-Controls">
-    <div class="DV-views" id="DV-views">
-      <div id="DV-documentView" class="DV-first"><span class="DV-trigger DV-selected">Document</span></div>
-      <div id="DV-annotationView" style="display:none;" class="<% if (!DV.options.showText) { %>DV-last<% } %>"><span class="DV-trigger">Annotations</span></div>
-      <div id="DV-textView" class="<% if (DV.options.showText) { %>DV-last<% } else { %>DV-hide<% } %>"><span class="DV-trigger">Text</span></div>
+  <div class="DV-controls">
+    <div class="DV-views">
+      <div class="DV-documentView DV-first"><span class="DV-trigger DV-selected">Document</span></div>
+      <div style="display:none;" class="DV-annotationView <% if (!DV.options.showText) { %>DV-last<% } %>"><span class="DV-trigger">Annotations</span></div>
+      <div class="DV-textView <% if (DV.options.showText) { %>DV-last<% } else { %>DV-hide<% } %>"><span class="DV-trigger">Text</span></div>
     </div>
 
-    <div id="DV-searchBox" class="clearfix <% if (!DV.options.showSearch || !DV.options.showText) { %>DV-hide<% } %>">
-      <form action="#" method="get" id="DV-searchDocument">
-        <div class="DV-searchInput">
+    <div class="DV-searchBox clearfix <% if (!DV.options.showSearch || !DV.options.showText) { %>DV-hide<% } %>">
+      <form action="#" method="get" class="DV-searchDocument">
+        <div class="DV-searchInputWrap">
           <div class="DV-searchInput-cancel"></div>
-          <input id="DV-searchInput" type="text" autosave="DV-<%= id %>" results="10" placeholder="Search Document" />
+          <input class="DV-searchInput" type="text" autosave="DV-<%= id %>" results="10" placeholder="Search Document" />
         </div>
       </form>
     </div>
 
     <div class="DV-zoomControls">
       <span class="DV-zoomLabel">Zoom</span>
-      <div id="DV-zoomBox">
+      <div class="DV-zoomBox">
       </div>
 
     </div>

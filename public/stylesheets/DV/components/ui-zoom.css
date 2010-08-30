@@ -21,7 +21,7 @@
   position:relative;
 }
 
-#DV-zoomBox{
+.DV-zoomBox{
   background: url(../../../images/DV/embed/bar.gif) repeat-x 0 88%;
   height:20px;
   width:85px;
@@ -30,7 +30,7 @@
   cursor: pointer;
 }
 
-#DV-zoomBox .ui-slider-handle{
+.DV-zoomBox .ui-slider-handle{
   height:12px;
   width:12px;
   position:absolute;

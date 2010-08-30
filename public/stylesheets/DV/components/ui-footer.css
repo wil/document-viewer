@@ -1,4 +1,4 @@
-#DV-footer {
+.DV-footer {
   position: absolute;
   bottom: 0;
   height: 33px;
@@ -6,11 +6,11 @@
   right: 0;
 }
 
-#DV-footer.DV-hide {
+.DV-footer.DV-hide {
   display: none;
 }
 
-#DV-footer {
+.DV-footer {
   border-top: 1px solid #B0B0B0;
   z-index: 20000;
   box-shadow: 0 0 25px rgba(0,0,0,.05); -webkit-box-shadow: 0 0 25px rgba(0,0,0,.05); -moz-box-shadow: 0 0 25px rgba(0,0,0,.05);
@@ -23,24 +23,24 @@
   overflow: hidden;
 }
 
-#DV-footer .DV-navControlsContainer {
+.DV-footer .DV-navControlsContainer {
   position: relative;
   width: 240px;
   margin: 0 auto;
 }
 
-#DV-footer #DV-navControls {
+.DV-footer #DV-navControls {
   right: 0;
   top: 0;
 }
-  #DV-footer .DV-trigger {
+  .DV-footer .DV-trigger {
     top: 4px;
   }
-  #DV-footer .DV-pageNumberContainer {
+  .DV-footer .DV-pageNumberContainer {
     padding-top: 5px;
   }
 
-#DV-footer #DV-fullscreenControl {
+.DV-footer .DV-fullscreenControl {
   position: absolute;
   left: 4px;
   top: 4px;

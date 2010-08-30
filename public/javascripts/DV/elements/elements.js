@@ -3,7 +3,7 @@ DV.Schema.elements =
 [
   { name: 'browserDocument',    query: document },
   { name: 'browserWindow',      query: window },
-  { name: 'header',             query: 'div#DV-header'},
+  { name: 'header',             query: 'div.DV-header'},
   { name: 'viewer',             query: 'div#DV-docViewer'},
   { name: 'window',             query: 'div#DV-pages'},
   { name: 'sets',               query: 'div.DV-set'},
@@ -16,9 +16,9 @@ DV.Schema.elements =
   { name: 'annotations',        query: 'div#DV-annotations'},
   { name: 'navigation',         query: 'div.DV-navigation' },
   { name: 'chaptersContainer',  query: 'div.DV-chaptersContainer' },
-  { name: 'searchInput',        query: 'input#DV-searchInput' },
+  { name: 'searchInput',        query: 'input.DV-searchInput' },
   { name: 'textCurrentPage',    query: 'span#DV-textCurrentPage' },
   { name: 'textContents',       query: '#DV-textContents'},
   { name: 'coverPages',         query: 'div.DV-cover' },
-  { name: 'fullscreen',         query: 'div#DV-fullscreen' }
+  { name: 'fullscreen',         query: 'div.DV-fullscreen' }
 ];

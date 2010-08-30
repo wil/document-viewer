@@ -1,4 +1,4 @@
-#DV-description{
+.DV-description{
   font-family: Arial,Helvetica,sans-serif;
   font-size: 12px;
   font-weight: normal;
@@ -19,19 +19,19 @@
     border: 0;
   }
 
-#DV-storyLink,
+.DV-storyLink,
 #DV-pdfLink {
   padding-left: 0;
   padding-bottom: 4px;
 }
 
-#DV-storyLink a,
+.DV-storyLink a,
 #DV-pdfLink a {
   font: normal 11px Arial, sans-serif;
   text-decoration: none;
 }
 
-#DV-storyLink a:hover,
+.DV-storyLink a:hover,
 #DV-pdfLink a:hover {
   text-decoration:underline;
 }
@@ -118,7 +118,8 @@
   width:27px;
   display:-moz-inline-stack;
   display:inline-block;
-  margin: 0 2px;
+  margin-left:5px;
+  margin-right:5px;
   position:relative;
 }
 
@@ -140,7 +141,7 @@
 }
 
 .DV-contentsHeader,
-#DV-descriptionHead{
+.DV-descriptionHead{
   text-transform:uppercase;
   color:#666;
   font-family:Arial,Helvetica,sans-serif;
@@ -275,7 +276,7 @@
   font-weight:bold;
 }
 
-#DV-descriptionToggle{
+.DV-descriptionToggle{
   float:left;
   display:inline;
   text-decoration:none;
@@ -286,11 +287,11 @@
   background: url(../../../images/DV/expanders.gif) no-repeat 0 -31px;
 }
 
-#DV-descriptionToggle.DV-showDescription{
+.DV-descriptionToggle.DV-showDescription{
   background: url(../../../images/DV/expanders.gif) no-repeat 0 6px;
 }
 
-#DV-descriptionText{
+.DV-descriptionText{
   clear:left;
   padding:14px;
   background-color:#f7f7f7;
@@ -318,30 +319,3 @@
   margin-top:-5px;
 }
 
-/* ====================== */
-/* = Fullscreen Control = */
-/* ====================== */
-
-
-#DV-fullscreen {
-  background-image:url(../../../images/DV/embed/fullscreen.png);
-  background-repeat: no-repeat;
-  width:24px; height:24px;
-  position:absolute;
-  cursor:pointer;
-  text-indent:-1000em;
-  background-position: 0 0;
-  margin-left: 0px;
-}
-
-#DV-fullscreen:hover{
-  background-position: -24px 0;
-}
-
-#DV-fullscreen:active {
-  background-position: -48px 0;
-}
-
-#DV-fullscreen:focus {
-  outline: 0;
-}
