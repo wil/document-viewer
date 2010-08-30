@@ -16,18 +16,18 @@
     this.boundReporter          = jQuery.proxy(this.mouseMoveReporter,this);
     this.boundMouseUpReporter   = jQuery.proxy(this.mouseUpReporter,this);
     this.boundMouseDownReporter = jQuery.proxy(this.mouseDownReporter,this);
-    this.boundEase              = jQuery.proxy(this.boundEase,this);    
+    this.boundEase              = jQuery.proxy(this.boundEase,this);
 
     this.setBinding();
   };
   dragReporter.prototype.pageY                    = null;
   dragReporter.prototype.pageX                    = null;
-  dragReporter.prototype.oldPageY                 = 0;  
+  dragReporter.prototype.oldPageY                 = 0;
   dragReporter.prototype.dispatcher               = null;
   dragReporter.prototype.boundReporter            = null;
   dragReporter.prototype.boundMouseUpReporter     = null;
   dragReporter.prototype.boundMouseDownReporter   = null;
-  dragReporter.prototype.boundEase                = null;  
+  dragReporter.prototype.boundEase                = null;
   dragReporter.prototype.toWatch                  = null;
   dragReporter.prototype.sensativity              = 1.5;
   dragReporter.prototype.updateTimer              = null;
@@ -43,16 +43,16 @@
   dragReporter.prototype.mouseUpReporter     = function(e){
     if (this.shouldIgnore(e)) return true;
     e.preventDefault();
-    clearInterval(this.updateTimer);        
+    clearInterval(this.updateTimer);
     // this.boundEase(this.oldPageY-this.pageY);
 
     this.stop();
   };
-  
+
   dragReporter.prototype.oldPositionUpdater   = function(){
     this.oldPageY = this.pageY;
   };
-    
+
   dragReporter.prototype.stop         = function(){
     this.toWatch.removeClass(this.dragClassName);
     this.toWatch.unbind('mousemove');
@@ -74,10 +74,10 @@
     e.preventDefault();
     this.pageY    = e.pageY;
     this.pageX    = e.pageX;
-    this.oldPageY = e.pageY;    
-    
+    this.oldPageY = e.pageY;
+
     this.updateTimer = setInterval(jQuery.proxy(this.oldPositionUpdater,this),1200);
-    
+
     this.toWatch.addClass(this.dragClassName);
     this.toWatch.mousemove(this.boundReporter);
 
@@ -96,6 +96,6 @@
     }
   };
 
-  DV.register('dragReporter',dragReporter);
+  DV.dragReporter = dragReporter;
 
 }).call(this);
