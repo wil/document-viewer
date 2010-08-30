@@ -118,8 +118,7 @@
   width:27px;
   display:-moz-inline-stack;
   display:inline-block;
-  margin-left:5px;
-  margin-right:5px;
+  margin: 0 2px;
   position:relative;
 }
 
@@ -319,3 +318,30 @@
   margin-top:-5px;
 }
 
+/* ====================== */
+/* = Fullscreen Control = */
+/* ====================== */
+
+
+#DV-fullscreen {
+  background-image:url(../../../images/DV/embed/fullscreen.png);
+  background-repeat: no-repeat;
+  width:24px; height:24px;
+  position:absolute;
+  cursor:pointer;
+  text-indent:-1000em;
+  background-position: 0 0;
+  margin-left: 0px;
+}
+
+#DV-fullscreen:hover{
+  background-position: -24px 0;
+}
+
+#DV-fullscreen:active {
+  background-position: -48px 0;
+}
+
+#DV-fullscreen:focus {
+  outline: 0;
+}

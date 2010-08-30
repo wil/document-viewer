@@ -57,6 +57,8 @@ DV.Schema.helpers = {
 
       $j('#DV-searchResults').delegate('span.DV-resultNext','click', $j.proxy(this.highlightNextMatch, this));
 
+      $j('#DV-fullscreenContainer').delegate('#DV-fullscreen', 'click', $j.proxy(this.fullscreen, this));
+      
       // Prevent navigation elements from being selectable when clicked.
       $j('.DV-trigger').bind('selectstart', function(){ return false; });
 
@@ -178,7 +180,17 @@ DV.Schema.helpers = {
     resetScrollState: function(){
       this.elements.window.scrollTop(0);
     },
-
+    
+    fullscreen: function() {
+      var url = DV.Schema.canonicalUrl;
+      if (url) {
+        if (DV.options.enableUrlChanges) {
+          url += DV.history.hash;
+        }
+        window.fullscreenWin = window.open(url, 'DV-fullscreenViewer');
+      }
+    },
+    
     gotoPage: function(e){
       e.preventDefault();
       var aid           = $j(e.target).parents('.DV-annotation').attr('rel').replace('aid-','');

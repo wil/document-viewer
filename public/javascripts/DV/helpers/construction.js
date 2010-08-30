@@ -165,8 +165,15 @@ _.extend(DV.Schema.helpers, {
       totalPages: DV.Schema.data.totalPages,
       totalAnnotations: DV.Schema.data.totalAnnotations
     });
-
     $j('.DV-navControlsContainer').html(navControls);
+    
+    $j('#DV-fullscreenControl').remove();
+    console.log(['DV.Schema.canonicalUrl', DV.Schema, DV.Schema.canonicalUrl]);
+    if (DV.Schema.canonicalUrl) {
+      var fullscreenControl = JST.fullscreenControl({});
+      $j('#DV-fullscreenContainer').html(fullscreenControl);
+    }
+    
     if (DV.options.showSidebar) {
       $j('#DV-sidebar').show();
     }
