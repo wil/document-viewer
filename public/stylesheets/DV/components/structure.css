@@ -46,7 +46,7 @@
   background: white;
 }
 
-#DV-well #DV-navControls{
+#DV-well .DV-navControls{
   background-color: #fff;
   background-repeat: repeat-x;
   background-image: url(../../../images/DV/embed/shadow-white.gif);

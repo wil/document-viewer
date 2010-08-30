@@ -160,7 +160,7 @@ _.extend(DV.Schema.helpers, {
     var showChapters = this.models.chapters.chapters.length > 0;
 
     // Remove and re-render the nav controls.
-    $j('#DV-navControls').remove();
+    $j('.DV-navControls').remove();
     var navControls = JST.navControls({
       totalPages: DV.Schema.data.totalPages,
       totalAnnotations: DV.Schema.data.totalAnnotations
@@ -178,7 +178,7 @@ _.extend(DV.Schema.helpers, {
     }
 
     // Set the currentPage element reference.
-    this.elements.currentPage = $j('span#DV-currentPage');
+    this.elements.currentPage = $j('span.DV-currentPage');
     this.models.document.setPageIndex(this.models.document.currentIndex());
   }
 });

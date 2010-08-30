@@ -19,13 +19,13 @@
   background:none;
 }
 
-.DV-viewDocument #DV-currentAnnotationPrefix,
-.DV-viewDocument #DV-totalAnnotations{
+.DV-viewDocument .DV-currentAnnotationPrefix,
+.DV-viewDocument .DV-totalAnnotations{
   display:none;
 }
 
-.DV-viewDocument #DV-currentPagePrefix,
-.DV-viewDocument #DV-totalPages{
+.DV-viewDocument .DV-currentPagePrefix,
+.DV-viewDocument .DV-totalPages{
   display:inline;
 }
 

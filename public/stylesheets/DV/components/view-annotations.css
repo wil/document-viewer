@@ -83,13 +83,13 @@
 .DV-viewAnnotations .DV-annotation {display: block;}
 /* End hide from IE-mac */
 
-.DV-viewAnnotations #DV-currentPagePrefix,
-.DV-viewAnnotations #DV-totalPages{
+.DV-viewAnnotations .DV-currentPagePrefix,
+.DV-viewAnnotations .DV-totalPages{
   display:none;
 }
 
-.DV-viewAnnotations #DV-currentAnnotationPrefix,
-.DV-viewAnnotations #DV-totalAnnotations{
+.DV-viewAnnotations .DV-currentAnnotationPrefix,
+.DV-viewAnnotations .DV-totalAnnotations{
   display:inline;
 }
 

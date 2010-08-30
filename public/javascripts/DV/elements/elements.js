@@ -10,7 +10,7 @@ DV.Schema.elements =
   { name: 'pages',              query: 'div.DV-page'},
   { name: 'metas',              query: 'div.DV-pageMeta'},
   { name: 'bar',                query: 'div#DV-bar'},
-  { name: 'currentPage',        query: 'span#DV-currentPage'},
+  { name: 'currentPage',        query: 'span.DV-currentPage'},
   { name: 'well',               query: 'div#DV-well'},
   { name: 'collection',         query: 'div#DV-pageCollection'},
   { name: 'annotations',        query: 'div#DV-annotations'},

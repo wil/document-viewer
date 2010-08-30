@@ -12,8 +12,8 @@
   display:block;
 }
 
-.DV-viewText #DV-currentAnnotationPrefix,
-.DV-viewText #DV-totalAnnotations{
+.DV-viewText .DV-currentAnnotationPrefix,
+.DV-viewText .DV-totalAnnotations{
   display:none;
 }
 

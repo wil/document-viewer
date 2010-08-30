@@ -27,8 +27,8 @@ DV.Schema.helpers = {
 
 
       var states = context.states;
-      $j('#DV-navControls').delegate('span#DV-next','click', compiled.next);
-      $j('#DV-navControls').delegate('span#DV-previous','click', compiled.previous);
+      $j('.DV-navControls').delegate('span.DV-next','click', compiled.next);
+      $j('.DV-navControls').delegate('span.DV-previous','click', compiled.previous);
 
       $j('.DV-annotationView').delegate('.DV-trigger','click',function(e){
         e.preventDefault();
