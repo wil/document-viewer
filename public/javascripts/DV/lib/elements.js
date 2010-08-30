@@ -30,13 +30,3 @@ DV.Elements.prototype.getElements = function(querySet,force){
   };
   return this;
 };
-
-// Remove all references and bindings
-DV.Elements.prototype.destroy = function(){
-  for(var i = 0,len=this.names.length; i < len; i++){
-    this[this.names[i]].unbind();
-    this[this.names[i]].die();
-    delete this[this.names[i]];
-  }
-  delete this.names;
-};
