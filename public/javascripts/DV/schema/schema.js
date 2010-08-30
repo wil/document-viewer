@@ -6,6 +6,7 @@ DV.Schema = {
   events:       {},
   elements:     {},
   text:         {},
+  canonicalUrl: null,
   data:         {
     zoomLevel               : 700,
     pageWidthPadding        : 20,
@@ -19,6 +20,7 @@ DV.Schema = {
     // Ensure at least empty arrays for sections.
     json.sections = json.sections || [];
     json.annotations = json.annotations || [];
+    this.canonicalUrl = json.canonical_url;
 
     this.document               = $j.extend(true, {}, json);
     // Everything after this line is for back-compatibility.
