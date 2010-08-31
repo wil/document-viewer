@@ -173,7 +173,7 @@ _.extend(DV.Schema.helpers, {
     e.preventDefault(e);
     this.highlightMatch(this.application.searchResponse.highlighted+1);
   },
-  
+
   clearSearch: function(e) {
     this.elements.searchInput.val('').keyup().focus();
   },
@@ -188,7 +188,7 @@ _.extend(DV.Schema.helpers, {
     var application = this.application;
     application.searchResponse   = null;
     application.toHighLight      = null;
-    this.elements.searchInput.keyup().blur();
+    if (this.elements) this.elements.searchInput.keyup().blur();
   }
-  
+
 });

@@ -1,4 +1,4 @@
-DV.pageSet = function(applicationScope){
+DV.PageSet = function(applicationScope){
   this.currentPage  = null;
   this.pages        = [];
   this.application  = applicationScope;
@@ -6,14 +6,14 @@ DV.pageSet = function(applicationScope){
 };
 
 // used to call the same method with the same params against all page instances
-DV.pageSet.prototype.execute = function(action,params){
+DV.PageSet.prototype.execute = function(action,params){
   this.pages.each(function(pageInstance){
     pageInstance[action].apply(pageInstance,params);
   });
 };
 
 // build the basic page presentation layer
-DV.pageSet.prototype.buildPages = function(options) {
+DV.PageSet.prototype.buildPages = function(options) {
   options = options || {};
   var pages = this.getPages();
   for(var i = 0; i < pages.length; i++) {
@@ -32,7 +32,7 @@ DV.pageSet.prototype.buildPages = function(options) {
 };
 
 // used to generate references for the build action
-DV.pageSet.prototype.getPages = function(){
+DV.PageSet.prototype.getPages = function(){
   var _pages = [];
 
   this.application.elements.sets.each(function(_index,el){
@@ -46,26 +46,26 @@ DV.pageSet.prototype.getPages = function(){
 };
 
 // basic reflow to ensure zoomlevel is right, pages are in the right place and annotation limits are correct
-DV.pageSet.prototype.reflowPages = function() {
+DV.PageSet.prototype.reflowPages = function() {
   this.application.models.pages.resize();
   this.application.helpers.setActiveAnnotationLimits();
   this.redraw(false, true);
 };
 
 // reflow the pages without causing the container to resize or annotations to redraw
-DV.pageSet.prototype.simpleReflowPages = function(){
+DV.PageSet.prototype.simpleReflowPages = function(){
   this.application.helpers.setActiveAnnotationLimits();
   this.redraw(false, false);
 };
 
 // hide any active annotations
-DV.pageSet.prototype.cleanUp = function(){
+DV.PageSet.prototype.cleanUp = function(){
   if(this.application.activeAnnotation){
     this.application.activeAnnotation.hide(true);
   }
 };
 
-DV.pageSet.prototype.zoom = function(argHash){
+DV.PageSet.prototype.zoom = function(argHash){
   if(this.application.models.document.zoomLevel === argHash.zoomLevel) return;
 
   var currentPage   = this.application.models.document.currentIndex();
@@ -105,7 +105,7 @@ DV.pageSet.prototype.zoom = function(argHash){
 };
 
 // Zoom the text container.
-DV.pageSet.prototype.zoomText = function() {
+DV.PageSet.prototype.zoomText = function() {
   var padding = this.application.models.pages.TEXT_PADDING;
   var width   = this.application.models.pages.zoomLevel;
   $j('.DV-textContents').width(width - padding);
@@ -117,14 +117,14 @@ DV.pageSet.prototype.zoomText = function() {
 };
 
 // draw the pages
-DV.pageSet.prototype.draw = function(pageCollection){
+DV.PageSet.prototype.draw = function(pageCollection){
   for(var i = 0, pageCollectionLength = pageCollection.length; i < pageCollectionLength;i++){
     var page = this.pages[pageCollection[i].label];
     if (page) page.draw({ index: pageCollection[i].index, pageNumber: pageCollection[i].index+1});
   }
 };
 
-DV.pageSet.prototype.redraw = function(stopResetOfPosition, redrawAnnotations) {
+DV.PageSet.prototype.redraw = function(stopResetOfPosition, redrawAnnotations) {
   var _index = this.application.models.document.currentIndex();
   if (this.pages['p0']) this.pages['p0'].draw({ force: true, forceAnnotationRedraw : redrawAnnotations });
   if (this.pages['p1']) this.pages['p1'].draw({ force: true, forceAnnotationRedraw : redrawAnnotations });
@@ -136,13 +136,13 @@ DV.pageSet.prototype.redraw = function(stopResetOfPosition, redrawAnnotations) {
 };
 
 // set the annotation to load ahead of time
-DV.pageSet.prototype.setActiveAnnotation = function(annotationId, edit){
+DV.PageSet.prototype.setActiveAnnotation = function(annotationId, edit){
   this.application.annotationToLoadId   = annotationId;
   this.application.annotationToLoadEdit = edit ? annotationId : null;
 };
 
 // a funky fucking mess to jump to the annotation that is active
-DV.pageSet.prototype.showAnnotation = function(argHash, showHash){
+DV.PageSet.prototype.showAnnotation = function(argHash, showHash){
   showHash = showHash || {};
 
   // if state is ViewAnnotation, jump to the appropriate position in the view

@@ -1,43 +1,122 @@
 DV.Schema.states = {
 
-  InitialLoad: {
-    InitialLoad: function(){
-      // If we're in an unsupported browser ... bail.
-      if (this.helpers.unsupportedBrowser()) return;
+  InitialLoad: function(){
+    // If we're in an unsupported browser ... bail.
+    if (this.helpers.unsupportedBrowser()) return;
 
-      // Insert the Document Viewer HTML into the DOM.
-      this.helpers.renderViewer();
+    // Insert the Document Viewer HTML into the DOM.
+    this.helpers.renderViewer();
 
-      // Assign element references.
-      this.events.elements = this.helpers.elements = this.elements = new DV.Elements(this.pendingElements);
+    // Assign element references.
+    this.events.elements = this.helpers.elements = this.elements = new DV.Elements(this.pendingElements);
 
-      // Build the data models
-      this.models.document.init();
-      this.models.pages.init();
-      this.models.chapters.init();
-      this.models.annotations.init();
+    // Build the data models
+    this.models.document.init();
+    this.models.pages.init();
+    this.models.chapters.init();
+    this.models.annotations.init();
 
-      // Render included components, and hide unused portions of the UI.
-      this.helpers.renderComponents();
+    // Render included components, and hide unused portions of the UI.
+    this.helpers.renderComponents();
 
-      // Render chapters and notes navigation:
-      this.helpers.renderNavigation();
+    // Render chapters and notes navigation:
+    this.helpers.renderNavigation();
 
-      // Instantiate pageset and build accordingly
-      this.pageSet = new DV.pageSet(this);
-      this.pageSet.buildPages();
+    // Instantiate pageset and build accordingly
+    this.pageSet = new DV.PageSet(this);
+    this.pageSet.buildPages();
 
-      // BindEvents
-      this.helpers.bindEvents(this);
+    // BindEvents
+    this.helpers.bindEvents(this);
 
-      this.helpers.positionViewer();
-      this.models.document.computeOffsets();
-      this.helpers.addObserver('drawPages');
-      this.helpers.registerHashChangeEvents();
-      this.dragReporter = new DV.dragReporter('.DV-pageCollection',$j.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationRegion,.DV-annotationContent' });
-      this.helpers.startCheckTimer();
-      this.helpers.handleInitialState();
-      this.helpers.autoZoomPage();
+    this.helpers.positionViewer();
+    this.models.document.computeOffsets();
+    this.helpers.addObserver('drawPages');
+    this.helpers.registerHashChangeEvents();
+    this.dragReporter = new DV.DragReporter('.DV-pageCollection',$j.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationRegion,.DV-annotationContent' });
+    this.helpers.startCheckTimer();
+    this.helpers.handleInitialState();
+    this.helpers.autoZoomPage();
+  },
+
+  ViewAnnotation: function(){
+    this.helpers.cleanUpSearch();
+    this.pageSet.cleanUp();
+    this.helpers.removeObserver('drawPages');
+    this.dragReporter.unBind();
+    this.helpers.resetNavigationState();
+    this.elements.window.scrollTop(0);
+    this.activeAnnotationId = null;
+    this.acceptInput.deny();
+    // Nudge IE to force the annotations to repaint.
+    if (jQuery.browser.msie) {
+      this.elements.annotations.css({zoom : 0});
+      this.elements.annotations.css({zoom : 1});
     }
+
+    this.helpers.toggleContent('viewAnnotations');
+    this.compiled.next();
+    return true;
+  },
+
+  ViewDocument: function(){
+    this.helpers.cleanUpSearch();
+    this.helpers.resetNavigationState();
+    this.helpers.addObserver('drawPages');
+    this.dragReporter.setBinding();
+    this.elements.window.mouseleave($j.proxy(this.dragReporter.stop, this.dragReporter));
+    this.acceptInput.allow();
+
+    this.helpers.toggleContent('viewDocument');
+
+    this.helpers.setActiveChapter(this.models.chapters.getChapterId(this.models.document.currentIndex()));
+
+    this.helpers.jump(this.models.document.currentIndex());
+    return true;
+  },
+
+  ViewEntity: function(name, offset, length) {
+    this.helpers.removeObserver('drawPages');
+    this.dragReporter.unBind();
+    this.elements.window.scrollTop(0);
+    this.helpers.toggleContent('viewSearch');
+    this.helpers.showEntity(name, offset, length);
+  },
+
+  ViewSearch: function(){
+    this.pageSet.cleanUp();
+    this.helpers.removeObserver('drawPages');
+    this.dragReporter.unBind();
+    this.elements.window.scrollTop(0);
+
+    if(this.elements.searchInput.val() == '') {
+      this.elements.searchInput.val(searchRequest);
+    } else {
+      var searchRequest = this.elements.searchInput.val();
+    }
+
+    this.helpers.getSearchResponse(searchRequest);
+    this.acceptInput.deny();
+
+    this.helpers.toggleContent('viewSearch');
+
+    return true;
+  },
+
+  ViewText: function(){
+    this.helpers.cleanUpSearch();
+    this.pageSet.cleanUp();
+    this.helpers.removeObserver('drawPages');
+    this.dragReporter.unBind();
+    this.helpers.resetNavigationState();
+    this.elements.window.scrollTop(0);
+    this.acceptInput.allow();
+    this.pageSet.zoomText();
+
+    this.helpers.toggleContent('viewText');
+    this.events.loadText();
+
+    return true;
   }
+
 };

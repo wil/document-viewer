@@ -51,10 +51,10 @@
           var methodName  = arguments[0];
 
           return function(){
-            if(!a.events[a.getState()][methodName]){
+            if(!a.events[a.state][methodName]){
               a.events[methodName].apply(a.events,arguments);
             }else{
-              a.events[a.getState()][methodName].apply(a.events,arguments);
+              a.events[a.state][methodName].apply(a.events,arguments);
             }
           };
         }
@@ -83,54 +83,18 @@
 
   };
 
-  stateMachine.prototype.compileStates = function(states){
-    var modifiedStates  = {};
-    var me2             = this;
+  stateMachine.prototype.compileStates = function(states) {
+    var me = this;
 
-    for(var key in states){
+    _.each(states, function(transition, name) {
+      states[name] = function() {
+        if (me.state == name) return;
+        me.state = name;
+        transition.apply(me, arguments);
+      };
+    });
 
-      if(states[key] === null || states[key] === false){
-        this[key] = states[key];
-        continue;
-      }
-
-      modifiedStates[key] = (function(_key){
-        var me = me2;
-        return function(){
-          var currentState = me.getState();
-          if(currentState === _key){
-            return;
-          }
-          if(states[currentState] != null && states[currentState].exit) {
-            var stateChangeResponse = states[currentState].exit.call(me,_key);
-            if(stateChangeResponse === false){
-              return false;
-            }
-          }
-          me.setState(_key);
-          states[_key][_key].apply(me,arguments);
-        };
-
-      })(key);
-
-      modifiedStates[key].exit = function(_key){
-        var me = this;
-        return function(){
-          states[_key].exit.call(me);
-        };
-      }(key);
-
-    }
-    return modifiedStates;
-  };
-
-  stateMachine.prototype.getState = function(){
-    return this.state;
-  };
-
-  stateMachine.prototype.setState = function(state){
-    this.state = state;
-    return this.state;
+    return states;
   };
 
   DV.stateMachine = stateMachine;

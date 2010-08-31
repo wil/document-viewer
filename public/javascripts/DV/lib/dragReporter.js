@@ -96,6 +96,6 @@
     }
   };
 
-  DV.dragReporter = dragReporter;
+  DV.DragReporter = dragReporter;
 
 }).call(this);
