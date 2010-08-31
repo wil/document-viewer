@@ -21,6 +21,7 @@ DV.load = function(documentRep, options) {
   options.fixedSize  = !!(options.width || options.height);
   DV.container       = options.container || document.body;
   DV.options         = options;
+  DV.api             = new DV.Api(DV.controller);
   // Once we have the JSON representation in-hand, finish loading the viewer.
   var continueLoad = DV.loadJSON = function(json) {
     DV.Schema.importCanonicalDocument(json);
