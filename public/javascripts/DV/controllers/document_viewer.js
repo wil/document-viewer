@@ -5,9 +5,9 @@ DV.DocumentViewer = function(options) {
   this.history    = new DV.History(this);
 
   this.models     = this.schema.models;
-  this.events     = DV.Schema.events;
-  this.helpers    = DV.Schema.helpers;
-  this.states     = DV.Schema.states;
+  this.events     = _.extend({}, DV.Schema.events);
+  this.helpers    = _.extend({}, DV.Schema.helpers);
+  this.states     = _.extend({}, DV.Schema.states);
 
   // state values
   this.isFocus            = true;
@@ -68,6 +68,7 @@ DV.DocumentViewer.prototype.open = function(state) {
 
 // The origin function, kicking off the entire documentViewer render.
 DV.load = function(documentRep, options) {
+  var id = documentRep.id || documentRep.match(/([^\/]+)(\.js|\.json)$/)[1];
   var defaults = {
     container         : document.body,
     zoom              : 700,
@@ -80,8 +81,10 @@ DV.load = function(documentRep, options) {
   options            = _.extend({}, defaults, options);
   options.fixedSize  = !!(options.width || options.height);
   var viewer         = new DV.DocumentViewer(options);
+  DV.viewers[id]     = viewer;
   // Once we have the JSON representation in-hand, finish loading the viewer.
   var continueLoad = DV.loadJSON = function(json) {
+    var viewer = DV.viewers[json.id];
     viewer.schema.importCanonicalDocument(json);
     viewer.open('InitialLoad');
     if (options.afterLoad) options.afterLoad();

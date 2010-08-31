@@ -262,8 +262,9 @@ DV.Schema.helpers = {
       var pages = [];
       var totalPagesToCreate = (this.application.schema.data.totalPages < 3) ? this.application.schema.data.totalPages : 3;
 
-      for(var i = 0;i < totalPagesToCreate; i++){
-        pages.push(JST.pages({ pageNumber: i+1, pageIndex: i , pageImageSource: '', baseHeight: this.models.pages.height }));
+      var height = this.models.pages.height;
+      for (var i = 0; i < totalPagesToCreate; i++) {
+        pages.push(JST.pages({ pageNumber: i+1, pageIndex: i , pageImageSource: '', baseHeight: height }));
       }
 
       return pages.join('');
