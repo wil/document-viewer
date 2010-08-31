@@ -239,6 +239,7 @@ DV.Schema.helpers = {
       modifier = (modifier) ? parseInt(modifier, 10) : 0;
       var position = this.models.document.getOffset(parseInt(pageIndex, 10))+modifier;
       this.elements.window.scrollTop(position);
+      this.models.document.setPageIndex(pageIndex);
       if (forceRedraw) this.application.pageSet.redraw(true);
     },
 

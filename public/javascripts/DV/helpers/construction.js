@@ -180,5 +180,16 @@ _.extend(DV.Schema.helpers, {
     // Set the currentPage element reference.
     this.elements.currentPage = $j('span.DV-currentPage');
     this.models.document.setPageIndex(this.models.document.currentIndex());
+  },
+
+  // Reset the view state to a baseline, when transitioning between views.
+  reset : function() {
+    this.resetNavigationState();
+    this.cleanUpSearch();
+    this.application.pageSet.cleanUp();
+    this.removeObserver('drawPages');
+    this.application.dragReporter.unBind();
+    this.elements.window.scrollTop(0);
   }
+
 });
