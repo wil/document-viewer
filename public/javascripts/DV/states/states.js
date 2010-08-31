@@ -1,20 +1,7 @@
 DV.Schema.states = {
-  // state values
-  isFocus:            true,
-  // IE activeElement tracker
-  activeElement:      null,
-  observers:          [],
-  windowDimensions:   {},
-  scrollPosition:     null,
-  checkTimer:         {},
-  busy:               false,
-  annotationToLoadId: null,
-  dragReporter:       null,
-  compiled:           {},
-  tracker:            {},
 
   InitialLoad: {
-    enter: function(sourceState){
+    InitialLoad: function(){
       // If we're in an unsupported browser ... bail.
       if (this.helpers.unsupportedBrowser()) return;
 
@@ -42,8 +29,7 @@ DV.Schema.states = {
 
       // BindEvents
       this.helpers.bindEvents(this);
-    },
-    InitialLoad: function(){
+
       this.helpers.positionViewer();
       this.models.document.computeOffsets();
       this.helpers.addObserver('drawPages');

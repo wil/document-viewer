@@ -1,5 +1,5 @@
 DV.Schema.states.ViewAnnotation = {
-  enter: function(sourceState){
+  ViewAnnotation: function(){
     this.elements.window.scrollTop(0);
     this.activeAnnotationId = null;
     this.acceptInput.deny();
@@ -8,14 +8,9 @@ DV.Schema.states.ViewAnnotation = {
       this.elements.annotations.css({zoom : 0});
       this.elements.annotations.css({zoom : 1});
     }
-    return true;
-  },
-  ViewAnnotation: function(){
 
     this.helpers.toggleContent('viewAnnotations');
     this.compiled.next();
-
-
     return true;
   },
   exit: function(destinationState){

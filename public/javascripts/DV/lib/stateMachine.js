@@ -26,6 +26,19 @@
     this.helpers    = argHash.helpers;
     this.states     = this.compileStates(states);
 
+    // state values
+    this.isFocus            = true;
+    this.activeElement      = null;
+    this.observers          = [];
+    this.windowDimensions   = {};
+    this.scrollPosition     = null;
+    this.checkTimer         = {};
+    this.busy               = false;
+    this.annotationToLoadId = null;
+    this.dragReporter       = null;
+    this.compiled           = {};
+    this.tracker            = {};
+
     this.events     = _.extend(this.events,
       { application : this,
         states      : this.states,
@@ -76,7 +89,7 @@
 
     for(var key in states){
 
-      if(states[key] === null || states[key] === false || !states[key].enter){
+      if(states[key] === null || states[key] === false){
         this[key] = states[key];
         continue;
       }
@@ -95,7 +108,6 @@
             }
           }
           me.setState(_key);
-          states[_key].enter.call(me,currentState);
           states[_key][_key].apply(me,arguments);
         };
 

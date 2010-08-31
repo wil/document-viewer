@@ -1,14 +1,11 @@
 DV.Schema.states.ViewText = {
-
-  enter: function(sourceState){
+  ViewText: function(){
     this.dragReporter.unBind();
     this.helpers.resetNavigationState();
     this.elements.window.scrollTop(0);
     this.acceptInput.allow();
     this.pageSet.zoomText();
-    return true;
-  },
-  ViewText: function(){
+
     this.helpers.toggleContent('viewText');
     this.events.loadText();
 

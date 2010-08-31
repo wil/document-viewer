@@ -1,12 +1,10 @@
 DV.Schema.states.ViewDocument = {
-  enter: function(sourceState){
-    this.helpers.addObserver('drawPages');    
+  ViewDocument: function(){
+    this.helpers.addObserver('drawPages');
     this.dragReporter.setBinding();
     this.elements.window.mouseleave($j.proxy(this.dragReporter.stop, this.dragReporter));
     this.acceptInput.allow();
-    return true;
-  },
-  ViewDocument: function(){
+
     this.helpers.toggleContent('viewDocument');
 
     this.helpers.setActiveChapter(this.models.chapters.getChapterId(this.models.document.currentIndex()));

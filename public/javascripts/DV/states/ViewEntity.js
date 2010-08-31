@@ -1,9 +1,7 @@
-DV.Schema.states.ViewEntity = { 
-  enter: function(sourceState) {
+DV.Schema.states.ViewEntity = {
+  ViewEntity: function(name, offset, length) {
     this.dragReporter.unBind();
     this.elements.window.scrollTop(0);
-  },
-  ViewEntity: function(name, offset, length) {
     this.helpers.toggleContent('viewSearch');
     this.helpers.showEntity(name, offset, length);
   },
