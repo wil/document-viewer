@@ -1,4 +1,4 @@
-DV.controller   = new DV.stateMachine(DV.Schema.states,
+DV.controller   = new DV.StateMachine(DV.Schema.states,
   {
     events      : DV.Schema.events,
     elements    : DV.Schema.elements,
