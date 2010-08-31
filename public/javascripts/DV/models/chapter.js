@@ -1,14 +1,14 @@
 DV.Schema.models.chapters = {
-  application : DV.Schema,
 
-  init : function() {
+  init : function(viewer) {
+    this.viewer = viewer;
     this.loadChapters();
   },
 
   // Load (or reload) the chapter model from the schema's defined sections.
   loadChapters : function() {
-    var chapters = this.chapters = DV.Schema.data.chapters = [];
-    _.each(DV.Schema.data.sections, function(sec) {
+    var chapters = this.chapters = this.viewer.schema.data.chapters = [];
+    _.each(this.viewer.schema.data.sections, function(sec) {
       sec.id    = sec.id || _.uniqueId();
       var range = sec.pages.split('-');
       var start = parseInt(range[0], 10);

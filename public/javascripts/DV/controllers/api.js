@@ -32,24 +32,24 @@ DV.Api.prototype = {
   // should be an array of sections in the canonical format:
   // {title: "Chapter 1", pages: "1-12"}
   setSections : function(sections) {
-    DV.Schema.data.sections = sections;
+    this.viewer.schema.data.sections = sections;
     this.viewer.models.chapters.loadChapters();
     this.redraw();
   },
 
   // Get a list of every section in the document.
   getSections : function() {
-    return _.clone(DV.Schema.data.sections || []);
+    return _.clone(this.viewer.schema.data.sections || []);
   },
 
   // Get the document's description.
   getDescription : function() {
-    return DV.Schema.document.description;
+    return this.viewer.schema.document.description;
   },
 
   // Set the document's description and update the sidebar.
   setDescription : function(desc) {
-    DV.Schema.document.description = desc;
+    this.viewer.schema.document.description = desc;
     $j('.DV-description').remove();
     $j('.DV-navigation').prepend(JST.descriptionContainer({description: desc}));
     this.viewer.helpers.displayNavigation();
@@ -57,30 +57,30 @@ DV.Api.prototype = {
 
   // Get the document's related article url.
   getRelatedArticle : function() {
-    return DV.Schema.document.resources.related_article;
+    return this.viewer.schema.document.resources.related_article;
   },
 
   // Set the document's related article url.
   setRelatedArticle : function(url) {
-    DV.Schema.document.resources.related_article = url;
+    this.viewer.schema.document.resources.related_article = url;
     $j('.DV-storyLink a').attr({href : url});
     $j('.DV-storyLink').toggle(!!url);
   },
 
   // Get the document's title.
   getTitle : function() {
-    return DV.Schema.document.title;
+    return this.viewer.schema.document.title;
   },
 
   // Set the document's title.
   setTitle : function(title) {
-    DV.Schema.document.title = title;
+    this.viewer.schema.document.title = title;
     document.title = title;
   },
 
   // Set the page text for the given page of a document in the local cache.
   setPageText : function(text, pageNumber) {
-    DV.Schema.text[pageNumber - 1] = text;
+    this.viewer.schema.text[pageNumber - 1] = text;
   },
 
   // Redraw the UI. Call redraw(true) to also redraw annotations and pages.
@@ -100,7 +100,7 @@ DV.Api.prototype = {
 
   // Add a new annotation to the document, prefilled to any extent.
   addAnnotation : function(anno) {
-    anno = DV.Schema.loadAnnotation(anno);
+    anno = this.viewer.schema.loadAnnotation(anno);
     this.viewer.models.annotations.sortAnnotations();
     this.redraw(true);
     this.viewer.pageSet.showAnnotation(anno, {active: true, noJump : false, edit : true});

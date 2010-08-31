@@ -259,7 +259,7 @@ DV.Schema.helpers = {
 
     constructPages: function(){
       var pages = [];
-      var totalPagesToCreate = (DV.Schema.data.totalPages < 3) ? DV.Schema.data.totalPages : 3;
+      var totalPagesToCreate = (this.application.schema.data.totalPages < 3) ? this.application.schema.data.totalPages : 3;
 
       for(var i = 0;i < totalPagesToCreate; i++){
         pages.push(JST.pages({ pageNumber: i+1, pageIndex: i , pageImageSource: '', baseHeight: this.models.pages.height }));
@@ -277,7 +277,7 @@ DV.Schema.helpers = {
 
     unsupportedBrowser : function() {
       if (!($j.browser.msie && $j.browser.version <= "6.0")) return false;
-      $j(DV.container).html(JST.unsupported({}));
+      $j(DV.container).html(JST.unsupported({viewer : this.application}));
       return true;
     },
 

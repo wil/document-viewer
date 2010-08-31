@@ -4,23 +4,23 @@
   var PAGE_NOTE_FUDGE = 26;
 
   DV.Schema.models.annotations = {
-    application:            DV.Schema,
     offsetsAdjustments:     [],
     offsetAdjustmentSum:    0,
 
-    init: function(){
+    init: function(viewer) {
+      this.viewer                   = viewer;
       this.saveCallbacks            = [];
       this.deleteCallbacks          = [];
-      this.byId                     = DV.Schema.data.annotationsById;
-      this.byPage                   = DV.Schema.data.annotationsByPage;
+      this.byId                     = this.viewer.schema.data.annotationsById;
+      this.byPage                   = this.viewer.schema.data.annotationsByPage;
       this.bySortOrder              = this.sortAnnotations();
     },
 
     // Render an annotation model to HTML, calculating all of the dimenstions
     // and offsets, and running a template function.
     render: function(annotation){
-      var documentModel             = this.application.models.document;
-      var pageModel                 = this.application.models.pages;
+      var documentModel             = this.viewer.models.document;
+      var pageModel                 = this.viewer.models.pages;
       var zoom                      = pageModel.zoomFactor();
       var adata                     = annotation;
       var x1, x2, y1, y2;
@@ -123,10 +123,10 @@
     updateAnnotationOffsets: function(){
       this.offsetsAdjustments   = [];
       this.offsetAdjustmentSum  = 0;
-      var documentModel         = this.application.models.document;
+      var documentModel         = this.viewer.models.document;
       var annotationsContainer  = $j('div.DV-allAnnotations');
       var pageAnnotationEls     = annotationsContainer.find('.DV-pageNote');
-      var pageNoteHeights       = this.application.models.pages.pageNoteHeights;
+      var pageNoteHeights       = this.viewer.models.pages.pageNoteHeights;
       var me = this;
 
       if($j('div.DV-docViewer').hasClass('DV-viewAnnotations') == false){

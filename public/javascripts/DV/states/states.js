@@ -13,8 +13,8 @@ DV.Schema.states = {
     // Build the data models
     this.models.document.init(this);
     this.models.pages.init(this);
-    this.models.chapters.init();
-    this.models.annotations.init();
+    this.models.chapters.init(this);
+    this.models.annotations.init(this);
 
     // Render included components, and hide unused portions of the UI.
     this.helpers.renderComponents();

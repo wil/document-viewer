@@ -1,7 +1,6 @@
 // The PageModel represents the set of pages in the document, containing the
 // image sources for each page, and the page proportions.
 DV.Schema.models.pages = {
-  applications    : DV.Schema,
 
   // Rolling average page height.
   averageHeight   : 0,
@@ -39,10 +38,10 @@ DV.Schema.models.pages = {
 
   // Get the complete image URL for a particular page.
   imageURL: function(index) {
-    var url  = DV.Schema.document.resources.page.image;
+    var url  = this.viewer.schema.document.resources.page.image;
     var size = this.zoomLevel > this.BASE_WIDTH ? 'large' : 'normal';
     var pageNumber = index + 1;
-    if (DV.Schema.document.resources.page.zeropad) pageNumber = this.zeroPad(pageNumber, 5);
+    if (this.viewer.schema.document.resources.page.zeropad) pageNumber = this.zeroPad(pageNumber, 5);
     url = url.replace(/\{size\}/, size);
     url = url.replace(/\{page\}/, pageNumber);
     return url;

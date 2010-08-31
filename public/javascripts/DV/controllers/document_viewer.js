@@ -1,4 +1,6 @@
 DV.DocumentViewer = function() {
+  this.schema     = new DV.Schema();
+
   this.events     = DV.Schema.events;
   this.helpers    = DV.Schema.helpers;
   this.models     = DV.Schema.models;
@@ -81,7 +83,7 @@ DV.load = function(documentRep, options) {
   DV.api             = new DV.Api(DV.controller);
   // Once we have the JSON representation in-hand, finish loading the viewer.
   var continueLoad = DV.loadJSON = function(json) {
-    DV.Schema.importCanonicalDocument(json);
+    DV.controller.schema.importCanonicalDocument(json);
     DV.controller.open('InitialLoad');
     if (options.afterLoad) options.afterLoad();
     if (DV.afterLoad) DV.afterLoad();

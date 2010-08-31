@@ -1,5 +1,4 @@
 DV.Schema.models.document = {
-  application:                DV.Schema,
   currentPageIndex:           0,
   offsets:                    [],
   baseHeightsPortion:         [],
@@ -13,15 +12,15 @@ DV.Schema.models.document = {
 
   init: function(viewer){
     this.viewer                   = viewer;
-    var data                      = DV.Schema.data;
+    var data                      = this.viewer.schema.data;
 
     this.state                    = data.state;
     this.baseImageURL             = data.baseImageURL;
     this.additionalPaddingOnPage  = data.additionalPaddingOnPage;
     this.pageWidthPadding         = data.pageWidthPadding;
     this.totalPages               = data.totalPages;
-    this.chapterModel             = this.application.models.chapters;
-    this.pageModel                = this.application.models.pages;
+    this.chapterModel             = this.viewer.models.chapters;
+    this.pageModel                = this.viewer.models.pages;
 
     if (DV.options.zoom == 'auto') {
       this.zoomLevel              = data.zoomLevel;
@@ -37,7 +36,7 @@ DV.Schema.models.document = {
   setPageIndex : function(index) {
     this.currentPageIndex = index;
     this.viewer.elements.currentPage.text(this.currentPage());
-    this.application.helpers.setActiveChapter(this.chapterModel.getChapterId(index));
+    this.viewer.helpers.setActiveChapter(this.chapterModel.getChapterId(index));
     return index;
   },
   currentPage : function() {
@@ -59,15 +58,13 @@ DV.Schema.models.document = {
   zoom: function(zoomLevel,force){
     if(this.zoomLevel != zoomLevel || force === true){
       this.zoomLevel   = zoomLevel;
-      this.application.models.pages.resize(this.zoomLevel);
-      this.application.models.annotations.renderAnnotations();
+      this.viewer.models.pages.resize(this.zoomLevel);
+      this.viewer.models.annotations.renderAnnotations();
       this.computeOffsets();
     }
   },
   computeOffsets: function() {
-    // this.application.helpers.removeObserver('drawPages');
-
-    var annotationModel  = this.application.models.annotations;
+    var annotationModel  = this.viewer.models.annotations;
     var totalDocHeight   = 0;
     var adjustedOffset   = 0;
     var len              = this.totalPages;
@@ -96,11 +93,9 @@ DV.Schema.models.document = {
     // artificially set the scrollbar height
     if(totalDocHeight != this.totalDocumentHeight){
       diff = (this.totalDocumentHeight != 0) ? diff : totalDocHeight - this.totalDocumentHeight;
-      this.application.helpers.setDocHeight(totalDocHeight,diff);
+      this.viewer.helpers.setDocHeight(totalDocHeight,diff);
       this.totalDocumentHeight = totalDocHeight;
     }
-
-    // this.application.helpers.addObserver('drawPages');
   },
 
   getOffset: function(_index){

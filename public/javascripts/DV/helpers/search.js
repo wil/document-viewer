@@ -21,7 +21,7 @@ _.extend(DV.Schema.helpers, {
       $j('.DV-searchResults').addClass('DV-noResults');
     };
 
-    var searchURI = DV.Schema.document.resources.search.replace('{query}', encodeURIComponent(query));
+    var searchURI = this.application.schema.document.resources.search.replace('{query}', encodeURIComponent(query));
     if (this.application.helpers.isCrossDomain(searchURI)) searchURI += '&callback=?';
     $j.ajax({url : searchURI, dataType : 'json', success : handleResponse, error : failResponse});
   },

@@ -1,7 +1,7 @@
  // Renders the navigation sidebar for chapters and annotations.
 _.extend(DV.Schema.helpers, {
   renderViewer: function(){
-    var doc         = DV.Schema.document;
+    var doc         = this.application.schema.document;
     var pagesHTML   = this.constructPages();
     var description = (doc.description) ? doc.description : null;
     var storyURL = doc.resources.related_article;
@@ -42,12 +42,13 @@ _.extend(DV.Schema.helpers, {
   // If there is no description, no navigation, and no sections, tighten up
   // the sidebar.
   displayNavigation : function() {
-    var doc = DV.Schema.document;
-    var missing = (!doc.description && !_.size(DV.Schema.data.annotationsById) && !DV.Schema.data.sections.length);
+    var doc = this.application.schema.document;
+    var missing = (!doc.description && !_.size(this.application.schema.data.annotationsById) && !this.application.schema.data.sections.length);
     $j('.DV-supplemental').toggleClass('DV-noNavigation', missing);
   },
 
   renderNavigation : function() {
+    var me = this;
     var chapterViews = [], bolds = [], expandIcons = [], expanded = [], navigationExpander = JST.navigationExpander({}),nav=[],notes = [],chapters = [];
 
     /* ---------------------------------------------------- start the nav helper methods */
@@ -71,7 +72,7 @@ _.extend(DV.Schema.helpers, {
 
     var createNavAnnotations = function(annotationIndex){
       var renderedAnnotations = [];
-      var annotations = DV.Schema.data.annotationsByPage[annotationIndex];
+      var annotations = me.application.schema.data.annotationsByPage[annotationIndex];
 
       for (var j=0; j<annotations.length; j++) {
         var annotation = annotations[j];
@@ -83,15 +84,15 @@ _.extend(DV.Schema.helpers, {
     /* ---------------------------------------------------- end the nav helper methods */
 
     for(var i = 0,len = this.models.document.totalPages; i < len;i++){
-      if(DV.Schema.data.annotationsByPage[i]){
+      if(this.application.schema.data.annotationsByPage[i]){
         nav[i]   = createNavAnnotations(i);
         notes[i] = nav[i];
       }
     }
 
-    if(DV.Schema.data.sections.length >= 1){
-      for(var i=0; i<DV.Schema.data.sections.length; i++){
-        var chapter        = DV.Schema.data.sections[i];
+    if(this.application.schema.data.sections.length >= 1){
+      for(var i=0; i<this.application.schema.data.sections.length; i++){
+        var chapter        = this.application.schema.data.sections[i];
         var range          = chapter.pages.split('-');
         var annotations    = getAnnotionsByRange(range[0]-1,range[1]);
         chapter.pageNumber = range[0];
@@ -116,7 +117,7 @@ _.extend(DV.Schema.helpers, {
     var chaptersContainer = $j('div.DV-chaptersContainer');
     chaptersContainer.html(navigationView);
     chaptersContainer.live('click',this.events.compile('handleNavigation'));
-    DV.Schema.data.sections.length || _.size(DV.Schema.data.annotationsById) ?
+    this.application.schema.data.sections.length || _.size(this.application.schema.data.annotationsById) ?
        chaptersContainer.show() : chaptersContainer.hide();
     this.displayNavigation();
 
@@ -147,7 +148,7 @@ _.extend(DV.Schema.helpers, {
     }
 
     // Hide the searchBox, if it's disabled.
-    var showSearch = !!DV.Schema.document.resources.search;
+    var showSearch = !!this.application.schema.document.resources.search;
     if (showSearch) {
       this.elements.viewer.addClass('DV-searchable');
       $j('input.DV-searchInput', DV.options.container).placeholder({
@@ -162,13 +163,13 @@ _.extend(DV.Schema.helpers, {
     // Remove and re-render the nav controls.
     $j('.DV-navControls').remove();
     var navControls = JST.navControls({
-      totalPages: DV.Schema.data.totalPages,
-      totalAnnotations: DV.Schema.data.totalAnnotations
+      totalPages: this.application.schema.data.totalPages,
+      totalAnnotations: this.application.schema.data.totalAnnotations
     });
     $j('.DV-navControlsContainer').html(navControls);
 
     $j('.DV-fullscreenControl').remove();
-    if (DV.Schema.canonicalUrl) {
+    if (this.application.schema.canonicalUrl) {
       var fullscreenControl = JST.fullscreenControl({});
       $j('.DV-fullscreenContainer').html(fullscreenControl);
     }

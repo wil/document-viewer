@@ -75,17 +75,17 @@ DV.Schema.events = {
       if(afterLoad) afterLoad.call(me.helpers);
     };
 
-    if (DV.Schema.text[pageIndex]) {
-      return processText(DV.Schema.text[pageIndex]);
+    if (me.application.schema.text[pageIndex]) {
+      return processText(me.application.schema.text[pageIndex]);
     }
 
     var handleResponse = $j.proxy(function(response) {
-      processText(DV.Schema.text[pageIndex] = response);
+      processText(me.application.schema.text[pageIndex] = response);
     }, this);
 
     $j('.DV-textContents').text('');
 
-    var textURI = DV.Schema.document.resources.page.text.replace('{page}', pageIndex + 1);
+    var textURI = me.application.schema.document.resources.page.text.replace('{page}', pageIndex + 1);
     var crossDomain = this.helpers.isCrossDomain(textURI);
     if (crossDomain) textURI += '?callback=?';
     $j[crossDomain ? 'getJSON' : 'get'](textURI, {}, handleResponse);
