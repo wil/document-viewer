@@ -153,7 +153,7 @@ _.extend(DV.Schema.helpers, {
     if (showSearch) {
       this.elements.viewer.addClass('DV-searchable');
       this.viewer.$('input.DV-searchInput', this.viewer.options.container).placeholder({
-        message: 'Search Document',
+        message: 'Search',
         clearClassName: 'DV-searchInput-show-search-cancel'
       });
     }
