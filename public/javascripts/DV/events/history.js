@@ -1,5 +1,6 @@
 _.extend(DV.Schema.events, {
-  // [document-slug]#document/p[pageID]
+
+  // #document/p[pageID]
   handleHashChangeViewDocumentPage: function(page){
     var pageIndex = parseInt(page,10) - 1;
     if(this.application.state === 'ViewDocument'){
@@ -10,12 +11,14 @@ _.extend(DV.Schema.events, {
       this.application.open('ViewDocument');
     }
   },
-  // [document-slug]#p=1
+
+  // #p[pageID]
   handleHashChangeLegacyViewDocumentPage: function(page){
     var pageIndex   = parseInt(page,10) - 1;
     this.handleHashChangeViewDocumentPage(page);
   },
-  // [document-slug]#document/p[pageID]/a[annotationID]
+
+  // #document/p[pageID]/a[annotationID]
   handleHashChangeViewDocumentAnnotation: function(page,annotation){
     var pageIndex   = parseInt(page,10) - 1;
     var annotation  = parseInt(annotation,10);
@@ -27,11 +30,10 @@ _.extend(DV.Schema.events, {
       this.application.pageSet.setActiveAnnotation(annotation);
       this.application.open('ViewDocument');
     }
-
   },
-  // [document-slug]#annotation/a[annotationID]
-  handleHashChangeViewAnnotationAnnotation: function(annotation){
 
+  // #annotation/a[annotationID]
+  handleHashChangeViewAnnotationAnnotation: function(annotation){
     var annotation  = parseInt(annotation,10);
     var application = this.application;
 
@@ -42,9 +44,9 @@ _.extend(DV.Schema.events, {
       this.application.open('ViewAnnotation');
     }
   },
+
   // Default route if all else fails
   handleHashChangeDefault: function(){
-
     this.application.pageSet.cleanUp();
     this.models.document.setPageIndex(0);
 
@@ -54,9 +56,9 @@ _.extend(DV.Schema.events, {
     }else{
       this.application.open('ViewDocument');
     }
-
   },
-  // [document-slug]#text/p[pageID]
+
+  // #text/p[pageID]
   handleHashChangeViewText: function(page){
     var pageIndex = parseInt(page,10) - 1;
     if(this.application.state === 'ViewText'){
@@ -66,7 +68,8 @@ _.extend(DV.Schema.events, {
       this.application.open('ViewText');
     }
   },
-  // [document-slug]#search/[searchString]
+
+  // #search/[searchString]
   handleHashChangeViewSearchRequest: function(page,query){
     var pageIndex = parseInt(page,10) - 1;
     this.elements.searchInput.val(decodeURIComponent(query));
@@ -76,6 +79,8 @@ _.extend(DV.Schema.events, {
     }
     this.application.open('ViewSearch');
   },
+
+  // #entity/p[pageID]/[searchString]/[offset]:[length]
   handleHashChangeViewEntity: function(page, name, offset, length) {
     page = parseInt(page,10) - 1;
     name = decodeURIComponent(name);
