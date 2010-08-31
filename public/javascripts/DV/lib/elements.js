@@ -17,7 +17,7 @@ DV.Elements.prototype.getElement = function(elementQuery,force){
   if(this[elementQuery.name] && force === null){
     return;
   }else{
-    this[elementQuery.name] = jQuery(elementQuery.query, DV.container);
+    this[elementQuery.name] = jQuery(elementQuery.query, DV.options.container);
     this.names.push(elementQuery.name);
     return this;
   }

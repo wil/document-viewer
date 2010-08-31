@@ -1,9 +1,10 @@
 DV.DocumentViewer = function() {
   this.schema     = new DV.Schema();
+  this.api        = new DV.Api(this);
 
+  this.models     = this.schema.models;
   this.events     = DV.Schema.events;
   this.helpers    = DV.Schema.helpers;
-  this.models     = DV.Schema.models;
   this.states     = DV.Schema.states;
 
   // state values
@@ -64,27 +65,25 @@ DV.DocumentViewer.prototype.open = function(state) {
   this.states[state].apply(this, arguments);
 };
 
-DV.controller = new DV.DocumentViewer();
-
 // The origin function, kicking off the entire documentViewer render.
 DV.load = function(documentRep, options) {
+  var viewer = new DV.DocumentViewer();
   var defaults = {
-    zoom : 700,
-    showSidebar : true,
-    showText : true,
-    showSearch : true,
-    showHeader : true,
-    enableUrlChanges : true
+    container         : document.body,
+    zoom              : 700,
+    showSidebar       : true,
+    showText          : true,
+    showSearch        : true,
+    showHeader        : true,
+    enableUrlChanges  : true
   };
   options            = _.extend({}, defaults, options);
   options.fixedSize  = !!(options.width || options.height);
-  DV.container       = options.container || document.body;
   DV.options         = options;
-  DV.api             = new DV.Api(DV.controller);
   // Once we have the JSON representation in-hand, finish loading the viewer.
   var continueLoad = DV.loadJSON = function(json) {
-    DV.controller.schema.importCanonicalDocument(json);
-    DV.controller.open('InitialLoad');
+    viewer.schema.importCanonicalDocument(json);
+    viewer.open('InitialLoad');
     if (options.afterLoad) options.afterLoad();
     if (DV.afterLoad) DV.afterLoad();
   };
@@ -96,7 +95,7 @@ DV.load = function(documentRep, options) {
       if (documentRep.match(/\.js$/)) {
         $j.getScript(documentRep);
       } else {
-        var crossDomain = DV.controller.helpers.isCrossDomain(documentRep);
+        var crossDomain = viewer.helpers.isCrossDomain(documentRep);
         if (crossDomain) documentRep = documentRep + '?callback=?';
         $j.getJSON(documentRep, continueLoad);
       }
@@ -112,6 +111,8 @@ DV.load = function(documentRep, options) {
   } else {
     jsonLoad();
   }
+
+  return viewer;
 };
 
 // If the document viewer has been loaded dynamically, allow the external

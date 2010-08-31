@@ -29,14 +29,14 @@ _.extend(DV.Schema.helpers, {
     };
 
     if (DV.options.width && DV.options.height) {
-      $j(DV.container).css({
+      $j(DV.options.container).css({
         position: 'relative',
         width: DV.options.width,
         height: DV.options.height
       });
     }
 
-    $j(DV.container).html(JST.viewer(viewerOptions));
+    $j(DV.options.container).html(JST.viewer(viewerOptions));
   },
 
   // If there is no description, no navigation, and no sections, tighten up
@@ -134,7 +134,7 @@ _.extend(DV.Schema.helpers, {
   // present, depending on what the document provides.
   renderComponents : function() {
     // Hide the overflow of the body, unless we're positioned.
-    var position = $j(DV.container).css('position');
+    var position = $j(DV.options.container).css('position');
     if (position != 'relative' && position != 'absolute' && !DV.options.fixedSize) {
       $j(document.body).css({overflow : 'hidden'});
     }

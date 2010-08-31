@@ -217,7 +217,7 @@ DV.Schema.helpers = {
         var application     = this.application;
         var elements        = this.elements;
         var headerHeight    = elements.header.outerHeight() + 15;
-        var offset          = $j(DV.container).offset().top;
+        var offset          = $j(DV.options.container).offset().top;
         var uiHeight        = Math.round((windowDimensions.height) - headerHeight - offset);
 
         // doc window
@@ -277,7 +277,7 @@ DV.Schema.helpers = {
 
     unsupportedBrowser : function() {
       if (!($j.browser.msie && $j.browser.version <= "6.0")) return false;
-      $j(DV.container).html(JST.unsupported({viewer : this.application}));
+      $j(DV.options.container).html(JST.unsupported({viewer : this.application}));
       return true;
     },
 

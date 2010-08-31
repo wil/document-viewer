@@ -16,8 +16,6 @@ DV.Schema = function(viewer) {
   };
 };
 
-DV.Schema.models = {};
-
 // Imports the document's JSON representation into the DV.Schema form that
 // the models expect.
 DV.Schema.prototype.importCanonicalDocument = function(json) {

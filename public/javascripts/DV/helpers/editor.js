@@ -29,7 +29,7 @@ _.extend(DV.Schema.helpers,{
     }
     this.models.annotations.refreshAnnotation(anno);
     annoEl.removeClass('DV-editing');
-    DV.api.redraw();
+    this.application.api.redraw();
     this.models.annotations.fireSaveCallbacks(anno);
   },
   deleteAnnotation : function(e) {
