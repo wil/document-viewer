@@ -56,7 +56,7 @@ DV.DocumentViewer = function() {
 };
 
 // Transition to a given state ... unless we're already in it.
-DV.Viewer.prototype.open = function(state) {
+DV.DocumentViewer.prototype.open = function(state) {
   if (this.state == state) return;
   this.state = state;
   this.states[state].apply(this, arguments);
