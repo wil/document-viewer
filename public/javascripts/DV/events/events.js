@@ -4,12 +4,12 @@ DV.Schema.events = {
   zoom: function(zoomLevel){
     this.application.pageSet.zoom({ zoomLevel: zoomLevel });
 
-    // Adjust the drag sensativity for largest zoom level
+    // Adjust the drag sensitivity for largest zoom level
     var ranges = this.application.models.document.ZOOM_RANGES;
     if(ranges[ranges.length-1] == zoomLevel){
-      this.application.dragReporter.sensativity = 1.5;
+      this.application.dragReporter.sensitivity = 1.5;
     }else{
-      this.application.dragReporter.sensativity = 1;
+      this.application.dragReporter.sensitivity = 1;
     }
   },
 
