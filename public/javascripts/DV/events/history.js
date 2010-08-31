@@ -3,12 +3,12 @@ _.extend(DV.Schema.events, {
   // #document/p[pageID]
   handleHashChangeViewDocumentPage: function(page){
     var pageIndex = parseInt(page,10) - 1;
-    if(this.application.state === 'ViewDocument'){
-      this.application.pageSet.cleanUp();
+    if(this.viewer.state === 'ViewDocument'){
+      this.viewer.pageSet.cleanUp();
       this.helpers.jump(pageIndex);
     }else{
       this.models.document.setPageIndex(pageIndex);
-      this.application.open('ViewDocument');
+      this.viewer.open('ViewDocument');
     }
   },
 
@@ -23,49 +23,49 @@ _.extend(DV.Schema.events, {
     var pageIndex   = parseInt(page,10) - 1;
     var annotation  = parseInt(annotation,10);
 
-    if(this.application.state === 'ViewDocument'){
-      this.application.pageSet.showAnnotation(this.application.models.annotations.byId[annotation]);
+    if(this.viewer.state === 'ViewDocument'){
+      this.viewer.pageSet.showAnnotation(this.viewer.models.annotations.byId[annotation]);
     }else{
       this.models.document.setPageIndex(pageIndex);
-      this.application.pageSet.setActiveAnnotation(annotation);
-      this.application.open('ViewDocument');
+      this.viewer.pageSet.setActiveAnnotation(annotation);
+      this.viewer.open('ViewDocument');
     }
   },
 
   // #annotation/a[annotationID]
   handleHashChangeViewAnnotationAnnotation: function(annotation){
     var annotation  = parseInt(annotation,10);
-    var application = this.application;
+    var viewer = this.viewer;
 
-    if(application.state === 'ViewAnnotation'){
-      application.pageSet.showAnnotation(this.application.models.annotations.byId[annotation]);
+    if(viewer.state === 'ViewAnnotation'){
+      viewer.pageSet.showAnnotation(this.viewer.models.annotations.byId[annotation]);
     }else{
-      application.activeAnnotationId = annotation;
-      this.application.open('ViewAnnotation');
+      viewer.activeAnnotationId = annotation;
+      this.viewer.open('ViewAnnotation');
     }
   },
 
   // Default route if all else fails
   handleHashChangeDefault: function(){
-    this.application.pageSet.cleanUp();
+    this.viewer.pageSet.cleanUp();
     this.models.document.setPageIndex(0);
 
-    if(this.application.state === 'ViewDocument'){
+    if(this.viewer.state === 'ViewDocument'){
       this.helpers.jump(0);
-      this.application.history.save('document/p1');
+      this.viewer.history.save('document/p1');
     }else{
-      this.application.open('ViewDocument');
+      this.viewer.open('ViewDocument');
     }
   },
 
   // #text/p[pageID]
   handleHashChangeViewText: function(page){
     var pageIndex = parseInt(page,10) - 1;
-    if(this.application.state === 'ViewText'){
+    if(this.viewer.state === 'ViewText'){
       this.events.loadText(pageIndex);
     }else{
       this.models.document.setPageIndex(pageIndex);
-      this.application.open('ViewText');
+      this.viewer.open('ViewText');
     }
   },
 
@@ -74,10 +74,10 @@ _.extend(DV.Schema.events, {
     var pageIndex = parseInt(page,10) - 1;
     this.elements.searchInput.val(decodeURIComponent(query));
 
-    if(this.application.state !== 'ViewSearch'){
+    if(this.viewer.state !== 'ViewSearch'){
       this.models.document.setPageIndex(pageIndex);
     }
-    this.application.open('ViewSearch');
+    this.viewer.open('ViewSearch');
   },
 
   // #entity/p[pageID]/[searchString]/[offset]:[length]

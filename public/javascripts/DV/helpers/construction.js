@@ -1,51 +1,51 @@
  // Renders the navigation sidebar for chapters and annotations.
 _.extend(DV.Schema.helpers, {
   renderViewer: function(){
-    var doc         = this.application.schema.document;
+    var doc         = this.viewer.schema.document;
     var pagesHTML   = this.constructPages();
     var description = (doc.description) ? doc.description : null;
     var storyURL = doc.resources.related_article;
 
     var headerHTML  = JST.header({
-      options     : this.application.options,
+      options     : this.viewer.options,
       id          : doc.id,
       story_url   : storyURL,
       title       : doc.title || ''
     });
-    var footerHTML = JST.footer({options : this.application.options});
+    var footerHTML = JST.footer({options : this.viewer.options});
 
     var pdfURL   = doc.resources.pdf;
     pdfURL       = pdfURL ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF)</a>' : '';
 
     var viewerOptions = {
-      options : this.application.options,
+      options : this.viewer.options,
       pages: pagesHTML,
       header: headerHTML,
       footer: footerHTML,
       pdf_url: pdfURL,
       story_url: storyURL,
       descriptionContainer: JST.descriptionContainer({ description: description}),
-      autoZoom: this.application.options.zoom == 'auto',
-      hideSidebar: !this.application.options.showSidebar
+      autoZoom: this.viewer.options.zoom == 'auto',
+      hideSidebar: !this.viewer.options.showSidebar
     };
 
-    if (this.application.options.width && this.application.options.height) {
-      $j(this.application.options.container).css({
+    if (this.viewer.options.width && this.viewer.options.height) {
+      DV.jQuery(this.viewer.options.container).css({
         position: 'relative',
-        width: this.application.options.width,
-        height: this.application.options.height
+        width: this.viewer.options.width,
+        height: this.viewer.options.height
       });
     }
 
-    $j(this.application.options.container).html(JST.viewer(viewerOptions));
+    DV.jQuery(this.viewer.options.container).html(JST.viewer(viewerOptions));
   },
 
   // If there is no description, no navigation, and no sections, tighten up
   // the sidebar.
   displayNavigation : function() {
-    var doc = this.application.schema.document;
-    var missing = (!doc.description && !_.size(this.application.schema.data.annotationsById) && !this.application.schema.data.sections.length);
-    $j('.DV-supplemental').toggleClass('DV-noNavigation', missing);
+    var doc = this.viewer.schema.document;
+    var missing = (!doc.description && !_.size(this.viewer.schema.data.annotationsById) && !this.viewer.schema.data.sections.length);
+    this.viewer.$('.DV-supplemental').toggleClass('DV-noNavigation', missing);
   },
 
   renderNavigation : function() {
@@ -73,7 +73,7 @@ _.extend(DV.Schema.helpers, {
 
     var createNavAnnotations = function(annotationIndex){
       var renderedAnnotations = [];
-      var annotations = me.application.schema.data.annotationsByPage[annotationIndex];
+      var annotations = me.viewer.schema.data.annotationsByPage[annotationIndex];
 
       for (var j=0; j<annotations.length; j++) {
         var annotation = annotations[j];
@@ -85,15 +85,15 @@ _.extend(DV.Schema.helpers, {
     /* ---------------------------------------------------- end the nav helper methods */
 
     for(var i = 0,len = this.models.document.totalPages; i < len;i++){
-      if(this.application.schema.data.annotationsByPage[i]){
+      if(this.viewer.schema.data.annotationsByPage[i]){
         nav[i]   = createNavAnnotations(i);
         notes[i] = nav[i];
       }
     }
 
-    if(this.application.schema.data.sections.length >= 1){
-      for(var i=0; i<this.application.schema.data.sections.length; i++){
-        var chapter        = this.application.schema.data.sections[i];
+    if(this.viewer.schema.data.sections.length >= 1){
+      for(var i=0; i<this.viewer.schema.data.sections.length; i++){
+        var chapter        = this.viewer.schema.data.sections[i];
         var range          = chapter.pages.split('-');
         var annotations    = getAnnotionsByRange(range[0]-1,range[1]);
         chapter.pageNumber = range[0];
@@ -115,17 +115,17 @@ _.extend(DV.Schema.helpers, {
     // insert and observe the nav
     var navigationView = nav.join('');
 
-    var chaptersContainer = $j('div.DV-chaptersContainer');
+    var chaptersContainer = this.viewer.$('div.DV-chaptersContainer');
     chaptersContainer.html(navigationView);
     chaptersContainer.live('click',this.events.compile('handleNavigation'));
-    this.application.schema.data.sections.length || _.size(this.application.schema.data.annotationsById) ?
+    this.viewer.schema.data.sections.length || _.size(this.viewer.schema.data.annotationsById) ?
        chaptersContainer.show() : chaptersContainer.hide();
     this.displayNavigation();
 
-    $j('.DV-navigationBolds', document.head).remove();
+    this.viewer.$('.DV-navigationBolds', document.head).remove();
     var boldsContents = bolds.join(", ") + ' { font-weight:bold; color:#000 !important; }';
     var navStylesheet = '<style id="DV-navigationBolds" type="text/css" media="screen,print">\n' + boldsContents +'\n</style>';
-    $j('head').append(navStylesheet);
+    this.viewer.$('head').append(navStylesheet);
     // cleanup
     chaptersContainer = null;
 
@@ -135,24 +135,24 @@ _.extend(DV.Schema.helpers, {
   // present, depending on what the document provides.
   renderComponents : function() {
     // Hide the overflow of the body, unless we're positioned.
-    var position = $j(this.application.options.container).css('position');
-    if (position != 'relative' && position != 'absolute' && !this.application.options.fixedSize) {
-      $j(document.body).css({overflow : 'hidden'});
+    var position = DV.jQuery(this.viewer.options.container).css('position');
+    if (position != 'relative' && position != 'absolute' && !this.viewer.options.fixedSize) {
+      DV.jQuery(document.body).css({overflow : 'hidden'});
     }
 
     // Hide annotations, if there are none:
     var showAnnotations = _.any(this.models.annotations.byId);
-    var $annotationsView = $j('.DV-annotationView');
+    var $annotationsView = this.viewer.$('.DV-annotationView');
     $annotationsView[showAnnotations ? 'show' : 'hide']();
-    if (!showAnnotations && !this.application.options.showText) {
-      $j('.DV-documentView').addClass('DV-last');
+    if (!showAnnotations && !this.viewer.options.showText) {
+      this.viewer.$('.DV-documentView').addClass('DV-last');
     }
 
     // Hide the searchBox, if it's disabled.
-    var showSearch = !!this.application.schema.document.resources.search;
+    var showSearch = !!this.viewer.schema.document.resources.search;
     if (showSearch) {
       this.elements.viewer.addClass('DV-searchable');
-      $j('input.DV-searchInput', this.application.options.container).placeholder({
+      this.viewer.$('input.DV-searchInput', this.viewer.options.container).placeholder({
         message: 'Search Document',
         clearClassName: 'DV-searchInput-show-search-cancel'
       });
@@ -162,25 +162,25 @@ _.extend(DV.Schema.helpers, {
     var showChapters = this.models.chapters.chapters.length > 0;
 
     // Remove and re-render the nav controls.
-    $j('.DV-navControls').remove();
+    this.viewer.$('.DV-navControls').remove();
     var navControls = JST.navControls({
-      totalPages: this.application.schema.data.totalPages,
-      totalAnnotations: this.application.schema.data.totalAnnotations
+      totalPages: this.viewer.schema.data.totalPages,
+      totalAnnotations: this.viewer.schema.data.totalAnnotations
     });
-    $j('.DV-navControlsContainer').html(navControls);
+    this.viewer.$('.DV-navControlsContainer').html(navControls);
 
-    $j('.DV-fullscreenControl').remove();
-    if (this.application.schema.canonicalUrl) {
+    this.viewer.$('.DV-fullscreenControl').remove();
+    if (this.viewer.schema.canonicalUrl) {
       var fullscreenControl = JST.fullscreenControl({});
-      $j('.DV-fullscreenContainer').html(fullscreenControl);
+      this.viewer.$('.DV-fullscreenContainer').html(fullscreenControl);
     }
 
-    if (this.application.options.showSidebar) {
-      $j('.DV-sidebar').show();
+    if (this.viewer.options.showSidebar) {
+      this.viewer.$('.DV-sidebar').show();
     }
 
     // Set the currentPage element reference.
-    this.elements.currentPage = $j('span.DV-currentPage');
+    this.elements.currentPage = this.viewer.$('span.DV-currentPage');
     this.models.document.setPageIndex(this.models.document.currentIndex());
   },
 
@@ -188,9 +188,9 @@ _.extend(DV.Schema.helpers, {
   reset : function() {
     this.resetNavigationState();
     this.cleanUpSearch();
-    this.application.pageSet.cleanUp();
+    this.viewer.pageSet.cleanUp();
     this.removeObserver('drawPages');
-    this.application.dragReporter.unBind();
+    this.viewer.dragReporter.unBind();
     this.elements.window.scrollTop(0);
   }
 

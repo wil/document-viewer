@@ -97,7 +97,7 @@
             elWrapped.addClass(config.initialStateClassName).removeClass(config.typingStateClassName);
           };
 
-          jQuery(inputElement).autohide({ clickable: true, onHide: $j.proxy(autoHider,this) });
+          jQuery(inputElement).autohide({ clickable: true, onHide: DV.jQuery.proxy(autoHider,this) });
           
           el.hide();
           inputElement.attr('value',el.text()).show()[0].focus();

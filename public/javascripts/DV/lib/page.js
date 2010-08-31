@@ -1,10 +1,11 @@
 // // page
 
-DV.page = function(argHash){
+DV.Page = function(viewer, argHash){
+  this.viewer           = viewer;
 
   this.index            = argHash.index;
   for(var key in argHash) this[key] = argHash[key];
-  this.el               = $j(this.el);
+  this.el               = this.viewer.$(this.el);
   this.parent           = this.el.parent();
   this.pageNumberEl     = this.el.find('span.DV-pageNumber');
   this.pageInsertEl     = this.el.find('.DV-pageNoteInsert');
@@ -13,7 +14,6 @@ DV.page = function(argHash){
   this.pageEl           = this.el.find('div.DV-page');
   this.annotationContainerEl = this.el.find('div.DV-annotations');
   this.coverEl          = this.el.find('div.DV-cover');
-  this.application      = this.set.application;
   this.loadTimer        = null;
   this.hasLayerPage     = false;
   this.hasLayerRegional = false;
@@ -27,7 +27,7 @@ DV.page = function(argHash){
   this.activeAnnotation = null;
 
   // optimizations
-  var m = this.application.models;
+  var m = this.viewer.models;
   this.model_document   = m.document;
   this.model_pages      = m.pages;
   this.model_annotations= m.annotations;
@@ -35,27 +35,27 @@ DV.page = function(argHash){
 };
 
 // Set the image reference for the page for future updates
-DV.page.prototype.setPageImage = function(){
+DV.Page.prototype.setPageImage = function(){
   this.pageImageEl = this.getPageImage();
 };
 
 // get page image to update
-DV.page.prototype.getPageImage = function(){
+DV.Page.prototype.getPageImage = function(){
   return this.el.find('img.DV-pageImage');
 };
 
 // Get the offset for the page at its current index
-DV.page.prototype.getOffset = function(){
+DV.Page.prototype.getOffset = function(){
   return this.model_document.offsets[this.index];
 };
 
-DV.page.prototype.getPageNoteHeight = function() {
+DV.Page.prototype.getPageNoteHeight = function() {
   return this.model_pages.pageNoteHeights[this.index];
 };
 
 // Draw the current page and its associated layers/annotations
 // Will stop if page index appears the same or force boolean is passed
-DV.page.prototype.draw = function(argHash) {
+DV.Page.prototype.draw = function(argHash) {
 
   // Return immeditately if we don't need to redraw the page.
   if(this.index === argHash.index && !argHash.force && this.imgSource == this.model_pages.imageURL(this.index)){
@@ -91,9 +91,9 @@ DV.page.prototype.draw = function(argHash) {
       for (var i=0; i < byPage.length; i++) {
         var anno = byPage[i];
 
-        if(anno.id === this.application.annotationToLoadId){
+        if(anno.id === this.viewer.annotationToLoadId){
           var active = true;
-          if (anno.id === this.application.annotationToLoadEdit) argHash.edit = true;
+          if (anno.id === this.viewer.annotationToLoadEdit) argHash.edit = true;
         }else{
           var active = false;
         }
@@ -105,7 +105,7 @@ DV.page.prototype.draw = function(argHash) {
         }
 
         var newAnno = new DV.Annotation({
-          renderedHTML: $j('.DV-allAnnotations .DV-annotation[rel=aid-'+anno.id+']').clone().attr('id','DV-annotation-'+anno.id),
+          renderedHTML: this.viewer.$('.DV-allAnnotations .DV-annotation[rel=aid-'+anno.id+']').clone().attr('id','DV-annotation-'+anno.id),
           id:           anno.id,
           page:         this,
           pageEl:       this.pageEl,
@@ -133,7 +133,7 @@ DV.page.prototype.draw = function(argHash) {
   this.setPageType();
 };
 
-DV.page.prototype.setPageType = function(){
+DV.Page.prototype.setPageType = function(){
   if(this.annotations.length > 0){
    if(this.hasLayerPage === true){
     this.el.addClass('DV-layer-page');
@@ -147,19 +147,19 @@ DV.page.prototype.setPageType = function(){
 };
 
 // Position Y coordinate of this page in the view based on current offset in the Document model
-DV.page.prototype.position = function(argHash){
+DV.Page.prototype.position = function(argHash){
   this.el.css({ top: this.model_document.offsets[this.index] });
   this.offset  = this.getOffset();
 };
 
 // Render the page meta, currently only the page number
-DV.page.prototype.renderMeta = function(argHash){
+DV.Page.prototype.renderMeta = function(argHash){
   this.pageNumberEl.text('p. '+argHash.pageNumber);
   this.pageNumber = argHash.pageNumber;
 };
 
 // Load the actual image
-DV.page.prototype.loadImage = function(argHash) {
+DV.Page.prototype.loadImage = function(argHash) {
   if(this.loadTimer){
     clearTimeout(this.loadTimer);
     delete this.loadTimer;
@@ -169,7 +169,7 @@ DV.page.prototype.loadImage = function(argHash) {
 
   // On image load, update the height for the page and initiate drawImage method to resize accordingly
   var pageModel       = this.model_pages;
-  var preloader       = $j(new Image());
+  var preloader       = this.viewer.$(new Image());
   var me              = this;
 
   var lazyImageLoader = function(){
@@ -194,10 +194,10 @@ DV.page.prototype.loadImage = function(argHash) {
   };
 
   this.loadTimer = setTimeout(lazyImageLoader, 150);
-  this.application.pageSet.redraw();
+  this.viewer.pageSet.redraw();
 };
 
-DV.page.prototype.sizeImage = function() {
+DV.Page.prototype.sizeImage = function() {
   var width = this.model_pages.width;
   var height = this.model_pages.getPageHeight(this.index);
 
@@ -215,7 +215,7 @@ DV.page.prototype.sizeImage = function() {
 };
 
 // draw the image and update surrounding image containers with the right size
-DV.page.prototype.drawImage = function(imageURL) {
+DV.Page.prototype.drawImage = function(imageURL) {
   var imageHeight = this.model_pages.getPageHeight(this.index);
   // var imageUrl = this.model_pages.imageURL(this.index);
   if(imageURL == this.pageImageEl.attr('src') && imageHeight == this.pageImageEl.attr('height')) {

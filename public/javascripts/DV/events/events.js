@@ -2,23 +2,23 @@
 DV.Schema.events = {
   // Change zoom level and causes a reflow and redraw of pages.
   zoom: function(zoomLevel){
-    this.application.pageSet.zoom({ zoomLevel: zoomLevel });
+    this.viewer.pageSet.zoom({ zoomLevel: zoomLevel });
 
     // Adjust the drag sensitivity for largest zoom level
-    var ranges = this.application.models.document.ZOOM_RANGES;
+    var ranges = this.viewer.models.document.ZOOM_RANGES;
     if(ranges[ranges.length-1] == zoomLevel){
-      this.application.dragReporter.sensitivity = 1.5;
+      this.viewer.dragReporter.sensitivity = 1.5;
     }else{
-      this.application.dragReporter.sensitivity = 1;
+      this.viewer.dragReporter.sensitivity = 1;
     }
   },
 
   // Draw (or redraw) the visible pages on the screen.
   drawPages: function() {
-    if (this.application.state != 'ViewDocument') return;
+    if (this.viewer.state != 'ViewDocument') return;
     var doc           = this.models.document;
     var offsets       = doc.baseHeightsPortionOffsets;
-    var scrollPos     = this.application.scrollPosition = this.elements.window[0].scrollTop;
+    var scrollPos     = this.viewer.scrollPosition = this.elements.window[0].scrollTop;
     var currentPage   = _.sortedIndex(offsets, scrollPos);
     if (offsets[currentPage] == scrollPos) currentPage++;
     var currentIndex  = currentPage - 1;
@@ -40,18 +40,18 @@ DV.Schema.events = {
     ];
     if (last) pages.pop();
     pages[first ? 0 : pages.length - 1].currentPage = true;
-    this.application.pageSet.draw(pages);
+    this.viewer.pageSet.draw(pages);
   },
 
   check: function(){
-    var application = this.application;
-    if(application.busy === false){
-      application.busy = true;
+    var viewer = this.viewer;
+    if(viewer.busy === false){
+      viewer.busy = true;
 
-      for(var i = 0; i < this.application.observers.length; i++){
-        this[application.observers[i]].call(this);
+      for(var i = 0; i < this.viewer.observers.length; i++){
+        this[viewer.observers[i]].call(this);
       }
-      application.busy = false;
+      viewer.busy = false;
     }
   },
 
@@ -65,7 +65,7 @@ DV.Schema.events = {
     var processText = function(text) {
 
       var pageNumber = parseInt(pageIndex,10)+1;
-      $j('.DV-textContents').text(text);
+      me.viewer.$('.DV-textContents').text(text);
       me.elements.currentPage.text(pageNumber);
       me.elements.textCurrentPage.text('p. '+(pageNumber));
       me.models.document.setPageIndex(pageIndex);
@@ -75,34 +75,34 @@ DV.Schema.events = {
       if(afterLoad) afterLoad.call(me.helpers);
     };
 
-    if (me.application.schema.text[pageIndex]) {
-      return processText(me.application.schema.text[pageIndex]);
+    if (me.viewer.schema.text[pageIndex]) {
+      return processText(me.viewer.schema.text[pageIndex]);
     }
 
-    var handleResponse = $j.proxy(function(response) {
-      processText(me.application.schema.text[pageIndex] = response);
+    var handleResponse = DV.jQuery.proxy(function(response) {
+      processText(me.viewer.schema.text[pageIndex] = response);
     }, this);
 
-    $j('.DV-textContents').text('');
+    this.viewer.$('.DV-textContents').text('');
 
-    var textURI = me.application.schema.document.resources.page.text.replace('{page}', pageIndex + 1);
+    var textURI = me.viewer.schema.document.resources.page.text.replace('{page}', pageIndex + 1);
     var crossDomain = this.helpers.isCrossDomain(textURI);
     if (crossDomain) textURI += '?callback=?';
-    $j[crossDomain ? 'getJSON' : 'get'](textURI, {}, handleResponse);
+    DV.jQuery[crossDomain ? 'getJSON' : 'get'](textURI, {}, handleResponse);
   },
 
   resetTracker: function(){
-    this.application.activeAnnotation = null;
+    this.viewer.activeAnnotation = null;
     this.trackAnnotation.combined     = null;
     this.trackAnnotation.h            = null;
   },
   trackAnnotation: function(){
-    var application     = this.application;
+    var viewer          = this.viewer;
     var helpers         = this.helpers;
     var scrollPosition  = this.elements.window[0].scrollTop;
 
-    if(application.activeAnnotation){
-      var annotation      = application.activeAnnotation;
+    if(viewer.activeAnnotation){
+      var annotation      = viewer.activeAnnotation;
       var trackAnnotation = this.trackAnnotation;
 
 
@@ -110,21 +110,21 @@ DV.Schema.events = {
         trackAnnotation.id = annotation.id;
         helpers.setActiveAnnotationLimits(annotation);
       }
-      if(!application.activeAnnotation.annotationEl.hasClass('DV-editing') &&
+      if(!viewer.activeAnnotation.annotationEl.hasClass('DV-editing') &&
          (scrollPosition > (trackAnnotation.h) || scrollPosition < trackAnnotation.combined)) {
         annotation.hide(true);
-        application.pageSet.setActiveAnnotation(null);
-        application.activeAnnotation      = null;
-        trackAnnotation.h                 = null;
-        trackAnnotation.id                = null;
-        trackAnnotation.combined          = null;
+        viewer.pageSet.setActiveAnnotation(null);
+        viewer.activeAnnotation   = null;
+        trackAnnotation.h         = null;
+        trackAnnotation.id        = null;
+        trackAnnotation.combined  = null;
       }
     }else{
-      application.pageSet.setActiveAnnotation(null);
-      application.activeAnnotation      = null;
-      trackAnnotation.h                 = null;
-      trackAnnotation.id                = null;
-      trackAnnotation.combined          = null;
+      viewer.pageSet.setActiveAnnotation(null);
+      viewer.activeAnnotation   = null;
+      trackAnnotation.h         = null;
+      trackAnnotation.id        = null;
+      trackAnnotation.combined  = null;
       helpers.removeObserver('trackAnnotation');
     }
   }

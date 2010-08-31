@@ -1,5 +1,6 @@
 DV.DocumentViewer = function(options) {
   this.options    = options;
+  this.$          = this.jQuery;
   this.schema     = new DV.Schema();
   this.api        = new DV.Api(this);
   this.history    = new DV.History(this);
@@ -23,14 +24,14 @@ DV.DocumentViewer = function(options) {
   this.tracker            = {};
 
   this.events     = _.extend(this.events, {
-    application : this,
+    viewer      : this,
     states      : this.states,
     elements    : this.elements,
     helpers     : this.helpers,
     models      : this.models,
     // this allows us to bind events to call the method corresponding to the current state
     compile     : function(){
-      var a           = this.application;
+      var a           = this.viewer;
       var methodName  = arguments[0];
       return function(){
         if(!a.events[a.state][methodName]){
@@ -43,7 +44,7 @@ DV.DocumentViewer = function(options) {
   });
 
   this.helpers  = _.extend(this.helpers, {
-    application : this,
+    viewer      : this,
     states      : this.states,
     elements    : this.elements,
     events      : this.events,
@@ -51,7 +52,7 @@ DV.DocumentViewer = function(options) {
   });
 
   this.states   = _.extend(this.states, {
-    application : this,
+    viewer      : this,
     helpers     : this.helpers,
     elements    : this.elements,
     events      : this.events,
@@ -66,6 +67,12 @@ DV.DocumentViewer.prototype.open = function(state) {
   this.states[state].apply(this, arguments);
 };
 
+// jQuery object, scoped to this viewer's container.
+DV.DocumentViewer.prototype.jQuery = function(selector, context) {
+  context = context || this.options.container;
+  return DV.jQuery.call(DV.jQuery, selector, context);
+};
+
 // The origin function, kicking off the entire documentViewer render.
 DV.load = function(documentRep, options) {
   var id = documentRep.id || documentRep.match(/([^\/]+)(\.js|\.json)$/)[1];
@@ -76,7 +83,7 @@ DV.load = function(documentRep, options) {
     showText          : true,
     showSearch        : true,
     showHeader        : true,
-    enableUrlChanges  : !DV.History.alreadyActive
+    enableUrlChanges  : true
   };
   options            = _.extend({}, defaults, options);
   options.fixedSize  = !!(options.width || options.height);
@@ -96,11 +103,11 @@ DV.load = function(documentRep, options) {
   var jsonLoad = function() {
     if (_.isString(documentRep)) {
       if (documentRep.match(/\.js$/)) {
-        $j.getScript(documentRep);
+        DV.jQuery.getScript(documentRep);
       } else {
         var crossDomain = viewer.helpers.isCrossDomain(documentRep);
         if (crossDomain) documentRep = documentRep + '?callback=?';
-        $j.getJSON(documentRep, continueLoad);
+        DV.jQuery.getJSON(documentRep, continueLoad);
       }
     } else {
       continueLoad(documentRep);
@@ -110,7 +117,7 @@ DV.load = function(documentRep, options) {
   // If we're being asked the fetch the templates, load them remotely before
   // continuing.
   if (options.templates) {
-    $j.getScript(options.templates, jsonLoad);
+    DV.jQuery.getScript(options.templates, jsonLoad);
   } else {
     jsonLoad();
   }

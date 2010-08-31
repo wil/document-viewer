@@ -31,8 +31,8 @@
 .DV-autoZoom .DV-pageNumber,
 .DV-autoZoom .DV-textCurrentPage {
   text-align: center;
-  width: 29px;
-  padding-left: 2px;
+  width: 30px;
+  padding-left: 0px;
 }
 
 /* =============== */

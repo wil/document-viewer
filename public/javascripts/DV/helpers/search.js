@@ -1,14 +1,14 @@
 _.extend(DV.Schema.helpers, {
   getSearchResponse: function(query){
-    var handleResponse = $j.proxy(function(response){
-      this.application.searchResponse = response;
+    var handleResponse = DV.jQuery.proxy(function(response){
+      this.viewer.searchResponse = response;
       var hasResults = (response.results.length > 0) ? true : false;
 
       var text = hasResults ? 'of '+response.results.length + ' ' : ' ';
-      $j('span.DV-totalSearchResult').text(text);
-      $j('span.DV-searchQuery').text(response.query);
+      this.viewer.$('span.DV-totalSearchResult').text(text);
+      this.viewer.$('span.DV-searchQuery').text(response.query);
       if (hasResults) {
-        this.application.history.save('search/p'+response.results[0]+'/'+response.query);
+        this.viewer.history.save('search/p'+response.results[0]+'/'+response.query);
         this.events.loadText(response.results[0] - 1, this.highlightSearchResponses);
       } else {
         this.highlightSearchResponses();
@@ -16,14 +16,14 @@ _.extend(DV.Schema.helpers, {
     }, this);
 
     var failResponse = function() {
-      $j('.DV-currentSearchResult').text('Search is not available at this time');
-      $j('span.DV-searchQuery').text(query);
-      $j('.DV-searchResults').addClass('DV-noResults');
+      this.viewer.$('.DV-currentSearchResult').text('Search is not available at this time');
+      this.viewer.$('span.DV-searchQuery').text(query);
+      this.viewer.$('.DV-searchResults').addClass('DV-noResults');
     };
 
-    var searchURI = this.application.schema.document.resources.search.replace('{query}', encodeURIComponent(query));
-    if (this.application.helpers.isCrossDomain(searchURI)) searchURI += '&callback=?';
-    $j.ajax({url : searchURI, dataType : 'json', success : handleResponse, error : failResponse});
+    var searchURI = this.viewer.schema.document.resources.search.replace('{query}', encodeURIComponent(query));
+    if (this.viewer.helpers.isCrossDomain(searchURI)) searchURI += '&callback=?';
+    DV.jQuery.ajax({url : searchURI, dataType : 'json', success : handleResponse, error : failResponse});
   },
   acceptInputCallBack: function(){
     var pageIndex = parseInt(this.elements.currentPage.text(),10) - 1;
@@ -35,32 +35,32 @@ _.extend(DV.Schema.helpers, {
     var pageNumber  = pageIndex+1;
 
     this.elements.currentPage.text(pageNumber);
-    $j('.DV-pageNumberContainer input').val(pageNumber);
+    this.viewer.$('.DV-pageNumberContainer input').val(pageNumber);
 
-    if(this.application.state === 'ViewDocument'){
-      this.application.history.save('document/p'+pageNumber);
+    if(this.viewer.state === 'ViewDocument'){
+      this.viewer.history.save('document/p'+pageNumber);
       this.jump(pageIndex);
-    }else if(this.application.state === 'ViewText'){
-      this.application.history.save('text/p'+pageNumber);
+    }else if(this.viewer.state === 'ViewText'){
+      this.viewer.history.save('text/p'+pageNumber);
       this.events.loadText(pageIndex);
     }
 
   },
   highlightSearchResponses: function(){
 
-    var application = this.application;
-    var response    = application.searchResponse;
+    var viewer    = this.viewer;
+    var response  = viewer.searchResponse;
 
     if(!response) return false;
 
     var results         = response.results;
-    var currentResultEl = $j('.DV-currentSearchResult');
+    var currentResultEl = this.viewer.$('.DV-currentSearchResult');
 
     if (results.length == 0){
       currentResultEl.text('No Results');
-      $j('.DV-searchResults').addClass('DV-noResults');
+      this.viewer.$('.DV-searchResults').addClass('DV-noResults');
     }else{
-      $j('.DV-searchResults').removeClass('DV-noResults');
+      this.viewer.$('.DV-searchResults').removeClass('DV-noResults');
     }
     for(var i = 0; i < response.results.length; i++){
       if(this.models.document.currentPage() === response.results[i]){
@@ -72,14 +72,14 @@ _.extend(DV.Schema.helpers, {
     // Replaces spaces in query with `\s+` to match newlines in textContent,
     // escape regex char contents (like "()"), and only match on word boundaries.
     var query             = '\\b' + response.query.replace(/[-[\]{}()*+?.,\\^$|#]/g, "\\$&").replace(/\s+/g, '\\s+') + '\\b';
-    var textContent       = $j('.DV-textContents');
+    var textContent       = this.viewer.$('.DV-textContents');
     var currentPageText   = textContent.text();
     var pattern           = new RegExp(query,"ig");
     var replacement       = currentPageText.replace(pattern,'<span class="DV-searchMatch">$&</span>');
 
     textContent.html(replacement);
 
-    var highlightIndex = (application.toHighLight) ? application.toHighLight : 0;
+    var highlightIndex = (viewer.toHighLight) ? viewer.toHighLight : 0;
     this.highlightMatch(highlightIndex);
 
     // cleanup
@@ -91,8 +91,8 @@ _.extend(DV.Schema.helpers, {
   // convert into proper UTF8 before trying to get the entity length, and
   // then back into UTF16 again.
   highlightEntity: function(offset, length) {
-    $j('.DV-searchResults').addClass('DV-noResults');
-    var textContent = $j('.DV-textContents');
+    this.viewer.$('.DV-searchResults').addClass('DV-noResults');
+    var textContent = this.viewer.$('.DV-textContents');
     var text        = textContent.text();
     var pre         = text.substr(0, offset);
     var entity      = text.substr(offset, length);
@@ -103,10 +103,10 @@ _.extend(DV.Schema.helpers, {
   },
 
   highlightMatch: function(index){
-    var highlightsOnThisPage   = $j('.DV-textContents span.DV-searchMatch');
+    var highlightsOnThisPage   = this.viewer.$('.DV-textContents span.DV-searchMatch');
     if (highlightsOnThisPage.length == 0) return false;
     var currentPageIndex    = this.getCurrentSearchPageIndex();
-    var toHighLight         = this.application.toHighLight;
+    var toHighLight         = this.viewer.toHighLight;
 
     if(toHighLight){
       if(toHighLight !== false){
@@ -120,7 +120,7 @@ _.extend(DV.Schema.helpers, {
       }
       toHighLight = false;
     }
-    var searchResponse = this.application.searchResponse;
+    var searchResponse = this.viewer.searchResponse;
     if (searchResponse) {
       if(index === (highlightsOnThisPage.length)){
 
@@ -143,7 +143,7 @@ _.extend(DV.Schema.helpers, {
       highlightsOnThisPage.removeClass('DV-highlightedMatch');
     }
 
-    var match = $j('.DV-textContents span.DV-searchMatch:eq('+index+')');
+    var match = this.viewer.$('.DV-textContents span.DV-searchMatch:eq('+index+')');
     match.addClass('DV-highlightedMatch');
 
     this.elements.window[0].scrollTop = match.position().top - 50;
@@ -154,7 +154,7 @@ _.extend(DV.Schema.helpers, {
     match = null;
   },
   getCurrentSearchPageIndex: function(){
-    var searchResponse = this.application.searchResponse;
+    var searchResponse = this.viewer.searchResponse;
     if(!searchResponse) {
       return false;
     }
@@ -167,11 +167,11 @@ _.extend(DV.Schema.helpers, {
   },
   highlightPreviousMatch: function(e){
     e.preventDefault();
-    this.highlightMatch(this.application.searchResponse.highlighted-1);
+    this.highlightMatch(this.viewer.searchResponse.highlighted-1);
   },
   highlightNextMatch: function(e){
     e.preventDefault(e);
-    this.highlightMatch(this.application.searchResponse.highlighted+1);
+    this.highlightMatch(this.viewer.searchResponse.highlighted+1);
   },
 
   clearSearch: function(e) {
@@ -179,15 +179,15 @@ _.extend(DV.Schema.helpers, {
   },
 
   showEntity: function(name, offset, length) {
-    $j('span.DV-totalSearchResult').text('');
-    $j('span.DV-searchQuery').text(name);
-    $j('span.DV-currentSearchResult').text("Searching");
-    this.events.loadText(this.models.document.currentIndex(), _.bind(this.application.helpers.highlightEntity, this.application.helpers, offset, length));
+    this.viewer.$('span.DV-totalSearchResult').text('');
+    this.viewer.$('span.DV-searchQuery').text(name);
+    this.viewer.$('span.DV-currentSearchResult').text("Searching");
+    this.events.loadText(this.models.document.currentIndex(), _.bind(this.viewer.helpers.highlightEntity, this.viewer.helpers, offset, length));
   },
   cleanUpSearch: function(){
-    var application = this.application;
-    application.searchResponse   = null;
-    application.toHighLight      = null;
+    var viewer            = this.viewer;
+    viewer.searchResponse = null;
+    viewer.toHighLight    = null;
     if (this.elements) this.elements.searchInput.keyup().blur();
   }
 

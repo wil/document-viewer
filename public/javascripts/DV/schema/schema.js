@@ -24,7 +24,7 @@ DV.Schema.prototype.importCanonicalDocument = function(json) {
   json.annotations = json.annotations || [];
   this.canonicalUrl = json.canonical_url;
 
-  this.document               = $j.extend(true, {}, json);
+  this.document               = DV.jQuery.extend(true, {}, json);
   // Everything after this line is for back-compatibility.
   this.data.title             = json.title;
   this.data.totalPages        = json.pages;
@@ -33,7 +33,7 @@ DV.Schema.prototype.importCanonicalDocument = function(json) {
   this.data.chapters          = [];
   this.data.annotationsById   = {};
   this.data.annotationsByPage = {};
-  _.each(json.annotations, $j.proxy(this.loadAnnotation, this));
+  _.each(json.annotations, DV.jQuery.proxy(this.loadAnnotation, this));
 };
 
 // Load an annotation into the Schema, starting from the canonical format.
@@ -46,7 +46,7 @@ DV.Schema.prototype.loadAnnotation = function(anno) {
   anno.access = anno.access || 'public';
   anno.type   = anno.location && anno.location.image ? 'region' : 'page';
   if (anno.type === 'region') {
-    var loc = $j.map(anno.location.image.split(','), function(n, i) { return parseInt(n, 10); });
+    var loc = DV.jQuery.map(anno.location.image.split(','), function(n, i) { return parseInt(n, 10); });
     anno.y1 = loc[0]; anno.x2 = loc[1]; anno.y2 = loc[2]; anno.x1 = loc[3];
   }else if(anno.type === 'page'){
     anno.y1 = 0; anno.x2 = 0; anno.y2 = 0; anno.x1 = 0;

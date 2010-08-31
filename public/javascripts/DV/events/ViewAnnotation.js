@@ -1,7 +1,7 @@
 DV.Schema.events.ViewAnnotation = {
   next: function(e){
-    var application         = this.application;
-    var activeAnnotationId  = application.activeAnnotationId;
+    var viewer              = this.viewer;
+    var activeAnnotationId  = viewer.activeAnnotationId;
     var annotationsModel    = this.models.annotations;
     var nextAnnotation      = (activeAnnotationId === null) ?
         annotationsModel.getFirstAnnotation() : annotationsModel.getNextAnnotation(activeAnnotationId);
@@ -10,14 +10,14 @@ DV.Schema.events.ViewAnnotation = {
       return false;
     }
 
-    application.pageSet.showAnnotation(nextAnnotation);
+    viewer.pageSet.showAnnotation(nextAnnotation);
     this.helpers.setAnnotationPosition(nextAnnotation.position);
 
 
   },
   previous: function(e){
-    var application         = this.application;
-    var activeAnnotationId  = application.activeAnnotationId;
+    var viewer              = this.viewer;
+    var activeAnnotationId  = viewer.activeAnnotationId;
     var annotationsModel    = this.models.annotations;
 
     var previousAnnotation = (!activeAnnotationId) ?
@@ -26,14 +26,14 @@ DV.Schema.events.ViewAnnotation = {
       return false;
     }
 
-    application.pageSet.showAnnotation(previousAnnotation);
+    viewer.pageSet.showAnnotation(previousAnnotation);
     this.helpers.setAnnotationPosition(previousAnnotation.position);
 
 
   },
   search: function(e){
     e.preventDefault();
-    this.application.open('ViewSearch');
+    this.viewer.open('ViewSearch');
 
     return false;
   }

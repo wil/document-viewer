@@ -14,7 +14,7 @@ DV.History = function(viewer) {
   this.viewer = viewer;
 
   // Ensure we don't accidentally bind to history twice.
-  DV.History.alreadyActive = true;
+  DV.History.count++;
 
   // The interval at which the window location is polled.
   this.URL_CHECK_INTERVAL = 500;
@@ -30,6 +30,7 @@ DV.History = function(viewer) {
   this.hash = window.location.hash;
 
   _.bindAll(this, 'checkURL');
+  if (DV.History.count > 1) return;
   if (this.USE_IFRAME) this.iframe = jQuery('<iframe src="javascript:0"/>').hide().appendTo('body')[0].contentWindow;
   if ('onhashchange' in window) {
     window.onhashchange = this.checkURL;
@@ -37,6 +38,8 @@ DV.History = function(viewer) {
     setInterval(this.checkURL, this.URL_CHECK_INTERVAL);
   }
 };
+
+DV.History.count = 0;
 
 DV.History.prototype = {
 
@@ -50,7 +53,7 @@ DV.History.prototype = {
   // Save a moment into browser history. Make sure you've registered a handler
   // for it. You're responsible for pre-escaping the URL fragment.
   save : function(hash) {
-    if (!this.viewer.options.enableUrlChanges) return;
+    if (!this.viewer.options.enableUrlChanges || (DV.History.count > 1)) return;
     window.location.hash = this.hash = (hash ? '#' + hash : '');
     if (this.USE_IFRAME && (this.iframe && (this.hash != this.iframe.location.hash))) {
       this.iframe.document.open().close();
@@ -60,6 +63,7 @@ DV.History.prototype = {
 
   // Check the current URL hash against the recorded one, firing callbacks.
   checkURL : function() {
+    if (DV.History.count > 1) return;
     var current = (this.USE_IFRAME ? this.iframe : window).location.hash;
      if (!current ||
        current == this.hash ||

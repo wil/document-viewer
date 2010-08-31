@@ -89,7 +89,7 @@ DV.model.Annotations.prototype = {
       return 'id="DV-listAnnotation-' + id + '" rel="aid-' + id + '"';
     });
 
-    $j('div.DV-allAnnotations').html(html);
+    this.viewer.$('div.DV-allAnnotations').html(html);
 
     this.renderAnnotationsByIndex.rendered  = true;
     this.renderAnnotationsByIndex.zoomLevel = this.zoomLevel;
@@ -99,11 +99,11 @@ DV.model.Annotations.prototype = {
   // Refresh the annotation's title and content from the model, in both
   // The document and list views.
   refreshAnnotation : function(anno) {
-    $j('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).each(function() {
-      $j('.DV-annotationTitleInput', this).val(anno.title);
-      $j('.DV-annotationTitle', this).text(anno.title);
-      $j('.DV-annotationTextArea', this).val(anno.text);
-      $j('.DV-annotationBody', this).html(anno.text);
+    this.viewer.$('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).each(function() {
+      this.viewer.$('.DV-annotationTitleInput', this).val(anno.title);
+      this.viewer.$('.DV-annotationTitle', this).text(anno.title);
+      this.viewer.$('.DV-annotationTextArea', this).val(anno.text);
+      this.viewer.$('.DV-annotationBody', this).html(anno.text);
     });
   },
 
@@ -113,8 +113,8 @@ DV.model.Annotations.prototype = {
     var i = anno.page - 1;
     this.byPage[i] = _.without(this.byPage[i], anno);
     this.sortAnnotations();
-    $j('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).remove();
-    this.application.api.redraw(true);
+    this.viewer.$('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).remove();
+    this.viewer.api.redraw(true);
   },
 
   // Offsets all document pages based on interleaved page annotations.
@@ -122,12 +122,12 @@ DV.model.Annotations.prototype = {
     this.offsetsAdjustments   = [];
     this.offsetAdjustmentSum  = 0;
     var documentModel         = this.viewer.models.document;
-    var annotationsContainer  = $j('div.DV-allAnnotations');
+    var annotationsContainer  = this.viewer.$('div.DV-allAnnotations');
     var pageAnnotationEls     = annotationsContainer.find('.DV-pageNote');
     var pageNoteHeights       = this.viewer.models.pages.pageNoteHeights;
     var me = this;
 
-    if($j('div.DV-docViewer').hasClass('DV-viewAnnotations') == false){
+    if(this.viewer.$('div.DV-docViewer').hasClass('DV-viewAnnotations') == false){
       annotationsContainer.addClass('DV-getHeights');
     }
 
@@ -146,7 +146,7 @@ DV.model.Annotations.prototype = {
     for (var i = 0, len = documentModel.totalPages; i <= len; i++) {
       pageNoteHeights[i] = 0;
       if (pageAnnos[i]) {
-        var height = ($j(pageAnnos[i].el).height() + this.PAGE_NOTE_FUDGE);
+        var height = (this.viewer.$(pageAnnos[i].el).height() + this.PAGE_NOTE_FUDGE);
         pageNoteHeights[i - 1] = height;
         this.offsetAdjustmentSum += height;
       }

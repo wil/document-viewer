@@ -50,8 +50,8 @@ DV.Api.prototype = {
   // Set the document's description and update the sidebar.
   setDescription : function(desc) {
     this.viewer.schema.document.description = desc;
-    $j('.DV-description').remove();
-    $j('.DV-navigation').prepend(JST.descriptionContainer({description: desc}));
+    this.viewer.$('.DV-description').remove();
+    this.viewer.$('.DV-navigation').prepend(JST.descriptionContainer({description: desc}));
     this.viewer.helpers.displayNavigation();
   },
 
@@ -63,8 +63,8 @@ DV.Api.prototype = {
   // Set the document's related article url.
   setRelatedArticle : function(url) {
     this.viewer.schema.document.resources.related_article = url;
-    $j('.DV-storyLink a').attr({href : url});
-    $j('.DV-storyLink').toggle(!!url);
+    this.viewer.$('.DV-storyLink a').attr({href : url});
+    this.viewer.$('.DV-storyLink').toggle(!!url);
   },
 
   // Get the document's title.
@@ -119,7 +119,7 @@ DV.Api.prototype = {
 
   // Request the loading of an external JS file.
   loadJS : function(url, callback) {
-    $j.getScript(url, callback);
+    DV.jQuery.getScript(url, callback);
   }
 
 };

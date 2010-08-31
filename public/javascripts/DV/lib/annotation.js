@@ -4,22 +4,22 @@ DV.Annotation = function(argHash){
   this.page         = argHash.page;
   this.pageEl       = argHash.pageEl;
   this.annotationContainerEl = argHash.annotationContainerEl;
-  this.application  = this.page.set.application;
+  this.viewer       = this.page.set.viewer;
   this.annotationEl = null;
   this.renderedHTML = argHash.renderedHTML;
   this.type         = argHash.type;
   this.id           = argHash.id;
-  this.model        = this.application.models.annotations.getAnnotation(this.id);
+  this.model        = this.viewer.models.annotations.getAnnotation(this.id);
   this.state        = 'collapsed';
   this.active       = false;
   this.remove();
   this.add();
 
   if(argHash.active){
-    this.application.helpers.setActiveAnnotationLimits(this);
-    this.application.events.resetTracker();
+    this.viewer.helpers.setActiveAnnotationLimits(this);
+    this.viewer.events.resetTracker();
     this.active = null;
-    // this.application.elements.window[0].scrollTop += this.annotationEl.offset().top;
+    // this.viewer.elements.window[0].scrollTop += this.annotationEl.offset().top;
     this.show();
     if (argHash.showEdit) this.showEdit();
   }
@@ -51,7 +51,7 @@ DV.Annotation.prototype.add = function(){
 DV.Annotation.prototype.next = function(){
   this.hide.preventRemovalOfCoverClass = true;
 
-  var annotation = this.application.models.annotations.getNextAnnotation(this.id);
+  var annotation = this.viewer.models.annotations.getNextAnnotation(this.id);
   if(!annotation){
     return;
   }
@@ -62,7 +62,7 @@ DV.Annotation.prototype.next = function(){
 // Jump to previous annotation
 DV.Annotation.prototype.previous = function(){
   this.hide.preventRemovalOfCoverClass = true;
-  var annotation = this.application.models.annotations.getPreviousAnnotation(this.id);
+  var annotation = this.viewer.models.annotations.getPreviousAnnotation(this.id);
   if(!annotation) {
     return;
   }
@@ -72,23 +72,23 @@ DV.Annotation.prototype.previous = function(){
 // Show annotation
 DV.Annotation.prototype.show = function(argHash) {
 
-  if (this.application.activeAnnotation && this.application.activeAnnotation.id != this.id) {
-    this.application.activeAnnotation.hide();
+  if (this.viewer.activeAnnotation && this.viewer.activeAnnotation.id != this.id) {
+    this.viewer.activeAnnotation.hide();
   }
-  this.application.annotationToLoadId = null;
-  this.application.elements.window.addClass('DV-coverVisible');
+  this.viewer.annotationToLoadId = null;
+  this.viewer.elements.window.addClass('DV-coverVisible');
 
   this.annotationEl.find('div.DV-annotationBG').css({ display: 'block', opacity: 1 });
   this.annotationEl.addClass('DV-activeAnnotation');
   this.page.activeAnnotation          = this;
-  this.application.activeAnnotation   = this;
+  this.viewer.activeAnnotation   = this;
 
   // Enable annotation tracking to ensure the active state hides on scroll
-  this.application.helpers.addObserver('trackAnnotation');
-  this.application.helpers.setActiveAnnotationInNav(this.id);
+  this.viewer.helpers.addObserver('trackAnnotation');
+  this.viewer.helpers.setActiveAnnotationInNav(this.id);
   this.active                         = true;
   this.pageEl.parent('.DV-set').addClass('DV-activePage');
-  this.application.history.save('document/p'+(parseInt(this.page.index,10)+1)+'/a'+this.id);
+  this.viewer.history.save('document/p'+(parseInt(this.page.index,10)+1)+'/a'+this.id);
 
   if (argHash && argHash.edit) {
     this.showEdit();
@@ -97,41 +97,41 @@ DV.Annotation.prototype.show = function(argHash) {
 
 // Hide annotation
 DV.Annotation.prototype.hide = function(forceOverlayHide){
-  var pageNumber = parseInt(this.application.elements.currentPage.text(),10);
+  var pageNumber = parseInt(this.viewer.elements.currentPage.text(),10);
 
   if(this.type !== 'page'){
     this.annotationEl.find('div.DV-annotationBG').css({ opacity: 0, display: 'none' });
   }
 
   if (this.annotationEl.hasClass('DV-editing')) {
-    this.application.helpers.saveAnnotation({target : this.annotationEl}, 'onlyIfText');
+    this.viewer.helpers.saveAnnotation({target : this.annotationEl}, 'onlyIfText');
   }
 
   this.annotationEl.removeClass('DV-editing DV-activeAnnotation');
   if(forceOverlayHide === true){
-    this.application.elements.window.removeClass('DV-coverVisible');
+    this.viewer.elements.window.removeClass('DV-coverVisible');
   }
   if(this.hide.preventRemovalOfCoverClass === false || !this.hide.preventRemovalOfCoverClass){
-    this.application.elements.window.removeClass('DV-coverVisible');
+    this.viewer.elements.window.removeClass('DV-coverVisible');
     this.hide.preventRemovalOfCoverClass = false;
   }
 
   this.page.activeAnnotation         = null;
-  this.application.activeAnnotation  = null;
+  this.viewer.activeAnnotation  = null;
 
   // stop tracking this annotation
-  this.application.helpers.removeObserver('trackAnnotation');
-  this.application.pageSet.setActiveAnnotation(null);
-  this.application.activeAnnotation     = null;
-  this.application.events.trackAnnotation.h         = null;
-  this.application.events.trackAnnotation.id        = null;
-  this.application.events.trackAnnotation.combined  = null;
+  this.viewer.helpers.removeObserver('trackAnnotation');
+  this.viewer.pageSet.setActiveAnnotation(null);
+  this.viewer.activeAnnotation     = null;
+  this.viewer.events.trackAnnotation.h         = null;
+  this.viewer.events.trackAnnotation.id        = null;
+  this.viewer.events.trackAnnotation.combined  = null;
 
 
-  this.application.helpers.setActiveAnnotationInNav();
+  this.viewer.helpers.setActiveAnnotationInNav();
   this.active = false;
   this.pageEl.parent('.DV-set').removeClass('DV-activePage');
-  this.application.history.save('document/p'+pageNumber);
+  this.viewer.history.save('document/p'+pageNumber);
   // cleanup active state
   this.removeConnector(true);
 
@@ -139,8 +139,8 @@ DV.Annotation.prototype.hide = function(forceOverlayHide){
 
 // Toggle annotation
 DV.Annotation.prototype.toggle = function(argHash){
-  if (this.application.activeAnnotation && (this.application.activeAnnotation != this)){
-    this.application.activeAnnotation.hide();
+  if (this.viewer.activeAnnotation && (this.viewer.activeAnnotation != this)){
+    this.viewer.activeAnnotation.hide();
   }
 
   if (this.type === 'page') return;
@@ -157,7 +157,7 @@ DV.Annotation.prototype.toggle = function(argHash){
 // Show hover annotation state
 DV.Annotation.prototype.drawConnector = function(){
   if(this.active != true){
-    this.application.elements.window.addClass('DV-annotationActivated');
+    this.viewer.elements.window.addClass('DV-annotationActivated');
     this.annotationEl.addClass('DV-annotationHover');
   }
 };
@@ -165,7 +165,7 @@ DV.Annotation.prototype.drawConnector = function(){
 // Remove hover annotation state
 DV.Annotation.prototype.removeConnector = function(force){
   if(this.active != true){
-    this.application.elements.window.removeClass('DV-annotationActivated');
+    this.viewer.elements.window.removeClass('DV-annotationActivated');
     this.annotationEl.removeClass('DV-annotationHover');
   }
 };
@@ -173,10 +173,10 @@ DV.Annotation.prototype.removeConnector = function(force){
 // Show edit controls
 DV.Annotation.prototype.showEdit = function() {
   this.annotationEl.addClass('DV-editing');
-  $j('.DV-annotationTitleInput', this.annotationEl).focus();
+  this.viewer.$('.DV-annotationTitleInput', this.annotationEl).focus();
 };
 
 // Remove the annotation from the page
 DV.Annotation.prototype.remove = function(){
-  $j('#DV-annotation-'+this.id).remove();
+  this.viewer.$('#DV-annotation-'+this.id).remove();
 };

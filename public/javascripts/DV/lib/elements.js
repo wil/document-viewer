@@ -7,5 +7,5 @@ DV.Elements = function(viewer){
 
 // Get and store an element reference
 DV.Elements.prototype.getElement = function(elementQuery,force){
-  this[elementQuery.name] = jQuery(elementQuery.query, this._viewer.options.container);
+  this[elementQuery.name] = this._viewer.$(elementQuery.query);
 };

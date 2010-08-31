@@ -1,10 +1,10 @@
 _.extend(DV.Schema.events, {
   handleNavigation: function(e){
-    var el          = $j(e.target);
+    var el          = this.viewer.$(e.target);
     var parentEl    = el.parent();
-    
+
     if(el.hasClass('DV-trigger') || parentEl.hasClass('DV-trigger')){
-    
+
       if(el.hasClass('DV-expander')){
         return parentEl.parent().toggleClass('DV-expanded');
 
@@ -14,13 +14,13 @@ _.extend(DV.Schema.events, {
         var cid           = parseInt(parentEl.parent()[0].id.replace('DV-chapter-',''), 10);
         var chapterIndex  = parseInt(this.models.chapters.getChapterPosition(cid),10);
         var pageNumber    = parseInt(chapterIndex,10)+1;
-        
-        if(this.application.state === 'ViewText'){
+
+        if(this.viewer.state === 'ViewText'){
           this.loadText(chapterIndex);
-          this.application.history.save('text/p'+pageNumber);
-        }else if(this.application.state === 'ViewDocument'){
+          this.viewer.history.save('text/p'+pageNumber);
+        }else if(this.viewer.state === 'ViewDocument'){
           this.helpers.jump(chapterIndex);
-          this.application.history.save('document/p'+pageNumber);
+          this.viewer.history.save('document/p'+pageNumber);
         }else{
           return false;
         }
@@ -29,18 +29,18 @@ _.extend(DV.Schema.events, {
         var aid         = parentEl[0].id.replace('DV-annotationMarker-','');
         var annotation  = this.models.annotations.getAnnotation(aid);
         var pageNumber  = parseInt(annotation.index,10)+1;
-        
-        if(this.application.state === 'ViewText'){
+
+        if(this.viewer.state === 'ViewText'){
           this.loadText(annotation.index);
 
-          this.application.history.save('text/p'+pageNumber);
+          this.viewer.history.save('text/p'+pageNumber);
         }else{
-          this.application.pageSet.showAnnotation(annotation);
+          this.viewer.pageSet.showAnnotation(annotation);
         }
 
       }else{
         return false;
       }
-    }  
+    }
   }
-});  
+});

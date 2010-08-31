@@ -7,9 +7,10 @@ DV.Schema.helpers = {
     // live/delegate are the preferred methods of event attachment
     bindEvents: function(context){
       var boundZoom = this.events.compile('zoom');
-      var doc = context.models.document;
-      var value = _.indexOf(doc.ZOOM_RANGES, doc.zoomLevel) * 24.7;
-      this.application.slider = $j('.DV-zoomBox').slider({
+      var doc       = context.models.document;
+      var value     = _.indexOf(doc.ZOOM_RANGES, doc.zoomLevel) * 24.7;
+      var viewer    = this.viewer;
+      viewer.slider = viewer.$('.DV-zoomBox').slider({
         step: 24.7,
         value: value,
         slide: function(el,d){
@@ -21,72 +22,72 @@ DV.Schema.helpers = {
       });
 
       // next/previous
-      var history         = this.application.history;
-      var compiled        = this.application.compiled;
+      var history         = viewer.history;
+      var compiled        = viewer.compiled;
       compiled.next       = this.events.compile('next');
       compiled.previous   = this.events.compile('previous');
 
 
       var states = context.states;
-      $j('.DV-navControls').delegate('span.DV-next','click', compiled.next);
-      $j('.DV-navControls').delegate('span.DV-previous','click', compiled.previous);
+      viewer.$('.DV-navControls').delegate('span.DV-next','click', compiled.next);
+      viewer.$('.DV-navControls').delegate('span.DV-previous','click', compiled.previous);
 
-      $j('.DV-annotationView').delegate('.DV-trigger','click',function(e){
+      viewer.$('.DV-annotationView').delegate('.DV-trigger','click',function(e){
         e.preventDefault();
         context.open('ViewAnnotation');
       });
-      $j('.DV-documentView').delegate('.DV-trigger','click',function(e){
+      viewer.$('.DV-documentView').delegate('.DV-trigger','click',function(e){
         history.save('document/p'+context.models.document.currentPage());
         context.open('ViewDocument');
       });
-      $j('.DV-textView').delegate('.DV-trigger','click',function(e){
+      viewer.$('.DV-textView').delegate('.DV-trigger','click',function(e){
 
         history.save('text/p'+context.models.document.currentPage());
         context.open('ViewText');
       });
-      $j('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', $j.proxy(this.gotoPage, this));
+      viewer.$('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', DV.jQuery.proxy(this.gotoPage, this));
 
-      $j('form.DV-searchDocument').submit(this.events.compile('search'));
-      $j('.DV-searchBar').delegate('.DV-closeSearch','click',function(e){
+      viewer.$('form.DV-searchDocument').submit(this.events.compile('search'));
+      viewer.$('.DV-searchBar').delegate('.DV-closeSearch','click',function(e){
         e.preventDefault();
         history.save('text/p'+context.models.document.currentPage());
         context.open('ViewText');
       });
-      $j('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', $j.proxy(this.clearSearch, this));
+      viewer.$('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', DV.jQuery.proxy(this.clearSearch, this));
 
-      $j('.DV-searchResults').delegate('span.DV-resultPrevious','click', $j.proxy(this.highlightPreviousMatch, this));
+      viewer.$('.DV-searchResults').delegate('span.DV-resultPrevious','click', DV.jQuery.proxy(this.highlightPreviousMatch, this));
 
-      $j('.DV-searchResults').delegate('span.DV-resultNext','click', $j.proxy(this.highlightNextMatch, this));
+      viewer.$('.DV-searchResults').delegate('span.DV-resultNext','click', DV.jQuery.proxy(this.highlightNextMatch, this));
 
       // Prevent navigation elements from being selectable when clicked.
-      $j('.DV-trigger').bind('selectstart', function(){ return false; });
+      viewer.$('.DV-trigger').bind('selectstart', function(){ return false; });
 
-      var boundToggle           = $j.proxy(this.annotationBridgeToggle, this);
+      var boundToggle           = DV.jQuery.proxy(this.annotationBridgeToggle, this);
       var collection            = this.elements.collection;
 
       collection.delegate('.DV-annotationTab','click', boundToggle);
-      collection.delegate('.DV-annotationRegion','click', $j.proxy(this.annotationBridgeShow, this));
-      collection.delegate('.DV-annotationNext','click', $j.proxy(this.annotationBridgeNext, this));
-      collection.delegate('.DV-annotationPrevious','click', $j.proxy(this.annotationBridgePrevious, this));
-      collection.delegate('.DV-showEdit','click', $j.proxy(this.showAnnotationEdit, this));
-      collection.delegate('.DV-cancelEdit','click', $j.proxy(this.cancelAnnotationEdit, this));
-      collection.delegate('.DV-saveAnnotation','click', $j.proxy(this.saveAnnotation, this));
-      collection.delegate('.DV-deleteAnnotation','click', $j.proxy(this.deleteAnnotation, this));
+      collection.delegate('.DV-annotationRegion','click', DV.jQuery.proxy(this.annotationBridgeShow, this));
+      collection.delegate('.DV-annotationNext','click', DV.jQuery.proxy(this.annotationBridgeNext, this));
+      collection.delegate('.DV-annotationPrevious','click', DV.jQuery.proxy(this.annotationBridgePrevious, this));
+      collection.delegate('.DV-showEdit','click', DV.jQuery.proxy(this.showAnnotationEdit, this));
+      collection.delegate('.DV-cancelEdit','click', DV.jQuery.proxy(this.cancelAnnotationEdit, this));
+      collection.delegate('.DV-saveAnnotation','click', DV.jQuery.proxy(this.saveAnnotation, this));
+      collection.delegate('.DV-deleteAnnotation','click', DV.jQuery.proxy(this.deleteAnnotation, this));
 
-      $j('.DV-descriptionToggle').live('click',function(e){
+      viewer.$('.DV-descriptionToggle').live('click',function(e){
         e.preventDefault();
         e.stopPropagation();
 
-        $j('.DV-descriptionText').slideToggle(300,function(){
-          $j('.DV-descriptionToggle').toggleClass('DV-showDescription');
+        viewer.$('.DV-descriptionText').slideToggle(300,function(){
+          viewer.$('.DV-descriptionToggle').toggleClass('DV-showDescription');
         });
       });
 
-      var cleanUp = $j.proxy(this.application.pageSet.cleanUp, this);
+      var cleanUp = DV.jQuery.proxy(viewer.pageSet.cleanUp, this);
 
       this.elements.window.live('mousedown',
         function(e){
-          var el = $j(e.target);
+          var el = viewer.$(e.target);
           if (el.parents().is('.DV-annotation') || el.is('.DV-annotation')) return true;
           if(context.elements.window.hasClass('DV-coverVisible')){
             if((el.width() - parseInt(e.clientX,10)) >= 15){
@@ -97,37 +98,37 @@ DV.Schema.helpers = {
       );
 
       if(jQuery.browser.msie == true){
-        this.elements.browserDocument.bind('focus',$j.proxy(this.focusWindow,this));
-        this.elements.browserDocument.bind('focusout',$j.proxy(this.focusOut,this));
+        this.elements.browserDocument.bind('focus',DV.jQuery.proxy(this.focusWindow,this));
+        this.elements.browserDocument.bind('focusout',DV.jQuery.proxy(this.focusOut,this));
       }else{
-        this.elements.browserWindow.bind('focus',$j.proxy(this.focusWindow,this));
-        this.elements.browserWindow.bind('blur',$j.proxy(this.blurWindow,this));
+        this.elements.browserWindow.bind('focus',DV.jQuery.proxy(this.focusWindow,this));
+        this.elements.browserWindow.bind('blur',DV.jQuery.proxy(this.blurWindow,this));
       }
 
       // When the document is scrolled, even in the background, resume polling.
-      this.elements.window.bind('scroll', $j.proxy(this.focusWindow, this));
+      this.elements.window.bind('scroll', DV.jQuery.proxy(this.focusWindow, this));
 
       this.elements.coverPages.live('mousedown', cleanUp);
 
-      this.application.acceptInput = this.elements.currentPage.acceptInput({ changeCallBack: $j.proxy(this.acceptInputCallBack,this) });
+      viewer.acceptInput = this.elements.currentPage.acceptInput({ changeCallBack: DV.jQuery.proxy(this.acceptInputCallBack,this) });
 
     },
 
     startCheckTimer: function(){
-      var _t = this.application;
+      var _t = this.viewer;
       var _check = function(){
         _t.events.check();
       };
-      this.application.checkTimer = setInterval(_check,100);
+      this.viewer.checkTimer = setInterval(_check,100);
     },
 
     stopCheckTimer: function(){
-      clearTimeout(this.application.checkTimer);
+      clearTimeout(this.viewer.checkTimer);
     },
 
     blurWindow: function(){
-      if(this.application.isFocus === true){
-        this.application.isFocus = false;
+      if(this.viewer.isFocus === true){
+        this.viewer.isFocus = false;
         // pause draw timer
         this.stopCheckTimer();
       }else{
@@ -136,22 +137,22 @@ DV.Schema.helpers = {
     },
 
     focusOut: function(){
-      if(this.application.activeElement != document.activeElement){
-        this.application.activeElement = document.activeElement;
-        this.application.isFocus = true;
+      if(this.viewer.activeElement != document.activeElement){
+        this.viewer.activeElement = document.activeElement;
+        this.viewer.isFocus = true;
       }else{
         // pause draw timer
-        this.application.isFocus = false;
-        this.application.helpers.stopCheckTimer();
+        this.viewer.isFocus = false;
+        this.viewer.helpers.stopCheckTimer();
         return;
       }
     },
 
     focusWindow: function(){
-      if(this.application.isFocus === true){
+      if(this.viewer.isFocus === true){
         return;
       }else{
-        this.application.isFocus = true;
+        this.viewer.isFocus = true;
         // restart draw timer
         this.startCheckTimer();
       }
@@ -182,14 +183,14 @@ DV.Schema.helpers = {
 
     gotoPage: function(e){
       e.preventDefault();
-      var aid           = $j(e.target).parents('.DV-annotation').attr('rel').replace('aid-','');
+      var aid           = this.viewer.$(e.target).parents('.DV-annotation').attr('rel').replace('aid-','');
       var annotation    = this.models.annotations.getAnnotation(aid);
-      var application   = this.application;
+      var viewer        = this.viewer;
 
-      if(application.state !== 'ViewDocument'){
+      if(viewer.state !== 'ViewDocument'){
         this.models.document.setPageIndex(annotation.index);
-        application.open('ViewDocument');
-        this.application.history.save('document/p'+(parseInt(annotation.index,10)+1));
+        viewer.open('ViewDocument');
+        this.viewer.history.save('document/p'+(parseInt(annotation.index,10)+1));
       }
     },
 
@@ -202,11 +203,11 @@ DV.Schema.helpers = {
 
     addObserver: function(observerName){
       this.removeObserver(observerName);
-      this.application.observers.push(observerName);
+      this.viewer.observers.push(observerName);
     },
 
     removeObserver: function(observerName){
-      var observers = this.application.observers;
+      var observers = this.viewer.observers;
       for(var i = 0,len=observers.length;i<len;i++){
         if(observerName === observers[i]){
           observers.splice(i,1);
@@ -215,10 +216,10 @@ DV.Schema.helpers = {
     },
 
     setWindowSize: function(windowDimensions){
-        var application     = this.application;
+        var viewer          = this.viewer;
         var elements        = this.elements;
         var headerHeight    = elements.header.outerHeight() + 15;
-        var offset          = $j(this.application.options.container).offset().top;
+        var offset          = DV.jQuery(this.viewer.options.container).offset().top;
         var uiHeight        = Math.round((windowDimensions.height) - headerHeight - offset);
 
         // doc window
@@ -228,8 +229,7 @@ DV.Schema.helpers = {
         elements.well.css( { height: uiHeight });
 
         // store this for later
-        application.windowDimensions = windowDimensions;
-        // this.setWindowSize.fired = true;
+        viewer.windowDimensions = windowDimensions;
     },
 
     toggleContent: function(toggleClassName){
@@ -241,7 +241,7 @@ DV.Schema.helpers = {
       var position = this.models.document.getOffset(parseInt(pageIndex, 10))+modifier;
       this.elements.window.scrollTop(position);
       this.models.document.setPageIndex(pageIndex);
-      if (forceRedraw) this.application.pageSet.redraw(true);
+      if (forceRedraw) this.viewer.pageSet.redraw(true);
     },
 
     shift: function(argHash){
@@ -255,12 +255,12 @@ DV.Schema.helpers = {
       var docModel = this.models.document;
       var currentPage = (docModel.currentIndex() == 0) ? 1 : docModel.currentPage();
 
-      return { page: currentPage, zoom: docModel.zoomLevel, view: this.application.state };
+      return { page: currentPage, zoom: docModel.zoomLevel, view: this.viewer.state };
     },
 
     constructPages: function(){
       var pages = [];
-      var totalPagesToCreate = (this.application.schema.data.totalPages < 3) ? this.application.schema.data.totalPages : 3;
+      var totalPagesToCreate = (this.viewer.schema.data.totalPages < 3) ? this.viewer.schema.data.totalPages : 3;
 
       var height = this.models.pages.height;
       for (var i = 0; i < totalPagesToCreate; i++) {
@@ -278,38 +278,38 @@ DV.Schema.helpers = {
     },
 
     unsupportedBrowser : function() {
-      if (!($j.browser.msie && $j.browser.version <= "6.0")) return false;
-      $j(this.application.options.container).html(JST.unsupported({viewer : this.application}));
+      if (!(DV.jQuery.browser.msie && DV.jQuery.browser.version <= "6.0")) return false;
+      DV.jQuery(this.viewer.options.container).html(JST.unsupported({viewer : this.viewer}));
       return true;
     },
 
     registerHashChangeEvents: function(){
       var events  = this.events;
-      var history = this.application.history;
+      var history = this.viewer.history;
 
       // Default route
-      history.defaultCallback = $j.proxy(events.handleHashChangeDefault,this.events);
+      history.defaultCallback = DV.jQuery.proxy(events.handleHashChangeDefault,this.events);
 
       // Handle page loading
-      history.register(/document\/p(\d*)$/,$j.proxy(events.handleHashChangeViewDocumentPage,this.events));
+      history.register(/document\/p(\d*)$/,DV.jQuery.proxy(events.handleHashChangeViewDocumentPage,this.events));
       // Legacy NYT stuff
-      history.register(/p(\d*)$/,$j.proxy(events.handleHashChangeLegacyViewDocumentPage,this.events));
-      history.register(/p=(\d*)$/,$j.proxy(events.handleHashChangeLegacyViewDocumentPage,this.events));
+      history.register(/p(\d*)$/,DV.jQuery.proxy(events.handleHashChangeLegacyViewDocumentPage,this.events));
+      history.register(/p=(\d*)$/,DV.jQuery.proxy(events.handleHashChangeLegacyViewDocumentPage,this.events));
 
       // Handle annotation loading in document view
-      history.register(/document\/p(\d*)\/a(\d*)$/, $j.proxy(events.handleHashChangeViewDocumentAnnotation,this.events));
+      history.register(/document\/p(\d*)\/a(\d*)$/, DV.jQuery.proxy(events.handleHashChangeViewDocumentAnnotation,this.events));
 
       // Handle annotation loading in annotation view
-      history.register(/annotation\/a(\d*)$/,$j.proxy(events.handleHashChangeViewAnnotationAnnotation,this.events));
+      history.register(/annotation\/a(\d*)$/,DV.jQuery.proxy(events.handleHashChangeViewAnnotationAnnotation,this.events));
 
       // Handle page loading in text view
-      history.register(/text\/p(\d*)$/,$j.proxy(events.handleHashChangeViewText,this.events));
+      history.register(/text\/p(\d*)$/,DV.jQuery.proxy(events.handleHashChangeViewText,this.events));
 
       // Handle entity display requests.
-      history.register(/entity\/p(\d*)\/(.*)\/(\d+):(\d+)$/,$j.proxy(events.handleHashChangeViewEntity,this.events));
+      history.register(/entity\/p(\d*)\/(.*)\/(\d+):(\d+)$/,DV.jQuery.proxy(events.handleHashChangeViewEntity,this.events));
 
       // Handle search requests
-      history.register(/search\/p(\d*)\/(.*)$/,$j.proxy(events.handleHashChangeViewSearchRequest,this.events));
+      history.register(/search\/p(\d*)\/(.*)$/,DV.jQuery.proxy(events.handleHashChangeViewSearchRequest,this.events));
     },
 
     // Sets up the zoom slider to match the appropriate for the specified
@@ -317,10 +317,10 @@ DV.Schema.helpers = {
     autoZoomPage: function() {
       var windowWidth = this.elements.window.outerWidth(true);
       var zoom;
-      if (this.application.options.zoom == 'auto') {
-        zoom = windowWidth - (this.application.models.pages.REDUCED_PADDING * 2);
+      if (this.viewer.options.zoom == 'auto') {
+        zoom = windowWidth - (this.viewer.models.pages.REDUCED_PADDING * 2);
       } else {
-        zoom = this.application.options.zoom;
+        zoom = this.viewer.options.zoom;
       }
 
       // Setup ranges for auto-width zooming
@@ -340,16 +340,16 @@ DV.Schema.helpers = {
         ranges = [.66*zoom, 700, zoom2, zoom, 1000];
       } else if (zoom >= 1000) {
         zoom = 1000;
-        ranges = this.application.models.document.ZOOM_RANGES;
+        ranges = this.viewer.models.document.ZOOM_RANGES;
       }
-      this.application.models.document.ZOOM_RANGES = ranges;
-      this.application.slider.slider({'value': parseInt(_.indexOf(ranges, zoom) * 24.7, 10)});
+      this.viewer.models.document.ZOOM_RANGES = ranges;
+      this.viewer.slider.slider({'value': parseInt(_.indexOf(ranges, zoom) * 24.7, 10)});
       this.events.zoom(zoom);
     },
 
     handleInitialState: function(){
-      var initialRouteMatch = this.application.history.loadURL(true);
-      if(!initialRouteMatch) this.application.open('ViewDocument');
+      var initialRouteMatch = this.viewer.history.loadURL(true);
+      if(!initialRouteMatch) this.viewer.open('ViewDocument');
     }
 
 };
