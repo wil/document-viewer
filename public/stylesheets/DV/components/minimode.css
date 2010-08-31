@@ -35,23 +35,3 @@
   padding-left: 0px;
 }
 
-/* =============== */
-/* = Annotations = */
-/* =============== */
-
-.DV-autoZoom .DV-annotationTab {
-  left: -34px;
-  width: 40px;
-}
-
-.DV-autoZoom .DV-annotationClose {
-  width: 5px;
-}
-
-.DV-autoZoom .DV-activeAnnotation .DV-annotationTab {
-  width: 34px;
-}
-
-.DV-autoZoom .DV-activeAnnotation .DV-annotationClose {
-  background: transparent url(../../../images/DV/embed/close.png) no-repeat 6px 7px;
-}
