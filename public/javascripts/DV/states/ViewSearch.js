@@ -1,5 +1,7 @@
 DV.Schema.states.ViewSearch = {
   ViewSearch: function(){
+    this.pageSet.cleanUp();
+    this.helpers.removeObserver('drawPages');
     this.dragReporter.unBind();
     this.elements.window.scrollTop(0);
 
@@ -14,11 +16,6 @@ DV.Schema.states.ViewSearch = {
 
     this.helpers.toggleContent('viewSearch');
 
-    return true;
-  },
-  exit: function(destinationState){
-    this.elements.searchInput.val('');
-    this.helpers.cleanUpSearch();
     return true;
   }
 };

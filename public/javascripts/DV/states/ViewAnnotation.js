@@ -1,5 +1,10 @@
 DV.Schema.states.ViewAnnotation = {
   ViewAnnotation: function(){
+    this.helpers.cleanUpSearch();
+    this.pageSet.cleanUp();
+    this.helpers.removeObserver('drawPages');
+    this.dragReporter.unBind();
+    this.helpers.resetNavigationState();
     this.elements.window.scrollTop(0);
     this.activeAnnotationId = null;
     this.acceptInput.deny();
@@ -11,11 +16,6 @@ DV.Schema.states.ViewAnnotation = {
 
     this.helpers.toggleContent('viewAnnotations');
     this.compiled.next();
-    return true;
-  },
-  exit: function(destinationState){
-    this.helpers.resetNavigationState();
-    this.activeAnnotationId = null;
     return true;
   }
 };
