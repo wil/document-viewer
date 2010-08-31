@@ -34,13 +34,10 @@ DV.Schema.states = {
       this.models.document.computeOffsets();
       this.helpers.addObserver('drawPages');
       this.helpers.registerHashChangeEvents();
+      this.dragReporter = new DV.dragReporter('.DV-pageCollection',$j.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationRegion,.DV-annotationContent' });
+      this.helpers.startCheckTimer();
       this.helpers.handleInitialState();
       this.helpers.autoZoomPage();
-    },
-    exit: function(destinationState){
-      this.dragReporter = new DV.dragReporter('.DV-pageCollection',$j.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationRegion,.DV-annotationContent' });
-      // Start polling every 100ms
-      this.helpers.startCheckTimer();
     }
   }
 };

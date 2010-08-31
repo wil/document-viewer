@@ -101,7 +101,7 @@
           if(currentState === _key){
             return;
           }
-          if(states[currentState] != null) {
+          if(states[currentState] != null && states[currentState].exit) {
             var stateChangeResponse = states[currentState].exit.call(me,_key);
             if(stateChangeResponse === false){
               return false;
