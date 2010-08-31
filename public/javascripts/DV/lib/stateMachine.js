@@ -7,7 +7,7 @@
   var stateMachine = function(states,argHash){
     this.pendingElements = argHash.elements;
     if(argHash.models){
-      _.extend(this.models, argHash.models)
+      _.extend(this.models, argHash.models);
     }
 
     this.compile(states,argHash);
@@ -22,11 +22,11 @@
 
   stateMachine.prototype.compile    = function(states,argHash){
 
-    this.events     = argHash.events
+    this.events     = argHash.events;
     this.helpers    = argHash.helpers;
     this.states     = this.compileStates(states);
 
-    this.events     = this.compileMethods(this.events,
+    this.events     = _.extend(this.events,
       { application : this,
         states      : this.states,
         elements    : this.elements,
@@ -48,7 +48,7 @@
       }
     );
 
-    this.helpers    = this.compileMethods(this.helpers,
+    this.helpers    = _.extend(this.helpers,
       {
         application : this,
         states      : this.states,
@@ -58,7 +58,7 @@
       }
     );
 
-    this.states     = this.compileMethods(this.states,
+    this.states     = _.extend(this.states,
       {
         application : this,
         helpers     : this.helpers,
@@ -110,13 +110,6 @@
 
     }
     return modifiedStates;
-  };
-
-  stateMachine.prototype.compileMethods = function(methods,references){
-    for(var key in references){
-      methods[key] = references[key];
-    }
-    return methods;
   };
 
   stateMachine.prototype.getState = function(){

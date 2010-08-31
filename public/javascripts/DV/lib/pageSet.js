@@ -151,7 +151,7 @@ DV.pageSet.prototype.showAnnotation = function(argHash, showHash){
   // NOTE: This needs work
   if(this.application.state === 'ViewAnnotation'){
 
-    var offset = $j('.DV-annotations div[rel=aid-'+argHash.id+']')[0].offsetTop;
+    var offset = $j('.DV-allAnnotations div[rel=aid-'+argHash.id+']')[0].offsetTop;
     this.application.elements.window.scrollTop(offset+10,'fast');
     this.application.helpers.setActiveAnnotationInNav(argHash.id);
     this.application.activeAnnotationId = argHash.id;
