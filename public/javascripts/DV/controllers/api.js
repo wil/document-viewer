@@ -1,5 +1,6 @@
-DV.Api = function(app) {
-  this.app = app;
+// The API references it's viewer.
+DV.Api = function(viewer) {
+  this.viewer = viewer;
 };
 
 // Set up the API class.
@@ -7,24 +8,24 @@ DV.Api.prototype = {
 
   // Return the current page of the document.
   currentPage : function() {
-    return this.app.models.document.currentPage();
+    return this.viewer.models.document.currentPage();
   },
 
   // Return the page number for one of the three physical page DOM elements, by id:
   getPageNumberForId : function(id) {
-    var page = this.app.pageSet.pages[id];
+    var page = this.viewer.pageSet.pages[id];
     return page.index + 1;
   },
 
   // Return the current zoom factor of the document.
   currentZoom : function() {
-    var doc = this.app.models.document;
+    var doc = this.viewer.models.document;
     return doc.zoomLevel / doc.ZOOM_RANGES[1];
   },
 
   // Return the total number of pages in the document.
   numberOfPages : function() {
-    return this.app.models.document.totalPages;
+    return this.viewer.models.document.totalPages;
   },
 
   // Change the documents' sections, re-rendering the navigation. "sections"
@@ -32,7 +33,7 @@ DV.Api.prototype = {
   // {title: "Chapter 1", pages: "1-12"}
   setSections : function(sections) {
     DV.Schema.data.sections = sections;
-    this.app.models.chapters.loadChapters();
+    this.viewer.models.chapters.loadChapters();
     this.redraw();
   },
 
@@ -51,7 +52,7 @@ DV.Api.prototype = {
     DV.Schema.document.description = desc;
     $j('.DV-description').remove();
     $j('.DV-navigation').prepend(JST.descriptionContainer({description: desc}));
-    this.app.helpers.displayNavigation();
+    this.viewer.helpers.displayNavigation();
   },
 
   // Get the document's related article url.
@@ -85,35 +86,35 @@ DV.Api.prototype = {
   // Redraw the UI. Call redraw(true) to also redraw annotations and pages.
   redraw : function(redrawAll) {
     if (redrawAll) {
-      this.app.models.annotations.renderAnnotations();
-      this.app.models.document.computeOffsets();
+      this.viewer.models.annotations.renderAnnotations();
+      this.viewer.models.document.computeOffsets();
     }
-    this.app.helpers.renderNavigation();
-    this.app.helpers.renderComponents();
+    this.viewer.helpers.renderNavigation();
+    this.viewer.helpers.renderComponents();
     if (redrawAll) {
-      this.app.elements.window.removeClass('DV-coverVisible');
-      this.app.pageSet.buildPages({noNotes : true});
-      this.app.pageSet.reflowPages();
+      this.viewer.elements.window.removeClass('DV-coverVisible');
+      this.viewer.pageSet.buildPages({noNotes : true});
+      this.viewer.pageSet.reflowPages();
     }
   },
 
   // Add a new annotation to the document, prefilled to any extent.
   addAnnotation : function(anno) {
     anno = DV.Schema.loadAnnotation(anno);
-    this.app.models.annotations.sortAnnotations();
+    this.viewer.models.annotations.sortAnnotations();
     this.redraw(true);
-    this.app.pageSet.showAnnotation(anno, {active: true, noJump : false, edit : true});
+    this.viewer.pageSet.showAnnotation(anno, {active: true, noJump : false, edit : true});
     return anno;
   },
 
   // Register a callback for when an annotation is saved.
   onAnnotationSave : function(callback) {
-    this.app.models.annotations.saveCallbacks.push(callback);
+    this.viewer.models.annotations.saveCallbacks.push(callback);
   },
 
   // Register a callback for when an annotation is deleted.
   onAnnotationDelete : function(callback) {
-    this.app.models.annotations.deleteCallbacks.push(callback);
+    this.viewer.models.annotations.deleteCallbacks.push(callback);
   },
 
   // Request the loading of an external JS file.

@@ -11,8 +11,8 @@ DV.Schema.states = {
     this.events.elements = this.helpers.elements = this.elements = new DV.Elements(this.pendingElements);
 
     // Build the data models
-    this.models.document.init();
-    this.models.pages.init();
+    this.models.document.init(this);
+    this.models.pages.init(this);
     this.models.chapters.init();
     this.models.annotations.init();
 

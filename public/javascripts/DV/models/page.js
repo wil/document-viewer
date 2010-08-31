@@ -21,15 +21,15 @@ DV.Schema.models.pages = {
 
   // For viewing page text.
   TEXT_PADDING    : 100,
-  
+
   // Embed reduces padding.
   MINIMODE_TEXT_PADDING : 44,
 
   // Initializing the page model guesses at a default pageHeight -- we'll
   // know for sure when the first page image is loaded.
-  init: function() {
-
-    this.zoomLevel  = DV.controller.models.document.zoomLevel;
+  init: function(viewer) {
+    this.viewer     = viewer;
+    this.zoomLevel  = this.viewer.models.document.zoomLevel;
     this.baseWidth  = this.BASE_WIDTH;
     this.baseHeight = this.BASE_HEIGHT;
     this.width      = this.zoomLevel;
@@ -61,7 +61,7 @@ DV.Schema.models.pages = {
 
   // Resize or zoom the pages width and height.
   resize : function(zoomLevel) {
-    var padding = DV.controller.models.pages.TEXT_PADDING;
+    var padding = this.viewer.models.pages.TEXT_PADDING;
     if (zoomLevel) {
       if (zoomLevel == this.zoomLevel) return;
       var previousFactor  = this.zoomFactor();
@@ -71,10 +71,10 @@ DV.Schema.models.pages = {
       this.height         = Math.round(this.height * scale);
       this.averageHeight  = Math.round(this.averageHeight * scale);
     }
-    
-    DV.controller.elements.sets.width(this.zoomLevel);
-    DV.controller.elements.collection.css({width : this.width + padding });
-    DV.controller.elements.textContents.css({'font-size' : this.zoomLevel * 0.02 + 'px'});
+
+    this.viewer.elements.sets.width(this.zoomLevel);
+    this.viewer.elements.collection.css({width : this.width + padding });
+    this.viewer.elements.textContents.css({'font-size' : this.zoomLevel * 0.02 + 'px'});
   },
 
   // TODO: figure out why this isn't working on the demo doc.
@@ -85,8 +85,8 @@ DV.Schema.models.pages = {
     var height = image.height * (this.zoomLevel > this.BASE_WIDTH ? 0.7 : 1.0);
     this.setPageHeight(pageIndex, height);
     this.updateBaseHeightBasedOnAveragePageHeight(image);
-    DV.controller.models.document.computeOffsets();
-    DV.controller.pageSet.simpleReflowPages();
+    this.viewer.models.document.computeOffsets();
+    this.viewer.pageSet.simpleReflowPages();
   },
 
   // Update the base height
@@ -95,14 +95,14 @@ DV.Schema.models.pages = {
     this.averageHeight = ((this.averageHeight * this.numPagesLoaded) + image.height) / (this.numPagesLoaded + 1);
     this.numPagesLoaded += 1;
     if (this.updateTimeout) clearTimeout(this.updateTimeout);
-    this.updateTimeout = setTimeout($j.proxy(function() {
+    this.updateTimeout = setTimeout(_.bind(function() {
       this.updateTimeout = null;
       var newAverage = Math.round(this.averageHeight);
       if (Math.abs(newAverage - this.height) > 10) {
         this.baseHeight = newAverage;
         this.height = Math.round(this.baseHeight * this.zoomFactor());
-        DV.controller.models.document.computeOffsets();
-        DV.controller.pageSet.simpleReflowPages();
+        this.viewer.models.document.computeOffsets();
+        this.viewer.pageSet.simpleReflowPages();
       }
     }, this), 100);
   },

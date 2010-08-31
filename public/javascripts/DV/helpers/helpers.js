@@ -141,7 +141,7 @@ DV.Schema.helpers = {
       }else{
         // pause draw timer
         this.application.isFocus = false;
-        DV.controller.helpers.stopCheckTimer();
+        this.application.helpers.stopCheckTimer();
         return;
       }
     },
@@ -316,7 +316,7 @@ DV.Schema.helpers = {
       var windowWidth = this.elements.window.outerWidth(true);
       var zoom;
       if (DV.options.zoom == 'auto') {
-        zoom = windowWidth - (DV.controller.models.pages.MINIMODE_TEXT_PADDING*2);
+        zoom = windowWidth - (this.application.models.pages.MINIMODE_TEXT_PADDING*2);
       } else {
         zoom = DV.options.zoom;
       }
@@ -338,9 +338,9 @@ DV.Schema.helpers = {
         ranges = [.66*zoom, 700, zoom2, zoom, 1000];
       } else if (zoom >= 1000) {
         zoom = 1000;
-        ranges = DV.controller.models.document.ZOOM_RANGES;
+        ranges = this.application.models.document.ZOOM_RANGES;
       }
-      DV.controller.models.document.ZOOM_RANGES = ranges;
+      this.application.models.document.ZOOM_RANGES = ranges;
       this.application.slider.slider({'value': parseInt(_.indexOf(ranges, zoom) * 24.7, 10)});
       this.events.zoom(zoom);
     },

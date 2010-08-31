@@ -126,7 +126,7 @@
       var documentModel         = this.application.models.document;
       var annotationsContainer  = $j('div.DV-allAnnotations');
       var pageAnnotationEls     = annotationsContainer.find('.DV-pageNote');
-      var pageNoteHeights       = DV.controller.models.pages.pageNoteHeights;
+      var pageNoteHeights       = this.application.models.pages.pageNoteHeights;
       var me = this;
 
       if($j('div.DV-docViewer').hasClass('DV-viewAnnotations') == false){

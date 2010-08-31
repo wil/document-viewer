@@ -22,7 +22,7 @@ _.extend(DV.Schema.helpers, {
     };
 
     var searchURI = DV.Schema.document.resources.search.replace('{query}', encodeURIComponent(query));
-    if (DV.controller.helpers.isCrossDomain(searchURI)) searchURI += '&callback=?';
+    if (this.application.helpers.isCrossDomain(searchURI)) searchURI += '&callback=?';
     $j.ajax({url : searchURI, dataType : 'json', success : handleResponse, error : failResponse});
   },
   acceptInputCallBack: function(){
@@ -182,7 +182,7 @@ _.extend(DV.Schema.helpers, {
     $j('span.DV-totalSearchResult').text('');
     $j('span.DV-searchQuery').text(name);
     $j('span.DV-currentSearchResult').text("Searching");
-    this.events.loadText(this.models.document.currentIndex(), _.bind(DV.controller.helpers.highlightEntity, DV.controller.helpers, offset, length));
+    this.events.loadText(this.models.document.currentIndex(), _.bind(this.application.helpers.highlightEntity, this.application.helpers, offset, length));
   },
   cleanUpSearch: function(){
     var application = this.application;

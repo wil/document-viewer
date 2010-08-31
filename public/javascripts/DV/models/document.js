@@ -11,7 +11,8 @@ DV.Schema.models.document = {
 
   ZOOM_RANGES:                [500, 700, 800, 900, 1000],
 
-  init: function(){
+  init: function(viewer){
+    this.viewer                   = viewer;
     var data                      = DV.Schema.data;
 
     this.state                    = data.state;
@@ -19,7 +20,7 @@ DV.Schema.models.document = {
     this.additionalPaddingOnPage  = data.additionalPaddingOnPage;
     this.pageWidthPadding         = data.pageWidthPadding;
     this.totalPages               = data.totalPages;
-    this.chapterModel             = DV.controller.models.chapters;
+    this.chapterModel             = this.application.models.chapters;
     this.pageModel                = this.application.models.pages;
 
     if (DV.options.zoom == 'auto') {
@@ -35,7 +36,7 @@ DV.Schema.models.document = {
   },
   setPageIndex : function(index) {
     this.currentPageIndex = index;
-    DV.controller.elements.currentPage.text(this.currentPage());
+    this.viewer.elements.currentPage.text(this.currentPage());
     this.application.helpers.setActiveChapter(this.chapterModel.getChapterId(index));
     return index;
   },
@@ -71,7 +72,7 @@ DV.Schema.models.document = {
     var adjustedOffset   = 0;
     var len              = this.totalPages;
     var diff             = 0;
-    var scrollPos        = DV.controller.elements.window[0].scrollTop;
+    var scrollPos        = this.viewer.elements.window[0].scrollTop;
 
     for(var i = 0; i < len; i++) {
       if(annotationModel.offsetsAdjustments[i]){
