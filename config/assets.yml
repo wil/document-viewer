@@ -21,7 +21,7 @@ javascripts:
     - public/javascripts/DV/helpers/*.js
     - public/javascripts/DV/states/states.js
     - public/javascripts/DV/states/*.js
-    - public/javascripts/DV/controllers/documentViewer.js
+    - public/javascripts/DV/controllers/document_viewer.js
     - public/javascripts/DV/controllers/*.js
 
   templates:
