@@ -24,7 +24,7 @@
 
     this.events     = argHash.events;
     this.helpers    = argHash.helpers;
-    this.states     = this.compileStates(states);
+    this.states     = states;
 
     // state values
     this.isFocus            = true;
@@ -83,18 +83,10 @@
 
   };
 
-  stateMachine.prototype.compileStates = function(states) {
-    var me = this;
-
-    _.each(states, function(transition, name) {
-      states[name] = function() {
-        if (me.state == name) return;
-        me.state = name;
-        transition.apply(me, arguments);
-      };
-    });
-
-    return states;
+  stateMachine.prototype.open = function(state) {
+    if (this.state == state) return;
+    this.state = state;
+    this.states[state].apply(this, arguments);
   };
 
   DV.stateMachine = stateMachine;

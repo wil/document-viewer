@@ -25,7 +25,7 @@ DV.load = function(documentRep, options) {
   // Once we have the JSON representation in-hand, finish loading the viewer.
   var continueLoad = DV.loadJSON = function(json) {
     DV.Schema.importCanonicalDocument(json);
-    DV.controller.states.InitialLoad();
+    DV.controller.open('InitialLoad');
     if (options.afterLoad) options.afterLoad();
     if (DV.afterLoad) DV.afterLoad();
   };

@@ -7,7 +7,7 @@ _.extend(DV.Schema.events, {
       this.helpers.jump(pageIndex);
     }else{
       this.models.document.setPageIndex(pageIndex);
-      this.states.ViewDocument();
+      this.application.open('ViewDocument');
     }
   },
   // [document-slug]#p=1
@@ -25,7 +25,7 @@ _.extend(DV.Schema.events, {
     }else{
       this.models.document.setPageIndex(pageIndex);
       this.application.pageSet.setActiveAnnotation(annotation);
-      this.states.ViewDocument();
+      this.application.open('ViewDocument');
     }
 
   },
@@ -39,7 +39,7 @@ _.extend(DV.Schema.events, {
       application.pageSet.showAnnotation(this.application.models.annotations.byId[annotation]);
     }else{
       application.activeAnnotationId = annotation;
-      this.states.ViewAnnotation();
+      this.application.open('ViewAnnotation');
     }
   },
   // Default route if all else fails
@@ -52,7 +52,7 @@ _.extend(DV.Schema.events, {
       this.helpers.jump(0);
       DV.history.save('document/p1');
     }else{
-      this.states.ViewDocument();
+      this.application.open('ViewDocument');
     }
 
   },
@@ -63,7 +63,7 @@ _.extend(DV.Schema.events, {
       this.events.loadText(pageIndex);
     }else{
       this.models.document.setPageIndex(pageIndex);
-      this.states.ViewText();
+      this.application.open('ViewText');
     }
   },
   // [document-slug]#search/[searchString]
@@ -74,7 +74,7 @@ _.extend(DV.Schema.events, {
     if(this.application.state !== 'ViewSearch'){
       this.models.document.setPageIndex(pageIndex);
     }
-    this.states.ViewSearch();
+    this.application.open('ViewSearch');
   },
   handleHashChangeViewEntity: function(page, name, offset, length) {
     page = parseInt(page,10) - 1;

@@ -14,7 +14,7 @@ DV.Schema.events.ViewText = {
   },
   search: function(e){
     e.preventDefault();
-    this.states.ViewSearch();
+    this.application.open('ViewSearch');
 
     return false;
   }

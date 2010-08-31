@@ -32,16 +32,16 @@ DV.Schema.helpers = {
 
       $j('.DV-annotationView').delegate('.DV-trigger','click',function(e){
         e.preventDefault();
-        states.ViewAnnotation();
+        context.open('ViewAnnotation');
       });
       $j('.DV-documentView').delegate('.DV-trigger','click',function(e){
         DV.history.save('document/p'+context.models.document.currentPage());
-        states.ViewDocument();
+        context.open('ViewDocument');
       });
       $j('.DV-textView').delegate('.DV-trigger','click',function(e){
 
         DV.history.save('text/p'+context.models.document.currentPage());
-        states.ViewText();
+        context.open('ViewText');
       });
       $j('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', $j.proxy(this.gotoPage, this));
 
@@ -49,7 +49,7 @@ DV.Schema.helpers = {
       $j('.DV-searchBar').delegate('.DV-closeSearch','click',function(e){
         e.preventDefault();
         DV.history.save('text/p'+context.models.document.currentPage());
-        states.ViewText();
+        context.open('ViewText');
       });
       $j('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', $j.proxy(this.clearSearch, this));
 
@@ -187,7 +187,7 @@ DV.Schema.helpers = {
 
       if(application.state !== 'ViewDocument'){
         this.models.document.setPageIndex(annotation.index);
-        application.states.ViewDocument();
+        application.open('ViewDocument');
         DV.history.save('document/p'+(parseInt(annotation.index,10)+1));
       }
     },
@@ -346,7 +346,7 @@ DV.Schema.helpers = {
 
     handleInitialState: function(){
       var initialRouteMatch = DV.history.loadURL(true);
-      if(!initialRouteMatch) this.states.ViewDocument();
+      if(!initialRouteMatch) this.application.open('ViewDocument');
     }
 
 };
