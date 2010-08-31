@@ -6,37 +6,38 @@ _.extend(DV.Schema.helpers, {
     var description = (doc.description) ? doc.description : null;
     var storyURL = doc.resources.related_article;
 
-    var headerHTML  = JST.header(
-    {
+    var headerHTML  = JST.header({
+      options     : this.application.options,
       id          : doc.id,
       story_url   : storyURL,
       title       : doc.title || ''
     });
-    var footerHTML = JST.footer({});
+    var footerHTML = JST.footer({options : this.application.options});
 
     var pdfURL   = doc.resources.pdf;
     pdfURL       = pdfURL ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF)</a>' : '';
 
     var viewerOptions = {
-        pages: pagesHTML,
-        header: headerHTML,
-        footer: footerHTML,
-        pdf_url: pdfURL,
-        story_url: storyURL,
-        descriptionContainer: JST.descriptionContainer({ description: description}),
-        autoZoom: DV.options.zoom == 'auto',
-        hideSidebar: !DV.options.showSidebar
+      options : this.application.options,
+      pages: pagesHTML,
+      header: headerHTML,
+      footer: footerHTML,
+      pdf_url: pdfURL,
+      story_url: storyURL,
+      descriptionContainer: JST.descriptionContainer({ description: description}),
+      autoZoom: this.application.options.zoom == 'auto',
+      hideSidebar: !this.application.options.showSidebar
     };
 
-    if (DV.options.width && DV.options.height) {
-      $j(DV.options.container).css({
+    if (this.application.options.width && this.application.options.height) {
+      $j(this.application.options.container).css({
         position: 'relative',
-        width: DV.options.width,
-        height: DV.options.height
+        width: this.application.options.width,
+        height: this.application.options.height
       });
     }
 
-    $j(DV.options.container).html(JST.viewer(viewerOptions));
+    $j(this.application.options.container).html(JST.viewer(viewerOptions));
   },
 
   // If there is no description, no navigation, and no sections, tighten up
@@ -134,8 +135,8 @@ _.extend(DV.Schema.helpers, {
   // present, depending on what the document provides.
   renderComponents : function() {
     // Hide the overflow of the body, unless we're positioned.
-    var position = $j(DV.options.container).css('position');
-    if (position != 'relative' && position != 'absolute' && !DV.options.fixedSize) {
+    var position = $j(this.application.options.container).css('position');
+    if (position != 'relative' && position != 'absolute' && !this.application.options.fixedSize) {
       $j(document.body).css({overflow : 'hidden'});
     }
 
@@ -143,7 +144,7 @@ _.extend(DV.Schema.helpers, {
     var showAnnotations = _.any(this.models.annotations.byId);
     var $annotationsView = $j('.DV-annotationView');
     $annotationsView[showAnnotations ? 'show' : 'hide']();
-    if (!showAnnotations && !DV.options.showText) {
+    if (!showAnnotations && !this.application.options.showText) {
       $j('.DV-documentView').addClass('DV-last');
     }
 
@@ -151,7 +152,7 @@ _.extend(DV.Schema.helpers, {
     var showSearch = !!this.application.schema.document.resources.search;
     if (showSearch) {
       this.elements.viewer.addClass('DV-searchable');
-      $j('input.DV-searchInput', DV.options.container).placeholder({
+      $j('input.DV-searchInput', this.application.options.container).placeholder({
         message: 'Search Document',
         clearClassName: 'DV-searchInput-show-search-cancel'
       });
@@ -174,7 +175,7 @@ _.extend(DV.Schema.helpers, {
       $j('.DV-fullscreenContainer').html(fullscreenControl);
     }
 
-    if (DV.options.showSidebar) {
+    if (this.application.options.showSidebar) {
       $j('.DV-sidebar').show();
     }
 

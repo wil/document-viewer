@@ -52,7 +52,7 @@ _.extend(DV.Schema.events, {
 
     if(this.application.state === 'ViewDocument'){
       this.helpers.jump(0);
-      DV.history.save('document/p1');
+      this.application.history.save('document/p1');
     }else{
       this.application.open('ViewDocument');
     }

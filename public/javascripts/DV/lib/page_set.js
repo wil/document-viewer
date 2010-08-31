@@ -110,7 +110,7 @@ DV.PageSet.prototype.zoomText = function() {
   var width   = this.application.models.pages.zoomLevel;
   $j('.DV-textContents').width(width - padding);
   $j('.DV-textPage').width(width);
-  if (DV.options.zoom == 'auto') {
+  if (this.application.options.zoom == 'auto') {
     padding = this.application.models.pages.REDUCED_PADDING;
   }
   this.application.elements.collection.css({'width' : width + padding});
@@ -155,7 +155,7 @@ DV.PageSet.prototype.showAnnotation = function(argHash, showHash){
     this.application.elements.window.scrollTop(offset+10,'fast');
     this.application.helpers.setActiveAnnotationInNav(argHash.id);
     this.application.activeAnnotationId = argHash.id;
-    DV.history.save('annotation/a'+argHash.id);
+    this.application.history.save('annotation/a'+argHash.id);
     return;
   }else{
     this.application.helpers.removeObserver('trackAnnotation');

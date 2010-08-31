@@ -1,4 +1,4 @@
-<div class="DV-header <% if (!DV.options.showHeader) { %>DV-hide<% } %>">
+<div class="DV-header <% if (!options.showHeader) { %>DV-hide<% } %>">
   <div class="DV-headerHat" class="clearfix">
     <div class="DV-branding">
       <% if (story_url) { %>
@@ -13,11 +13,11 @@
   <div class="DV-controls">
     <div class="DV-views">
       <div class="DV-documentView DV-first"><span class="DV-trigger DV-selected">Document</span></div>
-      <div style="display:none;" class="DV-annotationView <% if (!DV.options.showText) { %>DV-last<% } %>"><span class="DV-trigger">Annotations</span></div>
-      <div class="DV-textView <% if (DV.options.showText) { %>DV-last<% } else { %>DV-hide<% } %>"><span class="DV-trigger">Text</span></div>
+      <div style="display:none;" class="DV-annotationView <% if (!options.showText) { %>DV-last<% } %>"><span class="DV-trigger">Annotations</span></div>
+      <div class="DV-textView <% if (options.showText) { %>DV-last<% } else { %>DV-hide<% } %>"><span class="DV-trigger">Text</span></div>
     </div>
 
-    <div class="DV-searchBox clearfix <% if (!DV.options.showSearch || !DV.options.showText) { %>DV-hide<% } %>">
+    <div class="DV-searchBox clearfix <% if (!options.showSearch || !options.showText) { %>DV-hide<% } %>">
       <form action="#" method="get" class="DV-searchDocument">
         <div class="DV-searchInputWrap">
           <div class="DV-searchInput-cancel"></div>

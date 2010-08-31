@@ -1,32 +1,11 @@
-DV.Elements = function(elements){
-  if(!elements){
-    throw('Elements to query must be defined');
-    return;
-  }
-  this.names = [];
-
-  if(elements.constructor === Array){
-    return this.getElements(elements);
-  }else{
-    return this.getElement(elements);
-  }
+DV.Elements = function(viewer){
+  this._viewer = viewer;
+  _.each(DV.Schema.elements, _.bind(function(el) {
+    this.getElement(el);
+  }, this));
 };
 
 // Get and store an element reference
 DV.Elements.prototype.getElement = function(elementQuery,force){
-  if(this[elementQuery.name] && force === null){
-    return;
-  }else{
-    this[elementQuery.name] = jQuery(elementQuery.query, DV.options.container);
-    this.names.push(elementQuery.name);
-    return this;
-  }
-};
-
-// Get a collection of elements
-DV.Elements.prototype.getElements = function(querySet,force){
-  for (var i = querySet.length - 1; i >= 0; i--){
-    this.getElement(querySet[i],force);
-  };
-  return this;
+  this[elementQuery.name] = jQuery(elementQuery.query, this._viewer.options.container);
 };

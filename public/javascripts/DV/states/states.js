@@ -14,7 +14,8 @@ DV.Schema.states = {
     this.helpers.renderViewer();
 
     // Assign element references.
-    this.events.elements = this.helpers.elements = this.elements = new DV.Elements(this.pendingElements);
+    window.v = this;
+    this.events.elements = this.helpers.elements = this.elements = new DV.Elements(this);
 
     // Render included components, and hide unused portions of the UI.
     this.helpers.renderComponents();

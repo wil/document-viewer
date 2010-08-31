@@ -1,6 +1,8 @@
-DV.DocumentViewer = function() {
+DV.DocumentViewer = function(options) {
+  this.options    = options;
   this.schema     = new DV.Schema();
   this.api        = new DV.Api(this);
+  this.history    = new DV.History(this);
 
   this.models     = this.schema.models;
   this.events     = DV.Schema.events;
@@ -8,7 +10,6 @@ DV.DocumentViewer = function() {
   this.states     = DV.Schema.states;
 
   // state values
-  this.pendingElements    = DV.Schema.elements;
   this.isFocus            = true;
   this.activeElement      = null;
   this.observers          = [];
@@ -67,7 +68,6 @@ DV.DocumentViewer.prototype.open = function(state) {
 
 // The origin function, kicking off the entire documentViewer render.
 DV.load = function(documentRep, options) {
-  var viewer = new DV.DocumentViewer();
   var defaults = {
     container         : document.body,
     zoom              : 700,
@@ -75,11 +75,11 @@ DV.load = function(documentRep, options) {
     showText          : true,
     showSearch        : true,
     showHeader        : true,
-    enableUrlChanges  : true
+    enableUrlChanges  : !DV.History.alreadyActive
   };
   options            = _.extend({}, defaults, options);
   options.fixedSize  = !!(options.width || options.height);
-  DV.options         = options;
+  var viewer         = new DV.DocumentViewer(options);
   // Once we have the JSON representation in-hand, finish loading the viewer.
   var continueLoad = DV.loadJSON = function(json) {
     viewer.schema.importCanonicalDocument(json);

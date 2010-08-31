@@ -7,33 +7,38 @@
 //
 //     dc.history.save('search/freedom/p3');
 //
-DV.history = {
+// Initialize history with an empty set of handlers.
+// Bind to the HTML5 'onhashchange' callback, if it exists. Otherwise,
+// start polling the window location.
+DV.History = function(viewer) {
+  this.viewer = viewer;
+
+  // Ensure we don't accidentally bind to history twice.
+  DV.History.alreadyActive = true;
 
   // The interval at which the window location is polled.
-  URL_CHECK_INTERVAL : 500,
+  this.URL_CHECK_INTERVAL = 500;
 
   // We need to use an iFrame to save history if we're in an old version of IE.
-  USE_IFRAME : jQuery.browser.msie && jQuery.browser.version < 8,
+  this.USE_IFRAME = jQuery.browser.msie && jQuery.browser.version < 8;
 
   // The ordered list of history handlers matchers and callbacks.
-  handlers : [],
-  defaultCallback: null,
+  this.handlers = [];
+  this.defaultCallback = null;
 
   // The current recorded window.location.hash.
-  hash : window.location.hash,
+  this.hash = window.location.hash;
 
-  // Initialize history with an empty set of handlers.
-  // Bind to the HTML5 'onhashchange' callback, if it exists. Otherwise,
-  // start polling the window location.
-  initialize : function() {
-    _.bindAll(this, 'checkURL');
-    if (this.USE_IFRAME) this.iframe = jQuery('<iframe src="javascript:0"/>').hide().appendTo('body')[0].contentWindow;
-    if ('onhashchange' in window) {
-      window.onhashchange = this.checkURL;
-    } else {
-      setInterval(this.checkURL, this.URL_CHECK_INTERVAL);
-    }
-  },
+  _.bindAll(this, 'checkURL');
+  if (this.USE_IFRAME) this.iframe = jQuery('<iframe src="javascript:0"/>').hide().appendTo('body')[0].contentWindow;
+  if ('onhashchange' in window) {
+    window.onhashchange = this.checkURL;
+  } else {
+    setInterval(this.checkURL, this.URL_CHECK_INTERVAL);
+  }
+};
+
+DV.History.prototype = {
 
   // Register a history handler. Pass a regular expression that can be used to
   // match your URLs, and the callback to be invoked with the remainder of the
@@ -45,7 +50,7 @@ DV.history = {
   // Save a moment into browser history. Make sure you've registered a handler
   // for it. You're responsible for pre-escaping the URL fragment.
   save : function(hash) {
-    if (!DV.options.enableUrlChanges) return;
+    if (!this.viewer.options.enableUrlChanges) return;
     window.location.hash = this.hash = (hash ? '#' + hash : '');
     if (this.USE_IFRAME && (this.iframe && (this.hash != this.iframe.location.hash))) {
       this.iframe.document.open().close();
@@ -60,7 +65,7 @@ DV.history = {
        current == this.hash ||
        '#' + current == this.hash ||
        current == decodeURIComponent(this.hash)) return false;
-     if (this.USE_IFRAME && DV.options.enableUrlChanges) window.location.hash = current;
+     if (this.USE_IFRAME && this.viewer.options.enableUrlChanges) window.location.hash = current;
      this.loadURL(true);
   },
 
@@ -89,5 +94,3 @@ DV.history = {
   }
 
 };
-
-jQuery(document).ready(function(){ DV.history.initialize(); });

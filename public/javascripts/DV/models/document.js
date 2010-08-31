@@ -19,7 +19,7 @@ DV.model.Document = function(viewer){
   this.pageWidthPadding          = data.pageWidthPadding;
   this.totalPages                = data.totalPages;
 
-  var zoom = this.zoomLevel = DV.options.zoom || data.zoomLevel;
+  var zoom = this.zoomLevel = this.viewer.options.zoom || data.zoomLevel;
   if (zoom == 'auto') this.zoomLevel = data.zoomLevel;
 
   // The zoom level cannot go over the maximum image width.

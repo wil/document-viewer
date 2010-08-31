@@ -8,7 +8,7 @@ _.extend(DV.Schema.helpers, {
       $j('span.DV-totalSearchResult').text(text);
       $j('span.DV-searchQuery').text(response.query);
       if (hasResults) {
-        DV.history.save('search/p'+response.results[0]+'/'+response.query);
+        this.application.history.save('search/p'+response.results[0]+'/'+response.query);
         this.events.loadText(response.results[0] - 1, this.highlightSearchResponses);
       } else {
         this.highlightSearchResponses();
@@ -38,10 +38,10 @@ _.extend(DV.Schema.helpers, {
     $j('.DV-pageNumberContainer input').val(pageNumber);
 
     if(this.application.state === 'ViewDocument'){
-      DV.history.save('document/p'+pageNumber);
+      this.application.history.save('document/p'+pageNumber);
       this.jump(pageIndex);
     }else if(this.application.state === 'ViewText'){
-      DV.history.save('text/p'+pageNumber);
+      this.application.history.save('text/p'+pageNumber);
       this.events.loadText(pageIndex);
     }
 

@@ -21,6 +21,7 @@ DV.Schema.helpers = {
       });
 
       // next/previous
+      var history         = this.application.history;
       var compiled        = this.application.compiled;
       compiled.next       = this.events.compile('next');
       compiled.previous   = this.events.compile('previous');
@@ -35,12 +36,12 @@ DV.Schema.helpers = {
         context.open('ViewAnnotation');
       });
       $j('.DV-documentView').delegate('.DV-trigger','click',function(e){
-        DV.history.save('document/p'+context.models.document.currentPage());
+        history.save('document/p'+context.models.document.currentPage());
         context.open('ViewDocument');
       });
       $j('.DV-textView').delegate('.DV-trigger','click',function(e){
 
-        DV.history.save('text/p'+context.models.document.currentPage());
+        history.save('text/p'+context.models.document.currentPage());
         context.open('ViewText');
       });
       $j('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', $j.proxy(this.gotoPage, this));
@@ -48,7 +49,7 @@ DV.Schema.helpers = {
       $j('form.DV-searchDocument').submit(this.events.compile('search'));
       $j('.DV-searchBar').delegate('.DV-closeSearch','click',function(e){
         e.preventDefault();
-        DV.history.save('text/p'+context.models.document.currentPage());
+        history.save('text/p'+context.models.document.currentPage());
         context.open('ViewText');
       });
       $j('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', $j.proxy(this.clearSearch, this));
@@ -188,7 +189,7 @@ DV.Schema.helpers = {
       if(application.state !== 'ViewDocument'){
         this.models.document.setPageIndex(annotation.index);
         application.open('ViewDocument');
-        DV.history.save('document/p'+(parseInt(annotation.index,10)+1));
+        this.application.history.save('document/p'+(parseInt(annotation.index,10)+1));
       }
     },
 
@@ -217,7 +218,7 @@ DV.Schema.helpers = {
         var application     = this.application;
         var elements        = this.elements;
         var headerHeight    = elements.header.outerHeight() + 15;
-        var offset          = $j(DV.options.container).offset().top;
+        var offset          = $j(this.application.options.container).offset().top;
         var uiHeight        = Math.round((windowDimensions.height) - headerHeight - offset);
 
         // doc window
@@ -277,13 +278,13 @@ DV.Schema.helpers = {
 
     unsupportedBrowser : function() {
       if (!($j.browser.msie && $j.browser.version <= "6.0")) return false;
-      $j(DV.options.container).html(JST.unsupported({viewer : this.application}));
+      $j(this.application.options.container).html(JST.unsupported({viewer : this.application}));
       return true;
     },
 
     registerHashChangeEvents: function(){
       var events  = this.events;
-      var history = DV.history;
+      var history = this.application.history;
 
       // Default route
       history.defaultCallback = $j.proxy(events.handleHashChangeDefault,this.events);
@@ -315,10 +316,10 @@ DV.Schema.helpers = {
     autoZoomPage: function() {
       var windowWidth = this.elements.window.outerWidth(true);
       var zoom;
-      if (DV.options.zoom == 'auto') {
+      if (this.application.options.zoom == 'auto') {
         zoom = windowWidth - (this.application.models.pages.REDUCED_PADDING * 2);
       } else {
-        zoom = DV.options.zoom;
+        zoom = this.application.options.zoom;
       }
 
       // Setup ranges for auto-width zooming
@@ -346,7 +347,7 @@ DV.Schema.helpers = {
     },
 
     handleInitialState: function(){
-      var initialRouteMatch = DV.history.loadURL(true);
+      var initialRouteMatch = this.application.history.loadURL(true);
       if(!initialRouteMatch) this.application.open('ViewDocument');
     }
 

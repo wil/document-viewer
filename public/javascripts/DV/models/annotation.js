@@ -55,6 +55,7 @@ DV.model.Annotations.prototype = {
     adata.DSOffset                = 3;
 
     adata.orderClass = '';
+    adata.options = this.viewer.options;
     if (adata.position == 1) adata.orderClass += ' DV-firstAnnotation';
     if (adata.position == this.bySortOrder.length) adata.orderClass += ' DV-lastAnnotation';
 
