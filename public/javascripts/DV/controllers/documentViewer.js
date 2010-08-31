@@ -56,5 +56,5 @@ DV.load = function(documentRep, options) {
 
 // If the document viewer has been loaded dynamically, allow the external
 // script to specify the onLoad behavior.
-if (DV.onload) setTimeout(DV.onload, 0);
+if (DV.onload) _.defer(DV.onload);
 
