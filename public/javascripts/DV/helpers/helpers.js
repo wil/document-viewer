@@ -316,7 +316,7 @@ DV.Schema.helpers = {
       var windowWidth = this.elements.window.outerWidth(true);
       var zoom;
       if (DV.options.zoom == 'auto') {
-        zoom = windowWidth - (this.application.models.pages.MINIMODE_TEXT_PADDING*2);
+        zoom = windowWidth - (this.application.models.pages.REDUCED_PADDING * 2);
       } else {
         zoom = DV.options.zoom;
       }

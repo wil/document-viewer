@@ -106,12 +106,12 @@ DV.PageSet.prototype.zoom = function(argHash){
 
 // Zoom the text container.
 DV.PageSet.prototype.zoomText = function() {
-  var padding = this.application.models.pages.TEXT_PADDING;
+  var padding = this.application.models.pages.DEFAULT_PADDING;
   var width   = this.application.models.pages.zoomLevel;
   $j('.DV-textContents').width(width - padding);
   $j('.DV-textPage').width(width);
   if (DV.options.zoom == 'auto') {
-    padding = this.application.models.pages.MINIMODE_TEXT_PADDING;
+    padding = this.application.models.pages.REDUCED_PADDING;
   }
   this.application.elements.collection.css({'width' : width + padding});
 };

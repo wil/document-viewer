@@ -1,40 +1,39 @@
-// The PageModel represents the set of pages in the document, containing the
+// The Pages model represents the set of pages in the document, containing the
 // image sources for each page, and the page proportions.
-DV.Schema.models.pages = {
+DV.model.Pages = function(viewer) {
+  this.viewer     = viewer;
 
   // Rolling average page height.
-  averageHeight   : 0,
+  this.averageHeight   = 0;
 
   // Real page heights.
-  pageHeights     : [],
+  this.pageHeights     = [];
 
   // Real page note heights.
-  pageNoteHeights : [],
+  this.pageNoteHeights = [];
 
   // In pixels.
-  BASE_WIDTH      : 700,
-  BASE_HEIGHT     : 906,
+  this.BASE_WIDTH      = 700;
+  this.BASE_HEIGHT     = 906;
 
   // Factors for scaling from image size to zoomlevel.
-  SCALE_FACTORS   : {'500': 0.714, '700': 1.0, '800': 0.8, '900': 0.9, '1000': 1.0},
+  this.SCALE_FACTORS   = {'500': 0.714, '700': 1.0, '800': 0.8, '900': 0.9, '1000': 1.0};
 
   // For viewing page text.
-  TEXT_PADDING    : 100,
+  this.DEFAULT_PADDING = 100;
 
   // Embed reduces padding.
-  MINIMODE_TEXT_PADDING : 44,
+  this.REDUCED_PADDING = 44;
 
-  // Initializing the page model guesses at a default pageHeight -- we'll
-  // know for sure when the first page image is loaded.
-  init: function(viewer) {
-    this.viewer     = viewer;
-    this.zoomLevel  = this.viewer.models.document.zoomLevel;
-    this.baseWidth  = this.BASE_WIDTH;
-    this.baseHeight = this.BASE_HEIGHT;
-    this.width      = this.zoomLevel;
-    this.height     = this.baseHeight * this.zoomFactor();
-    this.numPagesLoaded = 0;
-  },
+  this.zoomLevel  = this.viewer.models.document.zoomLevel;
+  this.baseWidth  = this.BASE_WIDTH;
+  this.baseHeight = this.BASE_HEIGHT;
+  this.width      = this.zoomLevel;
+  this.height     = this.baseHeight * this.zoomFactor();
+  this.numPagesLoaded = 0;
+};
+
+DV.model.Pages.prototype = {
 
   // Get the complete image URL for a particular page.
   imageURL: function(index) {
@@ -60,7 +59,7 @@ DV.Schema.models.pages = {
 
   // Resize or zoom the pages width and height.
   resize : function(zoomLevel) {
-    var padding = this.viewer.models.pages.TEXT_PADDING;
+    var padding = this.viewer.models.pages.DEFAULT_PADDING;
     if (zoomLevel) {
       if (zoomLevel == this.zoomLevel) return;
       var previousFactor  = this.zoomFactor();

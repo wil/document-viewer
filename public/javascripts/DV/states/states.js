@@ -4,17 +4,17 @@ DV.Schema.states = {
     // If we're in an unsupported browser ... bail.
     if (this.helpers.unsupportedBrowser()) return;
 
+    // Build the data models
+    this.models.chapters    = new DV.model.Chapters(this);
+    this.models.document    = new DV.model.Document(this);
+    this.models.pages       = new DV.model.Pages(this);
+    this.models.annotations = new DV.model.Annotations(this);
+
     // Insert the Document Viewer HTML into the DOM.
     this.helpers.renderViewer();
 
     // Assign element references.
     this.events.elements = this.helpers.elements = this.elements = new DV.Elements(this.pendingElements);
-
-    // Build the data models
-    this.models.document.init(this);
-    this.models.pages.init(this);
-    this.models.chapters.init(this);
-    this.models.annotations.init(this);
 
     // Render included components, and hide unused portions of the UI.
     this.helpers.renderComponents();

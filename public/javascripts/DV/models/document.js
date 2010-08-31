@@ -1,42 +1,38 @@
-DV.Schema.models.document = {
-  currentPageIndex:           0,
-  offsets:                    [],
-  baseHeightsPortion:         [],
-  baseHeightsPortionOffsets:  [],
-  paddedOffsets:              [],
-  totalDocumentHeight:        0,
-  totalPages:                 0,
-  additionalPaddingOnPage:    0,
+DV.model.Document = function(viewer){
+  this.viewer                    = viewer;
 
-  ZOOM_RANGES:                [500, 700, 800, 900, 1000],
+  this.currentPageIndex          = 0;
+  this.offsets                   = [];
+  this.baseHeightsPortion        = [];
+  this.baseHeightsPortionOffsets = [];
+  this.paddedOffsets             = [];
+  this.totalDocumentHeight       = 0;
+  this.totalPages                = 0;
+  this.additionalPaddingOnPage   = 0;
+  this.ZOOM_RANGES               = [500, 700, 800, 900, 1000];
 
-  init: function(viewer){
-    this.viewer                   = viewer;
-    var data                      = this.viewer.schema.data;
+  var data                       = this.viewer.schema.data;
 
-    this.state                    = data.state;
-    this.baseImageURL             = data.baseImageURL;
-    this.additionalPaddingOnPage  = data.additionalPaddingOnPage;
-    this.pageWidthPadding         = data.pageWidthPadding;
-    this.totalPages               = data.totalPages;
-    this.chapterModel             = this.viewer.models.chapters;
-    this.pageModel                = this.viewer.models.pages;
+  this.state                     = data.state;
+  this.baseImageURL              = data.baseImageURL;
+  this.additionalPaddingOnPage   = data.additionalPaddingOnPage;
+  this.pageWidthPadding          = data.pageWidthPadding;
+  this.totalPages                = data.totalPages;
 
-    if (DV.options.zoom == 'auto') {
-      this.zoomLevel              = data.zoomLevel;
-    } else {
-      this.zoomLevel              = DV.options.zoom || data.zoomLevel;
-    }
+  var zoom = this.zoomLevel = DV.options.zoom || data.zoomLevel;
+  if (zoom == 'auto') this.zoomLevel = data.zoomLevel;
 
-    // The zoom level cannot go over the maximum image width.
-    var maxZoom = _.last(this.ZOOM_RANGES);
-    if (this.zoomLevel > maxZoom) this.zoomLevel = maxZoom;
+  // The zoom level cannot go over the maximum image width.
+  var maxZoom = _.last(this.ZOOM_RANGES);
+  if (this.zoomLevel > maxZoom) this.zoomLevel = maxZoom;
+};
 
-  },
+DV.model.Document.prototype = {
+
   setPageIndex : function(index) {
     this.currentPageIndex = index;
     this.viewer.elements.currentPage.text(this.currentPage());
-    this.viewer.helpers.setActiveChapter(this.chapterModel.getChapterId(index));
+    this.viewer.helpers.setActiveChapter(this.viewer.models.chapters.getChapterId(index));
     return index;
   },
   currentPage : function() {
@@ -76,7 +72,7 @@ DV.Schema.models.document = {
         adjustedOffset   = annotationModel.offsetsAdjustments[i];
       }
 
-      var pageHeight     = this.pageModel.getPageHeight(i);
+      var pageHeight     = this.viewer.models.pages.getPageHeight(i);
       var previousOffset = this.offsets[i];
       var h              = this.offsets[i] = adjustedOffset + totalDocHeight;
 

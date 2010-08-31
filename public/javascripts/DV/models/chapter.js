@@ -1,9 +1,9 @@
-DV.Schema.models.chapters = {
+DV.model.Chapters = function(viewer) {
+  this.viewer = viewer;
+  this.loadChapters();
+};
 
-  init : function(viewer) {
-    this.viewer = viewer;
-    this.loadChapters();
-  },
+DV.model.Chapters.prototype = {
 
   // Load (or reload) the chapter model from the schema's defined sections.
   loadChapters : function() {
