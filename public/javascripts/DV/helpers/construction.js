@@ -37,7 +37,10 @@ _.extend(DV.Schema.helpers, {
       });
     }
 
-    DV.jQuery(this.viewer.options.container).html(JST.viewer(viewerOptions));
+    var container = this.viewer.options.container;
+    var containerEl = DV.jQuery(container);
+    if (!containerEl.length) throw "Document Viewer container element not found: " + container;
+    containerEl.html(JST.viewer(viewerOptions));
   },
 
   // If there is no description, no navigation, and no sections, tighten up
