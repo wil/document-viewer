@@ -317,7 +317,7 @@
 
 .DV-resultPrevious,
 .DV-annotationPrevious {
-  background: url(../../../images/DV/embed/leftArrow.gif) no-repeat left 1px;
+  background: url(../../../images/DV/embed/leftArrow.png) no-repeat left 1px;
 }
 
 .DV-annotationPrevious{
@@ -339,7 +339,7 @@
 
 .DV-resultNext,
 .DV-annotationNext {
-  background:transparent url(../../../images/DV/embed/rightArrow.gif) no-repeat right 1px;
+  background:transparent url(../../../images/DV/embed/rightArrow.png) no-repeat right 1px;
 }
 
 .DV-annotationNext{
