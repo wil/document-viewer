@@ -99,11 +99,12 @@ DV.model.Annotations.prototype = {
   // Refresh the annotation's title and content from the model, in both
   // The document and list views.
   refreshAnnotation : function(anno) {
-    this.viewer.$('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).each(function() {
-      this.viewer.$('.DV-annotationTitleInput', this).val(anno.title);
-      this.viewer.$('.DV-annotationTitle', this).text(anno.title);
-      this.viewer.$('.DV-annotationTextArea', this).val(anno.text);
-      this.viewer.$('.DV-annotationBody', this).html(anno.text);
+    var viewer = this.viewer;
+    viewer.$('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).each(function() {
+      viewer.$('.DV-annotationTitleInput', this).val(anno.title);
+      viewer.$('.DV-annotationTitle', this).text(anno.title);
+      viewer.$('.DV-annotationTextArea', this).val(anno.text);
+      viewer.$('.DV-annotationBody', this).html(anno.text);
     });
   },
 
