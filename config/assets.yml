@@ -9,7 +9,6 @@ javascripts:
     - public/javascripts/DV/vendor/jquery.acceptInput.js
     - public/javascripts/DV/vendor/jquery.placeholder.js
     - public/javascripts/DV/lib/initializer.js
-    - public/javascripts/DV/lib/history.js
     - public/javascripts/DV/lib/*.js
     - public/javascripts/DV/schema/*.js
     - public/javascripts/DV/elements/*.js
@@ -19,9 +18,7 @@ javascripts:
     - public/javascripts/DV/events/*.js
     - public/javascripts/DV/helpers/helpers.js
     - public/javascripts/DV/helpers/*.js
-    - public/javascripts/DV/states/states.js
     - public/javascripts/DV/states/*.js
-    - public/javascripts/DV/controllers/document_viewer.js
     - public/javascripts/DV/controllers/*.js
 
   templates:

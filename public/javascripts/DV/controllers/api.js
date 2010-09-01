@@ -17,6 +17,11 @@ DV.Api.prototype = {
     return page.index + 1;
   },
 
+  // Get the document's canonical ID.
+  getId : function() {
+    return this.viewer.schema.document.id;
+  },
+
   // Return the current zoom factor of the document.
   currentZoom : function() {
     var doc = this.viewer.models.document;
