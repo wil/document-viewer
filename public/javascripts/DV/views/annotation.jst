@@ -19,7 +19,7 @@
       <% } else { %>
         <div class="DV-annotationWarning DV-editVisible">All viewers of this document can see this public note.</div>
       <% } %>
-      <div class="DV-annotationGoto DV-editHidden"><div class="DV-trigger">Go to Page <%= pageNumber %></div></div>
+      <div class="DV-annotationGoto DV-editHidden"><div class="DV-trigger">p. <%= pageNumber %></div></div>
       <div class="DV-annotationTitle DV-editHidden"><%= title %></div>
       <input class="DV-annotationTitleInput DV-editVisible" type="text" placeholder="Annotation Title" value="<%= title %>" />
       <% if (access == 'private') { %>
