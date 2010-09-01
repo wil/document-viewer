@@ -120,7 +120,7 @@
     -webkit-border-radius: 3px;
     -moz-border-radius:  3px;
     border-radius:  3px;
-    margin: -35px 10px 0 10px;
+    margin: -37px 10px 0 11px;
     z-index:10002;
 
     -webkit-box-shadow: 1px 1px 3px rgb(0,0,0);
@@ -264,7 +264,7 @@
     }
 
   .DV-activeAnnotation .DV-annotationTab{
-    top:42px;
+    top:44px;
     background-color:rgb(255, 227, 37);
     background-image:none;
     width: 44px;
