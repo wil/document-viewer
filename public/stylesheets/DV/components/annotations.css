@@ -111,7 +111,7 @@
   }
   .DV-activeAnnotation .DV-annotationClose{
     display:block;
-    background: transparent url(../../../images/DV/embed/close_yellow.png) no-repeat 6px 7px;
+    background: transparent url(../../../images/DV/embed/close_tab.png) no-repeat 6px 7px;
   }
 
   .DV-activeAnnotation.DV-annotation{
