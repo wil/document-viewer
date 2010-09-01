@@ -1,6 +1,9 @@
 DV.Schema.helpers = {
 
     HOST_EXTRACTOR : (/https?:\/\/([^\/]+)\//),
+
+    BLANK_GIF : 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==',
+
     annotationClassName: '.DV-annotation',
 
     // Bind all events for the docviewer
@@ -264,7 +267,7 @@ DV.Schema.helpers = {
 
       var height = this.models.pages.height;
       for (var i = 0; i < totalPagesToCreate; i++) {
-        pages.push(JST.pages({ pageNumber: i+1, pageIndex: i , pageImageSource: '', baseHeight: height }));
+        pages.push(JST.pages({ pageNumber: i+1, pageIndex: i , pageImageSource: this.BLANK_GIF, baseHeight: height }));
       }
 
       return pages.join('');
