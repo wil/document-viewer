@@ -1,6 +1,6 @@
 DV.PageSet = function(viewer){
   this.currentPage  = null;
-  this.pages        = [];
+  this.pages        = {};
   this.viewer       = viewer;
   this.zoomText();
 };
