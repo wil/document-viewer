@@ -180,6 +180,11 @@ _.extend(DV.Schema.helpers, {
 
     if (this.viewer.options.showSidebar) {
       this.viewer.$('.DV-sidebar').show();
+      
+      // Check if the zoom is showing, and if not, shorten the width of search
+      if (this.viewer.$('.DV-zoomControls').position().top != 0) {
+        this.viewer.$('.DV-searchInput').parents('.DV-controls').addClass('DV-hideSidebar');
+      }
     }
 
     // Set the currentPage element reference.

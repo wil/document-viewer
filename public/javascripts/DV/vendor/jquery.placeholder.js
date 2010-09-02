@@ -28,7 +28,8 @@
         }
         $this.removeClass(options.className);
       }).bind('keyup', function() {
-        if ($this.val() != '') {
+        var searchVal = $this.val();
+        if (searchVal != '' && searchVal != options.message) {
           $this.parent().addClass(options.clearClassName);
         } else {
           $this.parent().removeClass(options.clearClassName);
