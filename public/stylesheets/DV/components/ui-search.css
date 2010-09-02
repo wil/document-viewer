@@ -92,6 +92,9 @@
   font-family: Arial,Helvetica,sans-serif;
   display: none;
 }
+  .DV-hideSidebar .DV-searchBar {
+    right: 15px;
+  }
 
 .DV-searchBar ::selection {
   background: transparent;
