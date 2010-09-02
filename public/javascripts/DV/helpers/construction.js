@@ -25,8 +25,7 @@ _.extend(DV.Schema.helpers, {
       pdf_url: pdfURL,
       story_url: storyURL,
       descriptionContainer: JST.descriptionContainer({ description: description}),
-      autoZoom: this.viewer.options.zoom == 'auto',
-      hideSidebar: !this.viewer.options.showSidebar
+      autoZoom: this.viewer.options.zoom == 'auto'
     };
 
     if (this.viewer.options.width && this.viewer.options.height) {
@@ -147,19 +146,13 @@ _.extend(DV.Schema.helpers, {
     var showAnnotations = _.any(this.models.annotations.byId);
     var $annotationsView = this.viewer.$('.DV-annotationView');
     $annotationsView[showAnnotations ? 'show' : 'hide']();
-    if (!showAnnotations && !this.viewer.options.showText) {
-      this.viewer.$('.DV-documentView').addClass('DV-last');
-    }
 
     // Hide the searchBox, if it's disabled.
-    var showSearch = !!this.viewer.schema.document.resources.search;
-    if (showSearch) {
-      this.elements.viewer.addClass('DV-searchable');
-      this.viewer.$('input.DV-searchInput', this.viewer.options.container).placeholder({
-        message: 'Search',
-        clearClassName: 'DV-searchInput-show-search-cancel'
-      });
-    }
+    this.elements.viewer.addClass('DV-searchable');
+    this.viewer.$('input.DV-searchInput', this.viewer.options.container).placeholder({
+      message: 'Search',
+      clearClassName: 'DV-searchInput-show-search-cancel'
+    });
 
     // Hide the entire sidebar, if there are no annotations or sections.
     var showChapters = this.models.chapters.chapters.length > 0;
@@ -178,13 +171,13 @@ _.extend(DV.Schema.helpers, {
       this.viewer.$('.DV-fullscreenContainer').html(fullscreenControl);
     }
 
-    if (this.viewer.options.showSidebar) {
+    if (this.viewer.options.sidebar) {
       this.viewer.$('.DV-sidebar').show();
-      
-      // Check if the zoom is showing, and if not, shorten the width of search
-      if (this.viewer.$('.DV-zoomControls').position().top != 0) {
-        this.viewer.$('.DV-controls').addClass('DV-narrowControls');
-      }
+    }
+
+    // Check if the zoom is showing, and if not, shorten the width of search
+    if (this.elements.viewer.width() <= 650) {
+      this.viewer.$('.DV-controls').addClass('DV-narrowControls');
     }
 
     // Set the currentPage element reference.

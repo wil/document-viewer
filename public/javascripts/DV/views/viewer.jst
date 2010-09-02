@@ -1,8 +1,8 @@
-<!--[if IE 7]><div class="DV-docViewer clearfix DV-viewDocument DV-ie DV-ie7 <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (hideSidebar) { %>DV-hideSidebar DV-narrowControls<% } %>"><![endif]-->
-<!--[if IE 8]><div class="DV-docViewer clearfix DV-viewDocument DV-ie DV-ie8 <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (hideSidebar) { %>DV-hideSidebar DV-narrowControls<% } %>"><![endif]-->
-<!--[if !IE]><!--><div class="DV-docViewer clearfix DV-viewDocument <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (hideSidebar) { %>DV-hideSidebar DV-narrowControls<% } %>"><!-- <![endif]-->
+<!--[if IE 7]><div class="DV-docViewer clearfix DV-viewDocument DV-ie DV-ie7 <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (!options.sidebar) { %>DV-hideSidebar<% } %>"><![endif]-->
+<!--[if IE 8]><div class="DV-docViewer clearfix DV-viewDocument DV-ie DV-ie8 <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (!options.sidebar) { %>DV-hideSidebar<% } %>"><![endif]-->
+<!--[if !IE]><!--><div class="DV-docViewer clearfix DV-viewDocument <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (!options.sidebar) { %>DV-hideSidebar<% } %>"><!-- <![endif]-->
   <%= header %>
-  <div class="DV-docViewer-Container <% if (!options.showHeader) { %>DV-hide-header<% } %> <% if (options.showSidebar) { %>DV-hide-footer<% } %>">
+  <div class="DV-docViewer-Container <% if (options.sidebar) { %>DV-hide-footer<% } %>">
 
     <div class="DV-searchBarWrapper">
       <div class="DV-searchBar">
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="DV-pages <% if (!options.showSidebar) { %>DV-hide-sidebar<% } %>">
+    <div class="DV-pages <% if (!options.sidebar) { %>DV-hide-sidebar<% } %>">
       <div class="DV-pageCollection">
         <div class="DV-bar" style=""></div>
         <div class="DV-allAnnotations">
@@ -38,10 +38,10 @@
       </div>
     </div>
 
-    <div width="265px" class="DV-sidebar <% if (!options.showSidebar) { %>DV-hide<% } %>" style="display:none;">
+    <div width="265px" class="DV-sidebar <% if (!options.sidebar) { %>DV-hide<% } %>" style="display:none;">
       <div class="DV-well">
 
-        <% if (options.showSidebar) { %>
+        <% if (options.sidebar) { %>
           <div class="DV-navControlsContainer">
           </div>
         <% } %>

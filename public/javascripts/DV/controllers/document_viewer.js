@@ -76,14 +76,11 @@ DV.DocumentViewer.prototype.jQuery = function(selector, context) {
 // The origin function, kicking off the entire documentViewer render.
 DV.load = function(documentRep, options) {
   var id = documentRep.id || documentRep.match(/([^\/]+)(\.js|\.json)$/)[1];
+  if ('showSidebar' in options) options.sidebar = options.showSidebar;
   var defaults = {
-    container         : document.body,
-    zoom              : 700,
-    showSidebar       : true,
-    showText          : true,
-    showSearch        : true,
-    showHeader        : true,
-    enableUrlChanges  : true
+    container : document.body,
+    zoom      : 'auto',
+    sidebar   : true
   };
   options            = _.extend({}, defaults, options);
   options.fixedSize  = !!(options.width || options.height);

@@ -53,7 +53,7 @@ DV.History.prototype = {
   // Save a moment into browser history. Make sure you've registered a handler
   // for it. You're responsible for pre-escaping the URL fragment.
   save : function(hash) {
-    if (!this.viewer.options.enableUrlChanges || (DV.History.count > 1)) return;
+    if (DV.History.count > 1) return;
     window.location.hash = this.hash = (hash ? '#' + hash : '');
     if (this.USE_IFRAME && (this.iframe && (this.hash != this.iframe.location.hash))) {
       this.iframe.document.open().close();
@@ -69,7 +69,7 @@ DV.History.prototype = {
        current == this.hash ||
        '#' + current == this.hash ||
        current == decodeURIComponent(this.hash)) return false;
-     if (this.USE_IFRAME && this.viewer.options.enableUrlChanges) window.location.hash = current;
+     if (this.USE_IFRAME) window.location.hash = current;
      this.loadURL(true);
   },
 
