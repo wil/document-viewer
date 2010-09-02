@@ -183,7 +183,7 @@ _.extend(DV.Schema.helpers, {
       
       // Check if the zoom is showing, and if not, shorten the width of search
       if (this.viewer.$('.DV-zoomControls').position().top != 0) {
-        this.viewer.$('.DV-searchInput').parents('.DV-controls').addClass('DV-hideSidebar');
+        this.viewer.$('.DV-controls').addClass('DV-narrowControls');
       }
     }
 

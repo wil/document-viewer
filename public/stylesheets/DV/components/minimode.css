@@ -2,11 +2,11 @@
 /* = Header = */
 /* ========== */
 
-.DV-hideSidebar .DV-searchBar {
+.DV-narrowControls .DV-searchBar {
   right: 16px;
 }
 
-.DV-hideSidebar .DV-searchInput {
+.DV-narrowControls .DV-searchInput {
   width: 80px;
 }
 
