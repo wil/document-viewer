@@ -1,5 +1,4 @@
-DV.Schema = function(viewer) {
-  this.viewer = viewer;
+DV.Schema = function() {
   this.models       = {};
   this.views        = {};
   this.states       = {};
