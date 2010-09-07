@@ -75,7 +75,8 @@ DV.DocumentViewer.prototype.jQuery = function(selector, context) {
 
 // The origin function, kicking off the entire documentViewer render.
 DV.load = function(documentRep, options) {
-  var id = documentRep.id || documentRep.match(/([^\/]+)(\.js|\.json)$/)[1];
+  options = options || {};
+  var id  = documentRep.id || documentRep.match(/([^\/]+)(\.js|\.json)$/)[1];
   if ('showSidebar' in options) options.sidebar = options.showSidebar;
   var defaults = {
     container : document.body,

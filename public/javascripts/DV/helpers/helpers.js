@@ -65,6 +65,8 @@ DV.Schema.helpers = {
       // Prevent navigation elements from being selectable when clicked.
       viewer.$('.DV-trigger').bind('selectstart', function(){ return false; });
 
+      viewer.$('.DV-fullscreen').bind('click', _.bind(this.openFullScreen, this));
+
       var boundToggle           = DV.jQuery.proxy(this.annotationBridgeToggle, this);
       var collection            = this.elements.collection;
 
@@ -195,6 +197,11 @@ DV.Schema.helpers = {
         viewer.open('ViewDocument');
         this.viewer.history.save('document/p'+(parseInt(annotation.index,10)+1));
       }
+    },
+
+    openFullScreen : function() {
+      var doc = this.viewer.schema.document;
+      window.open(doc.canonicalURL, doc.title);
     },
 
     // Determine the correct DOM page ordering for a given page index.

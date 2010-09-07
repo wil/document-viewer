@@ -6,7 +6,6 @@ DV.Schema = function() {
   this.events       = {};
   this.elements     = {};
   this.text         = {};
-  this.canonicalUrl = null;
   this.data         = {
     zoomLevel               : 700,
     pageWidthPadding        : 20,
@@ -21,7 +20,7 @@ DV.Schema.prototype.importCanonicalDocument = function(json) {
   // Ensure at least empty arrays for sections.
   json.sections = json.sections || [];
   json.annotations = json.annotations || [];
-  this.canonicalUrl = json.canonical_url;
+  json.canonicalURL = json.canonical_url;
 
   this.document               = DV.jQuery.extend(true, {}, json);
   // Everything after this line is for back-compatibility.

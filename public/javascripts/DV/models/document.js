@@ -15,6 +15,7 @@ DV.model.Document = function(viewer){
 
   this.state                     = data.state;
   this.baseImageURL              = data.baseImageURL;
+  this.canonicalURL              = data.canonicalURL;
   this.additionalPaddingOnPage   = data.additionalPaddingOnPage;
   this.pageWidthPadding          = data.pageWidthPadding;
   this.totalPages                = data.totalPages;

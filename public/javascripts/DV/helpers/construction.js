@@ -166,7 +166,7 @@ _.extend(DV.Schema.helpers, {
     this.viewer.$('.DV-navControlsContainer').html(navControls);
 
     this.viewer.$('.DV-fullscreenControl').remove();
-    if (this.viewer.schema.canonicalUrl) {
+    if (this.viewer.schema.document.canonicalURL) {
       var fullscreenControl = JST.fullscreenControl({});
       this.viewer.$('.DV-fullscreenContainer').html(fullscreenControl);
     }
