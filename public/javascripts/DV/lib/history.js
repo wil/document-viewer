@@ -68,13 +68,17 @@ DV.History.prototype = {
   // Check the current URL hash against the recorded one, firing callbacks.
   checkURL : function() {
     if (DV.History.count > 1) return;
-    var current = (this.USE_IFRAME ? this.iframe : window).location.hash;
-     if (!current ||
-       current == this.hash ||
-       '#' + current == this.hash ||
-       current == decodeURIComponent(this.hash)) return false;
-     if (this.USE_IFRAME) window.location.hash = current;
-     this.loadURL(true);
+    try {
+      var current = (this.USE_IFRAME ? this.iframe : window).location.hash;
+    } catch (err) {
+      // IE iframe madness.
+    }
+    if (!current ||
+      current == this.hash ||
+      '#' + current == this.hash ||
+      current == decodeURIComponent(this.hash)) return false;
+    if (this.USE_IFRAME) window.location.hash = current;
+    this.loadURL(true);
   },
 
   // Load the history callback associated with the current page fragment. On

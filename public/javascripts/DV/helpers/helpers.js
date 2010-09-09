@@ -201,7 +201,7 @@ DV.Schema.helpers = {
 
     openFullScreen : function() {
       var doc = this.viewer.schema.document;
-      window.open(doc.canonicalURL, doc.title);
+      window.open(doc.canonicalURL, doc.title, "toolbar=no,resizable=yes,scrollbars=no,status=no");
     },
 
     // Determine the correct DOM page ordering for a given page index.
