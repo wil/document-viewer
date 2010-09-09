@@ -31,12 +31,16 @@ DV.History = function(viewer) {
 
   _.bindAll(this, 'checkURL');
   if (DV.History.count > 1) return;
-  if (this.USE_IFRAME) this.iframe = jQuery('<iframe src="javascript:0"/>').hide().appendTo('body')[0].contentWindow;
-  if ('onhashchange' in window) {
-    window.onhashchange = this.checkURL;
-  } else {
-    setInterval(this.checkURL, this.URL_CHECK_INTERVAL);
-  }
+
+  // Wait until the window loads.
+  DV.jQuery(_.bind(function() {
+    if (this.USE_IFRAME) this.iframe = DV.jQuery('<iframe src="javascript:0"/>').hide().appendTo('body')[0].contentWindow;
+    if ('onhashchange' in window) {
+      window.onhashchange = this.checkURL;
+    } else {
+      setInterval(this.checkURL, this.URL_CHECK_INTERVAL);
+    }
+  }, this));
 };
 
 DV.History.count = 0;
