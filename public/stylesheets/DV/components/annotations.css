@@ -290,6 +290,7 @@
 /* ---------------------------------------------------- pagination */
 
 .DV-pagination{
+  height: 18px;
   text-align:center;
   float:right;
   display:inline;
