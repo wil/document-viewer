@@ -65,7 +65,7 @@ DV.Schema.helpers = {
       // Prevent navigation elements from being selectable when clicked.
       viewer.$('.DV-trigger').bind('selectstart', function(){ return false; });
 
-      viewer.$('.DV-fullscreen').bind('click', _.bind(this.openFullScreen, this));
+      viewer.$('.DV-footer').delegate('.DV-fullscreen', 'click', _.bind(this.openFullScreen, this));
 
       var boundToggle           = DV.jQuery.proxy(this.annotationBridgeToggle, this);
       var collection            = this.elements.collection;
