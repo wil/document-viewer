@@ -5,6 +5,7 @@ DV.DocumentViewer = function(options) {
   this.api        = new DV.Api(this);
   this.history    = new DV.History(this);
 
+  // Build the data models
   this.models     = this.schema.models;
   this.events     = _.extend({}, DV.Schema.events);
   this.helpers    = _.extend({}, DV.Schema.helpers);
@@ -60,6 +61,13 @@ DV.DocumentViewer = function(options) {
   });
 };
 
+DV.DocumentViewer.prototype.loadModels = function() {
+  this.models.chapters    = new DV.model.Chapters(this);
+  this.models.document    = new DV.model.Document(this);
+  this.models.pages       = new DV.model.Pages(this);
+  this.models.annotations = new DV.model.Annotations(this);
+};
+
 // Transition to a given state ... unless we're already in it.
 DV.DocumentViewer.prototype.open = function(state) {
   if (this.state == state) return;
@@ -91,6 +99,7 @@ DV.load = function(documentRep, options) {
   var continueLoad = DV.loadJSON = function(json) {
     var viewer = DV.viewers[json.id];
     viewer.schema.importCanonicalDocument(json);
+    viewer.loadModels();
     DV.jQuery(function() {
       viewer.open('InitialLoad');
       if (options.afterLoad) options.afterLoad(viewer);
