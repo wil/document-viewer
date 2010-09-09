@@ -225,7 +225,7 @@ DV.Page.prototype.drawImage = function(imageURL) {
   }
 
   // Replace the image completely because of some funky loading bugs we were having
-  this.pageImageEl.replaceWith('<img galleryimg="no" width="'+this.model_pages.width+'" height="'+imageHeight+'" class="DV-pageImage" src="'+imageURL+'" />');
+  this.pageImageEl.replaceWith('<img width="'+this.model_pages.width+'" height="'+imageHeight+'" class="DV-pageImage" src="'+imageURL+'" />');
   // Update element reference
   this.setPageImage();
 
