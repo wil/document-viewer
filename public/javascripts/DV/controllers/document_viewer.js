@@ -85,11 +85,11 @@ DV.load = function(documentRep, options) {
   };
   options            = _.extend({}, defaults, options);
   options.fixedSize  = !!(options.width || options.height);
-
+  var viewer         = new DV.DocumentViewer(options);
+  DV.viewers[id]     = viewer;
   // Once we have the JSON representation in-hand, finish loading the viewer.
   var continueLoad = DV.loadJSON = function(json) {
-    var viewer = new DV.DocumentViewer(options);
-    DV.viewers[id] = viewer;
+    var viewer = DV.viewers[json.id];
     viewer.schema.importCanonicalDocument(json);
     viewer.open('InitialLoad');
     if (options.afterLoad) options.afterLoad(viewer);
@@ -103,7 +103,7 @@ DV.load = function(documentRep, options) {
       if (documentRep.match(/\.js$/)) {
         DV.jQuery.getScript(documentRep);
       } else {
-        var crossDomain = DV.Schema.helpers.isCrossDomain(documentRep);
+        var crossDomain = viewer.helpers.isCrossDomain(documentRep);
         if (crossDomain) documentRep = documentRep + '?callback=?';
         DV.jQuery.getJSON(documentRep, continueLoad);
       }
@@ -119,6 +119,8 @@ DV.load = function(documentRep, options) {
   } else {
     jsonLoad();
   }
+
+  return viewer;
 };
 
 // If the document viewer has been loaded dynamically, allow the external
