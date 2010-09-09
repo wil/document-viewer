@@ -91,9 +91,11 @@ DV.load = function(documentRep, options) {
   var continueLoad = DV.loadJSON = function(json) {
     var viewer = DV.viewers[json.id];
     viewer.schema.importCanonicalDocument(json);
-    viewer.open('InitialLoad');
-    if (options.afterLoad) options.afterLoad(viewer);
-    if (DV.afterLoad) DV.afterLoad(viewer);
+    DV.jQuery(function() {
+      viewer.open('InitialLoad');
+      if (options.afterLoad) options.afterLoad(viewer);
+      if (DV.afterLoad) DV.afterLoad(viewer);
+    });
   };
 
   // If we've been passed the JSON directly, we can go ahead,
