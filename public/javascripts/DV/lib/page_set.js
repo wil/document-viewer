@@ -173,9 +173,7 @@ DV.PageSet.prototype.showAnnotation = function(argHash, showHash){
       if (this.pages['p' + i]) {
         for(var n = 0; n < this.pages['p'+i].annotations.length; n++){
           if(this.pages['p'+i].annotations[n].id === argHash.id){
-            if (!showHash.noJump) {
-              this.viewer.helpers.jump(argHash.index, offset);
-            }
+            this.viewer.helpers.jump(argHash.index, offset);
             this.pages['p'+i].annotations[n].show(showHash);
             return;
           }
@@ -183,9 +181,7 @@ DV.PageSet.prototype.showAnnotation = function(argHash, showHash){
       }
     }
 
-    if (!showHash.noJump){
-      this.viewer.helpers.jump(argHash.index,offset);
-    }
+    this.viewer.helpers.jump(argHash.index,offset);
 
   }
 };

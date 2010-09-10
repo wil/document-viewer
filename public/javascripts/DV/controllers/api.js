@@ -108,7 +108,7 @@ DV.Api.prototype = {
     anno = this.viewer.schema.loadAnnotation(anno);
     this.viewer.models.annotations.sortAnnotations();
     this.redraw(true);
-    this.viewer.pageSet.showAnnotation(anno, {active: true, noJump : false, edit : true});
+    this.viewer.pageSet.showAnnotation(anno, {active: true, edit : true});
     return anno;
   },
 
