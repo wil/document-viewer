@@ -94,7 +94,7 @@ DV.Page.prototype.draw = function(argHash) {
         if(anno.id === this.viewer.annotationToLoadId){
           var active = true;
           if (anno.id === this.viewer.annotationToLoadEdit) argHash.edit = true;
-          this.viewer.helpers.jump(this.index, anno.y1 - 37);
+          this.viewer.helpers.jump(this.index, (anno.y1 || 0) - 37);
         }else{
           var active = false;
         }
