@@ -1,4 +1,5 @@
-DV.DragReporter = function(toWatch, dispatcher, argHash) {
+DV.DragReporter = function(viewer, toWatch, dispatcher, argHash) {
+  this.viewer         = viewer;
   this.dragClassName  = 'DV-dragging';
   this.sensitivity    = 1.5;
   this.oldPageY       = 0;
@@ -6,18 +7,18 @@ DV.DragReporter = function(toWatch, dispatcher, argHash) {
   _.extend(this, argHash);
 
   this.dispatcher             = dispatcher;
-  this.toWatch                = jQuery(toWatch);
-  this.boundReporter          = jQuery.proxy(this.mouseMoveReporter,this);
-  this.boundMouseUpReporter   = jQuery.proxy(this.mouseUpReporter,this);
-  this.boundMouseDownReporter = jQuery.proxy(this.mouseDownReporter,this);
-  this.boundEase              = jQuery.proxy(this.boundEase,this);
+  this.toWatch                = this.viewer.$(toWatch);
+  this.boundReporter          = _.bind(this.mouseMoveReporter,this);
+  this.boundMouseUpReporter   = _.bind(this.mouseUpReporter,this);
+  this.boundMouseDownReporter = _.bind(this.mouseDownReporter,this);
+  this.boundEase              = _.bind(this.boundEase,this);
 
   this.setBinding();
 };
 
 DV.DragReporter.prototype.shouldIgnore = function(e) {
   if (!this.ignoreSelector) return false;
-  var el = jQuery(e.target);
+  var el = this.viewer.$(e.target);
   return el.parents().is(this.ignoreSelector) || el.is(this.ignoreSelector);
 };
 
@@ -59,7 +60,7 @@ DV.DragReporter.prototype.mouseDownReporter   = function(e){
   this.pageX    = e.pageX;
   this.oldPageY = e.pageY;
 
-  this.updateTimer = setInterval(jQuery.proxy(this.oldPositionUpdater,this),1200);
+  this.updateTimer = setInterval(_.bind(this.oldPositionUpdater,this),1200);
 
   this.toWatch.addClass(this.dragClassName);
   this.toWatch.mousemove(this.boundReporter);

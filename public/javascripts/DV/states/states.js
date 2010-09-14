@@ -28,7 +28,7 @@ DV.Schema.states = {
     this.models.document.computeOffsets();
     this.helpers.addObserver('drawPages');
     this.helpers.registerHashChangeEvents();
-    this.dragReporter = new DV.DragReporter('.DV-pageCollection',DV.jQuery.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationRegion,.DV-annotationContent' });
+    this.dragReporter = new DV.DragReporter(this, '.DV-pageCollection',DV.jQuery.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationRegion,.DV-annotationContent' });
     this.helpers.startCheckTimer();
     this.helpers.handleInitialState();
     this.helpers.autoZoomPage();
