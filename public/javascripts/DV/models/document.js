@@ -78,7 +78,9 @@ DV.model.Document.prototype = {
       var h              = this.offsets[i] = adjustedOffset + totalDocHeight;
 
       if((previousOffset !== h) && (h - pageHeight < scrollPos)) {
-        diff += (h - previousOffset - diff);
+        var delta = h - previousOffset - diff;
+        scrollPos += delta;
+        diff += delta;
       }
 
       this.baseHeightsPortion[i]        = Math.round((pageHeight + this.additionalPaddingOnPage) / 3);
