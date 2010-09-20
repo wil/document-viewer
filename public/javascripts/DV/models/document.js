@@ -77,7 +77,7 @@ DV.model.Document.prototype = {
       var previousOffset = this.offsets[i] || 0;
       var h              = this.offsets[i] = adjustedOffset + totalDocHeight;
 
-      if((previousOffset !== h) && (h - pageHeight < scrollPos)) {
+      if((previousOffset !== h) && (h < scrollPos)) {
         var delta = h - previousOffset - diff;
         scrollPos += delta;
         diff += delta;
