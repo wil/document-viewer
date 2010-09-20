@@ -74,11 +74,13 @@ DV.model.Document.prototype = {
       }
 
       var pageHeight     = this.viewer.models.pages.getPageHeight(i);
-      var previousOffset = this.offsets[i];
+      var previousOffset = this.offsets[i] || 0;
       var h              = this.offsets[i] = adjustedOffset + totalDocHeight;
 
-      if((previousOffset !== h) && (h - pageHeight < scrollPos)) {
-        diff += (h - previousOffset - diff);
+      if((previousOffset !== h) && (h < scrollPos)) {
+        var delta = h - previousOffset - diff;
+        scrollPos += delta;
+        diff += delta;
       }
 
       this.baseHeightsPortion[i]        = Math.round((pageHeight + this.additionalPaddingOnPage) / 3);

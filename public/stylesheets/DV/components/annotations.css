@@ -415,6 +415,52 @@
   display:block !important;
 }
 
+/*-------------------------- Annotation Borders ------------------------------*/
+.DV-annotationEdge, .DV-annotationCorner {
+  position: absolute;
+  width: 10px; height: 10px;
+  z-index: 10;
+}
+  .DV-annotationCorner {
+    z-index: 20;
+  }
+  .DV-annotationEdgeTop {
+    top: -7px;
+    width: 100%;
+    cursor: n-resize;
+  }
+  .DV-annotationEdgeRight {
+    right: -7px;
+    height: 100%;
+    cursor: e-resize;
+  }
+  .DV-annotationEdgeBottom {
+    bottom: -7px;
+    width: 100%;
+    cursor: s-resize;
+  }
+  .DV-annotationEdgeLeft {
+    left: -7px;
+    height: 100%;
+    cursor: w-resize;
+  }
+  .DV-annotationCornerTopLeft {
+    top: -7px; left: -7px;
+    cursor: nw-resize;
+  }
+  .DV-annotationCornerTopRight {
+    top: -7px; right: -7px;
+    cursor: ne-resize;
+  }
+  .DV-annotationCornerBottomLeft {
+    bottom: -7px; left: -7px;
+    cursor: sw-resize;
+  }
+  .DV-annotationCornerBottomRight {
+    bottom: -7px; right: -7px;
+    cursor: se-resize;
+  }
+
 /*------------------------ show/hide the edit UI ---------------------------------*/
 .DV-annotation .DV-editVisible {
   display: none;
