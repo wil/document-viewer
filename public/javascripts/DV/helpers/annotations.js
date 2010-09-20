@@ -30,6 +30,7 @@ _.extend(DV.Schema.helpers, {
   },
   // Show annotation
   annotationBridgeShow: function(e){
+    if (this.viewer.busy) return false;
     e.preventDefault();
     var annotationObject = this.getAnnotationObject(this.viewer.$(e.target).closest(this.annotationClassName));
     annotationObject.show();

@@ -36,13 +36,13 @@ DV.Schema.prototype.importCanonicalDocument = function(json) {
 
 // Load an annotation into the Schema, starting from the canonical format.
 DV.Schema.prototype.loadAnnotation = function(anno) {
-  if (anno.id) anno.server_id = anno.id;
-  var idx     = anno.page - 1;
-  anno.id     = _.uniqueId();
-  anno.title  = anno.title || 'Untitled Note';
-  anno.text   = anno.content || '';
-  anno.access = anno.access || 'public';
-  anno.type   = anno.location && anno.location.image ? 'region' : 'page';
+  anno.server_id = anno.server_id || anno.id;
+  var idx        = anno.page - 1;
+  anno.id        = anno.id || _.uniqueId();
+  anno.title     = anno.title || 'Untitled Note';
+  anno.text      = anno.content || '';
+  anno.access    = anno.access || 'public';
+  anno.type      = anno.location && anno.location.image ? 'region' : 'page';
   if (anno.type === 'region') {
     var loc = DV.jQuery.map(anno.location.image.split(','), function(n, i) { return parseInt(n, 10); });
     anno.y1 = loc[0]; anno.x2 = loc[1]; anno.y2 = loc[2]; anno.x1 = loc[3];

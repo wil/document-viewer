@@ -103,12 +103,27 @@ DV.Api.prototype = {
     }
   },
 
+  // Get the annotation model for a DOM event occuring within.
+  getAnnotationForEvent : function(e) {
+    var annoEl = this.viewer.$(e.target).closest(this.viewer.helpers.annotationClassName);
+    return this.viewer.helpers.getAnnotationModel(annoEl);
+  },
+
   // Add a new annotation to the document, prefilled to any extent.
   addAnnotation : function(anno) {
     anno = this.viewer.schema.loadAnnotation(anno);
     this.viewer.models.annotations.sortAnnotations();
     this.redraw(true);
     this.viewer.pageSet.showAnnotation(anno, {active: true, edit : true});
+    return anno;
+  },
+
+  // Update an annotation's attributes.
+  moveAnnotation : function(anno, top, right, bottom, left) {
+    anno.location.image = [top, right, bottom, left].join(',');
+    this.viewer.schema.loadAnnotation(anno);
+    this.viewer.models.annotations.sortAnnotations();
+    this.redraw(true);
     return anno;
   },
 
