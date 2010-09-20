@@ -4,7 +4,18 @@
     <div class="DV-annotationClose DV-trigger"></div>
   </div>
 
-  <div class="DV-annotationRegion" style="margin-left:<%= excerptMarginLeft %>px; height:<%= excerptHeight %>px; width:<%= excerptWidth %>px;"></div>
+  <div class="DV-annotationRegion" style="margin-left:<%= excerptMarginLeft %>px; height:<%= excerptHeight %>px; width:<%= excerptWidth %>px;">
+    <div class="<%= access == 'public' ? 'DV-ownerVisible' : 'DV-contributorVisible' %>">
+      <div class="DV-annotationEdge DV-annotationEdgeTop"></div>
+      <div class="DV-annotationEdge DV-annotationEdgeRight"></div>
+      <div class="DV-annotationEdge DV-annotationEdgeBottom"></div>
+      <div class="DV-annotationEdge DV-annotationEdgeLeft"></div>
+      <div class="DV-annotationCorner DV-annotationCornerTopLeft"></div>
+      <div class="DV-annotationCorner DV-annotationCornerTopRight"></div>
+      <div class="DV-annotationCorner DV-annotationCornerBottomLeft"></div>
+      <div class="DV-annotationCorner DV-annotationCornerBottomRight"></div>
+    </div>
+  </div>
 
 
   <div class="DV-annotationContent">
