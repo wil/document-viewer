@@ -121,6 +121,15 @@ DV.Api.prototype = {
   onAnnotationDelete : function(callback) {
     this.viewer.models.annotations.deleteCallbacks.push(callback);
   },
+  
+  removePages : function(pages, options) {
+    var model = this.getModelId();
+    this.viewer.models.document.removePages(model, pages, options);
+  },
+  
+  getModelId : function() {
+    return parseInt(this.getId(), 10);
+  },
 
   // Request the loading of an external JS file.
   loadJS : function(url, callback) {

@@ -97,5 +97,23 @@ DV.model.Document.prototype = {
 
   getOffset: function(_index){
     return this.offsets[_index];
+  },
+  
+  removePages: function(model_id, pages, options) {
+    options = options || {};
+    
+    $.ajax({
+      url       : '/documents/' + model_id + '/remove_pages',
+      type      : 'POST',
+      data      : { pages : pages },
+      dataType  : 'json',
+      success   : function(resp) { 
+        if (options.success) options.success(model_id, resp); 
+      },
+      error     : _.bind(function(resp) {
+        this._handleError(model, options.error, null, resp);
+      }, this)
+    });
   }
+  
 };
