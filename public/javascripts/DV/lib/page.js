@@ -9,6 +9,7 @@ DV.Page = function(viewer, argHash){
   this.parent           = this.el.parent();
   this.pageNumberEl     = this.el.find('span.DV-pageNumber');
   this.pageInsertEl     = this.el.find('.DV-pageNoteInsert');
+  this.removedOverlayEl = this.el.find('.DV-removeOverlay');
   this.pageImageEl      = this.getPageImage();
 
   this.pageEl           = this.el.find('div.DV-page');
@@ -28,10 +29,10 @@ DV.Page = function(viewer, argHash){
 
   // optimizations
   var m = this.viewer.models;
-  this.model_document   = m.document;
-  this.model_pages      = m.pages;
-  this.model_annotations= m.annotations;
-  this.model_chapters   = m.chapters;
+  this.model_document     = m.document;
+  this.model_pages        = m.pages;
+  this.model_annotations  = m.annotations;
+  this.model_chapters     = m.chapters;
 };
 
 // Set the image reference for the page for future updates
@@ -124,14 +125,23 @@ DV.Page.prototype.draw = function(argHash) {
         );
 
         this.annotations.push(newAnno);
+        
       }
     }
-
+  
     this.pageInsertEl.toggleClass('visible', !this.hasLayerPage);
     this.renderMeta({ pageNumber: this.index+1 });
+
+    // Draw remove overlay if page is removed.
+    this.drawRemoveOverlay();
   }
   // Update the page type
   this.setPageType();
+  
+};
+
+DV.Page.prototype.drawRemoveOverlay = function() {
+  this.removedOverlayEl.toggleClass('visible', !!this.viewer.models.removedPages[this.index+1]);  
 };
 
 DV.Page.prototype.setPageType = function(){
