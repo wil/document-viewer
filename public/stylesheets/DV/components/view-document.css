@@ -19,6 +19,13 @@
   background:none;
 }
 
+.DV-viewDocument .DV-annotation {
+  height: 0;
+}
+.DV-viewDocument .DV-activeAnnotation {
+  height: auto;
+}
+
 .DV-viewDocument .DV-currentAnnotationPrefix,
 .DV-viewDocument .DV-totalAnnotations{
   display:none;

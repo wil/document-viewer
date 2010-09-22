@@ -53,6 +53,7 @@ _.extend(DV.Schema.helpers, {
   renderNavigation : function() {
     var me = this;
     var chapterViews = [], bolds = [], expandIcons = [], expanded = [], navigationExpander = JST.navigationExpander({}),nav=[],notes = [],chapters = [];
+    var boldsId = this.viewer.models.boldsId || (this.viewer.models.boldsId = _.uniqueId());
 
     /* ---------------------------------------------------- start the nav helper methods */
     var getAnnotionsByRange = function(rangeStart, rangeEnd){
@@ -124,13 +125,11 @@ _.extend(DV.Schema.helpers, {
        chaptersContainer.show() : chaptersContainer.hide();
     this.displayNavigation();
 
-    this.viewer.$('.DV-navigationBolds', document.head).remove();
+    DV.jQuery('#DV-navigationBolds-' + boldsId, document.head).remove();
     var boldsContents = bolds.join(", ") + ' { font-weight:bold; color:#000 !important; }';
-    var navStylesheet = '<style id="DV-navigationBolds" type="text/css" media="screen,print">\n' + boldsContents +'\n</style>';
-    this.viewer.$('head').append(navStylesheet);
-    // cleanup
+    var navStylesheet = '<style id="DV-navigationBolds-' + boldsId + '" type="text/css" media="screen,print">\n' + boldsContents +'\n</style>';
+    DV.jQuery(document.head).append(navStylesheet);
     chaptersContainer = null;
-
   },
 
   // Hide or show all of the comoponents on the page that may or may not be
