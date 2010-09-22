@@ -121,6 +121,35 @@ DV.Api.prototype = {
   onAnnotationDelete : function(callback) {
     this.viewer.models.annotations.deleteCallbacks.push(callback);
   },
+  
+  enterRemovePagesMode : function() {
+    this.viewer.elements.viewer.addClass('DV-removePages');
+  },
+  
+  leaveRemovePagesMode : function() {
+    this.viewer.elements.viewer.removeClass('DV-removePages');
+  },
+  
+  resetRemovedPages : function() {
+    this.viewer.models.document.resetRemovedPages();
+  },
+  
+  addPageToRemovedPages : function(page) {
+    this.viewer.models.document.addPageToRemovedPages(page); 
+  },
+  
+  removePageFromRemovedPages : function(page) {
+    this.viewer.models.document.removePageFromRemovedPages(page); 
+  },
+  
+  removePages : function(pages, options) {
+    var model = this.getModelId();
+    this.viewer.models.document.removePages(model, pages, options);
+  },
+  
+  getModelId : function() {
+    return parseInt(this.getId(), 10);
+  },
 
   // Request the loading of an external JS file.
   loadJS : function(url, callback) {
