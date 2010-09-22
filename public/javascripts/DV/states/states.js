@@ -94,6 +94,12 @@ DV.Schema.states = {
     this.helpers.toggleContent('viewText');
     this.events.loadText();
     return true;
+  },
+  
+  ViewThumbnails: function() {
+    this.helpers.reset();
+    this.helpers.toggleContent('viewThumbnails');
+    return true;
   }
 
 };

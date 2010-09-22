@@ -1,0 +1,3 @@
+DV.Schema.events.ViewThumbnails = {
+
+};
