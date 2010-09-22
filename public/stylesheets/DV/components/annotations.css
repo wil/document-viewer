@@ -38,6 +38,15 @@
     border:3px solid rgb(255, 227, 37);
     border:3px solid rgba(255, 227, 37, 0.2);
   }
+  .DV-coverVisible .DV-annotationTab {
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+  }
+  .DV-coverVisible .DV-activeAnnotation .DV-annotationTab,
+  .DV-coverVisible .DV-annotation:hover .DV-annotationTab {
+    opacity: 1;
+    filter: none;
+  }
   .DV-ie .DV-annotationRegion{
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
     filter: alpha(opacity=30);
