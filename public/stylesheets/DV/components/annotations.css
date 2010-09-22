@@ -21,7 +21,7 @@
     background: rgb(255, 227, 37);
     background: rgba(255, 227, 37, 0.2);
 
-    border:3px solid rgb(255, 227, 37);
+    border:3px solid rgb(225, 200, 0);
     border:3px solid rgba(255, 227, 37, 0.5);
 
     -webkit-border-radius:3px;
@@ -54,7 +54,7 @@
   .DV-private .DV-annotationRegion, .DV-private.DV-annotationRegion {
     background: rgb(107, 194, 248);
     background: rgba(107, 194, 248, 0.2);
-    border:3px solid rgb(107, 194, 248);
+    border:3px solid rgb(95, 175, 235);
     border:3px solid rgba(107, 194, 248, 0.5);
   }
   .DV-coverVisible .DV-private .DV-annotationRegion {
