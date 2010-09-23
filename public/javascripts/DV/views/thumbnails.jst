@@ -1,3 +1,6 @@
-<div class="DV-thumbnails">
-  
-</div>
+<% _.each(thumbnails, function(thumbnail, page) { %>
+  <div class="DV-thumbnail" id="DV-thumbnail-<%= page %>">
+    <div class="DV-thumbnail-image"><img src="<%= thumbnail %>" /></div>
+    <div class="DV-thumbnail-page DV-pageNumber DV-pageMeta">p. <%= page %></div>
+  </div>
+<% }); %>

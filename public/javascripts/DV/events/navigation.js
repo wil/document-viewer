@@ -18,9 +18,13 @@ _.extend(DV.Schema.events, {
         if(this.viewer.state === 'ViewText'){
           this.loadText(chapterIndex);
           this.viewer.history.save('text/p'+pageNumber);
-        }else if(this.viewer.state === 'ViewDocument'){
+        }else if(this.viewer.state === 'ViewDocument' ||
+                 this.viewer.state === 'ViewThumbnails'){
           this.helpers.jump(chapterIndex);
           this.viewer.history.save('document/p'+pageNumber);
+          if (this.viewer.state === 'ViewThumbnails') {
+            this.viewer.open('ViewDocument');
+          }
         }else{
           return false;
         }
@@ -35,6 +39,9 @@ _.extend(DV.Schema.events, {
 
           this.viewer.history.save('text/p'+pageNumber);
         }else{
+          if (this.viewer.state === 'ViewThumbnails') {
+            this.viewer.open('ViewDocument');
+          }
           this.viewer.pageSet.showAnnotation(annotation);
         }
 

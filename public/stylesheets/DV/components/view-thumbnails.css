@@ -1,3 +1,65 @@
-.DV-viewThumbnails .DV-thumbnails {
-  background-color: #F0F0F0;
+.DV-viewThumbnails .DV-allAnnotations,
+.DV-viewThumbnails .DV-text,
+.DV-viewThumbnails .DV-search,
+.DV-viewThumbnails .DV-pageCollection,
+.p0,
+.p1,
+.p2{
+  display:none;
 }
+
+.DV-viewThumbnails .DV-currentAnnotationPrefix,
+.DV-viewThumbnails .DV-totalAnnotations{
+  display:none;
+}
+
+.DV-viewThumbnails .DV-thumbnails,
+.DV-viewThumbnails .DV-pages {
+  background-color: #F0F0F0;
+  display: block;
+}
+
+.DV-thumbnails {
+  padding: 8px;
+  overflow: hidden;
+  display: none;
+}
+  .DV-thumbnails .DV-thumbnail {
+    float: left;
+    padding: 8px 8px 8px 8px;
+    margin: 0;
+    text-align: center;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border:1px solid #F0F0F0;
+    cursor: pointer;
+  }
+    .DV-thumbnails .DV-thumbnail:hover,
+    .DV-thumbnails .DV-thumbnail.DV-currentPage {
+      background-color: #E0E0E0;
+      border:1px solid #d7d7d7;
+      border-right:1px solid #aaa;
+      border-bottom:1px solid #aaa;
+    }
+    .DV-thumbnails .DV-thumbnail.DV-currentPage {
+      background-color: #E0FFE0;
+      width: auto;
+      font-size: inherit;
+      line-height: inherit;
+      font-family: inherit;
+    }
+    .DV-thumbnails .DV-thumbnail .DV-thumbnail-image {
+      line-height: 0;
+      display: block;
+      border: 1px solid #808080;
+      box-shadow: 1px 1px 2px #909090;
+      -webkit-box-shadow: 1px 1px 2px #909090;
+      -moz-box-shadow: 1px 1px 2px #909090;
+    }
+    .DV-thumbnails .DV-thumbnail .DV-thumbnail-page {
+      margin: 2px 0 0 0;
+      width: auto;
+      float: none;
+      text-shadow: 1px 1px 0 #F0F0F0;
+    }

@@ -43,6 +43,9 @@ DV.Schema.helpers = {
         history.save('document/p'+context.models.document.currentPage());
         context.open('ViewDocument');
       });
+      viewer.$('.DV-thumbnailsView').delegate('.DV-trigger','click',function(e){
+        context.open('ViewThumbnails');
+      });
       viewer.$('.DV-textView').delegate('.DV-trigger','click',function(e){
 
         history.save('text/p'+context.models.document.currentPage());
@@ -78,7 +81,15 @@ DV.Schema.helpers = {
       collection.delegate('.DV-cancelEdit','click', DV.jQuery.proxy(this.cancelAnnotationEdit, this));
       collection.delegate('.DV-saveAnnotation','click', DV.jQuery.proxy(this.saveAnnotation, this));
       collection.delegate('.DV-deleteAnnotation','click', DV.jQuery.proxy(this.deleteAnnotation, this));
-
+      
+      // Thumbnails
+      viewer.$('.DV-thumbnails').delegate('.DV-thumbnail', 'click', function(e) {
+        var pageNumber = viewer.$(e.currentTarget).data('pageNumber') - 1;
+        viewer.models.document.setPageIndex(pageNumber);
+        viewer.open('ViewDocument');
+        viewer.history.save('document/p'+pageNumber);
+      });
+      
       viewer.$('.DV-descriptionToggle').live('click',function(e){
         e.preventDefault();
         e.stopPropagation();

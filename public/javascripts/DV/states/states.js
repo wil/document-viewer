@@ -99,6 +99,8 @@ DV.Schema.states = {
   ViewThumbnails: function() {
     this.helpers.reset();
     this.helpers.toggleContent('viewThumbnails');
+    this.thumbnails = new DV.Thumbnails(this);
+    this.thumbnails.renderThumbnails();
     return true;
   }
 
