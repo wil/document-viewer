@@ -11,16 +11,18 @@ DV.Schema.helpers = {
     bindEvents: function(context){
       var boundZoom = this.events.compile('zoom');
       var doc       = context.models.document;
-      var value     = _.indexOf(doc.ZOOM_RANGES, doc.zoomLevel) * 24.7;
+      var value     = _.indexOf(doc.ZOOM_RANGES, doc.zoomLevel);
       var viewer    = this.viewer;
       viewer.slider = viewer.$('.DV-zoomBox').slider({
-        step: 24.7,
+        step: 1,
+        min: 0,
+        max: 4,
         value: value,
         slide: function(el,d){
-          boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value / 24.7, 10)]);
+          boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value, 10)]);
         },
         change: function(el,d){
-          boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value / 24.7, 10)]);
+          boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value, 10)]);
         }
       });
 
@@ -367,7 +369,7 @@ DV.Schema.helpers = {
         ranges = this.viewer.models.document.ZOOM_RANGES;
       }
       this.viewer.models.document.ZOOM_RANGES = ranges;
-      this.viewer.slider.slider({'value': parseInt(_.indexOf(ranges, zoom) * 24.7, 10)});
+      this.viewer.slider.slider({'value': parseInt(_.indexOf(ranges, zoom), 10)});
       this.events.zoom(zoom);
     },
 

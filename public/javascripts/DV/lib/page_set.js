@@ -84,6 +84,10 @@ DV.PageSet.prototype.zoom = function(argHash){
   // this.position();
   this.reflowPages();
   this.zoomText();
+  
+  if (this.viewer.state === 'ViewThumbnails') {
+    this.viewer.thumbnails.rerender(argHash.zoomLevel);
+  }
 
   if(this.viewer.activeAnnotation != null){
     // FIXME:
