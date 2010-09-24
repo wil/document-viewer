@@ -39,7 +39,8 @@ DV.Thumbnails.prototype.renderThumbnails = function() {
   var thumbnailsHTML = JST.thumbnails({
     pageCount : this.pageCount,
     thumbnails : this.thumbnails,
-    zoom : this.zoomLevel
+    zoom : this.zoomLevel,
+    removedPages : viewer.models.removedPages
   });
   viewer.$('.DV-thumbnails').html(thumbnailsHTML);
   var currentPage = viewer.models.document.currentPageIndex + 1;

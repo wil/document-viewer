@@ -120,6 +120,9 @@ DV.model.Document.prototype = {
     _.each(this.viewer.pageSet.pages, function(page) { 
       page.drawRemoveOverlay(); 
     });
+    if (this.viewer.thumbnails) {
+      this.viewer.thumbnails.rerender();
+    }
   },
   
   removePages: function(model_id, pages, options) {

@@ -34,6 +34,7 @@
     -moz-border-radius: 4px;
     border:1px solid #F0F0F0;
     cursor: pointer;
+    position: relative;
   }
     .DV-thumbnails .DV-thumbnail:hover,
     .DV-thumbnails .DV-thumbnail.DV-currentPage {
@@ -43,7 +44,10 @@
       border-bottom:1px solid #aaa;
     }
     .DV-thumbnails .DV-thumbnail.DV-currentPage {
-      background-color: #E0FFE0;
+      background-color: #C3C5C3;
+      border:1px solid #909090;
+      border-right:1px solid #505050;
+      border-bottom:1px solid #505050;
       width: auto;
       font-size: inherit;
       line-height: inherit;
@@ -62,25 +66,29 @@
       height: 75px;
     }
     .DV-thumbnails .DV-thumbnail.DV-zoom-1 .DV-thumbnail-image img {
-      width: 90px;
-      height: 112px;
+      max-width: 90px;
+      max-height: 112px;
     }
     .DV-thumbnails .DV-thumbnail.DV-zoom-2 .DV-thumbnail-image img {
-      width: 120px;
-      height: 150px;
+      max-width: 120px;
+      max-height: 150px;
     }
     .DV-thumbnails .DV-thumbnail.DV-zoom-3 .DV-thumbnail-image img {
-      width: 180px;
-      height: 225px;
+      max-width: 180px;
+      max-height: 225px;
     }
     .DV-thumbnails .DV-thumbnail.DV-zoom-4 .DV-thumbnail-image img {
-      width: 240px;
-      height: 300px;
+      max-width: 240px;
+      max-height: 300px;
     }
 
-    .DV-thumbnails .DV-thumbnail .DV-thumbnail-page {
+    .DV-thumbnails .DV-thumbnail .DV-pageNumber {
       margin: 2px 0 0 0;
       width: auto;
       float: none;
       text-shadow: 1px 1px 0 #F0F0F0;
+    }
+    .DV-thumbnails .DV-thumbnail.DV-currentPage .DV-pageNumber {
+      text-shadow: 1px 1px 0 #D3D3D3;
+      color: #262626;
     }
