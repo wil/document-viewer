@@ -27,13 +27,15 @@
   display:inline;
 }
 
-.DV-searchInput{
+.DV-docViewer .DV-searchInput {
   display:block;
-  border:1px solid #dadada;
+  border:1px solid #999;
+  font-family: Arial;
   margin: 2px 5px 0 0;
   padding: 4px 20px 3px;
   width:210px;
   font-size: 11px;
+  line-height: 14px;
   background: #FFF url(../../../images/DV/embed/search_icon.png) no-repeat 5px 5px;
   outline: none;
 }
