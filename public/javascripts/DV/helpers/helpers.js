@@ -79,6 +79,12 @@ DV.Schema.helpers = {
       collection.delegate('.DV-saveAnnotation','click', DV.jQuery.proxy(this.saveAnnotation, this));
       collection.delegate('.DV-deleteAnnotation','click', DV.jQuery.proxy(this.deleteAnnotation, this));
 
+      // Handle iPad / iPhone scroll events...
+      this._touchX = this._touchY = 0;
+      collection[0].ontouchstart  = _.bind(this.touchStart, this);
+      collection[0].ontouchmove   = _.bind(this.touchMove,  this);
+      collection[0].ontouchend    = _.bind(this.touchMove,  this);
+
       viewer.$('.DV-descriptionToggle').live('click',function(e){
         e.preventDefault();
         e.stopPropagation();
@@ -161,6 +167,26 @@ DV.Schema.helpers = {
         // restart draw timer
         this.startCheckTimer();
       }
+    },
+
+    touchStart : function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      var touch = e.changedTouches[0];
+      this._touchX = touch.pageX;
+      this._touchY = touch.pageY;
+    },
+
+    touchMove : function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      var touch = e.changedTouches[0];
+      var xDiff = this._touchX - touch.pageX;
+      var yDiff = this._touchY - touch.pageY;
+      this.elements.window[0].scrollLeft += xDiff;
+      this.elements.window[0].scrollTop  += yDiff;
+      this._touchX -= xDiff;
+      this._touchY -= yDiff;
     },
 
     setDocHeight:   function(height,diff) {
