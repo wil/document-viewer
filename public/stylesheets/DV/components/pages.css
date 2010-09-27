@@ -57,8 +57,7 @@
   position:relative;
   left:0;
   top:0;
-  -moz-box-shadow: 0 0 1em #a9a9a9;
-  -webkit-box-shadow: 0 0 1em #a9a9a9;
+  border: 1px solid #b2b2b2;
   background-color: #fff;
   overflow:visible;
 }
@@ -88,8 +87,7 @@
 }
 
 .DV-pages.DV-coverVisible .DV-page{
-  -moz-box-shadow: 0 0 1em #333;
-  -webkit-box-shadow: 0 0 1em #333;
+  border: 1px solid #444;
   background-color:#fff;
 }
 
@@ -176,7 +174,7 @@
 .DV-removePages .DV-removeOverlay:hover {
   background-color: yellow;
 }
-  
+
 .DV-removePages .DV-removeOverlay.visible {
   background-color: red;
 }
