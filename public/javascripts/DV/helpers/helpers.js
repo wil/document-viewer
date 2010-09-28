@@ -282,9 +282,11 @@ DV.Schema.helpers = {
 
     shift: function(argHash){
       var windowEl        = this.elements.window;
-      var scrollTopShift  = windowEl.scrollTop() + argHash.delta;
+      var scrollTopShift  = windowEl.scrollTop() + argHash.deltaY;
+      var scrollLeftShift  = windowEl.scrollLeft() + argHash.deltaX;
 
       windowEl.scrollTop(scrollTopShift);
+      windowEl.scrollLeft(scrollLeftShift);
     },
 
     getAppState: function(){

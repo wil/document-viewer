@@ -1,7 +1,8 @@
 DV.DragReporter = function(viewer, toWatch, dispatcher, argHash) {
   this.viewer         = viewer;
   this.dragClassName  = 'DV-dragging';
-  this.sensitivity    = 1.5;
+  this.sensitivityY   = 1.0;
+  this.sensitivityX   = 1.0;
   this.oldPageY       = 0;
 
   _.extend(this, argHash);
@@ -69,9 +70,12 @@ DV.DragReporter.prototype.mouseDownReporter   = function(e){
 DV.DragReporter.prototype.mouseMoveReporter     = function(e){
   if (this.shouldIgnore(e)) return true;
   e.preventDefault();
-  var delta       = Math.round(this.sensitivity * (this.pageY - e.pageY));
-  var direction   = (delta > 0) ? 'down' : 'up';
+  var deltaX      = Math.round(this.sensitivityX * (this.pageX - e.pageX));
+  var deltaY      = Math.round(this.sensitivityY * (this.pageY - e.pageY));
+  var directionX  = (deltaX > 0) ? 'right' : 'left';
+  var directionY  = (deltaY > 0) ? 'down' : 'up';
   this.pageY      = e.pageY;
-  if (delta === 0) return;
-  this.dispatcher({ event: e, delta: delta, direction: direction });
+  this.pageX      = e.pageX;
+  if (deltaY === 0 && deltaX === 0) return;
+  this.dispatcher({ event: e, deltaX: deltaX, deltaY: deltaY, directionX: directionX, directionY: directionY });
 };
