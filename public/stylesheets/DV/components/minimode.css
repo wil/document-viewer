@@ -2,11 +2,11 @@
 /* = Header = */
 /* ========== */
 
-.DV-narrowControls .DV-searchBar {
+.DV-docViewer .DV-narrowControls .DV-searchBar {
   right: 16px;
 }
 
-.DV-narrowControls .DV-searchInput {
+.DV-docViewer .DV-narrowControls .DV-searchInput {
   width: 80px;
 }
 
