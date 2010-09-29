@@ -147,6 +147,24 @@ DV.Api.prototype = {
     this.viewer.models.document.removePages(model, pages, options);
   },
   
+  enterReorderPagesMode : function() {
+    this.viewer.elements.viewer.addClass('DV-reorderPages');
+  },
+  
+  leaveReorderPagesMode : function() {
+    this.viewer.thumbnails.rerender();
+    this.viewer.elements.viewer.removeClass('DV-reorderPages');
+  },
+  
+  resetReorderedPages : function() {
+    this.viewer.models.document.resetReorderedPages();
+  },
+  
+  reorderPages : function(pageOrder, options) {
+    var model = this.getModelId();
+    this.viewer.models.document.reorderPages(model, pageOrder, options);
+  },
+  
   getModelId : function() {
     return parseInt(this.getId(), 10);
   },

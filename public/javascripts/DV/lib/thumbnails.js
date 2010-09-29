@@ -22,7 +22,7 @@ DV.Thumbnails.prototype.buildThumbnails = function(zoomLevel) {
   if (this.zoomLevel == 0) {
     this.imageUrl = imageUrl.replace(/\{size\}/, 'thumbnail');
   } else {
-    this.imageUrl = imageUrl.replace(/\{size\}/, 'normal');
+    this.imageUrl = imageUrl.replace(/\{size\}/, 'small');
   }
   
   for (var i=1; i <= this.pageCount; i++) {

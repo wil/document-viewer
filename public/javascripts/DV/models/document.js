@@ -140,6 +140,33 @@ DV.model.Document.prototype = {
         this._handleError(model, options.error, null, resp);
       }, this)
     });
+  },
+  
+  resetReorderedPages: function() {
+    this.redrawReorderedPages();
+  },
+  
+  redrawReorderedPages: function() {
+    if (this.viewer.thumbnails) {
+      this.viewer.thumbnails.rerender();
+    }
+  },
+  
+  reorderPages: function(model_id, pageOrder, options) {
+    options = options || {};
+    
+    $.ajax({
+      url       : '/documents/' + model_id + '/reorder_pages',
+      type      : 'POST',
+      data      : { page_order : pageOrder },
+      dataType  : 'json',
+      success   : function(resp) { 
+        if (options.success) options.success(model_id, resp); 
+      },
+      error     : _.bind(function(resp) {
+        this._handleError(model, options.error, null, resp);
+      }, this)
+    });
   }
   
 };

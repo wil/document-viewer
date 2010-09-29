@@ -74,18 +74,21 @@
       max-height: 150px;
     }
     .DV-thumbnails .DV-thumbnail.DV-zoom-3 .DV-thumbnail-image img {
+      max-width: 150px;
+      max-height: 188px;
+    }
+    .DV-thumbnails .DV-thumbnail.DV-zoom-4 .DV-thumbnail-image img {
       max-width: 180px;
       max-height: 225px;
     }
-    .DV-thumbnails .DV-thumbnail.DV-zoom-4 .DV-thumbnail-image img {
-      max-width: 240px;
-      max-height: 300px;
-    }
 
     .DV-thumbnails .DV-thumbnail .DV-pageNumber {
-      margin: 2px 0 0 0;
+      margin: 4px 0 0 0;
       width: auto;
       float: none;
+      display: block;
+      height: 14px;
+      z-index: 0;
       text-shadow: 1px 1px 0 #F0F0F0;
     }
     .DV-thumbnails .DV-thumbnail.DV-currentPage .DV-pageNumber {

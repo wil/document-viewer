@@ -85,11 +85,14 @@ DV.Schema.helpers = {
       collection.delegate('.DV-deleteAnnotation','click', DV.jQuery.proxy(this.deleteAnnotation, this));
       
       // Thumbnails
-      viewer.$('.DV-thumbnails').delegate('.DV-thumbnail-page', 'click', function(e) {
-        var pageNumber = viewer.$(e.currentTarget).parents('.DV-thumbnail').data('pageNumber') - 1;
-        viewer.models.document.setPageIndex(pageNumber);
-        viewer.open('ViewDocument');
-        viewer.history.save('document/p'+pageNumber);
+      viewer.$('.DV-thumbnails').delegate('.DV-thumbnail', 'click', function(e) {
+        var $thumbnail = viewer.$(e.currentTarget);
+        if (!viewer.elements.viewer.hasClass('DV-reorderPages')) {
+          var pageNumber = $thumbnail.data('pageNumber') - 1;
+          viewer.models.document.setPageIndex(pageNumber);
+          viewer.open('ViewDocument');
+          viewer.history.save('document/p'+pageNumber);
+        }
       });
       
       viewer.$('.DV-descriptionToggle').live('click',function(e){
