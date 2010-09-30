@@ -210,6 +210,7 @@ DV.Schema.helpers = {
       var id   = this.viewer.$(e.target).closest('.DV-annotation').attr('data-id');
       var anno = this.viewer.models.annotations.getAnnotation(id);
       if (this.viewer.state == 'ViewDocument') {
+        this.viewer.pageSet.showAnnotation(anno);
         this.viewer.history.save('document/p' + anno.pageNumber + '/a' + anno.id);
       } else {
         this.viewer.history.save('annotation/a' + anno.id);
