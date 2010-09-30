@@ -15,7 +15,11 @@
   padding-left:8px;
   top:20px;
   font-weight:bold;
+  cursor: pointer;
 }
+  .DV-textCurrentPage:hover {
+    text-decoration: underline;
+  }
 
 .DV-textContents {
   background-color:#FFFFFF;

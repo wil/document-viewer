@@ -34,3 +34,6 @@ stylesheets:
   plain:
     - public/stylesheets/DV/plain.css
 
+  print:
+    - public/stylesheets/DV/print.css
+

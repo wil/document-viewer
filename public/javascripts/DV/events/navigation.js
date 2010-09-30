@@ -17,11 +17,11 @@ _.extend(DV.Schema.events, {
 
         if(this.viewer.state === 'ViewText'){
           this.loadText(chapterIndex);
-          this.viewer.history.save('text/p'+pageNumber);
+          // this.viewer.history.save('text/p'+pageNumber);
         }else if(this.viewer.state === 'ViewDocument' ||
                  this.viewer.state === 'ViewThumbnails'){
           this.helpers.jump(chapterIndex);
-          this.viewer.history.save('document/p'+pageNumber);
+          // this.viewer.history.save('document/p'+pageNumber);
           if (this.viewer.state === 'ViewThumbnails') {
             this.viewer.open('ViewDocument');
           }
@@ -37,7 +37,7 @@ _.extend(DV.Schema.events, {
         if(this.viewer.state === 'ViewText'){
           this.loadText(annotation.index);
 
-          this.viewer.history.save('text/p'+pageNumber);
+          // this.viewer.history.save('text/p'+pageNumber);
         }else{
           if (this.viewer.state === 'ViewThumbnails') {
             this.viewer.open('ViewDocument');

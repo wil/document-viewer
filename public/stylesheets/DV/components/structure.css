@@ -12,6 +12,10 @@
   border: 1px solid #ababab; border-left: 0; border-right: 0;
 }
 
+.DV-printMessage {
+  display: none;
+}
+
 .DV-docViewer-Container.DV-hide-header{
   top: 0;
 }

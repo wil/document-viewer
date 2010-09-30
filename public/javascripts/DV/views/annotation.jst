@@ -1,4 +1,4 @@
-<div class="DV-annotation <%= orderClass %> DV-<%= access %>" style="top:<%= top %>px;" id="DV-annotation-<%= id %>">
+<div class="DV-annotation <%= orderClass %> DV-<%= access %>" style="top:<%= top %>px;" id="DV-annotation-<%= id %>" data-id="<%= id %>">
 
   <div class="DV-annotationTab">
     <div class="DV-annotationClose DV-trigger"></div>
@@ -41,7 +41,7 @@
 
 
     <div class="DV-annotationExcerpt" style="height:<%= excerptHeight %>px;">
-      <div class="DV-annotationExcerptImageTop" style="height:<%= excerptHeight %>px; width:<%= excerptWidth %>px;left:<%= excerptMarginLeft %>px;">
+      <div class="DV-annotationExcerptImageTop" style="height:<%= excerptHeight %>px; width:<%= excerptWidth %>px;left:<%= excerptMarginLeft + 1 %>px;">
 
         <img src="<%= image %>" style="left:-<%= excerptMarginLeft %>px; top:-<%= imageTop %>px;" width="<%= imageWidth %>" />
 
