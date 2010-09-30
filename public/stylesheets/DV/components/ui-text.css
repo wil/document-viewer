@@ -2,6 +2,7 @@
   min-height:867px;
   background-color:#fff;
   margin: 0 auto 10px;
+  overflow: hidden;
   -moz-box-shadow: 0 0 1em #a9a9a9;
   -webkit-box-shadow: 0 0 1em #a9a9a9;
 }
@@ -33,6 +34,6 @@
   white-space: -pre-wrap;      /* Opera 4-6 */
   white-space: -o-pre-wrap;    /* Opera 7 */
   word-wrap: break-word;       /* Internet Explorer 5.5+ */
-  padding:50px;
-  margin: 0 auto;
+  padding:4px;
+  margin: 46px;
 }
