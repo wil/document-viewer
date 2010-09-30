@@ -17,10 +17,10 @@ _.extend(DV.Schema.events, {
 
         if(this.viewer.state === 'ViewText'){
           this.loadText(chapterIndex);
-          this.viewer.history.save('text/p'+pageNumber);
+          // this.viewer.history.save('text/p'+pageNumber);
         }else if(this.viewer.state === 'ViewDocument'){
           this.helpers.jump(chapterIndex);
-          this.viewer.history.save('document/p'+pageNumber);
+          // this.viewer.history.save('document/p'+pageNumber);
         }else{
           return false;
         }
@@ -33,7 +33,7 @@ _.extend(DV.Schema.events, {
         if(this.viewer.state === 'ViewText'){
           this.loadText(annotation.index);
 
-          this.viewer.history.save('text/p'+pageNumber);
+          // this.viewer.history.save('text/p'+pageNumber);
         }else{
           this.viewer.pageSet.showAnnotation(annotation);
         }

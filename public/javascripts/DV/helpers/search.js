@@ -8,7 +8,7 @@ _.extend(DV.Schema.helpers, {
       this.viewer.$('span.DV-totalSearchResult').text(text);
       this.viewer.$('span.DV-searchQuery').text(response.query);
       if (hasResults) {
-        this.viewer.history.save('search/p'+response.results[0]+'/'+response.query);
+        // this.viewer.history.save('search/p'+response.results[0]+'/'+response.query);
         this.events.loadText(response.results[0] - 1, this.highlightSearchResponses);
       } else {
         this.highlightSearchResponses();
@@ -38,10 +38,10 @@ _.extend(DV.Schema.helpers, {
     this.viewer.$('.DV-pageNumberContainer input').val(pageNumber);
 
     if(this.viewer.state === 'ViewDocument'){
-      this.viewer.history.save('document/p'+pageNumber);
+      // this.viewer.history.save('document/p'+pageNumber);
       this.jump(pageIndex);
     }else if(this.viewer.state === 'ViewText'){
-      this.viewer.history.save('text/p'+pageNumber);
+      // this.viewer.history.save('text/p'+pageNumber);
       this.events.loadText(pageIndex);
     }
 

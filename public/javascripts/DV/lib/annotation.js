@@ -88,7 +88,7 @@ DV.Annotation.prototype.show = function(argHash) {
   this.viewer.helpers.setActiveAnnotationInNav(this.id);
   this.active                         = true;
   this.pageEl.parent('.DV-set').addClass('DV-activePage');
-  this.viewer.history.save('document/p'+(parseInt(this.page.index,10)+1)+'/a'+this.id);
+  // this.viewer.history.save('document/p'+(parseInt(this.page.index,10)+1)+'/a'+this.id);
 
   if (argHash && argHash.edit) {
     this.showEdit();
@@ -131,7 +131,7 @@ DV.Annotation.prototype.hide = function(forceOverlayHide){
   this.viewer.helpers.setActiveAnnotationInNav();
   this.active = false;
   this.pageEl.parent('.DV-set').removeClass('DV-activePage');
-  this.viewer.history.save('document/p'+pageNumber);
+  // this.viewer.history.save('document/p'+pageNumber);
   // cleanup active state
   this.removeConnector(true);
 

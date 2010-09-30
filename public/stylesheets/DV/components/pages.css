@@ -26,8 +26,12 @@
   zoom:1;
   font-size:10px;
   font-weight:bold;
+  cursor: pointer;
   padding-left:8px;
 }
+  .DV-pageNumber:hover {
+    text-decoration: underline;
+  }
 
 .DV-annotation .DV-pageNumber{
   display:none;

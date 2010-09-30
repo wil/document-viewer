@@ -40,12 +40,12 @@ DV.Schema.helpers = {
         context.open('ViewAnnotation');
       });
       viewer.$('.DV-documentView').delegate('.DV-trigger','click',function(e){
-        history.save('document/p'+context.models.document.currentPage());
+        // history.save('document/p'+context.models.document.currentPage());
         context.open('ViewDocument');
       });
       viewer.$('.DV-textView').delegate('.DV-trigger','click',function(e){
 
-        history.save('text/p'+context.models.document.currentPage());
+        // history.save('text/p'+context.models.document.currentPage());
         context.open('ViewText');
       });
       viewer.$('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', DV.jQuery.proxy(this.gotoPage, this));
@@ -53,7 +53,7 @@ DV.Schema.helpers = {
       viewer.$('form.DV-searchDocument').submit(this.events.compile('search'));
       viewer.$('.DV-searchBar').delegate('.DV-closeSearch','click',function(e){
         e.preventDefault();
-        history.save('text/p'+context.models.document.currentPage());
+        // history.save('text/p'+context.models.document.currentPage());
         context.open('ViewText');
       });
       viewer.$('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', DV.jQuery.proxy(this.clearSearch, this));
@@ -78,6 +78,9 @@ DV.Schema.helpers = {
       collection.delegate('.DV-cancelEdit','click', DV.jQuery.proxy(this.cancelAnnotationEdit, this));
       collection.delegate('.DV-saveAnnotation','click', DV.jQuery.proxy(this.saveAnnotation, this));
       collection.delegate('.DV-deleteAnnotation','click', DV.jQuery.proxy(this.deleteAnnotation, this));
+      collection.delegate('.DV-pageNumber', 'click', _.bind(this.permalinkPage, this, 'document'));
+      collection.delegate('.DV-textCurrentPage', 'click', _.bind(this.permalinkPage, this, 'text'));
+      collection.delegate('.DV-annotationTitle', 'click', _.bind(this.permalinkAnnotation, this));
 
       // Handle iPad / iPhone scroll events...
       this._touchX = this._touchY = 0;
@@ -189,6 +192,30 @@ DV.Schema.helpers = {
       this._touchY -= yDiff;
     },
 
+    // Click to open a page's permalink.
+    permalinkPage : function(mode, e) {
+      if (mode == 'text') {
+        var number  = this.viewer.models.document.currentPage();
+      } else {
+        var pageId  = this.viewer.$(e.target).closest('.DV-set').attr('data-id');
+        var page    = this.viewer.pageSet.pages[pageId];
+        var number  = page.pageNumber;
+        this.jump(page.index);
+      }
+      this.viewer.history.save(mode + '/p' + number);
+    },
+
+    // Click to open an annotation's permalink.
+    permalinkAnnotation : function(e) {
+      var id   = this.viewer.$(e.target).closest('.DV-annotation').attr('data-id');
+      var anno = this.viewer.models.annotations.getAnnotation(id);
+      if (this.viewer.state == 'ViewDocument') {
+        this.viewer.history.save('document/p' + anno.pageNumber + '/a' + anno.id);
+      } else {
+        this.viewer.history.save('annotation/a' + anno.id);
+      }
+    },
+
     setDocHeight:   function(height,diff) {
       this.elements.window[0].scrollTop += diff;
       this.elements.bar.css('height', height);
@@ -221,7 +248,7 @@ DV.Schema.helpers = {
       if(viewer.state !== 'ViewDocument'){
         this.models.document.setPageIndex(annotation.index);
         viewer.open('ViewDocument');
-        this.viewer.history.save('document/p'+(parseInt(annotation.index,10)+1));
+        // this.viewer.history.save('document/p'+(parseInt(annotation.index,10)+1));
       }
     },
 

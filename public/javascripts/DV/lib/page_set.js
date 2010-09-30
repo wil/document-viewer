@@ -155,7 +155,7 @@ DV.PageSet.prototype.showAnnotation = function(argHash, showHash){
     this.viewer.elements.window.scrollTop(offset+10,'fast');
     this.viewer.helpers.setActiveAnnotationInNav(argHash.id);
     this.viewer.activeAnnotationId = argHash.id;
-    this.viewer.history.save('annotation/a'+argHash.id);
+    // this.viewer.history.save('annotation/a'+argHash.id);
     return;
   }else{
     this.viewer.helpers.removeObserver('trackAnnotation');
