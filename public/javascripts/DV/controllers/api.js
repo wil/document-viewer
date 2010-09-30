@@ -83,6 +83,10 @@ DV.Api.prototype = {
     document.title = title;
   },
 
+  getPageText : function(pageNumber) {
+    return this.viewer.schema.text[pageNumber - 1];
+  },
+  
   // Set the page text for the given page of a document in the local cache.
   setPageText : function(text, pageNumber) {
     this.viewer.schema.text[pageNumber - 1] = text;
