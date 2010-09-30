@@ -22,6 +22,9 @@
 .DV-viewDocument .DV-annotation {
   height: 0;
 }
+.DV-viewDocument .DV-pageNote {
+  height: auto;
+}
 .DV-viewDocument .DV-activeAnnotation {
   height: auto;
 }
