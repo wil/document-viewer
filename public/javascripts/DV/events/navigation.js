@@ -6,7 +6,7 @@ _.extend(DV.Schema.events, {
     if(el.hasClass('DV-trigger') || parentEl.hasClass('DV-trigger')){
 
       if(el.hasClass('DV-expander')){
-        return parentEl.parent().toggleClass('DV-expanded');
+        return parentEl.closest('.DV-chapter').toggleClass('DV-expanded');
 
       }else if(parentEl.hasClass('DV-first')){
         // its a header, take it to the page
