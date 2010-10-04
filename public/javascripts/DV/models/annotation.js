@@ -46,6 +46,7 @@ DV.model.Annotations.prototype = {
     adata.image                   = pageModel.imageURL(adata.index);
     adata.imageLeft               = x1;
     adata.imageTop                = y1 + 1;
+    adata.tabTop                  = (y1 < 35 ? 35 - y1 : 0) + 8;
     adata.imageWidth              = pageModel.width;
     adata.imageHeight             = Math.round(pageModel.height * zoom);
     adata.regionLeft              = x1;
