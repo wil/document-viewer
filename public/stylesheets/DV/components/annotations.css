@@ -166,11 +166,27 @@
     font-size:12px;
     color:#000;
     padding:0;
-    max-width: 80%;
+    max-width: 75%;
     cursor: pointer;
   }
     .DV-annotationTitle:hover {
       text-decoration: underline;
+    }
+
+  .DV-permalink {
+    font-size: 16px;
+    background: url(../../../images/DV/embed/link.png) no-repeat 0 0;
+    padding-left: 16px;
+    cursor: pointer;
+    position: relative;
+    visibility: hidden;
+    left: 7px; top: -2px;
+  }
+    .DV-annotation:hover .DV-permalink {
+      visibility: visible;
+    }
+    .DV-permalink:hover {
+      background-position: 0 -32px;
     }
 
   /* ---------------------------------------------------- excerpt */
