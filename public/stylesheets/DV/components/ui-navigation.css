@@ -26,9 +26,14 @@
 }
 
 .DV-storyLink a,
-.DV-pdfLink a {
+.DV-pdfLink a,
+.DV-contributor {
   font: normal 11px Arial, sans-serif;
   text-decoration: none;
+}
+
+.DV-contributor {
+  color: #333;
 }
 
 .DV-storyLink a:hover,
