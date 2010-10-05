@@ -56,7 +56,7 @@ DV.Schema.events = {
   },
 
   loadText: function(pageIndex,afterLoad){
-
+    
     pageIndex = (!pageIndex) ? this.models.document.currentIndex() : parseInt(pageIndex,10);
     this._previousTextIndex = pageIndex;
 
@@ -71,6 +71,10 @@ DV.Schema.events = {
       me.models.document.setPageIndex(pageIndex);
       me.helpers.setActiveChapter(me.models.chapters.getChapterId(pageIndex));
 
+      if (me.viewer.elements.viewer.hasClass('DV-editingText') &&
+          !(pageNumber in me.models.document.originalPageText)) {
+        me.models.document.originalPageText[pageNumber] = text;
+      }
 
       if(afterLoad) afterLoad.call(me.helpers);
     };

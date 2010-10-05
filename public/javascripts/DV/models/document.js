@@ -6,6 +6,7 @@ DV.model.Document = function(viewer){
   this.baseHeightsPortion        = [];
   this.baseHeightsPortionOffsets = [];
   this.paddedOffsets             = [];
+  this.originalPageText          = {};
   this.totalDocumentHeight       = 0;
   this.totalPages                = 0;
   this.additionalPaddingOnPage   = 0;

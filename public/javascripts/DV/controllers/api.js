@@ -91,6 +91,25 @@ DV.Api.prototype = {
   setPageText : function(text, pageNumber) {
     this.viewer.schema.text[pageNumber - 1] = text;
   },
+  
+  // Reset all modified page text to the original values from the server cache.
+  resetPageText : function(overwriteOriginal) {
+    var self = this;
+    var pageText = this.viewer.schema.text;
+    if (overwriteOriginal) {
+      this.viewer.models.document.originalPageText = {};
+    } else {
+      _.each(this.viewer.models.document.originalPageText, function(originalPageText, pageNumber) {
+        pageNumber = parseInt(pageNumber, 10);
+        if (originalPageText != pageText[pageNumber-1]) {
+          self.setPageText(originalPageText, pageNumber);
+          if (pageNumber == self.currentPage()) {
+            self.viewer.events.loadText();
+          }
+        }
+      });
+    }
+  },
 
   // Redraw the UI. Call redraw(true) to also redraw annotations and pages.
   redraw : function(redrawAll) {
@@ -167,6 +186,16 @@ DV.Api.prototype = {
   reorderPages : function(pageOrder, options) {
     var model = this.getModelId();
     this.viewer.models.document.reorderPages(model, pageOrder, options);
+  },
+    
+  enterEditPageTextMode : function() {
+    this.viewer.elements.viewer.addClass('DV-editingText');
+    this.viewer.events.loadText();
+  },
+  
+  leaveEditPageTextMode : function() {
+    this.resetPageText();
+    this.viewer.elements.viewer.removeClass('DV-editingText');
   },
   
   getModelId : function() {
