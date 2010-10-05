@@ -11,8 +11,6 @@ DV.model.Chapters.prototype = {
     _.each(this.viewer.schema.data.sections, function(sec) {
       sec.id    = sec.id || _.uniqueId();
       var range = sec.pages.split('-');
-      var start = parseInt(range[0], 10);
-      var end   = parseInt(range[0], 10);
       for (var i=range[0]-1; i<range[1]; i++) chapters[i] = sec.id;
     });
   },

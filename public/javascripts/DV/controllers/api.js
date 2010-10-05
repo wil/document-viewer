@@ -33,6 +33,16 @@ DV.Api.prototype = {
     return this.viewer.models.document.totalPages;
   },
 
+  // Return the name of the conributor, if available.
+  getContributor : function() {
+    return this.viewer.schema.document.contributor;
+  },
+
+  // Return the name of the contributing organization, if available.
+  getContributorOrganization : function() {
+    return this.viewer.schema.document.contributor_organization;
+  },
+
   // Change the documents' sections, re-rendering the navigation. "sections"
   // should be an array of sections in the canonical format:
   // {title: "Chapter 1", pages: "1-12"}
@@ -144,27 +154,27 @@ DV.Api.prototype = {
   onAnnotationDelete : function(callback) {
     this.viewer.models.annotations.deleteCallbacks.push(callback);
   },
-  
+
   enterRemovePagesMode : function() {
     this.viewer.elements.viewer.addClass('DV-removePages');
   },
-  
+
   leaveRemovePagesMode : function() {
     this.viewer.elements.viewer.removeClass('DV-removePages');
   },
-  
+
   resetRemovedPages : function() {
     this.viewer.models.document.resetRemovedPages();
   },
-  
+
   addPageToRemovedPages : function(page) {
-    this.viewer.models.document.addPageToRemovedPages(page); 
+    this.viewer.models.document.addPageToRemovedPages(page);
   },
-  
+
   removePageFromRemovedPages : function(page) {
-    this.viewer.models.document.removePageFromRemovedPages(page); 
+    this.viewer.models.document.removePageFromRemovedPages(page);
   },
-  
+
   removePages : function(pages, options) {
     var model = this.getModelId();
     this.viewer.models.document.removePages(model, pages, options);

@@ -120,7 +120,7 @@ _.extend(DV.Schema.helpers, {
 
     var chaptersContainer = this.viewer.$('div.DV-chaptersContainer');
     chaptersContainer.html(navigationView);
-    chaptersContainer.live('click',this.events.compile('handleNavigation'));
+    chaptersContainer.unbind('click').bind('click',this.events.compile('handleNavigation'));
     this.viewer.schema.data.sections.length || _.size(this.viewer.schema.data.annotationsById) ?
        chaptersContainer.show() : chaptersContainer.hide();
     this.displayNavigation();

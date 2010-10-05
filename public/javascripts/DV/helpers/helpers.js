@@ -86,6 +86,7 @@ DV.Schema.helpers = {
       collection.delegate('.DV-pageNumber', 'click', _.bind(this.permalinkPage, this, 'document'));
       collection.delegate('.DV-textCurrentPage', 'click', _.bind(this.permalinkPage, this, 'text'));
       collection.delegate('.DV-annotationTitle', 'click', _.bind(this.permalinkAnnotation, this));
+      collection.delegate('.DV-permalink', 'click', _.bind(this.permalinkAnnotation, this));
 
       // Thumbnails
       viewer.$('.DV-thumbnails').delegate('.DV-thumbnail', 'click', function(e) {

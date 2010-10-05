@@ -1,6 +1,6 @@
 <div class="DV-annotation <%= orderClass %> DV-<%= access %>" style="top:<%= top %>px;" id="DV-annotation-<%= id %>" data-id="<%= id %>">
 
-  <div class="DV-annotationTab">
+  <div class="DV-annotationTab" style="top:<%= tabTop %>px;">
     <div class="DV-annotationClose DV-trigger"></div>
   </div>
 
@@ -32,6 +32,7 @@
       <% } %>
       <div class="DV-annotationGoto DV-editHidden"><div class="DV-trigger">p. <%= pageNumber %></div></div>
       <div class="DV-annotationTitle DV-editHidden"><%= title %></div>
+      <span class="DV-permalink DV-editHidden" title="Link to this note"></span>
       <input class="DV-annotationTitleInput DV-editVisible" type="text" placeholder="Annotation Title" value="<%= title %>" />
       <% if (access == 'private') { %>
         <div class="DV-privateLock DV-editHidden" title="Private note"></div>
