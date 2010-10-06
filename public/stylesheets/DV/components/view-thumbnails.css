@@ -61,24 +61,28 @@
       -webkit-box-shadow: 1px 1px 2px #909090;
       -moz-box-shadow: 1px 1px 2px #909090;
     }
+    .DV-thumbnails .DV-thumbnail .DV-thumbnail-image img {
+      display: block;
+      min-height: 40px;
+    }
     .DV-thumbnails .DV-thumbnail.DV-zoom-0 .DV-thumbnail-image img {
       width: 60px;
       height: 75px;
     }
     .DV-thumbnails .DV-thumbnail.DV-zoom-1 .DV-thumbnail-image img {
-      max-width: 90px;
+      width: 90px;
       max-height: 112px;
     }
     .DV-thumbnails .DV-thumbnail.DV-zoom-2 .DV-thumbnail-image img {
-      max-width: 120px;
+      width: 120px;
       max-height: 150px;
     }
     .DV-thumbnails .DV-thumbnail.DV-zoom-3 .DV-thumbnail-image img {
-      max-width: 150px;
+      width: 150px;
       max-height: 188px;
     }
     .DV-thumbnails .DV-thumbnail.DV-zoom-4 .DV-thumbnail-image img {
-      max-width: 180px;
+      width: 180px;
       max-height: 225px;
     }
 
