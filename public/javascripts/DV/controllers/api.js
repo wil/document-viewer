@@ -21,6 +21,11 @@ DV.Api.prototype = {
   getId : function() {
     return this.viewer.schema.document.id;
   },
+  
+  // Get the document's numerical ID.
+  getModelId : function() {
+    return parseInt(this.getId(), 10);
+  },
 
   // Return the current zoom factor of the document.
   currentZoom : function() {
@@ -174,11 +179,6 @@ DV.Api.prototype = {
   removePageFromRemovedPages : function(page) {
     this.viewer.models.document.removePageFromRemovedPages(page);
   },
-
-  removePages : function(pages, options) {
-    var model = this.getModelId();
-    this.viewer.models.document.removePages(model, pages, options);
-  },
   
   enterReorderPagesMode : function() {
     this.viewer.elements.viewer.addClass('DV-reorderPages');
@@ -206,10 +206,6 @@ DV.Api.prototype = {
   leaveEditPageTextMode : function() {
     this.resetPageText();
     this.viewer.elements.viewer.removeClass('DV-editingText');
-  },
-  
-  getModelId : function() {
-    return parseInt(this.getId(), 10);
   },
 
   // Request the loading of an external JS file.
