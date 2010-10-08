@@ -180,6 +180,14 @@ DV.Api.prototype = {
     this.viewer.models.document.removePageFromRemovedPages(page);
   },
   
+  enterAddPagesMode : function() {
+    this.viewer.elements.viewer.addClass('DV-addPages');
+  },
+  
+  leaveAddPagesMode : function() {
+    this.viewer.elements.viewer.removeClass('DV-addPages');
+  },
+  
   enterReorderPagesMode : function() {
     this.viewer.elements.viewer.addClass('DV-reorderPages');
   },
@@ -190,7 +198,7 @@ DV.Api.prototype = {
   },
   
   resetReorderedPages : function() {
-    this.viewer.models.document.resetReorderedPages();
+    this.viewer.models.document.redrawReorderedPages();
   },
   
   reorderPages : function(pageOrder, options) {

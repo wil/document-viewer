@@ -92,6 +92,7 @@ DV.Schema.helpers = {
       viewer.$('.DV-thumbnails').delegate('.DV-thumbnail', 'click', function(e) {
         var $thumbnail = viewer.$(e.currentTarget);
         if (!viewer.elements.viewer.hasClass('DV-reorderPages') &&
+            !viewer.elements.viewer.hasClass('DV-addPages') &&
             !viewer.elements.viewer.hasClass('DV-removePages')) {
           var pageNumber = $thumbnail.data('pageNumber') - 1;
           viewer.models.document.setPageIndex(pageNumber);
@@ -129,7 +130,7 @@ DV.Schema.helpers = {
         }
       );
 
-      if(jQuery.browser.msie == true){
+      if(DV.jQuery.browser.msie == true){
         this.elements.browserDocument.bind('focus',DV.jQuery.proxy(this.focusWindow,this));
         this.elements.browserDocument.bind('focusout',DV.jQuery.proxy(this.focusOut,this));
       }else{

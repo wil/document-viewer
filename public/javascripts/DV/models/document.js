@@ -126,10 +126,6 @@ DV.model.Document.prototype = {
     }
   },
   
-  resetReorderedPages: function() {
-    this.redrawReorderedPages();
-  },
-  
   redrawReorderedPages: function() {
     if (this.viewer.thumbnails) {
       this.viewer.thumbnails.rerender();

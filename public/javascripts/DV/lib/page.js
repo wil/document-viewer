@@ -9,7 +9,7 @@ DV.Page = function(viewer, argHash){
   this.parent           = this.el.parent();
   this.pageNumberEl     = this.el.find('span.DV-pageNumber');
   this.pageInsertEl     = this.el.find('.DV-pageNoteInsert');
-  this.removedOverlayEl = this.el.find('.DV-removeOverlay');
+  this.removedOverlayEl = this.el.find('.DV-overlay');
   this.pageImageEl      = this.getPageImage();
 
   this.pageEl           = this.el.find('div.DV-page');
