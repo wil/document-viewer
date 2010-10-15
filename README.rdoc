@@ -5,16 +5,19 @@
   /_____/\____/\___/ |___/_/\___/|__/|__/\___/_/
 
 
-== Source
-* The <tt>frontend</tt> branch is home to all of the HTML, CSS, and Javascript you'll need to get a static viewer up and running.
-* The <tt>rails</tt> branch (TK) contains a Rails-based admin you can use to create, manage, and serve viewers.
+== Newspapers and News Agencies
+If you're thinking of implementing this project, consider signing up for a DocumentCloud account instead -- we handle the document processing and indexing for search, and give you an easily embeddable version of this viewer.
+
+http://www.documentcloud.org/contact
+
+If you're not part of a news agency, read on for the technical details...
 
 == Browser Support
-All core functionality is supported as far back as IE6. However, users with modern browsers(Firefox 3.5, Safari 4, Chrome) will notice a much improved view. The markup and css used to support IE6 is pretty atrocious. New templates to take more aggressive use of CSS3 treats like rounded corners and gradients are on the roadmap. 
+All core functionality is supported as far back as IE7. However, users with modern browsers (Firefox 3.5, Safari 4, Chrome) will notice a much improved view.
 
 == Usage
 
-Take a peek at the plain.html template to see how to load in a Document. All you really need to do is point to a Document Viewer JSON file and specify the target element to embed the viewer:
+Take a peek at the viewer.html template to see how to load in a Document. All you really need to do is point to a Document Viewer JSON file and specify the target element to embed the viewer:
 
   DV.load(JSON_FILE, { container: element_selector });
 
@@ -61,7 +64,7 @@ http://documents.nytimes.com/goldman-sachs-internal-emails.json
 
 
 == Data Formats: Search
-All data should be formatted as JSON. When provided a cross domain url, DV will attempt a JSONP request. 
+All data should be formatted as JSON. When provided a cross domain url, the Document Viewer will attempt a JSONP request. 
 
   {
     matches : NUMBER_OF_PAGES_WITH_MATCHES,
@@ -80,7 +83,7 @@ All data should be formatted as JSON. When provided a cross domain url, DV will 
 
 We're using the excellent Jammit asset compression library from the DocumentCloud project to compress assets and render JS templates. Anytime you make a change to a template, you'll need to run jammit command to render out the views.  
 
-  jammit -c ASSET_CONFIG_PATH
+  jammit
   
 
 Details on installing and using the Jammit library can be found at http://documentcloud.github.com/jammit/
@@ -89,15 +92,14 @@ Details on installing and using the Jammit library can be found at http://docume
 == Styling the Viewer
 The template provided comes in two forms:
 
-===plain.html
-This is the production facing view that uses the latest compressed assets and views.  
+===viewer.html
+This is the production facing view that uses the latest compressed assets and views. Compressed assets in this repository are only updated each time we do a point release.
 
-===debug.html
+===viewer-debug.html
 Should only be used for development and debugging purposes. You'll need to keep this up to date should add or remove new assets.
 
 All view templates can be found in javascripts/DV/views
 To see your changes you'll need to be sure to run the jammit command to re-render your views. 
- 
 
 == Copyright
 Copyright © 2010 The New York Times. See LICENSE for details.
