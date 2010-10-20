@@ -188,6 +188,14 @@ DV.Api.prototype = {
     this.viewer.elements.viewer.removeClass('DV-addPages');
   },
   
+  enterReplacePagesMode : function() {
+    this.viewer.elements.viewer.addClass('DV-replacePages');
+  },
+  
+  leaveReplacePagesMode : function() {
+    this.viewer.elements.viewer.removeClass('DV-replacePages');
+  },
+  
   enterReorderPagesMode : function() {
     this.viewer.elements.viewer.addClass('DV-reorderPages');
   },

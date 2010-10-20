@@ -93,6 +93,7 @@ DV.Schema.helpers = {
         var $thumbnail = viewer.$(e.currentTarget);
         if (!viewer.elements.viewer.hasClass('DV-reorderPages') &&
             !viewer.elements.viewer.hasClass('DV-addPages') &&
+            !viewer.elements.viewer.hasClass('DV-replacePages') &&
             !viewer.elements.viewer.hasClass('DV-removePages')) {
           var pageNumber = $thumbnail.data('pageNumber') - 1;
           viewer.models.document.setPageIndex(pageNumber);

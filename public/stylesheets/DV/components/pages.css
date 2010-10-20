@@ -216,3 +216,10 @@
   display: block;
   background-color: darkred;
 }
+
+.DV-replacePages .DV-thumbnails .DV-thumbnail:hover {
+  background-color: #EEC2B7;
+}
+.DV-replacePages .DV-thumbnails .DV-thumbnail.DV-removePage {
+  background-color: #CA8F7E;
+}
