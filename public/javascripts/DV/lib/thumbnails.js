@@ -43,9 +43,15 @@ DV.Thumbnails.prototype.renderThumbnails = function() {
     removedPages : viewer.models.removedPages
   });
   viewer.$('.DV-thumbnails').html(thumbnailsHTML);
-  var currentPage = viewer.models.document.currentPageIndex + 1;
-  viewer.$('#DV-thumbnail-' + currentPage).addClass('DV-currentPage');
   viewer.$('.DV-thumbnail').each(function(i) {
     viewer.$(this).data('pageNumber', i+1);
   });
+  this.updateSelected();
+};
+
+DV.Thumbnails.prototype.updateSelected = function() {
+  var viewer = this.viewer;
+  var currentPage = viewer.models.document.currentPageIndex + 1;
+  viewer.$('.DV-thumbnail').removeClass('DV-currentPage');
+  viewer.$('#DV-thumbnail-' + currentPage).addClass('DV-currentPage');
 };
