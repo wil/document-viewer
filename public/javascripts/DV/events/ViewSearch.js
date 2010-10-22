@@ -3,11 +3,13 @@ DV.Schema.events.ViewSearch = {
     var nextPage = this.models.document.nextPage();
     this.loadText(nextPage);
 
+    this.viewer.open('ViewText');
   },
   previous: function(e){
     var previousPage = this.models.document.previousPage();
     this.loadText(previousPage);
 
+    this.viewer.open('ViewText');
   },
   search: function(e){
     e.preventDefault();

@@ -30,20 +30,6 @@
 
   <link href="public/stylesheets/DV/print.css" media="print" rel="stylesheet" type="text/css" />
 
-</head>
-<body>
-<div id="document-viewer"></div>
-<div id="DV-container">
-
-  <div class="DV-loadingDocument"><span>Loading</span></div>
-  <noscript>
-    <div id="DV-noJS">
-      The Document Viewer requires that you enable Javascript.
-    </div>
-  </noscript>
-
-</div>
-
 <script src="public/javascripts/DV/vendor/jquery-1.4.2.js" type="text/javascript"></script>
 <script src="public/javascripts/DV/vendor/jquery-ui-1.8.1.custom.min.js" type="text/javascript"></script>
 <script src="public/javascripts/DV/vendor/underscore.js" type="text/javascript"></script>
@@ -81,6 +67,20 @@
 <script src="public/javascripts/DV/controllers/document_viewer.js" type="text/javascript"></script>
 <script src="public/javascripts/DV/controllers/api.js" type="text/javascript"></script>
 <script src="public/assets/templates.js" type="text/javascript"></script>
+
+</head>
+<body>
+<div id="document-viewer"></div>
+<div id="DV-container">
+
+  <div class="DV-loadingDocument"><span>Loading</span></div>
+  <noscript>
+    <div id="DV-noJS">
+      The Document Viewer requires that you enable Javascript.
+    </div>
+  </noscript>
+
+</div>
 
 <script type="text/javascript">
   DV.load('http://documents.nytimes.com/documents-on-the-oil-spill.json', {

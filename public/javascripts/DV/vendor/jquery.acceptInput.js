@@ -14,19 +14,19 @@
         if (!e && options.onHide) options.onHide();
         me.hide();
 
-        jQuery(document).unbind('click', me._autohider);
-        jQuery(document).unbind('keypress', me._autohider);
+        DV.jQuery(document).unbind('click', me._autohider);
+        DV.jQuery(document).unbind('keypress', me._autohider);
         me._autohider = null;
         me.forceHide = null;
       };
       me._autohider = function(e) {        
         if (me._autoignore) return;
-        if (options.clickable && (me[0] == e.target || _.include(jQuery(e.target).parents(), me[0]))) return;
+        if (options.clickable && (me[0] == e.target || _.include(DV.jQuery(e.target).parents(), me[0]))) return;
         if (options.onHide && !options.onHide(e)) return;
         me.forceHide(e);
       };
-      jQuery(document).bind('click', this._autohider);
-      jQuery(document).bind('keypress', this._autohider);
+      DV.jQuery(document).bind('click', this._autohider);
+      DV.jQuery(document).bind('keypress', this._autohider);
     }
   };
  
@@ -41,7 +41,7 @@
     };
 
     if (options){
-      jQuery.extend(config, options);
+      DV.jQuery.extend(config, options);
     }
     this.editTimer = null;
       
@@ -56,15 +56,15 @@
     
     this.each(function(i,el){
       // element-specific code here
-      if(jQuery(el).parent().hasClass(config.initialStateClassName)){
+      if(DV.jQuery(el).parent().hasClass(config.initialStateClassName)){
         return true;
       }
-      el = jQuery(el);
+      el = DV.jQuery(el);
       
       var elWrapped = el.wrap('<span class="'+config.initialStateClassName+'"></span>');
       elWrapped     = elWrapped.parent();
       
-      var inputElement = jQuery('<input type="text" class="'+config.inputClassName+'" style="display:none;" />').appendTo(elWrapped);
+      var inputElement = DV.jQuery('<input type="text" class="'+config.inputClassName+'" style="display:none;" />').appendTo(elWrapped);
       
       inputElement.bind('blur',function(){
       
@@ -79,13 +79,13 @@
         var val = inputElement.attr('value');
         el.text(val);
         if(config.changeCallBack){
-          jQuery.fn.acceptInput.editTimer = setTimeout(config.changeCallBack,500);
+          DV.jQuery.fn.acceptInput.editTimer = setTimeout(config.changeCallBack,500);
         }
       });
       
       inputElement.bind('keydown',function(){
-        if(jQuery.fn.acceptInput.editTimer){
-          clearTimeout(jQuery.fn.acceptInput.editTimer);
+        if(DV.jQuery.fn.acceptInput.editTimer){
+          clearTimeout(DV.jQuery.fn.acceptInput.editTimer);
         }
       });
 
@@ -97,7 +97,7 @@
             elWrapped.addClass(config.initialStateClassName).removeClass(config.typingStateClassName);
           };
 
-          jQuery(inputElement).autohide({ clickable: true, onHide: DV.jQuery.proxy(autoHider,this) });
+          DV.jQuery(inputElement).autohide({ clickable: true, onHide: DV.jQuery.proxy(autoHider,this) });
           
           el.hide();
           inputElement.attr('value',el.text()).show()[0].focus();

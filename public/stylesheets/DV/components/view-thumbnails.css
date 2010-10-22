@@ -36,7 +36,9 @@
     cursor: pointer;
     position: relative;
   }
-    .DV-thumbnails .DV-thumbnail:hover,
+    .DV-thumbnails .DV-thumbnail:hover .DV-pageNumber {
+      text-decoration: underline;
+    }
     .DV-thumbnails .DV-thumbnail.DV-currentPage {
       background-color: #E0E0E0;
       border:1px solid #d7d7d7;
@@ -45,7 +47,7 @@
     }
     .DV-addPages .DV-thumbnails .DV-thumbnail:hover {
       background-color: inherit;
-    border:1px solid #F0F0F0;
+      border:1px solid #F0F0F0;
     }
     .DV-thumbnails .DV-thumbnail.DV-currentPage {
       background-color: #C3C5C3;
