@@ -159,6 +159,10 @@ DV.Api.prototype = {
   onAnnotationDelete : function(callback) {
     this.viewer.models.annotations.deleteCallbacks.push(callback);
   },
+  
+  onChangeState : function(callback) {
+    this.viewer.onStateChangeCallbacks.push(callback);
+  },
 
   enterRemovePagesMode : function() {
     this.viewer.elements.viewer.addClass('DV-removePages');

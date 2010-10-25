@@ -23,6 +23,8 @@ DV.DocumentViewer = function(options) {
   this.dragReporter       = null;
   this.compiled           = {};
   this.tracker            = {};
+  
+  this.onStateChangeCallbacks = [];
 
   this.events     = _.extend(this.events, {
     viewer      : this,
@@ -74,6 +76,7 @@ DV.DocumentViewer.prototype.open = function(state) {
   if (this.state == state) return;
   this.state = state;
   this.states[state].apply(this, arguments);
+  _.each(this.onStateChangeCallbacks, function(c) { c(state); });
 };
 
 // jQuery object, scoped to this viewer's container.
