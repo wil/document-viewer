@@ -223,3 +223,14 @@
 .DV-replacePages .DV-thumbnails .DV-thumbnail.DV-removePage {
   background-color: #CA8F7E;
 }
+
+.DV-reorderPages .DV-thumbnails .DV-thumbnail.ui-sortable-helper {
+  border: 1px solid transparent;
+}
+.DV-reorderPages .DV-thumbnails .DV-thumbnail.ui-sortable-helper .DV-thumbnail-image {
+  -webkit-box-shadow: 5px 5px 7px #505050;
+  -moz-box-shadow: 5px 5px 7px #505050;
+  box-shadow: 5px 5px 7px #505050;
+}
+.DV-reorderPages .DV-thumbnails .DV-thumbnail.ui-sortable-placeholder {
+}
