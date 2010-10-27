@@ -50,6 +50,10 @@
   background: white;
 }
 
+.DV-sidebarSpacer {
+  height: 10px;
+}
+
 .DV-well .DV-navControls{
   background-color: #fff;
   background-repeat: repeat-x;
