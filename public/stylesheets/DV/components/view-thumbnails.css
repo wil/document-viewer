@@ -26,7 +26,7 @@
 }
   .DV-thumbnails .DV-thumbnail {
     float: left;
-    padding: 8px 8px 8px 8px;
+    padding: 0 8px;
     margin: 0;
     text-align: center;
     border-radius: 4px;
@@ -42,6 +42,9 @@
     .DV-addPages .DV-thumbnails .DV-thumbnail:hover {
       background-color: inherit;
       border:1px solid #F0F0F0;
+    }
+    .DV-thumbnails .DV-thumbnail .DV-thumbnail-page {
+      padding: 8px 0;
     }
     .DV-thumbnails .DV-thumbnail .DV-thumbnail-image {
       line-height: 0;
