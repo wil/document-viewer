@@ -23,7 +23,7 @@ DV.DocumentViewer = function(options) {
   this.dragReporter       = null;
   this.compiled           = {};
   this.tracker            = {};
-  
+
   this.onStateChangeCallbacks = [];
 
   this.events     = _.extend(this.events, {
