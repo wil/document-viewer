@@ -24,7 +24,7 @@ DV.Thumbnails.prototype.buildThumbnails = function(zoomLevel) {
   } else {
     this.imageUrl = imageUrl.replace(/\{size\}/, 'small');
   }
-  
+
   for (var i=1; i <= this.pageCount; i++) {
     this.thumbnails[i] = this.imageUrl.replace(/\{page\}/, i);
   }
@@ -52,6 +52,6 @@ DV.Thumbnails.prototype.renderThumbnails = function() {
 DV.Thumbnails.prototype.updateSelected = function() {
   var viewer = this.viewer;
   var currentPage = viewer.models.document.currentPageIndex + 1;
-  viewer.$('.DV-thumbnail').removeClass('DV-currentPage');
-  viewer.$('#DV-thumbnail-' + currentPage).addClass('DV-currentPage');
+  viewer.$('.DV-thumbnail').removeClass('DV-currentPageImage');
+  viewer.$('#DV-thumbnail-' + currentPage).addClass('DV-currentPageImage');
 };
