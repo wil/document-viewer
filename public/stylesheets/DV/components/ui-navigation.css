@@ -10,7 +10,7 @@
 
 .DV-supplemental{
   margin-top: 15px;
-  padding-top:8px;
+  padding: 8px 0 0 14px;
   border-top:1px solid #ccc;
 }
   .DV-supplemental.DV-noNavigation {

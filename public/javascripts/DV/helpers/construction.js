@@ -147,7 +147,9 @@ _.extend(DV.Schema.helpers, {
     $annotationsView[showAnnotations ? 'show' : 'hide']();
 
     // Hide the searchBox, if it's disabled.
-    this.elements.viewer.addClass('DV-searchable');
+    if (!this.viewer.options.width || this.viewer.options.width >= 540) {
+      this.elements.viewer.addClass('DV-searchable');
+    }
     this.viewer.$('input.DV-searchInput', this.viewer.options.container).placeholder({
       message: 'Search',
       clearClassName: 'DV-searchInput-show-search-cancel'

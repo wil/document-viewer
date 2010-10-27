@@ -7,7 +7,4 @@ window.DV   = window.DV   || {};
 DV.jQuery   = jQuery.noConflict(true);
 DV.viewers  = DV.viewers  || {};
 DV.model    = DV.model    || {};
-DV._ = _.noConflict();
-if (typeof window._ === 'undefined') {
-  window._ = DV._;
-}
+
