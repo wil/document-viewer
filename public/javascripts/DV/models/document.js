@@ -104,20 +104,17 @@ DV.model.Document.prototype = {
   
   resetRemovedPages: function() {
     this.viewer.models.removedPages = {};
-    this.redrawRemovedPages();
   },
   
   addPageToRemovedPages: function(page) {
     this.viewer.models.removedPages[page] = true;  
-    this.redrawRemovedPages();
   },
   
   removePageFromRemovedPages: function(page) {
     this.viewer.models.removedPages[page] = false;  
-    this.redrawRemovedPages();
   },
   
-  redrawRemovedPages: function() {
+  redrawPages: function() {
     _.each(this.viewer.pageSet.pages, function(page) { 
       page.drawRemoveOverlay(); 
     });

@@ -25,7 +25,7 @@
 }
   .DV-thumbnails .DV-thumbnail {
     float: left;
-    margin: 8px 16px;
+    padding: 8px 16px;
     text-align: center;
     cursor: pointer;
     position: relative;
