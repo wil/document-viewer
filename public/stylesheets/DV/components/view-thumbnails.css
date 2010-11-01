@@ -30,12 +30,8 @@
     cursor: pointer;
     position: relative;
   }
-    .DV-thumbnails .DV-thumbnail:hover .DV-pageNumber {
+    .DV-thumbnails .DV-thumbnail.DV-hover-thumbnail .DV-pageNumber {
       text-decoration: underline;
-    }
-    .DV-addPages .DV-thumbnails .DV-thumbnail:hover {
-      background-color: inherit;
-      border:1px solid #F0F0F0;
     }
     .DV-thumbnails .DV-thumbnail .DV-thumbnail-image {
       line-height: 0;
@@ -45,7 +41,7 @@
       -webkit-box-shadow: 2px 2px 0px #aeaeae;;
       -moz-box-shadow: 2px 2px 0px #aeaeae;
     }
-      .DV-thumbnails .DV-thumbnail:hover .DV-thumbnail-image {
+      .DV-thumbnails .DV-thumbnail.DV-hover-thumbnail .DV-thumbnail-image {
         border-color: #777;
         box-shadow: 2px 2px 0px #999;
         -webkit-box-shadow: 2px 2px 0px #999;;

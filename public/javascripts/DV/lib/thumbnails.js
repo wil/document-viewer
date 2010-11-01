@@ -43,8 +43,20 @@ DV.Thumbnails.prototype.renderThumbnails = function() {
     removedPages : viewer.models.removedPages
   });
   viewer.$('.DV-thumbnails').html(thumbnailsHTML);
-  viewer.$('.DV-thumbnail').each(function(i) {
+  
+  var $thumbnails = viewer.$('.DV-thumbnail');
+  $thumbnails.each(function(i) {
     viewer.$(this).data('pageNumber', i+1);
+  }).bind('mouseenter.dv-remove', function() {
+    viewer.$(this).addClass('DV-hover-thumbnail');
+  }).bind('mouseleave.dv-remove', function() {
+    viewer.$(this).removeClass('DV-hover-image').removeClass('DV-hover-thumbnail');
+  });
+  
+  viewer.$('.DV-thumbnail-page', $thumbnails).bind('mouseenter.dv-thumbnails', function() {
+    viewer.$(this).parents('.DV-thumbnail').eq(0).addClass('DV-hover-image');
+  }).bind('mouseleave.dv-thumbnails', function() {
+    viewer.$(this).parents('.DV-thumbnail').eq(0).removeClass('DV-hover-image');
   });
   this.updateSelected();
 };
