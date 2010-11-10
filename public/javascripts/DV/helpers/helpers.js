@@ -229,11 +229,12 @@ DV.Schema.helpers = {
     permalinkAnnotation : function(e) {
       var id   = this.viewer.$(e.target).closest('.DV-annotation').attr('data-id');
       var anno = this.viewer.models.annotations.getAnnotation(id);
+      var sid  = anno.server_id || anno.id;
       if (this.viewer.state == 'ViewDocument') {
         this.viewer.pageSet.showAnnotation(anno);
-        this.viewer.history.save('document/p' + anno.pageNumber + '/a' + anno.id);
+        this.viewer.history.save('document/p' + anno.pageNumber + '/a' + sid);
       } else {
-        this.viewer.history.save('annotation/a' + anno.id);
+        this.viewer.history.save('annotation/a' + sid);
       }
     },
 
