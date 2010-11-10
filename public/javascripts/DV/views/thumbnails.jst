@@ -1,9 +1,11 @@
-<% _.each(thumbnails, function(thumbnail, page) { %>
-  <div class="DV-thumbnail DV-zoom-<%= zoom %>" id="DV-thumbnail-<%= page %>">
-    <div class="DV-overlay <% if (removedPages[page]) { %>visible<% } %>"></div>
-    <div class="DV-thumbnail-page">
-      <div class="DV-thumbnail-image"><img src="<%= thumbnail %>" /></div>
-      <div class="DV-pageNumber DV-pageMeta">p. <%= page %></div>
+<div class="DV-zoom-<%= zoom %>">
+  <% _.each(thumbnails, function(thumbnail, page) { %>
+    <div class="DV-thumbnail" id="DV-thumbnail-<%= page %>">
+      <div class="DV-overlay <% if (removedPages[page]) { %>visible<% } %>"></div>
+      <div class="DV-thumbnail-page">
+        <img class="DV-thumbnail-image" src="<%= thumbnail %>" />
+        <div class="DV-pageNumber DV-pageMeta">p. <%= page %></div>
+      </div>
     </div>
-  </div>
-<% }); %>
+  <% }); %>
+</div>
