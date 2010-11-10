@@ -17,15 +17,17 @@ DV.Schema.events = {
   drawPages: function() {
     if (this.viewer.state != 'ViewDocument') return;
     var doc           = this.models.document;
+    var win           = this.elements.window[0];
     var offsets       = doc.baseHeightsPortionOffsets;
-    var scrollPos     = this.viewer.scrollPosition = this.elements.window[0].scrollTop;
+    var scrollPos     = this.viewer.scrollPosition = win.scrollTop;
+    var midpoint      = scrollPos + (this.viewer.$(win).height() / 3);
     var currentPage   = _.sortedIndex(offsets, scrollPos);
-    if (offsets[currentPage] == scrollPos) currentPage++;
-    var currentIndex  = currentPage - 1;
-    var pageIds       = this.helpers.sortPages(currentIndex);
+    var middlePage    = _.sortedIndex(offsets, midpoint);
+    if (offsets[currentPage] == scrollPos) currentPage++ && middlePage++;
+    var pageIds       = this.helpers.sortPages(middlePage - 1);
     var total         = doc.totalPages;
-    if (doc.currentPage() != currentPage) doc.setPageIndex(currentIndex);
-    this.drawPageAt(pageIds, currentIndex);
+    if (doc.currentPage() != currentPage) doc.setPageIndex(currentPage - 1);
+    this.drawPageAt(pageIds, middlePage - 1);
   },
 
   // Draw the page at the given index.
@@ -56,7 +58,7 @@ DV.Schema.events = {
   },
 
   loadText: function(pageIndex,afterLoad){
-    
+
     pageIndex = (!pageIndex) ? this.models.document.currentIndex() : parseInt(pageIndex,10);
     this._previousTextIndex = pageIndex;
 
