@@ -30,8 +30,17 @@
     cursor: pointer;
     position: relative;
   }
+    .DV-thumbnails .DV-thumbnail .DV-overlay {
+      cursor: pointer;
+      z-index: 10002;
+      position: absolute;
+      top: 10px;
+      width: 3px;
+      height: 75%;
+      display: none;
+    }
     .DV-thumbnails .DV-thumbnail .DV-pageNumber {
-      margin: 4px 0 0 0;
+      margin: 2px 0 0 0;
       width: auto;
       float: none;
       display: block;
@@ -41,47 +50,62 @@
       .DV-thumbnails .DV-hover-thumbnail .DV-pageNumber {
         text-decoration: underline;
       }
+    .DV-thumbnails .DV-thumbnail-select {
+      padding: 2px;
+      -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px;
+      position: relative;
+      top: -2px; left: -2px;
+    }
+      .DV-thumbnail.DV-selected .DV-thumbnail-select {
+        background: #09f;
+      }
     .DV-thumbnails .DV-thumbnail-image {
       border: 1px solid #999;
       display: block;
       min-height: 40px;
       box-shadow: 2px 2px 0px #aeaeae;
-      -webkit-box-shadow: 2px 2px 0px #aeaeae;;
+      -webkit-box-shadow: 2px 2px 0px #aeaeae;
       -moz-box-shadow: 2px 2px 0px #aeaeae;
     }
       .DV-thumbnails .DV-hover-thumbnail .DV-thumbnail-image {
         border-color: #777;
         box-shadow: 2px 2px 0px #999;
-        -webkit-box-shadow: 2px 2px 0px #999;;
+        -webkit-box-shadow: 2px 2px 0px #999;
         -moz-box-shadow: 2px 2px 0px #999;
+      }
+      .DV-thumbnails .DV-selected .DV-thumbnail-image {
+        border-color: transparent;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
       }
     .DV-thumbnails .DV-zoom-0 .DV-thumbnail-image {
       width: 60px;
       height: 75px;
     }
     .DV-thumbnails .DV-zoom-1 .DV-thumbnail {
-      height: 132px;
+      height: 138px;
     }
       .DV-thumbnails .DV-zoom-1 .DV-thumbnail-image {
         width: 90px;
         max-height: 112px;
       }
     .DV-thumbnails .DV-zoom-2 .DV-thumbnail {
-      height: 170px;
+      height: 178px;
     }
       .DV-thumbnails .DV-zoom-2 .DV-thumbnail-image {
         width: 120px;
         max-height: 150px;
       }
     .DV-thumbnails .DV-zoom-3 .DV-thumbnail {
-      height: 208px;
+      height: 216px;
     }
       .DV-thumbnails .DV-zoom-3 .DV-thumbnail-image {
         width: 150px;
         max-height: 188px;
       }
     .DV-thumbnails .DV-zoom-4 .DV-thumbnail {
-      height: 245px;
+      height: 253px;
     }
       .DV-thumbnails .DV-zoom-4 .DV-thumbnail-image {
         width: 180px;
