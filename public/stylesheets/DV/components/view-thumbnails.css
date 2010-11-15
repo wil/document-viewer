@@ -79,10 +79,13 @@
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
       }
-    .DV-thumbnails .DV-zoom-0 .DV-thumbnail-image {
-      width: 60px;
-      height: 75px;
+    .DV-thumbnails .DV-zoom-0 .DV-thumbnail {
+      height: 103px;
     }
+      .DV-thumbnails .DV-zoom-0 .DV-thumbnail-image {
+        width: 60px;
+        max-height: 75px;
+      }
     .DV-thumbnails .DV-zoom-1 .DV-thumbnail {
       height: 138px;
     }
