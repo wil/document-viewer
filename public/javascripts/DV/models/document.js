@@ -101,32 +101,32 @@ DV.model.Document.prototype = {
   getOffset: function(_index){
     return this.offsets[_index];
   },
-  
+
   resetRemovedPages: function() {
     this.viewer.models.removedPages = {};
   },
-  
+
   addPageToRemovedPages: function(page) {
-    this.viewer.models.removedPages[page] = true;  
+    this.viewer.models.removedPages[page] = true;
   },
-  
+
   removePageFromRemovedPages: function(page) {
-    this.viewer.models.removedPages[page] = false;  
+    this.viewer.models.removedPages[page] = false;
   },
-  
+
   redrawPages: function() {
-    _.each(this.viewer.pageSet.pages, function(page) { 
-      page.drawRemoveOverlay(); 
+    _.each(this.viewer.pageSet.pages, function(page) {
+      page.drawRemoveOverlay();
     });
     if (this.viewer.thumbnails) {
       this.viewer.thumbnails.rerender();
     }
   },
-  
+
   redrawReorderedPages: function() {
     if (this.viewer.thumbnails) {
       this.viewer.thumbnails.rerender();
     }
   }
-  
+
 };

@@ -78,31 +78,13 @@ DV.model.Pages.prototype = {
   // TODO: figure out why this isn't working on the demo doc.
   updateHeight: function(image, pageIndex) {
     var h = this.getPageHeight(pageIndex);
-    if (h === image.height) return;
-
     var height = image.height * (this.zoomLevel > this.BASE_WIDTH ? 0.7 : 1.0);
     this.setPageHeight(pageIndex, height);
-    this.updateBaseHeightBasedOnAveragePageHeight(image);
-    this.viewer.models.document.computeOffsets();
-    this.viewer.pageSet.simpleReflowPages();
-  },
-
-  // Update the base height
-  // TODO ... either adjust this or reset it on Zoom.
-  updateBaseHeightBasedOnAveragePageHeight: function(image) {
     this.averageHeight = ((this.averageHeight * this.numPagesLoaded) + image.height) / (this.numPagesLoaded + 1);
     this.numPagesLoaded += 1;
-    if (this.updateTimeout) clearTimeout(this.updateTimeout);
-    this.updateTimeout = setTimeout(_.bind(function() {
-      this.updateTimeout = null;
-      var newAverage = Math.round(this.averageHeight);
-      if (Math.abs(newAverage - this.height) > 10) {
-        this.baseHeight = newAverage;
-        this.height = Math.round(this.baseHeight * this.zoomFactor());
-        this.viewer.models.document.computeOffsets();
-        this.viewer.pageSet.simpleReflowPages();
-      }
-    }, this), 100);
+    if (h === image.height) return;
+    this.viewer.models.document.computeOffsets();
+    this.viewer.pageSet.simpleReflowPages();
   },
 
   // set the real page height
