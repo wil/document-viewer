@@ -75,7 +75,7 @@ DV.model.Pages.prototype = {
     this.viewer.elements.textContents.css({'font-size' : this.zoomLevel * 0.02 + 'px'});
   },
 
-  // TODO: figure out why this isn't working on the demo doc.
+  // Update the height for a page, when its real image has loaded.
   updateHeight: function(image, pageIndex) {
     var h = this.getPageHeight(pageIndex);
     var height = image.height * (this.zoomLevel > this.BASE_WIDTH ? 0.7 : 1.0);
