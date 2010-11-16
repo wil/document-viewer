@@ -72,7 +72,7 @@ DV.model.Pages.prototype = {
 
     this.viewer.elements.sets.width(this.zoomLevel);
     this.viewer.elements.collection.css({width : this.width + padding });
-    this.viewer.elements.textContents.css({'font-size' : this.zoomLevel * 0.02 + 'px'});
+    this.viewer.$('.DV-textContents').css({'font-size' : this.zoomLevel * 0.02 + 'px'});
   },
 
   // Update the height for a page, when its real image has loaded.
