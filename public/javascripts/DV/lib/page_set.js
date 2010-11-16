@@ -68,23 +68,22 @@ DV.PageSet.prototype.cleanUp = function(){
 DV.PageSet.prototype.zoom = function(argHash){
   if(this.viewer.models.document.zoomLevel === argHash.zoomLevel) return;
 
-  var currentPage   = this.viewer.models.document.currentIndex();
+  var currentPage = this.viewer.models.document.currentIndex();
   var _index      = currentPage - 1;
-  var oldOffset     = this.viewer.models.document.offsets[currentPage];
+  var oldOffset   = this.viewer.models.document.offsets[currentPage];
 
-  var oldZoom      = this.viewer.models.document.zoomLevel*1;
-  var scrollPos    = this.viewer.elements.window.scrollTop();
+  var oldZoom     = this.viewer.models.document.zoomLevel*1;
+  var scrollPos   = this.viewer.elements.window.scrollTop();
 
   this.viewer.models.document.zoom(argHash.zoomLevel);
 
-  var diff      = (parseInt(scrollPos, 10)>parseInt(oldOffset, 10)) ? scrollPos - oldOffset : oldOffset - scrollPos;
+  var diff        = (parseInt(scrollPos, 10)>parseInt(oldOffset, 10)) ? scrollPos - oldOffset : oldOffset - scrollPos;
 
   var diffPercentage   = diff / this.viewer.models.pages.height;
 
-  // this.position();
   this.reflowPages();
   this.zoomText();
-  
+
   if (this.viewer.state === 'ViewThumbnails') {
     this.viewer.thumbnails.rerender(argHash.zoomLevel);
   }

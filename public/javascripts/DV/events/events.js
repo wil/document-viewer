@@ -11,6 +11,7 @@ DV.Schema.events = {
     }else{
       this.viewer.dragReporter.sensitivity = 1;
     }
+    this.viewer.notifyChangedState();
   },
 
   // Draw (or redraw) the visible pages on the screen.

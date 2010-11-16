@@ -76,7 +76,11 @@ DV.DocumentViewer.prototype.open = function(state) {
   if (this.state == state) return;
   this.state = state;
   this.states[state].apply(this, arguments);
-  _.each(this.onStateChangeCallbacks, function(c) { c(state); });
+  this.notifyChangedState();
+};
+
+DV.DocumentViewer.prototype.notifyChangedState = function() {
+  _.each(this.onStateChangeCallbacks, function(c) { c(); });
 };
 
 // jQuery object, scoped to this viewer's container.
