@@ -66,6 +66,7 @@
       box-shadow: 2px 2px 0px #aeaeae;
       -webkit-box-shadow: 2px 2px 0px #aeaeae;
       -moz-box-shadow: 2px 2px 0px #aeaeae;
+      padding: 0 !important;
     }
       .DV-thumbnails .DV-hover-thumbnail .DV-thumbnail-image {
         border-color: #777;
