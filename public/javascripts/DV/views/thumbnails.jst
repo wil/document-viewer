@@ -1,12 +1,15 @@
-<div class="DV-zoom-<%= zoom %>">
+<div class="DV-thumbnails-zoom DV-zoom-<%= zoom %>">
   <% _.each(thumbnails, function(thumbnail, page) { %>
-    <div class="DV-thumbnail" id="DV-thumbnail-<%= page %>">
-      <div class="DV-overlay <% if (removedPages[page]) { %>visible<% } %>">
+    <div class="DV-thumbnail" id="DV-thumbnail-<%= page %>" data-pageNumber="<%= page %>">
+      <div class="DV-thumbnail-shadow DV-thumbnail-image">
+          <img class="DV-thumbnail-image" data-src="<%= thumbnail %>" />
+        </div>
+      <div class="DV-overlay">
         <div class='DV-caret'></div>
       </div>
       <div class="DV-thumbnail-page">
         <div class="DV-thumbnail-select">
-          <img class="DV-thumbnail-image" src="<%= thumbnail %>" />
+          <img class="DV-thumbnail-image" data-src="<%= thumbnail %>" />
         </div>
         <div class="DV-pageNumber DV-pageMeta">p. <%= page %></div>
       </div>

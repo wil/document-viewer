@@ -85,7 +85,8 @@ DV.PageSet.prototype.zoom = function(argHash){
   this.zoomText();
 
   if (this.viewer.state === 'ViewThumbnails') {
-    this.viewer.thumbnails.rerender(argHash.zoomLevel);
+    this.viewer.thumbnails.calculateZoom(argHash.zoomLevel, true);
+    this.viewer.thumbnails.lazyloadThumbnails();
   }
 
   if(this.viewer.activeAnnotation != null){

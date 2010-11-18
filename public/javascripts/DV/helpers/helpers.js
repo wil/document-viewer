@@ -95,7 +95,7 @@ DV.Schema.helpers = {
             !viewer.elements.viewer.hasClass('DV-addPages') &&
             !viewer.elements.viewer.hasClass('DV-replacePages') &&
             !viewer.elements.viewer.hasClass('DV-removePages')) {
-          var pageIndex = $thumbnail.data('pageNumber') - 1;
+          var pageIndex = $thumbnail.attr('data-pageNumber') - 1;
           viewer.models.document.setPageIndex(pageIndex);
           viewer.open('ViewDocument');
           // viewer.history.save('document/p'+pageNumber);
@@ -327,9 +327,6 @@ DV.Schema.helpers = {
       this.elements.window.scrollTop(position);
       this.models.document.setPageIndex(pageIndex);
       if (forceRedraw) this.viewer.pageSet.redraw(true);
-      if (this.viewer.state === 'ViewThumbnails') {
-          this.viewer.thumbnails.updateSelected();
-      }
     },
 
     shift: function(argHash){

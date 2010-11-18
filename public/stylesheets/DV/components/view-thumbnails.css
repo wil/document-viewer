@@ -47,7 +47,7 @@
       height: 14px;
       z-index: 0;
     }
-      .DV-thumbnails .DV-hover-thumbnail .DV-pageNumber {
+      .DV-thumbnails .DV-thumbnail:hover .DV-pageNumber {
         text-decoration: underline;
       }
     .DV-thumbnails .DV-thumbnail-select {
@@ -59,20 +59,34 @@
       .DV-thumbnail.DV-selected .DV-thumbnail-select {
         background: #09f;
       }
+    .DV-thumbnails .DV-thumbnail .DV-thumbnail-shadow {
+      position: absolute;
+      top: 12px;
+      left: 20px;
+      border: none;
+      background-color: #aeaeae;
+    }
+      .DV-thumbnails .DV-thumbnail-shadow .DV-thumbnail-image {
+        visibility: hidden;
+        border: none;
+      }
+      .DV-thumbnails .DV-thumbnail:hover .DV-thumbnail-shadow {
+        background-color: #999;
+      }
     .DV-thumbnails .DV-thumbnail-image {
       border: 1px solid #999;
       display: block;
       min-height: 40px;
-      box-shadow: 2px 2px 0px #aeaeae;
+/*      box-shadow: 2px 2px 0px #aeaeae;
       -webkit-box-shadow: 2px 2px 0px #aeaeae;
-      -moz-box-shadow: 2px 2px 0px #aeaeae;
+      -moz-box-shadow: 2px 2px 0px #aeaeae;*/
       padding: 0 !important;
     }
-      .DV-thumbnails .DV-hover-thumbnail .DV-thumbnail-image {
+      .DV-thumbnails .DV-thumbnail:hover .DV-thumbnail-image {
         border-color: #777;
-        box-shadow: 2px 2px 0px #999;
+/*        box-shadow: 2px 2px 0px #999;
         -webkit-box-shadow: 2px 2px 0px #999;
-        -moz-box-shadow: 2px 2px 0px #999;
+        -moz-box-shadow: 2px 2px 0px #999;*/
       }
       .DV-thumbnails .DV-selected .DV-thumbnail-image {
         border-color: transparent;
@@ -86,6 +100,10 @@
       .DV-thumbnails .DV-zoom-0 .DV-thumbnail-image {
         width: 60px;
         max-height: 75px;
+        min-height: 75px;
+      }
+      .DV-thumbnails .DV-zoom-0 .DV-loaded .DV-thumbnail-image {
+        min-height: 0;
       }
     .DV-thumbnails .DV-zoom-1 .DV-thumbnail {
       height: 138px;
@@ -93,6 +111,10 @@
       .DV-thumbnails .DV-zoom-1 .DV-thumbnail-image {
         width: 90px;
         max-height: 112px;
+        min-height: 112px;
+      }
+      .DV-thumbnails .DV-zoom-1 .DV-loaded .DV-thumbnail-image {
+        min-height: 0;
       }
     .DV-thumbnails .DV-zoom-2 .DV-thumbnail {
       height: 178px;
@@ -100,6 +122,10 @@
       .DV-thumbnails .DV-zoom-2 .DV-thumbnail-image {
         width: 120px;
         max-height: 150px;
+        min-height: 150px;
+      }
+      .DV-thumbnails .DV-zoom-2 .DV-loaded .DV-thumbnail-image {
+        min-height: 0;
       }
     .DV-thumbnails .DV-zoom-3 .DV-thumbnail {
       height: 216px;
@@ -107,6 +133,10 @@
       .DV-thumbnails .DV-zoom-3 .DV-thumbnail-image {
         width: 150px;
         max-height: 188px;
+        min-height: 188px;
+      }
+      .DV-thumbnails .DV-zoom-3 .DV-loaded .DV-thumbnail-image {
+        min-height: 0;
       }
     .DV-thumbnails .DV-zoom-4 .DV-thumbnail {
       height: 253px;
@@ -114,4 +144,8 @@
       .DV-thumbnails .DV-zoom-4 .DV-thumbnail-image {
         width: 180px;
         max-height: 225px;
+        min-height: 225px;
+      }
+      .DV-thumbnails .DV-zoom-4 .DV-loaded .DV-thumbnail-image {
+        min-height: 0;
       }
