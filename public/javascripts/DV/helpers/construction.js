@@ -175,9 +175,11 @@ _.extend(DV.Schema.helpers, {
     }
 
     // Check if the zoom is showing, and if not, shorten the width of search
-    if (this.elements.viewer.width() <= 650) {
-      this.viewer.$('.DV-controls').addClass('DV-narrowControls');
-    }
+    _.defer(_.bind(function() {
+      if (this.elements.viewer.width() <= 650) {
+        this.viewer.$('.DV-controls').addClass('DV-narrowControls');
+      }
+    }, this));
 
     // Set the currentPage element reference.
     this.elements.currentPage = this.viewer.$('span.DV-currentPage');
