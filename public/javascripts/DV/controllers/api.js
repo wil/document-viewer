@@ -205,7 +205,7 @@ DV.Api.prototype = {
   },
   
   leaveReorderPagesMode : function() {
-    this.viewer.thumbnails.rerender();
+    this.resetReorderedPages();
     this.viewer.elements.viewer.removeClass('DV-reorderPages');
   },
   

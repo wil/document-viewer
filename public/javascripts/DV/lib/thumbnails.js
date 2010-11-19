@@ -4,34 +4,13 @@ DV.Thumbnails = function(viewer){
   this.imageUrl     = viewer.schema.document.resources.page.image.replace(/\{size\}/, 'small');
   this.pageCount    = viewer.schema.document.pages;
   this.viewer       = viewer;
-  this.calculateZoom();
-  this.buildThumbnails();
-};
-
-DV.Thumbnails.prototype.calculateZoom = function(zoomLevel, change) {
-  var zoomValue = _.indexOf(this.viewer.models.document.ZOOM_RANGES, zoomLevel);
-  if (zoomLevel != null) {
-    this.zoomLevel = zoomValue;
-  } else {
-    this.zoomLevel = this.viewer.slider.slider('value');
-  }
-  if (change) this.changeZoom();
-};
-
-DV.Thumbnails.prototype.changeZoom = function() {
-  this.viewer.$('.DV-thumbnails-zoom').removeClass('DV-zoom-0')
-                                      .removeClass('DV-zoom-1')
-                                      .removeClass('DV-zoom-2')
-                                      .removeClass('DV-zoom-3')
-                                      .removeClass('DV-zoom-4')
-                                      .addClass('DV-zoom-'+this.zoomLevel);
 };
 
 DV.Thumbnails.prototype.rerender = function() {
   this.calculateZoom();
   this.buildThumbnails();
   this.renderThumbnails();
-  this.changeZoom();
+  this.setZoom();
 };
 
 // build the basic page presentation layer
@@ -49,15 +28,33 @@ DV.Thumbnails.prototype.renderThumbnails = function() {
     zoom : this.zoomLevel
   });
   viewer.$('.DV-thumbnails').html(thumbnailsHTML);
-  // _.defer(_.bind(function() {
-    this.lazyloadThumbnails();
-  // }, this));
+  this.lazyloadThumbnails();
+};
+
+DV.Thumbnails.prototype.setZoom = function(zoomLevel) {
+  if (zoomLevel !== undefined) this.calculateZoom(zoomLevel);
+  
+  this.viewer.$('.DV-thumbnails-zoom').removeClass('DV-zoom-0')
+                                      .removeClass('DV-zoom-1')
+                                      .removeClass('DV-zoom-2')
+                                      .removeClass('DV-zoom-3')
+                                      .removeClass('DV-zoom-4')
+                                      .addClass('DV-zoom-'+this.zoomLevel);
+};
+
+DV.Thumbnails.prototype.calculateZoom = function(zoomLevel) {
+  var zoomValue = _.indexOf(this.viewer.models.document.ZOOM_RANGES, zoomLevel);
+  if (zoomLevel != null) {
+    this.zoomLevel = zoomValue;
+  } else {
+    this.zoomLevel = this.viewer.slider.slider('value');
+  }
 };
 
 DV.Thumbnails.prototype.lazyloadThumbnails = function() {
   var viewer = this.viewer;
   
-  viewer.$('.DV-thumbnail:not(.DV-loaded)').one('appear', function() {
+  viewer.$('.DV-thumbnail:not(.DV-loaded)').unbind('appear').one('appear', function() {
     var $thumbnail = viewer.$(this);
     if (!$thumbnail.hasClass('DV-loaded')) {
       var $image = viewer.$('.DV-thumbnail-page img.DV-thumbnail-image', $thumbnail);
