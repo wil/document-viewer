@@ -124,6 +124,7 @@ DV.Api.prototype = {
         }
       });
     }
+    this.viewer.$('.DV-textContents').attr('contentEditable', true).addClass('DV-editing');
   },
 
   // Redraw the UI. Call redraw(true) to also redraw annotations and pages.
