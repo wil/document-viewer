@@ -23,7 +23,13 @@
       <%= text %>
     </div>
     <textarea class="DV-annotationTextArea DV-editVisible" style="width: <%= bWidth %>px;"><%= text %></textarea>
-
+    
+    <% if (author) { %>
+      <div class="DV-annotationAuthor DV-editHidden">
+        Contributed by: <%= author %>
+      </div>
+    <% } %>
+    
     <div class="DV-annotationEditControls DV-editVisible">
       <div class="<%= access == 'public' ? 'DV-ownerVisible' : 'DV-contributorVisible' %> clearfix">
         <div class="minibutton warn DV-deleteAnnotation float_left">Delete</div>

@@ -36,6 +36,7 @@ DV.model.Annotations.prototype = {
 
     adata.width                   = pageModel.width;
     adata.pageNumber              = adata.page;
+    adata.author                  = adata.author || "";
     adata.bgWidth                 = adata.width;
     adata.bWidth                  = adata.width - 66;
     adata.excerptWidth            = (x2 - x1) - 10;
@@ -54,7 +55,6 @@ DV.model.Annotations.prototype = {
     adata.regionHeight            = y2 - y1;
     adata.excerptDSHeight         = adata.excerptHeight - 6;
     adata.DSOffset                = 3;
-
     adata.orderClass = '';
     adata.options = this.viewer.options;
     if (adata.position == 1) adata.orderClass += ' DV-firstAnnotation';
