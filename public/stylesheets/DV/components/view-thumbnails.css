@@ -46,7 +46,7 @@
       height: 14px;
       z-index: 0;
     }
-      .DV-thumbnails .DV-thumbnail:hover .DV-pageNumber {
+      .DV-thumbnails .DV-thumbnail-page:hover .DV-pageNumber {
         text-decoration: underline;
       }
     .DV-thumbnails .DV-thumbnail-page {
@@ -67,7 +67,7 @@
       top: 6px; left: 6px; right: 0px; bottom: 0px;
       background-color: #aeaeae;
     }
-      .DV-thumbnails .DV-thumbnail:hover .DV-thumbnail-shadow {
+      .DV-thumbnails .DV-thumbnail-page:hover .DV-thumbnail-shadow {
         background-color: #999;
       }
       .DV-thumbnails .DV-thumbnail.DV-selected .DV-thumbnail-shadow {
