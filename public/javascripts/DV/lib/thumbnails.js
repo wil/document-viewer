@@ -16,18 +16,18 @@ DV.Thumbnails.prototype.render = function() {
   this.el = this.viewer.$('.DV-thumbnails');
   this.getZoom();
   this.el.empty();
-  this.buildPages(1, Math.min(100, this.pageCount));
+  this.buildThumbnails(1, Math.min(100, this.pageCount));
   if (this.pageCount > 100) {
-    _.defer(_.bind(this.buildPages, this, 101, this.pageCount));
+    _.defer(_.bind(this.buildThumbnails, this, 101, this.pageCount));
   }
   this.setZoom();
-  this.viewer.elements.window.unbind('scroll.pages').bind('scroll.pages', this.lazyloadThumbnails);
-  var resizeEvent = 'resize.pages-' + this.resizeId;
+  this.viewer.elements.window.unbind('scroll.thumbnails').bind('scroll.thumbnails', this.lazyloadThumbnails);
+  var resizeEvent = 'resize.thumbnails-' + this.resizeId;
   DV.jQuery(window).unbind(resizeEvent).bind(resizeEvent, this.lazyloadThumbnails);
   this.loadThumbnails();
 };
 
-DV.Thumbnails.prototype.buildPages = function(startPage, endPage) {
+DV.Thumbnails.prototype.buildThumbnails = function(startPage, endPage) {
   var thumbnailsHTML = JST.thumbnails({
     page      : startPage,
     endPage   : endPage,
@@ -60,39 +60,38 @@ DV.Thumbnails.prototype.lazyloadThumbnails = function() {
 // Load the currently visible thumbnails, as determined by the size and position
 // of the viewport.
 DV.Thumbnails.prototype.loadThumbnails = function() {
-  var viewer        = this.viewer;
-  var width         = viewer.$('.DV-thumbnails').width();
-  var height        = viewer.elements.window.height();
-  var scrollTop     = viewer.elements.window.scrollTop();
-  var scrollBottom  = scrollTop + height;
-  var first         = viewer.$('.DV-thumbnail:first-child');
-  var firstTop      = first.position().top;
-  var firstHeight   = first.outerHeight(true);
-  var firstWidth    = first.outerWidth(true);
+  var viewer           = this.viewer;
+  var width            = viewer.$('.DV-thumbnails').width();
+  var height           = viewer.elements.window.height();
+  var scrollTop        = viewer.elements.window.scrollTop();
+  var scrollBottom     = scrollTop + height;
+  var first            = viewer.$('.DV-thumbnail:first-child');
+  var firstTop         = first.position().top;
+  var firstHeight      = first.outerHeight(true);
+  var firstWidth       = first.outerWidth(true);
 
   // Determine the top and bottom page.
-  var pagesPerRow   = Math.floor(width / firstWidth);
-  var startPage     = Math.floor(scrollTop / firstHeight * pagesPerRow);
-  var endPage       = Math.ceil(scrollBottom / firstHeight * pagesPerRow);
+  var thumbnailsPerRow = Math.floor(width / firstWidth);
+  var startPage        = Math.floor(scrollTop / firstHeight * thumbnailsPerRow);
+  var endPage          = Math.ceil(scrollBottom / firstHeight * thumbnailsPerRow);
 
   // Round to the nearest whole row.
-  startPage         -= (startPage % pagesPerRow) + 1;
-  endPage           += pagesPerRow - (endPage % pagesPerRow);
+  startPage            -= (startPage % thumbnailsPerRow) + 1;
+  endPage              += thumbnailsPerRow - (endPage % thumbnailsPerRow);
 
   this.loadImages(startPage, endPage);
 };
 
-// Load all of the images within a range of visible pages.
+// Load all of the images within a range of visible thumbnails.
 DV.Thumbnails.prototype.loadImages = function(startPage, endPage) {
   var viewer = this.viewer;
   var gt = startPage > 0 ? ':gt(' + startPage + ')' : '';
   var lt = endPage <= this.pageCount ? ':lt(' + endPage + ')' : '';
   viewer.$('.DV-thumbnail' + lt + gt).each(function(i) {
     var el = viewer.$(this);
-    if (!el.hasClass('DV-loaded')) {
+    if (!el.attr('src')) {
       var image = viewer.$('.DV-thumbnail-image', el);
       image.attr({src: image.attr('data-src')});
-      el.addClass('DV-loaded');
     }
   });
 };
