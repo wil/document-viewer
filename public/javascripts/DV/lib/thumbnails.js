@@ -60,15 +60,18 @@ DV.Thumbnails.prototype.loadThumbnails = function() {
 
   // Determine the top and bottom page.
   var pagesPerRow   = Math.floor(width / firstWidth);
-  var topPage       = Math.round(scrollTop / firstHeight * pagesPerRow);
-  var bottomPage    = Math.round(scrollBottom / firstHeight * pagesPerRow);
+  var topPage       = Math.floor(scrollTop / firstHeight * pagesPerRow);
+  var bottomPage    = Math.ceil(scrollBottom / firstHeight * pagesPerRow);
 
   // Round to the nearest whole row.
-  topPage           -= topPage % pagesPerRow;
-  bottomPage        += pagesPerRow - (bottomPage % pagesPerRow) - 1;
+  topPage           -= (topPage % pagesPerRow);
+  bottomPage        += pagesPerRow - (bottomPage % pagesPerRow) + 1;
 
-  viewer.$('.DV-thumbnail').each(function(i) {
-    if (i < topPage || i > bottomPage) return;
+  // Qualify selectors.
+  var gt            = topPage > 0 ? ':gt(' + topPage + ')' : '';
+  var lt            = bottomPage <= this.pageCount ? ':lt(' + bottomPage + ')' : '';
+
+  viewer.$('.DV-thumbnail' + gt + lt).each(function(i) {
     var el = viewer.$(this);
     if (!el.hasClass('DV-loaded')) {
       var image = viewer.$('.DV-thumbnail-image', el);
