@@ -42,11 +42,15 @@ DV.Thumbnails.prototype.calculateZoom = function(zoomLevel) {
   }
 };
 
+// Only attempt to load the current viewport's worth of thumbnails if we've
+// been sitting still for at least 1/10th of a second.
 DV.Thumbnails.prototype.lazyloadThumbnails = function() {
   if (this.scrollTimer) clearTimeout(this.scrollTimer);
   this.scrollTimer = setTimeout(this.loadThumbnails, 100);
 };
 
+// Load the currently visible thumbnails, as determined by the size and position
+// of the viewport.
 DV.Thumbnails.prototype.loadThumbnails = function() {
   var viewer        = this.viewer;
   var width         = viewer.$('.DV-thumbnails').width();
