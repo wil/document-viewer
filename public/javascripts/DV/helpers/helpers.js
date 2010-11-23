@@ -89,7 +89,7 @@ DV.Schema.helpers = {
       collection.delegate('.DV-permalink', 'click', _.bind(this.permalinkAnnotation, this));
 
       // Thumbnails
-      viewer.$('.DV-thumbnails').delegate('.DV-thumbnail', 'click', function(e) {
+      viewer.$('.DV-thumbnails').delegate('.DV-thumbnail-page', 'click', function(e) {
         var $thumbnail = viewer.$(e.currentTarget);
         if (!viewer.elements.viewer.hasClass('DV-reorderPages') &&
             !viewer.elements.viewer.hasClass('DV-addPages') &&

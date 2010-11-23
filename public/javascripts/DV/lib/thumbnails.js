@@ -22,21 +22,19 @@ DV.Thumbnails.prototype.renderThumbnails = function() {
   this.lazyloadThumbnails();
 };
 
+// Set the appropriate zoomLevel class for the thumbnails.
 DV.Thumbnails.prototype.setZoom = function(zoomLevel) {
-  if (zoomLevel !== undefined) this.calculateZoom(zoomLevel);
-
-  this.viewer.$('.DV-thumbnails-zoom').removeClass('DV-zoom-0')
-                                      .removeClass('DV-zoom-1')
-                                      .removeClass('DV-zoom-2')
-                                      .removeClass('DV-zoom-3')
-                                      .removeClass('DV-zoom-4')
-                                      .addClass('DV-zoom-'+this.zoomLevel);
+  if (zoomLevel != null) this.calculateZoom(zoomLevel);
+  var el = this.viewer.$('.DV-thumbnails-zoom');
+  el[0].className = el[0].className.replace(/DV-zoom-\d\s*/, '');
+  el.addClass('DV-zoom-' + this.zoomLevel);
 };
 
+// The thumbnails (unfortunately) have their own notion of the current zoom
+// level -- specified from 0 - 4.
 DV.Thumbnails.prototype.calculateZoom = function(zoomLevel) {
-  var zoomValue = _.indexOf(this.viewer.models.document.ZOOM_RANGES, zoomLevel);
   if (zoomLevel != null) {
-    this.zoomLevel = zoomValue;
+    this.zoomLevel = _.indexOf(this.viewer.models.document.ZOOM_RANGES, zoomLevel);
   } else {
     this.zoomLevel = this.viewer.slider.slider('value');
   }
