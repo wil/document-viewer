@@ -97,7 +97,7 @@
         min-height: 75px;
       }
       .DV-thumbnails .DV-zoom-0 .DV-loaded .DV-thumbnail-image {
-        min-height: 0;
+/*        min-height: 0;*/
       }
     .DV-thumbnails .DV-zoom-1 .DV-thumbnail {
       height: 138px;
@@ -108,7 +108,7 @@
         min-height: 112px;
       }
       .DV-thumbnails .DV-zoom-1 .DV-loaded .DV-thumbnail-image {
-        min-height: 0;
+/*        min-height: 0;*/
       }
     .DV-thumbnails .DV-zoom-2 .DV-thumbnail {
       height: 178px;
