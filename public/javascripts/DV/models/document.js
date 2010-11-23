@@ -119,13 +119,13 @@ DV.model.Document.prototype = {
       page.drawRemoveOverlay();
     });
     if (this.viewer.thumbnails) {
-      this.viewer.thumbnails.rerender();
+      this.viewer.thumbnails.render();
     }
   },
 
   redrawReorderedPages: function() {
     if (this.viewer.thumbnails) {
-      this.viewer.thumbnails.rerender();
+      this.viewer.thumbnails.render();
     }
   }
 

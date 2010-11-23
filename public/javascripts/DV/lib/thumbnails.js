@@ -1,25 +1,24 @@
+// Create a thumbnails view for a given viewer, using a URL template, and
+// the number of pages in the document.
 DV.Thumbnails = function(viewer){
   this.currentPage  = null;
+  this.zoomLevel    = null;
   this.imageUrl     = viewer.schema.document.resources.page.image.replace(/\{size\}/, 'small');
   this.pageCount    = viewer.schema.document.pages;
   this.viewer       = viewer;
 };
 
-DV.Thumbnails.prototype.rerender = function() {
+// Render the Thumbnails from scratch.
+DV.Thumbnails.prototype.render = function() {
   this.calculateZoom();
-  this.renderThumbnails();
-  this.setZoom();
-};
-
-DV.Thumbnails.prototype.renderThumbnails = function() {
-  var viewer = this.viewer;
   var thumbnailsHTML = JST.thumbnails({
     pageCount : this.pageCount,
     zoom      : this.zoomLevel,
     imageUrl  : this.imageUrl
   });
-  viewer.$('.DV-thumbnails').html(thumbnailsHTML);
+  this.viewer.$('.DV-thumbnails').html(thumbnailsHTML);
   this.lazyloadThumbnails();
+  this.setZoom();
 };
 
 // Set the appropriate zoomLevel class for the thumbnails.
@@ -47,10 +46,8 @@ DV.Thumbnails.prototype.lazyloadThumbnails = function() {
     var $thumbnail = viewer.$(this);
     if (!$thumbnail.hasClass('DV-loaded')) {
       var $image = viewer.$('.DV-thumbnail-page img.DV-thumbnail-image', $thumbnail);
-      var $shadow = viewer.$('.DV-thumbnail-shadow img.DV-thumbnail-image', $thumbnail);
       $thumbnail.addClass('DV-loaded');
       $image.attr('src', $image.attr('data-src'));
-      $shadow.attr('src', $image.attr('data-src'));
     }
   });
 
