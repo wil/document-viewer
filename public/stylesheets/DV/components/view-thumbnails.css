@@ -51,6 +51,7 @@
         text-decoration: underline;
       }
     .DV-thumbnails .DV-thumbnail-select {
+      position: relative;
       padding: 2px;
       -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px;
       position: relative;
@@ -61,38 +62,28 @@
       }
     .DV-thumbnails .DV-thumbnail .DV-thumbnail-shadow {
       position: absolute;
-      top: 12px;
-      left: 20px;
-      border: none;
+      top: 6px; left: 6px; right: 0px; bottom: 0px;
       background-color: #aeaeae;
     }
-      .DV-thumbnails .DV-thumbnail-shadow .DV-thumbnail-image {
-        visibility: hidden;
-        border: none;
-      }
       .DV-thumbnails .DV-thumbnail:hover .DV-thumbnail-shadow {
         background-color: #999;
       }
+      .DV-thumbnails .DV-thumbnail.DV-selected .DV-thumbnail-shadow {
+        display: none;
+      }
     .DV-thumbnails .DV-thumbnail-image {
+      position: relative;
       border: 1px solid #999;
       display: block;
       min-height: 40px;
-/*      box-shadow: 2px 2px 0px #aeaeae;
-      -webkit-box-shadow: 2px 2px 0px #aeaeae;
-      -moz-box-shadow: 2px 2px 0px #aeaeae;*/
       padding: 0 !important;
+      z-index: 2;
     }
       .DV-thumbnails .DV-thumbnail:hover .DV-thumbnail-image {
         border-color: #777;
-/*        box-shadow: 2px 2px 0px #999;
-        -webkit-box-shadow: 2px 2px 0px #999;
-        -moz-box-shadow: 2px 2px 0px #999;*/
       }
-      .DV-thumbnails .DV-selected .DV-thumbnail-image {
+      .DV-thumbnails .DV-thumbnail.DV-selected .DV-thumbnail-image {
         border-color: transparent;
-        box-shadow: none;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
       }
     .DV-thumbnails .DV-zoom-0 .DV-thumbnail {
       height: 103px;

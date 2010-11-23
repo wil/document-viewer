@@ -1,6 +1,5 @@
 DV.Thumbnails = function(viewer){
   this.currentPage  = null;
-  this.thumbnails   = {};
   this.imageUrl     = viewer.schema.document.resources.page.image.replace(/\{size\}/, 'small');
   this.pageCount    = viewer.schema.document.pages;
   this.viewer       = viewer;
@@ -8,24 +7,16 @@ DV.Thumbnails = function(viewer){
 
 DV.Thumbnails.prototype.rerender = function() {
   this.calculateZoom();
-  this.buildThumbnails();
   this.renderThumbnails();
   this.setZoom();
-};
-
-// build the basic page presentation layer
-DV.Thumbnails.prototype.buildThumbnails = function() {
-  for (var i = 1; i <= this.pageCount; i++) {
-    this.thumbnails[i] = this.imageUrl.replace(/\{page\}/, i);
-  }
 };
 
 DV.Thumbnails.prototype.renderThumbnails = function() {
   var viewer = this.viewer;
   var thumbnailsHTML = JST.thumbnails({
     pageCount : this.pageCount,
-    thumbnails : this.thumbnails,
-    zoom : this.zoomLevel
+    zoom      : this.zoomLevel,
+    imageUrl  : this.imageUrl
   });
   viewer.$('.DV-thumbnails').html(thumbnailsHTML);
   this.lazyloadThumbnails();
@@ -33,7 +24,7 @@ DV.Thumbnails.prototype.renderThumbnails = function() {
 
 DV.Thumbnails.prototype.setZoom = function(zoomLevel) {
   if (zoomLevel !== undefined) this.calculateZoom(zoomLevel);
-  
+
   this.viewer.$('.DV-thumbnails-zoom').removeClass('DV-zoom-0')
                                       .removeClass('DV-zoom-1')
                                       .removeClass('DV-zoom-2')
@@ -53,7 +44,7 @@ DV.Thumbnails.prototype.calculateZoom = function(zoomLevel) {
 
 DV.Thumbnails.prototype.lazyloadThumbnails = function() {
   var viewer = this.viewer;
-  
+
   viewer.$('.DV-thumbnail:not(.DV-loaded)').unbind('appear').one('appear', function() {
     var $thumbnail = viewer.$(this);
     if (!$thumbnail.hasClass('DV-loaded')) {
@@ -64,7 +55,7 @@ DV.Thumbnails.prototype.lazyloadThumbnails = function() {
       $shadow.attr('src', $image.attr('data-src'));
     }
   });
- 
+
   var loadThumbnails = function(scrollTop) {
     if (viewer.$('.DV-pages').scrollTop() == scrollTop) {
       var viewportHeight = viewer.$('.DV-pages').height();
@@ -72,7 +63,7 @@ DV.Thumbnails.prototype.lazyloadThumbnails = function() {
       var firstOffset = $firstThumbnail.position().top;
       var firstHeight = $firstThumbnail.outerHeight(true);
       var scrollBottom = scrollTop + viewportHeight;
-      
+
       var thumbnailsPerRow = 0;
       viewer.$('.DV-thumbnail').each(function() {
         var $thumbnail = viewer.$(this);
@@ -82,7 +73,7 @@ DV.Thumbnails.prototype.lazyloadThumbnails = function() {
           return false;
         }
       });
-      
+
       var topThumbnail = parseInt(scrollTop / firstHeight * thumbnailsPerRow, 10);
       var bottomThumbnail = parseInt(scrollBottom / firstHeight * thumbnailsPerRow, 10);
       // Round to nearest whole row
@@ -95,7 +86,7 @@ DV.Thumbnails.prototype.lazyloadThumbnails = function() {
     }
   };
   loadThumbnails(viewer.$('.DV-pages').scrollTop());
-  
+
   viewer.$('.DV-pages').unbind('scroll.dv-thumbnails').bind('scroll.dv-thumbnails', function() {
     var scrollTop = viewer.$(this).scrollTop();
     _.delay(function() {
