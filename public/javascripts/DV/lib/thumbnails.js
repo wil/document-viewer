@@ -3,10 +3,11 @@
 DV.Thumbnails = function(viewer){
   this.currentPage  = null;
   this.zoomLevel    = null;
+  this.scrollTimer  = null;
   this.imageUrl     = viewer.schema.document.resources.page.image.replace(/\{size\}/, 'small');
   this.pageCount    = viewer.schema.document.pages;
   this.viewer       = viewer;
-  this.scrollTimer  = null;
+  this.resizeId     = _.uniqueId();
   _.bindAll(this, 'lazyloadThumbnails', 'loadThumbnails');
 };
 
@@ -21,6 +22,8 @@ DV.Thumbnails.prototype.render = function() {
   this.viewer.$('.DV-thumbnails').html(thumbnailsHTML);
   this.setZoom();
   this.viewer.elements.window.unbind('scroll.pages').bind('scroll.pages', this.lazyloadThumbnails);
+  var resizeEvent = 'resize.pages-' + this.resizeId;
+  DV.jQuery(window).unbind(resizeEvent).bind(resizeEvent, this.lazyloadThumbnails);
   this.loadThumbnails();
 };
 
@@ -46,7 +49,7 @@ DV.Thumbnails.prototype.calculateZoom = function(zoomLevel) {
 // been sitting still for at least 1/10th of a second.
 DV.Thumbnails.prototype.lazyloadThumbnails = function() {
   if (this.scrollTimer) clearTimeout(this.scrollTimer);
-  this.scrollTimer = setTimeout(this.loadThumbnails, 100);
+  this.scrollTimer = setTimeout(this.loadThumbnails, 1000);
 };
 
 // Load the currently visible thumbnails, as determined by the size and position
@@ -68,8 +71,8 @@ DV.Thumbnails.prototype.loadThumbnails = function() {
   var endPage       = Math.ceil(scrollBottom / firstHeight * pagesPerRow);
 
   // Round to the nearest whole row.
-  startPage         -= (startPage % pagesPerRow);
-  endPage           += pagesPerRow - (endPage % pagesPerRow) + 1;
+  startPage         -= (startPage % pagesPerRow) + 1;
+  endPage           += pagesPerRow - (endPage % pagesPerRow);
 
   this.loadImages(startPage, endPage);
 };
@@ -79,7 +82,7 @@ DV.Thumbnails.prototype.loadImages = function(startPage, endPage) {
   var viewer = this.viewer;
   var gt = startPage > 0 ? ':gt(' + startPage + ')' : '';
   var lt = endPage <= this.pageCount ? ':lt(' + endPage + ')' : '';
-  viewer.$('.DV-thumbnail' + gt + lt).each(function(i) {
+  viewer.$('.DV-thumbnail' + lt + gt).each(function(i) {
     var el = viewer.$(this);
     if (!el.hasClass('DV-loaded')) {
       var image = viewer.$('.DV-thumbnail-image', el);
