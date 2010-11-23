@@ -13,13 +13,15 @@ DV.Thumbnails = function(viewer){
 
 // Render the Thumbnails from scratch.
 DV.Thumbnails.prototype.render = function() {
-  this.calculateZoom();
+  this.el = this.viewer.$('.DV-thumbnails');
+  this.getZoom();
   var thumbnailsHTML = JST.thumbnails({
-    pageCount : this.pageCount,
+    page      : 1,
+    endPage   : this.pageCount,
     zoom      : this.zoomLevel,
     imageUrl  : this.imageUrl
   });
-  this.viewer.$('.DV-thumbnails').html(thumbnailsHTML);
+  this.el.html(thumbnailsHTML);
   this.setZoom();
   this.viewer.elements.window.unbind('scroll.pages').bind('scroll.pages', this.lazyloadThumbnails);
   var resizeEvent = 'resize.pages-' + this.resizeId;
@@ -28,21 +30,16 @@ DV.Thumbnails.prototype.render = function() {
 };
 
 // Set the appropriate zoomLevel class for the thumbnails.
-DV.Thumbnails.prototype.setZoom = function(zoomLevel) {
-  if (zoomLevel != null) this.calculateZoom(zoomLevel);
-  var el = this.viewer.$('.DV-thumbnails-zoom');
-  el[0].className = el[0].className.replace(/DV-zoom-\d\s*/, '');
-  el.addClass('DV-zoom-' + this.zoomLevel);
+DV.Thumbnails.prototype.setZoom = function() {
+  this.getZoom();
+  this.el[0].className = this.el[0].className.replace(/DV-zoom-\d\s*/, '');
+  this.el.addClass('DV-zoom-' + this.zoomLevel);
 };
 
 // The thumbnails (unfortunately) have their own notion of the current zoom
 // level -- specified from 0 - 4.
-DV.Thumbnails.prototype.calculateZoom = function(zoomLevel) {
-  if (zoomLevel != null) {
-    this.zoomLevel = _.indexOf(this.viewer.models.document.ZOOM_RANGES, zoomLevel);
-  } else {
-    this.zoomLevel = this.viewer.slider.slider('value');
-  }
+DV.Thumbnails.prototype.getZoom = function() {
+  this.zoomLevel = this.viewer.slider.slider('value');
 };
 
 // Only attempt to load the current viewport's worth of thumbnails if we've

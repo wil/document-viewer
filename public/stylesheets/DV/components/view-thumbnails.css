@@ -88,58 +88,58 @@
       .DV-thumbnails .DV-thumbnail.DV-selected .DV-thumbnail-image {
         border-color: transparent;
       }
-    .DV-thumbnails .DV-zoom-0 .DV-thumbnail {
+    .DV-thumbnails.DV-zoom-0 .DV-thumbnail {
       height: 103px;
     }
-      .DV-thumbnails .DV-zoom-0 .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-0 .DV-thumbnail-image {
         width: 60px;
         max-height: 75px;
         min-height: 75px;
       }
-      .DV-thumbnails .DV-zoom-0 .DV-loaded .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-0 .DV-loaded .DV-thumbnail-image {
 /*        min-height: 0;*/
       }
-    .DV-thumbnails .DV-zoom-1 .DV-thumbnail {
+    .DV-thumbnails.DV-zoom-1 .DV-thumbnail {
       height: 138px;
     }
-      .DV-thumbnails .DV-zoom-1 .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-1 .DV-thumbnail-image {
         width: 90px;
         max-height: 112px;
         min-height: 112px;
       }
-      .DV-thumbnails .DV-zoom-1 .DV-loaded .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-1 .DV-loaded .DV-thumbnail-image {
 /*        min-height: 0;*/
       }
-    .DV-thumbnails .DV-zoom-2 .DV-thumbnail {
+    .DV-thumbnails.DV-zoom-2 .DV-thumbnail {
       height: 178px;
     }
-      .DV-thumbnails .DV-zoom-2 .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-2 .DV-thumbnail-image {
         width: 120px;
         max-height: 150px;
         min-height: 150px;
       }
-      .DV-thumbnails .DV-zoom-2 .DV-loaded .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-2 .DV-loaded .DV-thumbnail-image {
         min-height: 0;
       }
-    .DV-thumbnails .DV-zoom-3 .DV-thumbnail {
+    .DV-thumbnails.DV-zoom-3 .DV-thumbnail {
       height: 216px;
     }
-      .DV-thumbnails .DV-zoom-3 .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-3 .DV-thumbnail-image {
         width: 150px;
         max-height: 188px;
         min-height: 188px;
       }
-      .DV-thumbnails .DV-zoom-3 .DV-loaded .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-3 .DV-loaded .DV-thumbnail-image {
         min-height: 0;
       }
-    .DV-thumbnails .DV-zoom-4 .DV-thumbnail {
+    .DV-thumbnails.DV-zoom-4 .DV-thumbnail {
       height: 253px;
     }
-      .DV-thumbnails .DV-zoom-4 .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-4 .DV-thumbnail-image {
         width: 180px;
         max-height: 225px;
         min-height: 225px;
       }
-      .DV-thumbnails .DV-zoom-4 .DV-loaded .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-4 .DV-loaded .DV-thumbnail-image {
         min-height: 0;
       }
