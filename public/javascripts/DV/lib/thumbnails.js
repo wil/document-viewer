@@ -15,18 +15,26 @@ DV.Thumbnails = function(viewer){
 DV.Thumbnails.prototype.render = function() {
   this.el = this.viewer.$('.DV-thumbnails');
   this.getZoom();
-  var thumbnailsHTML = JST.thumbnails({
-    page      : 1,
-    endPage   : this.pageCount,
-    zoom      : this.zoomLevel,
-    imageUrl  : this.imageUrl
-  });
-  this.el.html(thumbnailsHTML);
+  this.el.empty();
+  this.buildPages(1, Math.min(100, this.pageCount));
+  if (this.pageCount > 100) {
+    _.defer(_.bind(this.buildPages, this, 101, this.pageCount));
+  }
   this.setZoom();
   this.viewer.elements.window.unbind('scroll.pages').bind('scroll.pages', this.lazyloadThumbnails);
   var resizeEvent = 'resize.pages-' + this.resizeId;
   DV.jQuery(window).unbind(resizeEvent).bind(resizeEvent, this.lazyloadThumbnails);
   this.loadThumbnails();
+};
+
+DV.Thumbnails.prototype.buildPages = function(startPage, endPage) {
+  var thumbnailsHTML = JST.thumbnails({
+    page      : startPage,
+    endPage   : endPage,
+    zoom      : this.zoomLevel,
+    imageUrl  : this.imageUrl
+  });
+  this.el.html(this.el.html() + thumbnailsHTML);
 };
 
 // Set the appropriate zoomLevel class for the thumbnails.
@@ -46,7 +54,7 @@ DV.Thumbnails.prototype.getZoom = function() {
 // been sitting still for at least 1/10th of a second.
 DV.Thumbnails.prototype.lazyloadThumbnails = function() {
   if (this.scrollTimer) clearTimeout(this.scrollTimer);
-  this.scrollTimer = setTimeout(this.loadThumbnails, 1000);
+  this.scrollTimer = setTimeout(this.loadThumbnails, 100);
 };
 
 // Load the currently visible thumbnails, as determined by the size and position
