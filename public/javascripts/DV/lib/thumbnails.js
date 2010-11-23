@@ -6,6 +6,8 @@ DV.Thumbnails = function(viewer){
   this.imageUrl     = viewer.schema.document.resources.page.image.replace(/\{size\}/, 'small');
   this.pageCount    = viewer.schema.document.pages;
   this.viewer       = viewer;
+  this.scrollTimer  = null;
+  _.bindAll(this, 'lazyloadThumbnails', 'loadThumbnails');
 };
 
 // Render the Thumbnails from scratch.
@@ -17,8 +19,9 @@ DV.Thumbnails.prototype.render = function() {
     imageUrl  : this.imageUrl
   });
   this.viewer.$('.DV-thumbnails').html(thumbnailsHTML);
-  this.lazyloadThumbnails();
   this.setZoom();
+  this.viewer.elements.window.unbind('scroll.pages').bind('scroll.pages', this.lazyloadThumbnails);
+  this.loadThumbnails();
 };
 
 // Set the appropriate zoomLevel class for the thumbnails.
@@ -40,52 +43,37 @@ DV.Thumbnails.prototype.calculateZoom = function(zoomLevel) {
 };
 
 DV.Thumbnails.prototype.lazyloadThumbnails = function() {
-  var viewer = this.viewer;
+  if (this.scrollTimer) clearTimeout(this.scrollTimer);
+  this.scrollTimer = setTimeout(this.loadThumbnails, 100);
+};
 
-  viewer.$('.DV-thumbnail:not(.DV-loaded)').unbind('appear').one('appear', function() {
-    var $thumbnail = viewer.$(this);
-    if (!$thumbnail.hasClass('DV-loaded')) {
-      var $image = viewer.$('.DV-thumbnail-page img.DV-thumbnail-image', $thumbnail);
-      $thumbnail.addClass('DV-loaded');
-      $image.attr('src', $image.attr('data-src'));
+DV.Thumbnails.prototype.loadThumbnails = function() {
+  var viewer        = this.viewer;
+  var width         = viewer.$('.DV-thumbnails').width();
+  var height        = viewer.elements.window.height();
+  var scrollTop     = viewer.elements.window.scrollTop();
+  var scrollBottom  = scrollTop + height;
+  var first         = viewer.$('.DV-thumbnail:first-child');
+  var firstTop      = first.position().top;
+  var firstHeight   = first.outerHeight(true);
+  var firstWidth    = first.outerWidth(true);
+
+  // Determine the top and bottom page.
+  var pagesPerRow   = Math.floor(width / firstWidth);
+  var topPage       = Math.round(scrollTop / firstHeight * pagesPerRow);
+  var bottomPage    = Math.round(scrollBottom / firstHeight * pagesPerRow);
+
+  // Round to the nearest whole row.
+  topPage           -= topPage % pagesPerRow;
+  bottomPage        += pagesPerRow - (bottomPage % pagesPerRow) - 1;
+
+  viewer.$('.DV-thumbnail').each(function(i) {
+    if (i < topPage || i > bottomPage) return;
+    var el = viewer.$(this);
+    if (!el.hasClass('DV-loaded')) {
+      var image = viewer.$('.DV-thumbnail-image', el);
+      image.attr({src: image.attr('data-src')});
+      el.addClass('DV-loaded');
     }
-  });
-
-  var loadThumbnails = function(scrollTop) {
-    if (viewer.$('.DV-pages').scrollTop() == scrollTop) {
-      var viewportHeight = viewer.$('.DV-pages').height();
-      var $firstThumbnail = viewer.$('.DV-thumbnail').eq(0);
-      var firstOffset = $firstThumbnail.position().top;
-      var firstHeight = $firstThumbnail.outerHeight(true);
-      var scrollBottom = scrollTop + viewportHeight;
-
-      var thumbnailsPerRow = 0;
-      viewer.$('.DV-thumbnail').each(function() {
-        var $thumbnail = viewer.$(this);
-        var offset = $thumbnail.position().top;
-        if (offset != firstOffset) {
-          thumbnailsPerRow = $thumbnail.prevAll('.DV-thumbnail').length;
-          return false;
-        }
-      });
-
-      var topThumbnail = parseInt(scrollTop / firstHeight * thumbnailsPerRow, 10);
-      var bottomThumbnail = parseInt(scrollBottom / firstHeight * thumbnailsPerRow, 10);
-      // Round to nearest whole row
-      topThumbnail = topThumbnail - (topThumbnail % thumbnailsPerRow);
-      bottomThumbnail = bottomThumbnail + (thumbnailsPerRow - (bottomThumbnail % thumbnailsPerRow)) - 1;
-      viewer.$('.DV-thumbnail').each(function(i) {
-        if (i < topThumbnail || i > bottomThumbnail) return;
-        viewer.$(this).trigger('appear');
-      });
-    }
-  };
-  loadThumbnails(viewer.$('.DV-pages').scrollTop());
-
-  viewer.$('.DV-pages').unbind('scroll.dv-thumbnails').bind('scroll.dv-thumbnails', function() {
-    var scrollTop = viewer.$(this).scrollTop();
-    _.delay(function() {
-      loadThumbnails(scrollTop);
-    }, 50);
   });
 };

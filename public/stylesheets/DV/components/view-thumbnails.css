@@ -76,6 +76,7 @@
     .DV-thumbnails .DV-thumbnail-image {
       position: relative;
       border: 1px solid #999;
+      background: white;
       display: block;
       min-height: 40px;
       padding: 0 !important;
