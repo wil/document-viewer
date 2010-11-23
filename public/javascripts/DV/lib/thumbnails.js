@@ -63,13 +63,20 @@ DV.Thumbnails.prototype.getZoom = function(zoom) {
 };
 
 // After a thumbnail has been loaded, we know its height.
-DV.Thumbnails.prototype.setImageHeight = function(image, imageEl) {
+DV.Thumbnails.prototype.setImageSize = function(image, $image) {
   var size = this.sizes[this.zoomLevel];
-  var realHeight = image.height * (size.w / image.width);
-  if (Math.abs(size.h - realHeight) > 10) {
-    imageEl.css({height: realHeight});
+  var ratio = size.w / image.width;
+  var newHeight = image.height * ratio;
+  if (Math.abs(size.h - newHeight) > 10) {
+    if (newHeight < size.h) {
+      $image.css({height: newHeight});
+    } else {
+      var heightRatio = newHeight / size.h;
+      var newWidth = size.w / heightRatio;
+      $image.add($image.prev('.DV-thumbnail-shadow')).css({width: newWidth});
+    }
   }
-  imageEl.attr({src: image.src});
+  $image.attr({src: image.src});
 };
 
 // Only attempt to load the current viewport's worth of thumbnails if we've
@@ -112,10 +119,10 @@ DV.Thumbnails.prototype.loadImages = function(startPage, endPage) {
   viewer.$('.DV-thumbnail' + lt + gt).each(function(i) {
     var el = viewer.$(this);
     if (!el.attr('src')) {
-      var imageEl = viewer.$('.DV-thumbnail-image', el);
+      var $image = viewer.$('.DV-thumbnail-image', el);
       var image = new Image();
-      DV.jQuery(image).bind('load', _.bind(self.setImageHeight, self, image, imageEl))
-                      .attr({src: imageEl.attr('data-src')});
+      DV.jQuery(image).bind('load', _.bind(self.setImageSize, self, image, $image))
+                      .attr({src: $image.attr('data-src')});
     }
   });
 };

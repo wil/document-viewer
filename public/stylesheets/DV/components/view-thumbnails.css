@@ -66,6 +66,7 @@
       position: absolute;
       top: 6px; left: 6px; right: 0px; bottom: 0px;
       background-color: #aeaeae;
+      margin: 0 auto;
     }
       .DV-thumbnails .DV-thumbnail-page:hover .DV-thumbnail-shadow {
         background-color: #999;
@@ -81,6 +82,7 @@
       min-height: 40px;
       padding: 0 !important;
       z-index: 2;
+      margin: 0 auto;
     }
       .DV-thumbnails .DV-thumbnail:hover .DV-thumbnail-image {
         border-color: #777;
