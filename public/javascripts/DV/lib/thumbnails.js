@@ -52,19 +52,9 @@ DV.Thumbnails.prototype.calculateZoom = function(zoomLevel) {
 };
 
 DV.Thumbnails.prototype.lazyloadThumbnails = function() {
+  var self = this;
   var viewer = this.viewer;
   
-  viewer.$('.DV-thumbnail:not(.DV-loaded)').unbind('appear').one('appear', function() {
-    var $thumbnail = viewer.$(this);
-    if (!$thumbnail.hasClass('DV-loaded')) {
-      var $image = viewer.$('.DV-thumbnail-page img.DV-thumbnail-image', $thumbnail);
-      var $shadow = viewer.$('.DV-thumbnail-shadow img.DV-thumbnail-image', $thumbnail);
-      $thumbnail.addClass('DV-loaded');
-      $image.attr('src', $image.attr('data-src'));
-      $shadow.attr('src', $image.attr('data-src'));
-    }
-  });
- 
   var loadThumbnails = function(scrollTop) {
     if (viewer.$('.DV-pages').scrollTop() == scrollTop) {
       var viewportHeight = viewer.$('.DV-pages').height();
@@ -74,6 +64,7 @@ DV.Thumbnails.prototype.lazyloadThumbnails = function() {
       var scrollBottom = scrollTop + viewportHeight;
       
       var thumbnailsPerRow = 0;
+      // Count thumbnails in a single row. Returns early, so it's quite fast.
       viewer.$('.DV-thumbnail').each(function() {
         var $thumbnail = viewer.$(this);
         var offset = $thumbnail.position().top;
@@ -89,8 +80,12 @@ DV.Thumbnails.prototype.lazyloadThumbnails = function() {
       topThumbnail = topThumbnail - (topThumbnail % thumbnailsPerRow);
       bottomThumbnail = bottomThumbnail + (thumbnailsPerRow - (bottomThumbnail % thumbnailsPerRow)) - 1;
       viewer.$('.DV-thumbnail').each(function(i) {
-        if (i < topThumbnail || i > bottomThumbnail) return;
-        viewer.$(this).trigger('appear');
+        if (i < topThumbnail) return;
+        if (i > bottomThumbnail) return false;
+        var $thumbnail = viewer.$(this);
+        _.defer(function() {
+          self._loadThumbnail($thumbnail);
+        });
       });
     }
   };
@@ -102,4 +97,16 @@ DV.Thumbnails.prototype.lazyloadThumbnails = function() {
       loadThumbnails(scrollTop);
     }, 50);
   });
+};
+
+DV.Thumbnails.prototype._loadThumbnail = function($thumbnail) {
+  var viewer = this.viewer;
+  
+  if (!$thumbnail.hasClass('DV-loaded')) {
+    var $image = viewer.$('.DV-thumbnail-page img.DV-thumbnail-image', $thumbnail);
+    var $shadow = viewer.$('.DV-thumbnail-shadow img.DV-thumbnail-image', $thumbnail);
+    $thumbnail.addClass('DV-loaded');
+    $image.attr('src', $image.attr('data-src'));
+    $shadow.attr('src', $image.attr('data-src'));
+  }
 };
