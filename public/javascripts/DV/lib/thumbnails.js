@@ -45,9 +45,15 @@ DV.Thumbnails.prototype.buildThumbnails = function(startPage, endPage) {
   this.loadThumbnails();
 };
 
-// Set the appropriate zoomLevel class for the thumbnails.
+// Set the appropriate zoomLevel class for the thumbnails, estimating
+// height change.
 DV.Thumbnails.prototype.setZoom = function(zoom) {
   this.getZoom(zoom);
+  var size = this.sizes[this.zoomLevel];
+  this.viewer.$('.DV-hasHeight').each(function(i) {
+    var ratio = size.w / this.width;
+    $(this).css({height: this.height * ratio});
+  });
   this.el[0].className = this.el[0].className.replace(/DV-zoom-\d\s*/, '');
   this.el.addClass('DV-zoom-' + this.zoomLevel);
 };
@@ -56,27 +62,27 @@ DV.Thumbnails.prototype.setZoom = function(zoom) {
 // level -- specified from 0 - 4.
 DV.Thumbnails.prototype.getZoom = function(zoom) {
   if (zoom != null) {
-    this.zoomLevel = _.indexOf(this.viewer.models.document.ZOOM_RANGES, zoom);
+    return this.zoomLevel = _.indexOf(this.viewer.models.document.ZOOM_RANGES, zoom);
   } else {
-    this.zoomLevel = this.viewer.slider.slider('value');
+    return this.zoomLevel = this.viewer.slider.slider('value');
   }
 };
 
 // After a thumbnail has been loaded, we know its height.
-DV.Thumbnails.prototype.setImageSize = function(image, $image) {
+DV.Thumbnails.prototype.setImageSize = function(image, imageEl) {
   var size = this.sizes[this.zoomLevel];
   var ratio = size.w / image.width;
   var newHeight = image.height * ratio;
   if (Math.abs(size.h - newHeight) > 10) {
     if (newHeight < size.h) {
-      $image.css({height: newHeight});
+      imageEl.addClass('DV-hasHeight').css({height: newHeight});
     } else {
       var heightRatio = newHeight / size.h;
       var newWidth = size.w / heightRatio;
-      $image.add($image.prev('.DV-thumbnail-shadow')).css({width: newWidth});
+      imageEl.add(imageEl.prev('.DV-thumbnail-shadow')).css({width: newWidth});
     }
   }
-  $image.attr({src: image.src});
+  imageEl.attr({src: image.src});
 };
 
 // Only attempt to load the current viewport's worth of thumbnails if we've
@@ -119,10 +125,10 @@ DV.Thumbnails.prototype.loadImages = function(startPage, endPage) {
   viewer.$('.DV-thumbnail' + lt + gt).each(function(i) {
     var el = viewer.$(this);
     if (!el.attr('src')) {
-      var $image = viewer.$('.DV-thumbnail-image', el);
+      var imageEl = viewer.$('.DV-thumbnail-image', el);
       var image = new Image();
-      DV.jQuery(image).bind('load', _.bind(self.setImageSize, self, image, $image))
-                      .attr({src: $image.attr('data-src')});
+      DV.jQuery(image).bind('load', _.bind(self.setImageSize, self, image, imageEl))
+                      .attr({src: imageEl.attr('data-src')});
     }
   });
 };
