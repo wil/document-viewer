@@ -34,7 +34,7 @@
       z-index: 10002;
       position: absolute;
       top: 10px;
-      width: 3px;
+      width: 0px;
       height: 75%;
       display: none;
     }
