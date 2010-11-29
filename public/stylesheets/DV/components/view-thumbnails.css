@@ -88,7 +88,7 @@
         border-color: #777;
       }
       .DV-thumbnails .DV-thumbnail.DV-selected .DV-thumbnail-image {
-        border-color: transparent;
+        border-color: #09f;
       }
     .DV-thumbnails.DV-zoom-0 .DV-thumbnail {
       width: 66px; height: 103px;
