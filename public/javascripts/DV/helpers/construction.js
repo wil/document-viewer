@@ -146,12 +146,21 @@ _.extend(DV.Schema.helpers, {
     var $annotationsView = this.viewer.$('.DV-annotationView');
     $annotationsView[showAnnotations ? 'show' : 'hide']();
 
-    // Hide the searchBox, if it's disabled.
-    this.elements.viewer.addClass('DV-searchable');
-    this.viewer.$('input.DV-searchInput', this.viewer.options.container).placeholder({
-      message: 'Search',
-      clearClassName: 'DV-searchInput-show-search-cancel'
-    });
+    // Hide the text tab, if it's disabled.
+    if (this.viewer.options.text === false) {
+      this.viewer.$('.DV-textView').hide();
+      // TODO: remove when we have a pages tab.
+      if (!showAnnotations) {
+        this.viewer.$('.DV-documentView').addClass('DV-last');
+      }
+    } else {
+      // Otherwise, show the search interface.
+      this.elements.viewer.addClass('DV-searchable');
+      this.viewer.$('input.DV-searchInput', this.viewer.options.container).placeholder({
+        message: 'Search',
+        clearClassName: 'DV-searchInput-show-search-cancel'
+      });
+    }
 
     // Hide the entire sidebar, if there are no annotations or sections.
     var showChapters = this.models.chapters.chapters.length > 0;
