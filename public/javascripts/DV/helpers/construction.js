@@ -158,7 +158,12 @@ _.extend(DV.Schema.helpers, {
     }
     
     // Set first/last styles for tabs
-    this.viewer.$('.DV-views > div:visible').eq(0).addClass('DV-first').end().last().addClass('DV-last');
+    this.viewer.$('.DV-views > div:visible')
+               .first()
+                 .addClass('DV-first')
+               .end()
+               .last()
+                 .addClass('DV-last');
 
     // Hide the entire sidebar, if there are no annotations or sections.
     var showChapters = this.models.chapters.chapters.length > 0;
