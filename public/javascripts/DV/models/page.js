@@ -60,6 +60,7 @@ DV.model.Pages.prototype = {
   // Resize or zoom the pages width and height.
   resize : function(zoomLevel) {
     var padding = this.viewer.models.pages.DEFAULT_PADDING;
+
     if (zoomLevel) {
       if (zoomLevel == this.zoomLevel) return;
       var previousFactor  = this.zoomFactor();
@@ -71,8 +72,8 @@ DV.model.Pages.prototype = {
     }
 
     this.viewer.elements.sets.width(this.zoomLevel);
-    this.viewer.elements.collection.css({width : this.width + padding });
     this.viewer.elements.textContents.css({'font-size' : this.zoomLevel * 0.02 + 'px'});
+    this.viewer.elements.collection.css({width : this.width + padding });
   },
 
   // TODO: figure out why this isn't working on the demo doc.

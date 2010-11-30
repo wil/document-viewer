@@ -66,10 +66,14 @@ DV.PageSet.prototype.cleanUp = function(){
 };
 
 DV.PageSet.prototype.zoom = function(argHash){
-  if(this.viewer.models.document.zoomLevel === argHash.zoomLevel) return;
+  var collection = this.viewer.elements.collection;
+  collection[0].className = collection[0].className.replace(/DV-zoom-\d+\s*/, '');
+  collection.addClass('DV-zoom-' + this.viewer.slider.slider('value') / 24.7);
+    
+  if (this.viewer.models.document.zoomLevel === argHash.zoomLevel) return;
 
   var currentPage   = this.viewer.models.document.currentIndex();
-  var _index      = currentPage - 1;
+  var _index        = currentPage - 1;
   var oldOffset     = this.viewer.models.document.offsets[currentPage];
 
   var oldZoom      = this.viewer.models.document.zoomLevel*1;
