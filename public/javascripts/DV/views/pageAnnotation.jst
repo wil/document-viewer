@@ -1,4 +1,4 @@
-<div class="DV-annotation DV-pageNote <%= orderClass %> DV-<%= access %>" style="top:<%= top %>px;" id="DV-annotation-<%= id %>" data-id="<%= id %>">
+<div class="DV-annotation DV-pageNote <%= orderClass %> <%= accessClass %>" style="top:<%= top %>px;" id="DV-annotation-<%= id %>" data-id="<%= id %>">
   <div class="DV-annotationTab">
     <div class="DV-annotationClose DV-trigger">p. <%= pageNumber %></div>
   </div>
@@ -17,7 +17,7 @@
         <div class="DV-privateLock DV-editHidden" title="Private note"></div>
       <% } %>
       <span class="DV-permalink DV-editHidden" title="Link to this note"></span>
-      <div class="DV-showEdit DV-editHidden <%= access == 'public' ? 'DV-ownerVisible' : 'DV-contributorVisible' %>"></div>
+      <div class="DV-showEdit DV-editHidden <%= accessClass %>"></div>
     </div>
     <div class="DV-annotationBody DV-editHidden">
       <%= text %>
@@ -31,7 +31,7 @@
     <% } %>
     
     <div class="DV-annotationEditControls DV-editVisible">
-      <div class="<%= access == 'public' ? 'DV-ownerVisible' : 'DV-contributorVisible' %> clearfix">
+      <div class="<%= accessClass %> clearfix">
         <div class="minibutton warn DV-deleteAnnotation float_left">Delete</div>
         <div class="minibutton default DV-saveAnnotation float_right">Save</div>
         <div class="minibutton DV-cancelEdit float_right">Cancel</div>
