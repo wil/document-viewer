@@ -3,7 +3,7 @@ _.extend(DV.Schema.helpers,{
     var annoEl = this.viewer.$(e.target).closest(this.annotationClassName);
     var area   = this.viewer.$('.DV-annotationTextArea', annoEl);
     var height = this.viewer.$('.DV-annotationBody', annoEl).height();
-    area.css({height : height - 65}); // 65 being the fudge difference...
+    area.css({height : Math.max(height - 65, 75)}); // 65 being the fudge difference...
     annoEl.addClass('DV-editing');
     area.focus();
   },
@@ -21,10 +21,15 @@ _.extend(DV.Schema.helpers,{
   saveAnnotation : function(e, option) {
     var annoEl = this.viewer.$(e.target).closest(this.annotationClassName);
     var anno   = this.getAnnotationModel(annoEl);
+    var $access = this.viewer.$('.DV-annotationAccessSelect :selected', annoEl);
     if (!anno) return;
-    anno.title = this.viewer.$('.DV-annotationTitleInput', annoEl).val();
-    anno.text  = this.viewer.$('.DV-annotationTextArea', annoEl).val();
-    if (option == 'onlyIfText' && (!anno.title || anno.title == 'Untitled Note') && !anno.text) {
+    anno.title  = this.viewer.$('.DV-annotationTitleInput', annoEl).val();
+    anno.text   = this.viewer.$('.DV-annotationTextArea', annoEl).val();
+    if ($access.length) anno.access = $access.val();
+    if (option == 'onlyIfText' && 
+        (!anno.title || anno.title == 'Untitled Note') && 
+        !anno.text && 
+        !anno.server_id) {
       return this.models.annotations.removeAnnotation(anno);
     }
     this.models.annotations.refreshAnnotation(anno);

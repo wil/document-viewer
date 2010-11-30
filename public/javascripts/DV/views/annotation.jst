@@ -25,12 +25,13 @@
         <span class="DV-trigger DV-annotationPrevious" title="Previous Annotation">Previous</span>
         <span class="DV-trigger DV-annotationNext" title="Next Annotation">Next</span>
       </div>
-      <% if (access == 'private') { %>
-        <div class="DV-annotationWarning DV-editVisible">This private note is only visible to you.</div>
-      <% } else if (access == 'exclusive') { %>
-        <div class="DV-annotationWarning DV-editVisible">Exclusive only to collaborators.</div>
+      <% if (access == 'public' || access == 'exclusive') { %>
+        <select class="DV-annotationAccessSelect DV-editVisible" name="access">
+          <option value="public" <%= access == 'public' ? 'selected' : '' %>>Visible to general public.</option>
+          <option value="exclusive" <%= access == 'exclusive' ? 'selected' : '' %>>Exclusive only to collaborators.</option>
+        </select>
       <% } else { %>
-        <div class="DV-annotationWarning DV-editVisible">Visible to general public.</div>
+        <div class="DV-annotationWarning DV-editVisible">This private note is only visible to you.</div>
       <% } %>
       <div class="DV-annotationGoto DV-editHidden"><div class="DV-trigger">p. <%= pageNumber %></div></div>
       <div class="DV-annotationTitle DV-editHidden"><%= title %></div>
