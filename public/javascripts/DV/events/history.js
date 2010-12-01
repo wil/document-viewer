@@ -69,6 +69,11 @@ _.extend(DV.Schema.events, {
     }
   },
 
+  handleHashChangeViewPages: function() {
+    if (this.viewer.state == 'ViewThumbnails') return;
+    this.viewer.open('ViewThumbnails');
+  },
+
   // #search/[searchString]
   handleHashChangeViewSearchRequest: function(page,query){
     var pageIndex = parseInt(page,10) - 1;

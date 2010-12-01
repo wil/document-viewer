@@ -375,28 +375,31 @@ DV.Schema.helpers = {
       var history = this.viewer.history;
 
       // Default route
-      history.defaultCallback = DV.jQuery.proxy(events.handleHashChangeDefault,this.events);
+      history.defaultCallback = _.bind(events.handleHashChangeDefault,this.events);
 
       // Handle page loading
-      history.register(/document\/p(\d*)$/,DV.jQuery.proxy(events.handleHashChangeViewDocumentPage,this.events));
+      history.register(/document\/p(\d*)$/, _.bind(events.handleHashChangeViewDocumentPage,this.events));
       // Legacy NYT stuff
-      history.register(/p(\d*)$/,DV.jQuery.proxy(events.handleHashChangeLegacyViewDocumentPage,this.events));
-      history.register(/p=(\d*)$/,DV.jQuery.proxy(events.handleHashChangeLegacyViewDocumentPage,this.events));
+      history.register(/p(\d*)$/, _.bind(events.handleHashChangeLegacyViewDocumentPage,this.events));
+      history.register(/p=(\d*)$/, _.bind(events.handleHashChangeLegacyViewDocumentPage,this.events));
 
       // Handle annotation loading in document view
-      history.register(/document\/p(\d*)\/a(\d*)$/, DV.jQuery.proxy(events.handleHashChangeViewDocumentAnnotation,this.events));
+      history.register(/document\/p(\d*)\/a(\d*)$/, _.bind(events.handleHashChangeViewDocumentAnnotation,this.events));
 
       // Handle annotation loading in annotation view
-      history.register(/annotation\/a(\d*)$/,DV.jQuery.proxy(events.handleHashChangeViewAnnotationAnnotation,this.events));
+      history.register(/annotation\/a(\d*)$/, _.bind(events.handleHashChangeViewAnnotationAnnotation,this.events));
+
+      // Handle loading of the pages view
+      history.register(/pages$/, _.bind(events.handleHashChangeViewPages, events));
 
       // Handle page loading in text view
-      history.register(/text\/p(\d*)$/,DV.jQuery.proxy(events.handleHashChangeViewText,this.events));
+      history.register(/text\/p(\d*)$/, _.bind(events.handleHashChangeViewText,this.events));
 
       // Handle entity display requests.
-      history.register(/entity\/p(\d*)\/(.*)\/(\d+):(\d+)$/,DV.jQuery.proxy(events.handleHashChangeViewEntity,this.events));
+      history.register(/entity\/p(\d*)\/(.*)\/(\d+):(\d+)$/, _.bind(events.handleHashChangeViewEntity,this.events));
 
       // Handle search requests
-      history.register(/search\/p(\d*)\/(.*)$/,DV.jQuery.proxy(events.handleHashChangeViewSearchRequest,this.events));
+      history.register(/search\/p(\d*)\/(.*)$/, _.bind(events.handleHashChangeViewSearchRequest,this.events));
     },
 
     // Sets up the zoom slider to match the appropriate for the specified
