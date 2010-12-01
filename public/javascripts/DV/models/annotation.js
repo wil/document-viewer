@@ -106,12 +106,14 @@ DV.model.Annotations.prototype = {
   // The document and list views.
   refreshAnnotation : function(anno) {
     var viewer = this.viewer;
-    viewer.$('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).each(function() {
-      viewer.$('.DV-annotationTitleInput', this).val(anno.title);
-      viewer.$('.DV-annotationTitle', this).text(anno.title);
-      viewer.$('.DV-annotationTextArea', this).val(anno.text);
-      viewer.$('.DV-annotationBody', this).html(anno.text);
-    });
+    anno.html = this.render(anno);
+    viewer.$('#DV-annotation-' + anno.id).replaceWith(anno.html);
+    // viewer.$('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).each(function() {
+    //   viewer.$('.DV-annotationTitleInput', this).val(anno.title);
+    //   viewer.$('.DV-annotationTitle', this).text(anno.title);
+    //   viewer.$('.DV-annotationTextArea', this).val(anno.text);
+    //   viewer.$('.DV-annotationBody', this).html(anno.text);
+    // });
   },
 
   // Removes a given annotation from the Annotations model (and DOM).
