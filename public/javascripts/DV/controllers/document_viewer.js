@@ -1,5 +1,6 @@
 DV.DocumentViewer = function(options) {
   this.options    = options;
+  this.window     = window;
   this.$          = this.jQuery;
   this.schema     = new DV.Schema();
   this.api        = new DV.Api(this);
