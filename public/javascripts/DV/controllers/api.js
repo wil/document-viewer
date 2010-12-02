@@ -21,7 +21,7 @@ DV.Api.prototype = {
   getId : function() {
     return this.viewer.schema.document.id;
   },
-  
+
   // Get the document's numerical ID.
   getModelId : function() {
     return parseInt(this.getId(), 10);
@@ -87,6 +87,16 @@ DV.Api.prototype = {
     this.viewer.$('.DV-storyLink').toggle(!!url);
   },
 
+  // Get the document's published url.
+  getPublishedUrl : function() {
+    return this.viewer.schema.document.resources.published_url;
+  },
+
+  // Set the document's published url.
+  setPublishedUrl : function(url) {
+    this.viewer.schema.document.resources.published_url = url;
+  },
+
   // Get the document's title.
   getTitle : function() {
     return this.viewer.schema.document.title;
@@ -101,12 +111,12 @@ DV.Api.prototype = {
   getPageText : function(pageNumber) {
     return this.viewer.schema.text[pageNumber - 1];
   },
-  
+
   // Set the page text for the given page of a document in the local cache.
   setPageText : function(text, pageNumber) {
     this.viewer.schema.text[pageNumber - 1] = text;
   },
-  
+
   // Reset all modified page text to the original values from the server cache.
   resetPageText : function(overwriteOriginal) {
     var self = this;
@@ -160,7 +170,7 @@ DV.Api.prototype = {
   onAnnotationDelete : function(callback) {
     this.viewer.models.annotations.deleteCallbacks.push(callback);
   },
-  
+
   onChangeState : function(callback) {
     this.viewer.onStateChangeCallbacks.push(callback);
   },
@@ -184,46 +194,46 @@ DV.Api.prototype = {
   removePageFromRemovedPages : function(page) {
     this.viewer.models.document.removePageFromRemovedPages(page);
   },
-  
+
   enterAddPagesMode : function() {
     this.viewer.elements.viewer.addClass('DV-addPages');
   },
-  
+
   leaveAddPagesMode : function() {
     this.viewer.elements.viewer.removeClass('DV-addPages');
   },
-  
+
   enterReplacePagesMode : function() {
     this.viewer.elements.viewer.addClass('DV-replacePages');
   },
-  
+
   leaveReplacePagesMode : function() {
     this.viewer.elements.viewer.removeClass('DV-replacePages');
   },
-  
+
   enterReorderPagesMode : function() {
     this.viewer.elements.viewer.addClass('DV-reorderPages');
   },
-  
+
   leaveReorderPagesMode : function() {
     this.resetReorderedPages();
     this.viewer.elements.viewer.removeClass('DV-reorderPages');
   },
-  
+
   resetReorderedPages : function() {
     this.viewer.models.document.redrawReorderedPages();
   },
-  
+
   reorderPages : function(pageOrder, options) {
     var model = this.getModelId();
     this.viewer.models.document.reorderPages(model, pageOrder, options);
   },
-    
+
   enterEditPageTextMode : function() {
     this.viewer.elements.viewer.addClass('DV-editingText');
     this.viewer.events.loadText();
   },
-  
+
   leaveEditPageTextMode : function() {
     this.resetPageText();
     this.viewer.elements.viewer.removeClass('DV-editingText');
