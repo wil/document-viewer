@@ -115,9 +115,10 @@ DV.Thumbnails.prototype.loadThumbnails = function() {
   var startPage        = Math.floor(scrollTop / firstHeight * thumbnailsPerRow);
   var endPage          = Math.ceil(scrollBottom / firstHeight * thumbnailsPerRow);
 
-  // Round to the nearest whole row.
-  startPage            -= (startPage % thumbnailsPerRow);
-  endPage              += thumbnailsPerRow - (endPage % thumbnailsPerRow) + 1;
+  // Round to the nearest whole row (startPage and endPage are indexes, not
+  // page numbers).
+  startPage            -= (startPage % thumbnailsPerRow) + 1;
+  endPage              += thumbnailsPerRow - (endPage % thumbnailsPerRow);
 
   this.loadImages(startPage, endPage);
 };
