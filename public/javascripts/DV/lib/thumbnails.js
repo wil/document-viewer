@@ -54,6 +54,11 @@ DV.Thumbnails.prototype.setZoom = function(zoom) {
     var ratio = size.w / this.width;
     DV.jQuery(this).css({height: this.height * ratio});
   });
+  this.viewer.$('.DV-hasWidth').each(function(i) {
+    var ratio = size.h / this.height;
+    var thisEl = DV.jQuery(this);
+    thisEl.add(thisEl.prev('.DV-thumbnail-shadow')).css({width: this.width * ratio});
+  });
   this.el[0].className = this.el[0].className.replace(/DV-zoom-\d\s*/, '');
   this.el.addClass('DV-zoom-' + this.zoomLevel);
 };
