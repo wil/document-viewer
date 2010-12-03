@@ -73,13 +73,13 @@ DV.Thumbnails.prototype.setImageSize = function(image, imageEl) {
   var size = this.sizes[this.zoomLevel];
   var ratio = size.w / image.width;
   var newHeight = image.height * ratio;
-  if (Math.abs(size.h - newHeight) > 10) {
+  if (Math.abs(size.h - newHeight) > 10 || (/DV-has/).test(imageEl[0].className)) {
     if (newHeight < size.h) {
       imageEl.addClass('DV-hasHeight').css({height: newHeight});
     } else {
       var heightRatio = newHeight / size.h;
       var newWidth = size.w / heightRatio;
-      imageEl.add(imageEl.prev('.DV-thumbnail-shadow')).css({width: newWidth});
+      imageEl.add(imageEl.prev('.DV-thumbnail-shadow')).addClass('DV-hasWidth').css({width: newWidth});
     }
   }
   imageEl.attr({src: image.src});
