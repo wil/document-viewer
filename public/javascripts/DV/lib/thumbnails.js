@@ -42,7 +42,7 @@ DV.Thumbnails.prototype.buildThumbnails = function(startPage, endPage) {
     imageUrl  : this.imageUrl
   });
   this.el.html(this.el.html() + thumbnailsHTML);
-  this.loadThumbnails();
+  _.defer(this.loadThumbnails);
 };
 
 // Set the appropriate zoomLevel class for the thumbnails, estimating
@@ -88,6 +88,7 @@ DV.Thumbnails.prototype.setImageSize = function(image, imageEl) {
 // Only attempt to load the current viewport's worth of thumbnails if we've
 // been sitting still for at least 1/10th of a second.
 DV.Thumbnails.prototype.lazyloadThumbnails = function() {
+  if (this.viewer.state != 'ViewThumbnails') return;
   if (this.scrollTimer) clearTimeout(this.scrollTimer);
   this.scrollTimer = setTimeout(this.loadThumbnails, 100);
 };
@@ -110,8 +111,8 @@ DV.Thumbnails.prototype.loadThumbnails = function() {
   var endPage          = Math.ceil(scrollBottom / firstHeight * thumbnailsPerRow);
 
   // Round to the nearest whole row.
-  startPage            -= (startPage % thumbnailsPerRow) + 1;
-  endPage              += thumbnailsPerRow - (endPage % thumbnailsPerRow);
+  startPage            -= (startPage % thumbnailsPerRow);
+  endPage              += thumbnailsPerRow - (endPage % thumbnailsPerRow) + 1;
 
   this.loadImages(startPage, endPage);
 };
