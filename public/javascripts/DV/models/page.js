@@ -64,7 +64,7 @@ DV.model.Pages.prototype = {
       if (zoomLevel == this.zoomLevel) return;
       var previousFactor  = this.zoomFactor();
       this.zoomLevel      = zoomLevel || this.zoomLevel;
-      var scale           = this.zoomFactor() - previousFactor + 1;
+      var scale           = this.zoomFactor() / previousFactor;
       this.width          = Math.round(this.baseWidth * this.zoomFactor());
       this.height         = Math.round(this.height * scale);
       this.averageHeight  = Math.round(this.averageHeight * scale);
@@ -89,13 +89,13 @@ DV.model.Pages.prototype = {
 
   // set the real page height
   setPageHeight: function(pageIndex, pageHeight){
-    this.pageHeights[pageIndex] = pageHeight;
+    this.pageHeights[pageIndex] = Math.round(pageHeight);
   },
 
   // get the real page height
   getPageHeight: function(pageIndex) {
     var realHeight = this.pageHeights[pageIndex];
-    return realHeight ? realHeight * this.zoomFactor() : this.height;
+    return Math.round(realHeight ? realHeight * this.zoomFactor() : this.height);
   }
 
 };
