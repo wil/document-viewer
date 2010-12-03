@@ -157,13 +157,12 @@ _.extend(DV.Schema.helpers, {
       });
     }
     
-    // Set first/last styles for tabs
-    this.viewer.$('.DV-views > div:visible')
-               .first()
-                 .addClass('DV-first')
-               .end()
-               .last()
-                 .addClass('DV-last');
+    // Hide the Pages tab if there is only 1 page in the document.
+    if (this.models.document.totalPages <= 1) {
+      this.viewer.$('.DV-thumbnailsView').hide();
+    }
+    
+    this.viewer.api.roundTabCorners();
 
     // Hide the entire sidebar, if there are no annotations or sections.
     var showChapters = this.models.chapters.chapters.length > 0;

@@ -242,6 +242,16 @@ DV.Api.prototype = {
   // Request the loading of an external JS file.
   loadJS : function(url, callback) {
     DV.jQuery.getScript(url, callback);
+  },
+  
+  roundTabCorners : function() {
+    // Set first/last styles for tabs
+    this.viewer.$('.DV-views > div:visible')
+               .first()
+                 .addClass('DV-first')
+               .end()
+               .last()
+                 .addClass('DV-last');
   }
 
 };
