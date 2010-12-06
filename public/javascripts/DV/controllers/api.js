@@ -134,7 +134,9 @@ DV.Api.prototype = {
         }
       });
     }
-    this.viewer.$('.DV-textContents').attr('contentEditable', true).addClass('DV-editing');
+    if (this.viewer.elements.viewer.hasClass('DV-editingText')) {
+      this.viewer.$('.DV-textContents').attr('contentEditable', true).addClass('DV-editing');
+    }
   },
 
   // Redraw the UI. Call redraw(true) to also redraw annotations and pages.
@@ -235,15 +237,15 @@ DV.Api.prototype = {
   },
 
   leaveEditPageTextMode : function() {
-    this.resetPageText();
     this.viewer.elements.viewer.removeClass('DV-editingText');
+    this.resetPageText();
   },
 
   // Request the loading of an external JS file.
   loadJS : function(url, callback) {
     DV.jQuery.getScript(url, callback);
   },
-  
+
   roundTabCorners : function() {
     // Set first/last styles for tabs
     this.viewer.$('.DV-views > div:visible')
