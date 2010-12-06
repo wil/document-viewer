@@ -73,12 +73,12 @@ DV.Schema.events = {
       me.elements.textCurrentPage.text('p. '+(pageNumber));
       me.models.document.setPageIndex(pageIndex);
       me.helpers.setActiveChapter(me.models.chapters.getChapterId(pageIndex));
-      
-      if (me.viewer.elements.viewer.hasClass('DV-editingText') &&
+
+      if (me.viewer.openEditor == 'editText' &&
           !(pageNumber in me.models.document.originalPageText)) {
         me.models.document.originalPageText[pageNumber] = text;
       }
-      if (me.viewer.elements.viewer.hasClass('DV-editingText')) {
+      if (me.viewer.openEditor == 'editText') {
         me.viewer.$('.DV-textContents').attr('contentEditable', true).addClass('DV-editing');
       }
 

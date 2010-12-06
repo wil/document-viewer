@@ -134,7 +134,7 @@ DV.Api.prototype = {
         }
       });
     }
-    if (this.viewer.elements.viewer.hasClass('DV-editingText')) {
+    if (this.viewer.openEditor == 'editText') {
       this.viewer.$('.DV-textContents').attr('contentEditable', true).addClass('DV-editing');
     }
   },
@@ -178,11 +178,11 @@ DV.Api.prototype = {
   },
 
   enterRemovePagesMode : function() {
-    this.viewer.elements.viewer.addClass('DV-removePages');
+    this.viewer.openEditor = 'removePages';
   },
 
   leaveRemovePagesMode : function() {
-    this.viewer.elements.viewer.removeClass('DV-removePages');
+    this.viewer.openEditor = null;
   },
 
   resetRemovedPages : function() {
@@ -198,27 +198,29 @@ DV.Api.prototype = {
   },
 
   enterAddPagesMode : function() {
-    this.viewer.elements.viewer.addClass('DV-addPages');
+    this.viewer.openEditor = 'addPages';
   },
 
   leaveAddPagesMode : function() {
-    this.viewer.elements.viewer.removeClass('DV-addPages');
+    this.viewer.openEditor = null;
   },
 
   enterReplacePagesMode : function() {
-    this.viewer.elements.viewer.addClass('DV-replacePages');
+    this.viewer.openEditor = 'replacePages';
   },
 
   leaveReplacePagesMode : function() {
-    this.viewer.elements.viewer.removeClass('DV-replacePages');
+    this.viewer.openEditor = null;
   },
 
   enterReorderPagesMode : function() {
+    this.viewer.openEditor = 'reorderPages';
     this.viewer.elements.viewer.addClass('DV-reorderPages');
   },
 
   leaveReorderPagesMode : function() {
     this.resetReorderedPages();
+    this.viewer.openEditor = null;
     this.viewer.elements.viewer.removeClass('DV-reorderPages');
   },
 
@@ -232,12 +234,12 @@ DV.Api.prototype = {
   },
 
   enterEditPageTextMode : function() {
-    this.viewer.elements.viewer.addClass('DV-editingText');
+    this.viewer.openEditor = 'editText';
     this.viewer.events.loadText();
   },
 
   leaveEditPageTextMode : function() {
-    this.viewer.elements.viewer.removeClass('DV-editingText');
+    this.viewer.openEditor = null;
     this.resetPageText();
   },
 

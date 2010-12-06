@@ -91,10 +91,7 @@ DV.Schema.helpers = {
       // Thumbnails
       viewer.$('.DV-thumbnails').delegate('.DV-thumbnail-page', 'click', function(e) {
         var $thumbnail = viewer.$(e.currentTarget);
-        if (!viewer.elements.viewer.hasClass('DV-reorderPages') &&
-            !viewer.elements.viewer.hasClass('DV-addPages') &&
-            !viewer.elements.viewer.hasClass('DV-replacePages') &&
-            !viewer.elements.viewer.hasClass('DV-removePages')) {
+        if (!viewer.openEditor) {
           var pageIndex = $thumbnail.closest('.DV-thumbnail').attr('data-pageNumber') - 1;
           viewer.models.document.setPageIndex(pageIndex);
           viewer.open('ViewDocument');

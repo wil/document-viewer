@@ -14,6 +14,7 @@ DV.DocumentViewer = function(options) {
 
   // state values
   this.isFocus            = true;
+  this.openEditor         = null;
   this.activeElement      = null;
   this.observers          = [];
   this.windowDimensions   = {};
