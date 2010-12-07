@@ -71,6 +71,7 @@ DV.model.Pages.prototype = {
     }
 
     this.viewer.elements.sets.width(this.zoomLevel);
+    console.log(this.width + padding);
     this.viewer.elements.collection.css({width : this.width + padding });
     this.viewer.$('.DV-textContents').css({'font-size' : this.zoomLevel * 0.02 + 'px'});
   },
