@@ -324,6 +324,10 @@ DV.Schema.helpers = {
       this.elements.window.scrollTop(position);
       this.models.document.setPageIndex(pageIndex);
       if (forceRedraw) this.viewer.pageSet.redraw(true);
+      if (this.viewer.state === 'ViewThumbnails') {
+        this.viewer.thumbnails.highlightCurrentPage();
+      }
+
     },
 
     shift: function(argHash){

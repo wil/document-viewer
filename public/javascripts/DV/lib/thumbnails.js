@@ -1,14 +1,14 @@
 // Create a thumbnails view for a given viewer, using a URL template, and
 // the number of pages in the document.
 DV.Thumbnails = function(viewer){
-  this.currentPage   = null;
-  this.zoomLevel     = null;
-  this.scrollTimer   = null;
-  this.imageUrl      = viewer.schema.document.resources.page.image.replace(/\{size\}/, 'small');
-  this.pageCount     = viewer.schema.document.pages;
-  this.viewer        = viewer;
-  this.resizeId      = _.uniqueId();
-  this.sizes         = {
+  this.currentIndex    = 0;
+  this.zoomLevel       = null;
+  this.scrollTimer     = null;
+  this.imageUrl        = viewer.schema.document.resources.page.image.replace(/\{size\}/, 'small');
+  this.pageCount       = viewer.schema.document.pages;
+  this.viewer          = viewer;
+  this.resizeId        = _.uniqueId();
+  this.sizes           = {
     "0": {w: 60, h: 75},
     "1": {w: 90, h: 112},
     "2": {w: 120, h: 150},
@@ -21,10 +21,12 @@ DV.Thumbnails = function(viewer){
 // Render the Thumbnails from scratch.
 DV.Thumbnails.prototype.render = function() {
   this.el = this.viewer.$('.DV-thumbnails');
+  this.getCurrentIndex();
   this.getZoom();
-  this.el.empty();
-  this.buildThumbnails(1, Math.min(100, this.pageCount));
-  if (this.pageCount > 100) {
+  if (this.pageCount <= 100 || this.currentIndex >= 100) {
+    this.buildThumbnails(1, this.pageCount);
+  } else {
+    this.buildThumbnails(1, 100);
     // NB: This 100 millisecond delay is questionable.
     _.delay(_.bind(this.buildThumbnails, this, 101, this.pageCount), 100);
   }
@@ -35,6 +37,7 @@ DV.Thumbnails.prototype.render = function() {
 };
 
 DV.Thumbnails.prototype.buildThumbnails = function(startPage, endPage) {
+  if (startPage == 1) this.el.empty();
   var thumbnailsHTML = JST.thumbnails({
     page      : startPage,
     endPage   : endPage,
@@ -42,7 +45,24 @@ DV.Thumbnails.prototype.buildThumbnails = function(startPage, endPage) {
     imageUrl  : this.imageUrl
   });
   this.el.html(this.el.html() + thumbnailsHTML);
+  this.highlightCurrentPage();
   _.defer(this.loadThumbnails);
+};
+
+DV.Thumbnails.prototype.getCurrentIndex = function() {
+  this.currentIndex = this.viewer.models.document.currentIndex();
+};
+
+DV.Thumbnails.prototype.highlightCurrentPage = function() {
+  this.currentIndex = this.viewer.models.document.currentIndex();
+  this.viewer.$('.DV-thumbnail.DV-selected').removeClass('DV-selected');
+  
+  var currentThumbnail = this.viewer.$('.DV-thumbnail:eq('+this.currentIndex+')');
+  if (currentThumbnail.length) {
+    currentThumbnail.addClass('DV-selected');
+    var pages = this.viewer.$('.DV-pages');
+    pages.scrollTop(pages.scrollTop() + currentThumbnail.position().top - 12);
+  }
 };
 
 // Set the appropriate zoomLevel class for the thumbnails, estimating
