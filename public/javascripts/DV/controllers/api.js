@@ -177,14 +177,6 @@ DV.Api.prototype = {
     this.viewer.onStateChangeCallbacks.push(callback);
   },
 
-  enterRemovePagesMode : function() {
-    this.viewer.openEditor = 'removePages';
-  },
-
-  leaveRemovePagesMode : function() {
-    this.viewer.openEditor = null;
-  },
-
   resetRemovedPages : function() {
     this.viewer.models.document.resetRemovedPages();
   },
@@ -195,6 +187,37 @@ DV.Api.prototype = {
 
   removePageFromRemovedPages : function(page) {
     this.viewer.models.document.removePageFromRemovedPages(page);
+  },
+
+  resetReorderedPages : function() {
+    this.viewer.models.document.redrawReorderedPages();
+  },
+
+  reorderPages : function(pageOrder, options) {
+    var model = this.getModelId();
+    this.viewer.models.document.reorderPages(model, pageOrder, options);
+  },
+
+  // Request the loading of an external JS file.
+  loadJS : function(url, callback) {
+    DV.jQuery.getScript(url, callback);
+  },
+
+  // Set first/last styles for tabs.
+  roundTabCorners : function() {
+    var tabs = this.viewer.$('.DV-views > div:visible');
+    tabs.first().addClass('DV-first');
+    tabs.last().addClass('DV-last');
+  },
+
+  // ---------------------- Enter/Leave Edit Modes -----------------------------
+
+  enterRemovePagesMode : function() {
+    this.viewer.openEditor = 'removePages';
+  },
+
+  leaveRemovePagesMode : function() {
+    this.viewer.openEditor = null;
   },
 
   enterAddPagesMode : function() {
@@ -224,15 +247,6 @@ DV.Api.prototype = {
     this.viewer.elements.viewer.removeClass('DV-reorderPages');
   },
 
-  resetReorderedPages : function() {
-    this.viewer.models.document.redrawReorderedPages();
-  },
-
-  reorderPages : function(pageOrder, options) {
-    var model = this.getModelId();
-    this.viewer.models.document.reorderPages(model, pageOrder, options);
-  },
-
   enterEditPageTextMode : function() {
     this.viewer.openEditor = 'editText';
     this.viewer.events.loadText();
@@ -241,21 +255,6 @@ DV.Api.prototype = {
   leaveEditPageTextMode : function() {
     this.viewer.openEditor = null;
     this.resetPageText();
-  },
-
-  // Request the loading of an external JS file.
-  loadJS : function(url, callback) {
-    DV.jQuery.getScript(url, callback);
-  },
-
-  roundTabCorners : function() {
-    // Set first/last styles for tabs
-    this.viewer.$('.DV-views > div:visible')
-               .first()
-                 .addClass('DV-first')
-               .end()
-               .last()
-                 .addClass('DV-last');
   }
 
 };
