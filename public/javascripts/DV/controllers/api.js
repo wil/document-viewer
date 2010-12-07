@@ -173,6 +173,10 @@ DV.Api.prototype = {
     this.viewer.models.annotations.deleteCallbacks.push(callback);
   },
 
+  setConfirmStateChange : function(callback) {
+    this.viewer.confirmStateChange = callback;
+  },
+
   onChangeState : function(callback) {
     this.viewer.onStateChangeCallbacks.push(callback);
   },
