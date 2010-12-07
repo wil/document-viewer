@@ -1,17 +1,16 @@
 // This manages events for different states activated through DV interface actions like clicks, mouseovers, etc.
 DV.Schema.events = {
   // Change zoom level and causes a reflow and redraw of pages.
-  zoom: function(zoomLevel){
-    this.viewer.pageSet.zoom({ zoomLevel: zoomLevel });
-
-    // Adjust the drag sensitivity for largest zoom level
-    var ranges = this.viewer.models.document.ZOOM_RANGES;
-    if(ranges[ranges.length-1] == zoomLevel){
-      this.viewer.dragReporter.sensitivity = 1.5;
-    }else{
-      this.viewer.dragReporter.sensitivity = 1;
-    }
-    this.viewer.notifyChangedState();
+  zoom: function(level){
+    var viewer = this.viewer;
+    var continuation = function() {
+      viewer.pageSet.zoom({ zoomLevel: level });
+      var ranges = viewer.models.document.ZOOM_RANGES;
+      viewer.dragReporter.sensitivity = ranges[ranges.length-1] == level ? 1.5 : 1;
+      viewer.notifyChangedState();
+      return true;
+    };
+    viewer.confirmStateChange ? viewer.confirmStateChange(continuation) : continuation();
   },
 
   // Draw (or redraw) the visible pages on the screen.
