@@ -108,6 +108,14 @@ DV.Api.prototype = {
     document.title = title;
   },
 
+  getSource : function() {
+    return this.viewer.schema.document.source;
+  },
+
+  setSource : function(source) {
+    this.viewer.schema.document.source = source;
+  },
+
   getPageText : function(pageNumber) {
     return this.viewer.schema.text[pageNumber - 1];
   },
