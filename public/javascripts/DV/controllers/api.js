@@ -22,6 +22,11 @@ DV.Api.prototype = {
     return this.viewer.schema.document.id;
   },
 
+  // Get the document's numerical ID.
+  getModelId : function() {
+    return parseInt(this.getId(), 10);
+  },
+
   // Return the current zoom factor of the document.
   currentZoom : function() {
     var doc = this.viewer.models.document;
@@ -82,6 +87,16 @@ DV.Api.prototype = {
     this.viewer.$('.DV-storyLink').toggle(!!url);
   },
 
+  // Get the document's published url.
+  getPublishedUrl : function() {
+    return this.viewer.schema.document.resources.published_url;
+  },
+
+  // Set the document's published url.
+  setPublishedUrl : function(url) {
+    this.viewer.schema.document.resources.published_url = url;
+  },
+
   // Get the document's title.
   getTitle : function() {
     return this.viewer.schema.document.title;
@@ -93,9 +108,43 @@ DV.Api.prototype = {
     document.title = title;
   },
 
+  getSource : function() {
+    return this.viewer.schema.document.source;
+  },
+
+  setSource : function(source) {
+    this.viewer.schema.document.source = source;
+  },
+
+  getPageText : function(pageNumber) {
+    return this.viewer.schema.text[pageNumber - 1];
+  },
+
   // Set the page text for the given page of a document in the local cache.
   setPageText : function(text, pageNumber) {
     this.viewer.schema.text[pageNumber - 1] = text;
+  },
+
+  // Reset all modified page text to the original values from the server cache.
+  resetPageText : function(overwriteOriginal) {
+    var self = this;
+    var pageText = this.viewer.schema.text;
+    if (overwriteOriginal) {
+      this.viewer.models.document.originalPageText = {};
+    } else {
+      _.each(this.viewer.models.document.originalPageText, function(originalPageText, pageNumber) {
+        pageNumber = parseInt(pageNumber, 10);
+        if (originalPageText != pageText[pageNumber-1]) {
+          self.setPageText(originalPageText, pageNumber);
+          if (pageNumber == self.currentPage()) {
+            self.viewer.events.loadText();
+          }
+        }
+      });
+    }
+    if (this.viewer.openEditor == 'editText') {
+      this.viewer.$('.DV-textContents').attr('contentEditable', true).addClass('DV-editing');
+    }
   },
 
   // Redraw the UI. Call redraw(true) to also redraw annotations and pages.
@@ -132,12 +181,12 @@ DV.Api.prototype = {
     this.viewer.models.annotations.deleteCallbacks.push(callback);
   },
 
-  enterRemovePagesMode : function() {
-    this.viewer.elements.viewer.addClass('DV-removePages');
+  setConfirmStateChange : function(callback) {
+    this.viewer.confirmStateChange = callback;
   },
 
-  leaveRemovePagesMode : function() {
-    this.viewer.elements.viewer.removeClass('DV-removePages');
+  onChangeState : function(callback) {
+    this.viewer.onStateChangeCallbacks.push(callback);
   },
 
   resetRemovedPages : function() {
@@ -152,18 +201,72 @@ DV.Api.prototype = {
     this.viewer.models.document.removePageFromRemovedPages(page);
   },
 
-  removePages : function(pages, options) {
-    var model = this.getModelId();
-    this.viewer.models.document.removePages(model, pages, options);
+  resetReorderedPages : function() {
+    this.viewer.models.document.redrawReorderedPages();
   },
 
-  getModelId : function() {
-    return parseInt(this.getId(), 10);
+  reorderPages : function(pageOrder, options) {
+    var model = this.getModelId();
+    this.viewer.models.document.reorderPages(model, pageOrder, options);
   },
 
   // Request the loading of an external JS file.
   loadJS : function(url, callback) {
     DV.jQuery.getScript(url, callback);
+  },
+
+  // Set first/last styles for tabs.
+  roundTabCorners : function() {
+    var tabs = this.viewer.$('.DV-views > div:visible');
+    tabs.first().addClass('DV-first');
+    tabs.last().addClass('DV-last');
+  },
+
+  // ---------------------- Enter/Leave Edit Modes -----------------------------
+
+  enterRemovePagesMode : function() {
+    this.viewer.openEditor = 'removePages';
+  },
+
+  leaveRemovePagesMode : function() {
+    this.viewer.openEditor = null;
+  },
+
+  enterAddPagesMode : function() {
+    this.viewer.openEditor = 'addPages';
+  },
+
+  leaveAddPagesMode : function() {
+    this.viewer.openEditor = null;
+  },
+
+  enterReplacePagesMode : function() {
+    this.viewer.openEditor = 'replacePages';
+  },
+
+  leaveReplacePagesMode : function() {
+    this.viewer.openEditor = null;
+  },
+
+  enterReorderPagesMode : function() {
+    this.viewer.openEditor = 'reorderPages';
+    this.viewer.elements.viewer.addClass('DV-reorderPages');
+  },
+
+  leaveReorderPagesMode : function() {
+    this.resetReorderedPages();
+    this.viewer.openEditor = null;
+    this.viewer.elements.viewer.removeClass('DV-reorderPages');
+  },
+
+  enterEditPageTextMode : function() {
+    this.viewer.openEditor = 'editText';
+    this.viewer.events.loadText();
+  },
+
+  leaveEditPageTextMode : function() {
+    this.viewer.openEditor = null;
+    this.resetPageText();
   }
 
 };

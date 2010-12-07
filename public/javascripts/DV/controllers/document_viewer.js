@@ -1,5 +1,6 @@
 DV.DocumentViewer = function(options) {
   this.options    = options;
+  this.window     = window;
   this.$          = this.jQuery;
   this.schema     = new DV.Schema();
   this.api        = new DV.Api(this);
@@ -13,6 +14,8 @@ DV.DocumentViewer = function(options) {
 
   // state values
   this.isFocus            = true;
+  this.openEditor         = null;
+  this.confirmStateChange = null;
   this.activeElement      = null;
   this.observers          = [];
   this.windowDimensions   = {};
@@ -23,6 +26,8 @@ DV.DocumentViewer = function(options) {
   this.dragReporter       = null;
   this.compiled           = {};
   this.tracker            = {};
+
+  this.onStateChangeCallbacks = [];
 
   this.events     = _.extend(this.events, {
     viewer      : this,
@@ -72,8 +77,17 @@ DV.DocumentViewer.prototype.loadModels = function() {
 // Transition to a given state ... unless we're already in it.
 DV.DocumentViewer.prototype.open = function(state) {
   if (this.state == state) return;
-  this.state = state;
-  this.states[state].apply(this, arguments);
+  var continuation = _.bind(function() {
+    this.state = state;
+    this.states[state].apply(this, arguments);
+    this.notifyChangedState();
+    return true;
+  }, this);
+  this.confirmStateChange ? this.confirmStateChange(continuation) : continuation();
+};
+
+DV.DocumentViewer.prototype.notifyChangedState = function() {
+  _.each(this.onStateChangeCallbacks, function(c) { c(); });
 };
 
 // jQuery object, scoped to this viewer's container.

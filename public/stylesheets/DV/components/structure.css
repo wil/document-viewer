@@ -38,7 +38,7 @@
 }
 
 .DV-allAnnotations {
-  padding: 0 60px;
+  padding: 0 33px;
 }
 
 .DV-well{
@@ -48,6 +48,10 @@
   border-left:1px solid #ababab;
   overflow-y:auto;
   background: white;
+}
+
+.DV-sidebarSpacer {
+  height: 10px;
 }
 
 .DV-well .DV-navControls{

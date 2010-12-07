@@ -10,12 +10,17 @@
 
 .DV-supplemental{
   margin-top: 15px;
-  padding-top:8px;
+  padding: 8px 0 0 14px;
   border-top:1px solid #ccc;
 }
   .DV-supplemental.DV-noNavigation {
     margin: 0;
     padding: 0;
+    border: 0;
+  }
+  .DV-supplemental.DV-noNavigationMargin {
+    margin: 0;
+    padding: 0 0 0 14px;
     border: 0;
   }
 
@@ -47,7 +52,7 @@
   background-repeat: no-repeat;
   width:34px; height:24px;
   position:absolute;
-  top: 10px;
+  top: 0px;
   cursor:pointer;
   text-indent:-1000em;
 }
@@ -89,7 +94,6 @@
 .DV-pageNumberContainer{
   width:154px;
   text-align:center;
-  padding: 10px 0 0;
   margin: 0 auto;
 }
 
@@ -133,8 +137,9 @@
   margin-top:-5px;
 }
 
-.DV-well .DV-navControls{
-  height: 50px;
+.DV-well .DV-navControls {
+  position: relative;
+  height: 40px;
   background-position: 0 bottom;
 }
 

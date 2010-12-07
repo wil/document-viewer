@@ -149,18 +149,20 @@ _.extend(DV.Schema.helpers, {
     // Hide the text tab, if it's disabled.
     if (this.viewer.options.text === false) {
       this.viewer.$('.DV-textView').hide();
-      // TODO: remove when we have a pages tab.
-      if (!showAnnotations) {
-        this.viewer.$('.DV-documentView').addClass('DV-last');
-      }
-    } else {
-      // Otherwise, show the search interface.
+    } else if (!this.viewer.options.width || this.viewer.options.width >= 540) {
       this.elements.viewer.addClass('DV-searchable');
       this.viewer.$('input.DV-searchInput', this.viewer.options.container).placeholder({
         message: 'Search',
         clearClassName: 'DV-searchInput-show-search-cancel'
       });
     }
+    
+    // Hide the Pages tab if there is only 1 page in the document.
+    if (this.models.document.totalPages <= 1) {
+      this.viewer.$('.DV-thumbnailsView').hide();
+    }
+    
+    this.viewer.api.roundTabCorners();
 
     // Hide the entire sidebar, if there are no annotations or sections.
     var showChapters = this.models.chapters.chapters.length > 0;

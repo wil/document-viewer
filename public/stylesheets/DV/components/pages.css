@@ -164,22 +164,3 @@
 .DV-activePage{
   z-index:16000 !important;
 }
-
-.DV-removePages .DV-removeOverlay {
-  cursor: pointer;
-  z-index: 10002;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: .2;
-  background-color: orange;
-}
-.DV-removePages .DV-removeOverlay:hover {
-  background-color: yellow;
-}
-
-.DV-removePages .DV-removeOverlay.visible {
-  background-color: red;
-}

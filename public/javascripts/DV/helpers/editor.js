@@ -2,8 +2,6 @@ _.extend(DV.Schema.helpers,{
   showAnnotationEdit : function(e) {
     var annoEl = this.viewer.$(e.target).closest(this.annotationClassName);
     var area   = this.viewer.$('.DV-annotationTextArea', annoEl);
-    var height = this.viewer.$('.DV-annotationBody', annoEl).height();
-    area.css({height : Math.max(height - 65, 75)}); // 65 being the fudge difference...
     annoEl.addClass('DV-editing');
     area.focus();
   },

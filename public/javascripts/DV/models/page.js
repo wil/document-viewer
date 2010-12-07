@@ -65,56 +65,38 @@ DV.model.Pages.prototype = {
       if (zoomLevel == this.zoomLevel) return;
       var previousFactor  = this.zoomFactor();
       this.zoomLevel      = zoomLevel || this.zoomLevel;
-      var scale           = this.zoomFactor() - previousFactor + 1;
+      var scale           = this.zoomFactor() / previousFactor;
       this.width          = Math.round(this.baseWidth * this.zoomFactor());
       this.height         = Math.round(this.height * scale);
       this.averageHeight  = Math.round(this.averageHeight * scale);
     }
 
     this.viewer.elements.sets.width(this.zoomLevel);
-    this.viewer.elements.textContents.css({'font-size' : this.zoomLevel * 0.02 + 'px'});
     this.viewer.elements.collection.css({width : this.width + padding });
+    this.viewer.$('.DV-textContents').css({'font-size' : this.zoomLevel * 0.02 + 'px'});
   },
 
-  // TODO: figure out why this isn't working on the demo doc.
+  // Update the height for a page, when its real image has loaded.
   updateHeight: function(image, pageIndex) {
     var h = this.getPageHeight(pageIndex);
-    if (h === image.height) return;
-
     var height = image.height * (this.zoomLevel > this.BASE_WIDTH ? 0.7 : 1.0);
     this.setPageHeight(pageIndex, height);
-    this.updateBaseHeightBasedOnAveragePageHeight(image);
+    this.averageHeight = ((this.averageHeight * this.numPagesLoaded) + image.height) / (this.numPagesLoaded + 1);
+    this.numPagesLoaded += 1;
+    if (h === image.height) return;
     this.viewer.models.document.computeOffsets();
     this.viewer.pageSet.simpleReflowPages();
   },
 
-  // Update the base height
-  // TODO ... either adjust this or reset it on Zoom.
-  updateBaseHeightBasedOnAveragePageHeight: function(image) {
-    this.averageHeight = ((this.averageHeight * this.numPagesLoaded) + image.height) / (this.numPagesLoaded + 1);
-    this.numPagesLoaded += 1;
-    if (this.updateTimeout) clearTimeout(this.updateTimeout);
-    this.updateTimeout = setTimeout(_.bind(function() {
-      this.updateTimeout = null;
-      var newAverage = Math.round(this.averageHeight);
-      if (Math.abs(newAverage - this.height) > 10) {
-        this.baseHeight = newAverage;
-        this.height = Math.round(this.baseHeight * this.zoomFactor());
-        this.viewer.models.document.computeOffsets();
-        this.viewer.pageSet.simpleReflowPages();
-      }
-    }, this), 100);
-  },
-
   // set the real page height
   setPageHeight: function(pageIndex, pageHeight){
-    this.pageHeights[pageIndex] = pageHeight;
+    this.pageHeights[pageIndex] = Math.round(pageHeight);
   },
 
   // get the real page height
   getPageHeight: function(pageIndex) {
     var realHeight = this.pageHeights[pageIndex];
-    return realHeight ? realHeight * this.zoomFactor() : this.height;
+    return Math.round(realHeight ? realHeight * this.zoomFactor() : this.height);
   }
 
 };

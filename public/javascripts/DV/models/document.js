@@ -6,6 +6,7 @@ DV.model.Document = function(viewer){
   this.baseHeightsPortion        = [];
   this.baseHeightsPortionOffsets = [];
   this.paddedOffsets             = [];
+  this.originalPageText          = {};
   this.totalDocumentHeight       = 0;
   this.totalPages                = 0;
   this.additionalPaddingOnPage   = 0;
@@ -100,43 +101,32 @@ DV.model.Document.prototype = {
   getOffset: function(_index){
     return this.offsets[_index];
   },
-  
+
   resetRemovedPages: function() {
     this.viewer.models.removedPages = {};
-    this.redrawRemovedPages();
   },
-  
+
   addPageToRemovedPages: function(page) {
-    this.viewer.models.removedPages[page] = true;  
-    this.redrawRemovedPages();
+    this.viewer.models.removedPages[page] = true;
   },
-  
+
   removePageFromRemovedPages: function(page) {
-    this.viewer.models.removedPages[page] = false;  
-    this.redrawRemovedPages();
+    this.viewer.models.removedPages[page] = false;
   },
-  
-  redrawRemovedPages: function() {
-    _.each(this.viewer.pageSet.pages, function(page) { 
-      page.drawRemoveOverlay(); 
+
+  redrawPages: function() {
+    _.each(this.viewer.pageSet.pages, function(page) {
+      page.drawRemoveOverlay();
     });
+    if (this.viewer.thumbnails) {
+      this.viewer.thumbnails.render();
+    }
   },
-  
-  removePages: function(model_id, pages, options) {
-    options = options || {};
-    
-    $.ajax({
-      url       : '/documents/' + model_id + '/remove_pages',
-      type      : 'POST',
-      data      : { pages : pages },
-      dataType  : 'json',
-      success   : function(resp) { 
-        if (options.success) options.success(model_id, resp); 
-      },
-      error     : _.bind(function(resp) {
-        this._handleError(model, options.error, null, resp);
-      }, this)
-    });
+
+  redrawReorderedPages: function() {
+    if (this.viewer.thumbnails) {
+      this.viewer.thumbnails.render();
+    }
   }
-  
+
 };

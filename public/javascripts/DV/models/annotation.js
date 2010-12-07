@@ -124,6 +124,7 @@ DV.model.Annotations.prototype = {
     this.sortAnnotations();
     this.viewer.$('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).remove();
     this.viewer.api.redraw(true);
+    if (_.isEmpty(this.byId)) this.viewer.open('ViewDocument');
   },
 
   // Offsets all document pages based on interleaved page annotations.

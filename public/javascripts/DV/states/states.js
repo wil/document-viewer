@@ -39,7 +39,7 @@ DV.Schema.states = {
     this.activeAnnotationId = null;
     this.acceptInput.deny();
     // Nudge IE to force the annotations to repaint.
-    if (jQuery.browser.msie) {
+    if (DV.jQuery.browser.msie) {
       this.elements.annotations.css({zoom : 0});
       this.elements.annotations.css({zoom : 1});
     }
@@ -93,6 +93,14 @@ DV.Schema.states = {
     this.pageSet.zoomText();
     this.helpers.toggleContent('viewText');
     this.events.loadText();
+    return true;
+  },
+
+  ViewThumbnails: function() {
+    this.helpers.reset();
+    this.helpers.toggleContent('viewThumbnails');
+    this.thumbnails = new DV.Thumbnails(this);
+    this.thumbnails.render();
     return true;
   }
 

@@ -1,31 +1,33 @@
 // This manages events for different states activated through DV interface actions like clicks, mouseovers, etc.
 DV.Schema.events = {
   // Change zoom level and causes a reflow and redraw of pages.
-  zoom: function(zoomLevel){
-    this.viewer.pageSet.zoom({ zoomLevel: zoomLevel });
-
-    // Adjust the drag sensitivity for largest zoom level
-    var ranges = this.viewer.models.document.ZOOM_RANGES;
-    if(ranges[ranges.length-1] == zoomLevel){
-      this.viewer.dragReporter.sensitivity = 1.5;
-    }else{
-      this.viewer.dragReporter.sensitivity = 1;
-    }
+  zoom: function(level){
+    var viewer = this.viewer;
+    var continuation = function() {
+      viewer.pageSet.zoom({ zoomLevel: level });
+      var ranges = viewer.models.document.ZOOM_RANGES;
+      viewer.dragReporter.sensitivity = ranges[ranges.length-1] == level ? 1.5 : 1;
+      viewer.notifyChangedState();
+      return true;
+    };
+    viewer.confirmStateChange ? viewer.confirmStateChange(continuation) : continuation();
   },
 
   // Draw (or redraw) the visible pages on the screen.
   drawPages: function() {
     if (this.viewer.state != 'ViewDocument') return;
     var doc           = this.models.document;
+    var win           = this.elements.window[0];
     var offsets       = doc.baseHeightsPortionOffsets;
-    var scrollPos     = this.viewer.scrollPosition = this.elements.window[0].scrollTop;
+    var scrollPos     = this.viewer.scrollPosition = win.scrollTop;
+    var midpoint      = scrollPos + (this.viewer.$(win).height() / 3);
     var currentPage   = _.sortedIndex(offsets, scrollPos);
-    if (offsets[currentPage] == scrollPos) currentPage++;
-    var currentIndex  = currentPage - 1;
-    var pageIds       = this.helpers.sortPages(currentIndex);
+    var middlePage    = _.sortedIndex(offsets, midpoint);
+    if (offsets[currentPage] == scrollPos) currentPage++ && middlePage++;
+    var pageIds       = this.helpers.sortPages(middlePage - 1);
     var total         = doc.totalPages;
-    if (doc.currentPage() != currentPage) doc.setPageIndex(currentIndex);
-    this.drawPageAt(pageIds, currentIndex);
+    if (doc.currentPage() != currentPage) doc.setPageIndex(currentPage - 1);
+    this.drawPageAt(pageIds, middlePage - 1);
   },
 
   // Draw the page at the given index.
@@ -65,12 +67,19 @@ DV.Schema.events = {
     var processText = function(text) {
 
       var pageNumber = parseInt(pageIndex,10)+1;
-      me.viewer.$('.DV-textContents').text(text);
+      me.viewer.$('.DV-textContents').replaceWith('<pre class="DV-textContents">' + text + '</pre>');
       me.elements.currentPage.text(pageNumber);
       me.elements.textCurrentPage.text('p. '+(pageNumber));
       me.models.document.setPageIndex(pageIndex);
       me.helpers.setActiveChapter(me.models.chapters.getChapterId(pageIndex));
 
+      if (me.viewer.openEditor == 'editText' &&
+          !(pageNumber in me.models.document.originalPageText)) {
+        me.models.document.originalPageText[pageNumber] = text;
+      }
+      if (me.viewer.openEditor == 'editText') {
+        me.viewer.$('.DV-textContents').attr('contentEditable', true).addClass('DV-editing');
+      }
 
       if(afterLoad) afterLoad.call(me.helpers);
     };

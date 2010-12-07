@@ -11,16 +11,18 @@ DV.Schema.helpers = {
     bindEvents: function(context){
       var boundZoom = this.events.compile('zoom');
       var doc       = context.models.document;
-      var value     = _.indexOf(doc.ZOOM_RANGES, doc.zoomLevel) * 24.7;
+      var value     = _.indexOf(doc.ZOOM_RANGES, doc.zoomLevel);
       var viewer    = this.viewer;
       viewer.slider = viewer.$('.DV-zoomBox').slider({
-        step: 24.7,
+        step: 1,
+        min: 0,
+        max: 4,
         value: value,
         slide: function(el,d){
-          boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value / 24.7, 10)]);
+          boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value, 10)]);
         },
         change: function(el,d){
-          boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value / 24.7, 10)]);
+          boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value, 10)]);
         }
       });
 
@@ -42,6 +44,9 @@ DV.Schema.helpers = {
       viewer.$('.DV-documentView').delegate('.DV-trigger','click',function(e){
         // history.save('document/p'+context.models.document.currentPage());
         context.open('ViewDocument');
+      });
+      viewer.$('.DV-thumbnailsView').delegate('.DV-trigger','click',function(e){
+        context.open('ViewThumbnails');
       });
       viewer.$('.DV-textView').delegate('.DV-trigger','click',function(e){
 
@@ -83,6 +88,17 @@ DV.Schema.helpers = {
       collection.delegate('.DV-annotationTitle', 'click', _.bind(this.permalinkAnnotation, this));
       collection.delegate('.DV-permalink', 'click', _.bind(this.permalinkAnnotation, this));
 
+      // Thumbnails
+      viewer.$('.DV-thumbnails').delegate('.DV-thumbnail-page', 'click', function(e) {
+        var $thumbnail = viewer.$(e.currentTarget);
+        if (!viewer.openEditor) {
+          var pageIndex = $thumbnail.closest('.DV-thumbnail').attr('data-pageNumber') - 1;
+          viewer.models.document.setPageIndex(pageIndex);
+          viewer.open('ViewDocument');
+          // viewer.history.save('document/p'+pageNumber);
+        }
+      });
+
       // Handle iPad / iPhone scroll events...
       this._touchX = this._touchY = 0;
       collection[0].ontouchstart  = _.bind(this.touchStart, this);
@@ -112,7 +128,7 @@ DV.Schema.helpers = {
         }
       );
 
-      if(jQuery.browser.msie == true){
+      if(DV.jQuery.browser.msie == true){
         this.elements.browserDocument.bind('focus',DV.jQuery.proxy(this.focusWindow,this));
         this.elements.browserDocument.bind('focusout',DV.jQuery.proxy(this.focusOut,this));
       }else{
@@ -299,7 +315,7 @@ DV.Schema.helpers = {
     },
 
     toggleContent: function(toggleClassName){
-      this.elements.viewer.removeClass('DV-viewText DV-viewSearch DV-viewDocument DV-viewAnnotations').addClass('DV-'+toggleClassName);
+      this.elements.viewer.removeClass('DV-viewText DV-viewSearch DV-viewDocument DV-viewAnnotations DV-viewThumbnails').addClass('DV-'+toggleClassName);
     },
 
     jump: function(pageIndex, modifier,forceRedraw){
@@ -308,6 +324,10 @@ DV.Schema.helpers = {
       this.elements.window.scrollTop(position);
       this.models.document.setPageIndex(pageIndex);
       if (forceRedraw) this.viewer.pageSet.redraw(true);
+      if (this.viewer.state === 'ViewThumbnails') {
+        this.viewer.thumbnails.highlightCurrentPage();
+      }
+
     },
 
     shift: function(argHash){
@@ -356,28 +376,31 @@ DV.Schema.helpers = {
       var history = this.viewer.history;
 
       // Default route
-      history.defaultCallback = DV.jQuery.proxy(events.handleHashChangeDefault,this.events);
+      history.defaultCallback = _.bind(events.handleHashChangeDefault,this.events);
 
       // Handle page loading
-      history.register(/document\/p(\d*)$/,DV.jQuery.proxy(events.handleHashChangeViewDocumentPage,this.events));
+      history.register(/document\/p(\d*)$/, _.bind(events.handleHashChangeViewDocumentPage,this.events));
       // Legacy NYT stuff
-      history.register(/p(\d*)$/,DV.jQuery.proxy(events.handleHashChangeLegacyViewDocumentPage,this.events));
-      history.register(/p=(\d*)$/,DV.jQuery.proxy(events.handleHashChangeLegacyViewDocumentPage,this.events));
+      history.register(/p(\d*)$/, _.bind(events.handleHashChangeLegacyViewDocumentPage,this.events));
+      history.register(/p=(\d*)$/, _.bind(events.handleHashChangeLegacyViewDocumentPage,this.events));
 
       // Handle annotation loading in document view
-      history.register(/document\/p(\d*)\/a(\d*)$/, DV.jQuery.proxy(events.handleHashChangeViewDocumentAnnotation,this.events));
+      history.register(/document\/p(\d*)\/a(\d*)$/, _.bind(events.handleHashChangeViewDocumentAnnotation,this.events));
 
       // Handle annotation loading in annotation view
-      history.register(/annotation\/a(\d*)$/,DV.jQuery.proxy(events.handleHashChangeViewAnnotationAnnotation,this.events));
+      history.register(/annotation\/a(\d*)$/, _.bind(events.handleHashChangeViewAnnotationAnnotation,this.events));
+
+      // Handle loading of the pages view
+      history.register(/pages$/, _.bind(events.handleHashChangeViewPages, events));
 
       // Handle page loading in text view
-      history.register(/text\/p(\d*)$/,DV.jQuery.proxy(events.handleHashChangeViewText,this.events));
+      history.register(/text\/p(\d*)$/, _.bind(events.handleHashChangeViewText,this.events));
 
       // Handle entity display requests.
-      history.register(/entity\/p(\d*)\/(.*)\/(\d+):(\d+)$/,DV.jQuery.proxy(events.handleHashChangeViewEntity,this.events));
+      history.register(/entity\/p(\d*)\/(.*)\/(\d+):(\d+)$/, _.bind(events.handleHashChangeViewEntity,this.events));
 
       // Handle search requests
-      history.register(/search\/p(\d*)\/(.*)$/,DV.jQuery.proxy(events.handleHashChangeViewSearchRequest,this.events));
+      history.register(/search\/p(\d*)\/(.*)$/, _.bind(events.handleHashChangeViewSearchRequest,this.events));
     },
 
     // Sets up the zoom slider to match the appropriate for the specified
@@ -414,7 +437,7 @@ DV.Schema.helpers = {
         ranges = this.viewer.models.document.ZOOM_RANGES;
       }
       this.viewer.models.document.ZOOM_RANGES = ranges;
-      this.viewer.slider.slider({'value': parseInt(_.indexOf(ranges, zoom) * 24.7, 10)});
+      this.viewer.slider.slider({'value': parseInt(_.indexOf(ranges, zoom), 10)});
       this.events.zoom(zoom);
     },
 

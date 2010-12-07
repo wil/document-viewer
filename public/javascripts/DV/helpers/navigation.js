@@ -1,4 +1,4 @@
-_.extend(DV.Schema.helpers, { 
+_.extend(DV.Schema.helpers, {
   resetNavigationState: function(){
     var elements                      = this.elements;
     if (elements.chaptersContainer.length) elements.chaptersContainer[0].id  = '';
@@ -8,7 +8,7 @@ _.extend(DV.Schema.helpers, {
     this.elements.chaptersContainer.attr('id','DV-selectedChapter-'+chapterId);
   },
   setActiveAnnotationInNav: function(annotationId){
-    if(annotationId){
+    if(annotationId != null){
       this.elements.navigation.attr('id','DV-selectedAnnotation-'+annotationId);
     }else{
       this.elements.navigation.attr('id','');

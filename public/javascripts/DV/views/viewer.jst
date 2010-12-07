@@ -23,10 +23,10 @@
       </div>
     
       <div class="DV-pages <% if (!options.sidebar) { %>DV-hide-sidebar<% } %>">
+        <div class="DV-thumbnails"></div>
         <div class="DV-pageCollection">
           <div class="DV-bar" style=""></div>
           <div class="DV-allAnnotations">
-    
           </div>
           <div class="DV-text">
             <div class="DV-textSearch clearfix">
@@ -44,11 +44,13 @@
       <div width="265px" class="DV-sidebar <% if (!options.sidebar) { %>DV-hide<% } %>" style="display:none;">
         <div class="DV-well">
     
+          <div class="DV-sidebarSpacer"></div>
+          
           <% if (options.sidebar) { %>
             <div class="DV-navControlsContainer">
             </div>
           <% } %>
-    
+              
           <div class="DV-navigation">
             <%= descriptionContainer %>
             <div class="DV-contentsHeader">Contents</div>

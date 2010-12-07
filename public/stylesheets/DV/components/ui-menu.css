@@ -55,6 +55,7 @@
 
 .DV-views div span:hover,
 .DV-viewDocument .DV-views .DV-documentView span,
+.DV-viewThumbnails .DV-views .DV-thumbnailsView span,
 .DV-viewAnnotations .DV-views .DV-annotationView span,
 .DV-viewText .DV-views .DV-textView span,
 .DV-viewSearch .DV-views .DV-textView span{
@@ -68,6 +69,7 @@
 }
 
 .DV-viewDocument .DV-views .DV-documentView span,
+.DV-viewThumbnails .DV-views .DV-thumbnailsView span,
 .DV-viewAnnotations .DV-views .DV-annotationView span,
 .DV-viewText .DV-views .DV-textView span,
 .DV-viewSearch .DV-views .DV-textView span{
