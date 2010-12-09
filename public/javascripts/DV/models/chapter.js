@@ -14,14 +14,17 @@ DV.model.Chapters.prototype = {
     var sectionIndex = 0;
     for (var i = 0, l = this.viewer.schema.data.totalPages; i < l; i++) {
       var section = sections[sectionIndex];
-      if (section && (i > section.page - 1)) sectionIndex += 1;
-      section = sections[sectionIndex];
+      var nextSection = sections[sectionIndex + 1];
+      if (nextSection && (i >= (nextSection.page - 1))) {
+        sectionIndex += 1;
+        section = nextSection;
+      }
       if (section) chapters[i] = section.id;
     }
   },
 
-  getChapterId: function(_index){
-    return this.chapters[_index];
+  getChapterId: function(index){
+    return this.chapters[index];
   },
 
   getChapterPosition: function(chapterId){

@@ -97,22 +97,23 @@ _.extend(DV.Schema.helpers, {
     var sections = this.viewer.schema.data.sections;
     if (sections.length) {
       for (var i = 0; i < sections.length; i++) {
-        var chapter        = {};
-        chapter.pageNumber = sections[i].page;
-        var nextSection    = this.viewer.sections[i + 1];
-        chapter.endPage    = nextSection ? nextSection.page - 1 : this.viewer.schema.data.totalPages;
-        var annotations    = getAnnotionsByRange(chapter.pageNumber - 1, chapter.endPage);
+        var section        = sections[i];
+        var nextSection    = sections[i + 1];
+        section.id         = section.id || _.uniqueId();
+        section.pageNumber = section.page;
+        section.endPage    = nextSection ? nextSection.page - 1 : this.viewer.schema.data.totalPages;
+        var annotations    = getAnnotionsByRange(section.pageNumber - 1, section.endPage);
 
         if(annotations != '') {
-          chapter.navigationExpander       = navigationExpander;
-          chapter.navigationExpanderClass  = 'DV-hasChildren';
-          chapter.noteViews                = annotations;
-          nav[range[0]-1]                  = createChapter(chapter);
+          section.navigationExpander       = navigationExpander;
+          section.navigationExpanderClass  = 'DV-hasChildren';
+          section.noteViews                = annotations;
+          nav[section.pageNumber - 1]      = createChapter(section);
         } else {
-          chapter.navigationExpanderClass  = 'DV-noChildren';
-          chapter.noteViews                = '';
-          chapter.navigationExpander       = '';
-          nav[range[0]-1]                  = createChapter(chapter);
+          section.navigationExpanderClass  = 'DV-noChildren';
+          section.noteViews                = '';
+          section.navigationExpander       = '';
+          nav[section.pageNumber - 1]      = createChapter(section);
         }
       }
     }
