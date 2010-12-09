@@ -7,12 +7,17 @@ DV.model.Chapters.prototype = {
 
   // Load (or reload) the chapter model from the schema's defined sections.
   loadChapters : function() {
+    var sections = this.viewer.schema.data.sections;
     var chapters = this.chapters = this.viewer.schema.data.chapters = [];
-    _.each(this.viewer.schema.data.sections, function(sec) {
-      sec.id    = sec.id || _.uniqueId();
-      var range = sec.pages.split('-');
-      for (var i=range[0]-1; i<range[1]; i++) chapters[i] = sec.id;
-    });
+    _.each(sections, function(sec){ sec.id || (sec.id = _.uniqueId()); });
+
+    var sectionIndex = 0;
+    for (var i = 0, l = this.viewer.schema.data.totalPages; i < l; i++) {
+      var section = sections[sectionIndex];
+      if (section && (i > section.page - 1)) sectionIndex += 1;
+      section = sections[sectionIndex];
+      if (section) chapters[i] = section.id;
+    }
   },
 
   getChapterId: function(_index){
