@@ -17,10 +17,12 @@ DV.Schema = function() {
 // Imports the document's JSON representation into the DV.Schema form that
 // the models expect.
 DV.Schema.prototype.importCanonicalDocument = function(json) {
+  // Ensure that IDs start with 1 as the lowest id.
+  _.uniqueId();
   // Ensure at least empty arrays for sections.
-  json.sections = json.sections || [];
-  json.annotations = json.annotations || [];
-  json.canonicalURL = json.canonical_url;
+  json.sections               = _.sortBy(json.sections || [], function(sec){ return sec.page; });
+  json.annotations            = json.annotations || [];
+  json.canonicalURL           = json.canonical_url;
 
   this.document               = DV.jQuery.extend(true, {}, json);
   // Everything after this line is for back-compatibility.

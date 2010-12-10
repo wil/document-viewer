@@ -52,6 +52,7 @@ DV.Api.prototype = {
   // should be an array of sections in the canonical format:
   // {title: "Chapter 1", pages: "1-12"}
   setSections : function(sections) {
+    sections = _.sortBy(sections, function(s){ return s.page; });
     this.viewer.schema.data.sections = sections;
     this.viewer.models.chapters.loadChapters();
     this.redraw();

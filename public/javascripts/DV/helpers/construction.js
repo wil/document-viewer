@@ -94,23 +94,26 @@ _.extend(DV.Schema.helpers, {
       }
     }
 
-    if(this.viewer.schema.data.sections.length >= 1){
-      for(var i=0; i<this.viewer.schema.data.sections.length; i++){
-        var chapter        = this.viewer.schema.data.sections[i];
-        var range          = chapter.pages.split('-');
-        var annotations    = getAnnotionsByRange(range[0]-1,range[1]);
-        chapter.pageNumber = range[0];
+    var sections = this.viewer.schema.data.sections;
+    if (sections.length) {
+      for (var i = 0; i < sections.length; i++) {
+        var section        = sections[i];
+        var nextSection    = sections[i + 1];
+        section.id         = section.id || _.uniqueId();
+        section.pageNumber = section.page;
+        section.endPage    = nextSection ? nextSection.page - 1 : this.viewer.schema.data.totalPages;
+        var annotations    = getAnnotionsByRange(section.pageNumber - 1, section.endPage);
 
-        if(annotations != ''){
-          chapter.navigationExpander       = navigationExpander;
-          chapter.navigationExpanderClass  = 'DV-hasChildren';
-          chapter.noteViews                = annotations;
-          nav[range[0]-1]                  = createChapter(chapter);
-        }else{
-          chapter.navigationExpanderClass  = 'DV-noChildren';
-          chapter.noteViews                = '';
-          chapter.navigationExpander       = '';
-          nav[range[0]-1]                  = createChapter(chapter);
+        if(annotations != '') {
+          section.navigationExpander       = navigationExpander;
+          section.navigationExpanderClass  = 'DV-hasChildren';
+          section.noteViews                = annotations;
+          nav[section.pageNumber - 1]      = createChapter(section);
+        } else {
+          section.navigationExpanderClass  = 'DV-noChildren';
+          section.noteViews                = '';
+          section.navigationExpander       = '';
+          nav[section.pageNumber - 1]      = createChapter(section);
         }
       }
     }
@@ -156,12 +159,12 @@ _.extend(DV.Schema.helpers, {
         clearClassName: 'DV-searchInput-show-search-cancel'
       });
     }
-    
+
     // Hide the Pages tab if there is only 1 page in the document.
     if (this.models.document.totalPages <= 1) {
       this.viewer.$('.DV-thumbnailsView').hide();
     }
-    
+
     this.viewer.api.roundTabCorners();
 
     // Hide the entire sidebar, if there are no annotations or sections.
