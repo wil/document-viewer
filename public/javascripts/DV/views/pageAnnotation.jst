@@ -31,18 +31,20 @@
     </div>
     <textarea class="DV-annotationTextArea DV-editVisible" style="width: <%= bWidth %>px;"><%= text %></textarea>
     
-    <% if (access == 'public') { %>
-      <div class="DV-annotationWarning DV-interface DV-editHidden">This public note is visible to everybody.</div>
-    <% } else if (access == 'exclusive') { %>
-      <div class="DV-annotationWarning DV-interface DV-editHidden">This note is only visible to your organization.</div>
-    <% } else { %>
-      <div class="DV-annotationWarning DV-interface DV-editHidden">This private note is only visible to you.</div>
-    <% } %>
-    
     <% if (author) { %>
       <div class="DV-annotationAuthor DV-interface DV-editHidden">
         Contributed by: <%= author %>
       </div>
+    <% } %>
+    
+    <% if (access == 'public') { %>
+      <div class="DV-annotationWarning DV-interface DV-editHidden">This public note is visible to everybody.</div>
+    <% } else if (access == 'exclusive') { %>
+      <div class="DV-privateLock DV-editHidden" title="Private note"></div>
+      <div class="DV-annotationWarning DV-interface DV-editHidden">This note is only visible to your organization.</div>
+    <% } else { %>
+      <div class="DV-privateLock DV-editHidden" title="Private note"></div>
+      <div class="DV-annotationWarning DV-interface DV-editHidden">This private note is only visible to you.</div>
     <% } %>
     
     <div class="DV-annotationEditControls DV-editVisible">
