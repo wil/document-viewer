@@ -87,6 +87,7 @@
     border-radius:3px;
     padding:10px;
     cursor:default;
+    overflow: hidden;
   }
   .DV-annotationClose{
     padding:7px 9px 0 10px;
@@ -130,7 +131,7 @@
     -moz-border-radius:  3px;
     border-radius:  3px;
     margin: -37px 10px 0 11px;
-    z-index:10002;
+    z-index:10003;
 
     -webkit-box-shadow: 1px 1px 3px rgb(0,0,0);
     -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,.2);
@@ -281,12 +282,20 @@
   }
   
   .DV-annotationAuthor {
-    font: 13px/18px Georgia, Times, serif;
-    cursor:text;
-    color: #333;
-    font-style: italic;
-    padding: 6px 0 2px;
+    color: #999;
+    padding: 6px 0 0;
+    line-height: 14px;
+    font-size: 10px;
   }
+  
+  .DV-annotationWarning {
+    float: right;
+    color: #999;
+    font-size: 10px;
+    padding: 6px 0 0;
+    line-height: 14px;
+  }
+
   /* ---------------------------------------------------- tabs */
   .DV-annotationTab{
     background: url(../../../images/DV/embed/corner.png) no-repeat right 0;
