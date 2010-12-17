@@ -28,6 +28,7 @@ _.extend(DV.Schema.events, {
     }else{
       this.models.document.setPageIndex(pageIndex);
       this.viewer.pageSet.setActiveAnnotation(annotation);
+      this.viewer.openingAnnotationFromHash = true;
       this.viewer.open('ViewDocument');
     }
   },
