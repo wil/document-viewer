@@ -174,7 +174,7 @@ DV.PageSet.prototype.showAnnotation = function(argHash, showHash){
 
     var isPage = this.viewer.models.annotations.byId[argHash.id].type == 'page';
     var nudge  = isPage ? -7 : 36;
-    var offset = (argHash.top * this.viewer.models.pages.zoomFactor()) - nudge;
+    var offset = argHash.top - nudge;
 
     for(var i = 0; i <= 2; i++){
       if (this.pages['p' + i]) {
@@ -189,6 +189,5 @@ DV.PageSet.prototype.showAnnotation = function(argHash, showHash){
     }
 
     this.viewer.helpers.jump(argHash.index,offset);
-
   }
 };
