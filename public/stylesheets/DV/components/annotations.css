@@ -286,14 +286,13 @@
     position:absolute;
     left: -44px;
     width: 50px;
-    top:8px;
   }
     .DV-private .DV-annotationTab {
       background-image: url(../../../images/DV/embed/corner-private.png);
     }
 
   .DV-activeAnnotation .DV-annotationTab{
-    top:44px;
+    margin-top: 36px;
     background-color:rgb(255, 227, 37);
     background-image:none;
     width: 44px;
