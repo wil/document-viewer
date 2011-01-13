@@ -296,6 +296,9 @@
     line-height: 14px;
   }
 
+  .DV-annotationMeta {
+    display: none;
+  }
   /* ---------------------------------------------------- tabs */
   .DV-annotationTab{
     background: url(../../../images/DV/embed/corner.png) no-repeat right 0;
@@ -530,6 +533,15 @@
 .DV-isContributor .DV-annotation .DV-accessPrivate,
 .DV-isOwner .DV-annotation .DV-accessPrivate,
 .DV-isOwner .DV-annotation .DV-accessExclusive,
-.DV-isOwner .DV-annotation .DV-accessPublic {
+.DV-isOwner .DV-annotation .DV-accessPublic,
+.DV-isReviewer .DV-annotation .DV-accessPrivate,
+.DV-isReviewer .DV-annotation .DV-accessExclusive,
+.DV-isReviewer .DV-annotation .DV-accessPublic {
+  display: block;
+}
+
+.DV-isContributor .DV-annotation .DV-annotationMeta,
+.DV-isOwner .DV-annotation .DV-annotationMeta,
+.DV-isReviewer .DV-annotation .DV-annotationMeta {
   display: block;
 }
