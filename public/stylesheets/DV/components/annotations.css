@@ -78,6 +78,13 @@
   .DV-accessPrivate.DV-annotationRegion:hover {
     border: 3px solid rgb(107, 194, 248);
   }
+  .DV-accessExclusive .DV-annotationRegion .DV-annotationRegionExclusive {
+    background-image: url(../../../images/DV/note-draft-bg.png);
+    background-repeat: repeat;
+    background-position: 0 0;
+    opacity: .5;
+    height: 100%;
+  }
   .DV-annotationContent{
     display:none;
     background-color:#fff;
@@ -89,6 +96,9 @@
     cursor:default;
     overflow: hidden;
   }
+    .DV-accessExclusive .DV-annotationContent {
+      background: #fff url(../../../images/DV/note-draft-bg.png) repeat 0 0;
+    }
   .DV-annotationClose{
     padding:7px 9px 0 10px;
     color:#000;
@@ -206,6 +216,7 @@
     -webkit-border-radius: 2px;
     -moz-border-radius:  2px;
     border-radius:  2px;
+    background-color: white;
 
     position:relative;
     z-index:10000;
@@ -510,6 +521,13 @@
     cursor: se-resize;
   }
 
+/*------------------------ annotation controls ---------------------------------*/
+
+.DV-annotation .DV-annotationEditControls .DV-saveAnnotationDraft {
+  margin-right: 10px;
+  width: 80px;
+}
+
 /*------------------------ show/hide the edit UI ---------------------------------*/
 .DV-annotation .DV-editVisible {
   display: none;
@@ -523,13 +541,16 @@
   display: none !important;
 }
 
+.DV-annotation .DV-saveAnnotationDraft {
+  display: none;
+}
+
 .DV-annotation .DV-accessExclusive,
 .DV-annotation .DV-accessPrivate,
 .DV-annotation .DV-accessPublic {
   display: none;
 }
 
-.DV-isContributor .DV-annotation .DV-accessExclusive,
 .DV-isContributor .DV-annotation .DV-accessPrivate,
 .DV-isOwner .DV-annotation .DV-accessPrivate,
 .DV-isOwner .DV-annotation .DV-accessExclusive,
@@ -540,8 +561,14 @@
   display: block;
 }
 
-.DV-isContributor .DV-annotation .DV-annotationMeta,
+.DV-isContributor .DV-annotation.DV-accessPrivate .DV-annotationMeta,
 .DV-isOwner .DV-annotation .DV-annotationMeta,
 .DV-isReviewer .DV-annotation .DV-annotationMeta {
+  display: block;
+}
+
+.DV-isContributor .DV-annotation .DV-saveAnnotationDraft,
+.DV-isOwner .DV-annotation .DV-saveAnnotationDraft,
+.DV-isReviewer .DV-annotation .DV-saveAnnotationDraft {
   display: block;
 }

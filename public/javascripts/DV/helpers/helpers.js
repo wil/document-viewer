@@ -82,6 +82,7 @@ DV.Schema.helpers = {
       collection.delegate('.DV-showEdit','click', DV.jQuery.proxy(this.showAnnotationEdit, this));
       collection.delegate('.DV-cancelEdit','click', DV.jQuery.proxy(this.cancelAnnotationEdit, this));
       collection.delegate('.DV-saveAnnotation','click', DV.jQuery.proxy(this.saveAnnotation, this));
+      collection.delegate('.DV-saveAnnotationDraft','click', DV.jQuery.proxy(this.saveAnnotation, this));
       collection.delegate('.DV-deleteAnnotation','click', DV.jQuery.proxy(this.deleteAnnotation, this));
       collection.delegate('.DV-pageNumber', 'click', _.bind(this.permalinkPage, this, 'document'));
       collection.delegate('.DV-textCurrentPage', 'click', _.bind(this.permalinkPage, this, 'text'));

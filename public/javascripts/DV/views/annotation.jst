@@ -15,6 +15,7 @@
       <div class="DV-annotationCorner DV-annotationCornerBottomLeft"></div>
       <div class="DV-annotationCorner DV-annotationCornerBottomRight"></div>
     </div>
+    <div class="DV-annotationRegionExclusive"></div>
   </div>
 
 
@@ -49,7 +50,7 @@
     </div>
     <textarea class="DV-annotationTextArea DV-editVisible" style="width: <%= bWidth %>px;"><%= text %></textarea>
 
-    <div class="DV-annotationMeta">
+    <div class="DV-annotationMeta <%= accessClass %>">
       <% if (author) { %>
         <div class="DV-annotationAuthor DV-interface DV-editHidden">
           Written by: <%= author %>, <i><%= author_organization %></i>
@@ -57,16 +58,19 @@
       <% } %>
       <% if (access == 'public') { %>
         <div class="DV-annotationWarning DV-interface DV-editHidden">This public note is visible to everybody.</div>
+      <% } else if (access == 'exclusive') { %>
+        <div class="DV-annotationWarning DV-interface DV-editHidden">This public note is only visible to you and collaborators.</div>
       <% } else { %>
         <div class="DV-annotationWarning DV-interface DV-editHidden">
           <div class="DV-privateLock DV-editHidden" title="Private note"></div>
-          This private note is only visible to you and collaborators.
+          This private note is only visible to you.
         </div>
       <% } %>
       <div class="DV-annotationEditControls DV-editVisible">
-        <div class="<%= accessClass %> clearfix">
+        <div class="clearfix">
           <div class="minibutton warn DV-deleteAnnotation float_left">Delete</div>
           <div class="minibutton default DV-saveAnnotation float_right">Save</div>
+          <div class="minibutton DV-saveAnnotationDraft float_right">Save as Draft</div>
           <div class="minibutton DV-cancelEdit float_right">Cancel</div>
         </div>
       </div>
