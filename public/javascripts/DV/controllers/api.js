@@ -16,6 +16,11 @@ DV.Api.prototype = {
     var page = this.viewer.pageSet.pages[id];
     return page.index + 1;
   },
+  
+  // Get the document's canonical schema
+  getSchema : function() {
+    return this.viewer.schema.document;
+  },
 
   // Get the document's canonical ID.
   getId : function() {
