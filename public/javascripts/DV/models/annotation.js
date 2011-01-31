@@ -31,7 +31,7 @@ DV.model.Annotations.prototype = {
       if (x1 < this.LEFT_MARGIN) x1 = this.LEFT_MARGIN;
       x1                          = Math.round(adata.x1 * zoom);
       x2                          = Math.round(adata.x2 * zoom);
-      adata.top                   = y1 - 6;
+      adata.top                   = y1 - 5;
     }
 
     adata.width                   = pageModel.width;
@@ -39,14 +39,12 @@ DV.model.Annotations.prototype = {
     adata.author                  = adata.author || "";
     adata.bgWidth                 = adata.width;
     adata.bWidth                  = adata.width - 66;
-    adata.excerptWidth            = (x2 - x1) - 10;
+    adata.excerptWidth            = (x2 - x1) - 9;
     adata.excerptMarginLeft       = x1 - 18;
-    adata.excerptLeft             = x1 - 25;
     adata.excerptHeight           = y2 - y1;
     adata.index                   = adata.page - 1;
     adata.image                   = pageModel.imageURL(adata.index);
-    adata.imageLeft               = x1;
-    adata.imageTop                = y1 + 1;
+    adata.imageTop                = y1 + 2;
     adata.tabTop                  = (y1 < 35 ? 35 - y1 : 0) + 8;
     adata.imageWidth              = pageModel.width;
     adata.imageHeight             = Math.round(pageModel.height * zoom);
