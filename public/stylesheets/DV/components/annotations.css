@@ -30,6 +30,8 @@
 
     position:relative;
 
+    z-index: 5;
+
     cursor:pointer;
   }
   .DV-coverVisible .DV-annotationRegion {
