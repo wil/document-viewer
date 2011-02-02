@@ -16,7 +16,7 @@ DV.Api.prototype = {
     var page = this.viewer.pageSet.pages[id];
     return page.index + 1;
   },
-  
+
   // Get the document's canonical schema
   getSchema : function() {
     return this.viewer.schema.document;
@@ -36,6 +36,13 @@ DV.Api.prototype = {
   currentZoom : function() {
     var doc = this.viewer.models.document;
     return doc.zoomLevel / doc.ZOOM_RANGES[1];
+  },
+
+  // Return the current zoom factor of the document relative to the base zoom.
+  relativeZoom : function() {
+    var models = this.viewer.models;
+    var zoom   = this.currentZoom();
+    return zoom * (models.document.ZOOM_RANGES[1] / models.pages.BASE_WIDTH);
   },
 
   // Return the total number of pages in the document.
