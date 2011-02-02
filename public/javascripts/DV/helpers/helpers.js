@@ -441,7 +441,15 @@ DV.Schema.helpers = {
 
     handleInitialState: function(){
       var initialRouteMatch = this.viewer.history.loadURL(true);
-      if(!initialRouteMatch) this.viewer.open('ViewDocument');
+      if(!initialRouteMatch) {
+        var opts = this.viewer.options;
+        this.viewer.open('ViewDocument');
+        if (opts.note) {
+          this.viewer.pageSet.showAnnotation(this.viewer.models.annotations.byId[opts.note]);
+        } else if (opts.page) {
+          this.jump(opts.page - 1);
+        }
+      }
     }
 
 };
