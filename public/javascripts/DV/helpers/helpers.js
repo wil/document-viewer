@@ -70,8 +70,8 @@ DV.Schema.helpers = {
 
       viewer.$('.DV-footer').delegate('.DV-fullscreen', 'click', _.bind(this.openFullScreen, this));
 
-      var boundToggle           = DV.jQuery.proxy(this.annotationBridgeToggle, this);
-      var collection            = this.elements.collection;
+      var boundToggle  = DV.jQuery.proxy(this.annotationBridgeToggle, this);
+      var collection   = this.elements.collection;
 
       collection.delegate('.DV-annotationTab','click', boundToggle);
       collection.delegate('.DV-annotationRegion','click', DV.jQuery.proxy(this.annotationBridgeShow, this));
@@ -98,10 +98,13 @@ DV.Schema.helpers = {
       });
 
       // Handle iPad / iPhone scroll events...
-      this._touchX = this._touchY = 0;
-      collection[0].ontouchstart  = _.bind(this.touchStart, this);
-      collection[0].ontouchmove   = _.bind(this.touchMove,  this);
-      collection[0].ontouchend    = _.bind(this.touchMove,  this);
+      _.bindAll(this, 'touchStart', 'touchMove');
+      this.elements.window[0].ontouchstart  = this.touchStart;
+      this.elements.window[0].ontouchmove   = this.touchMove;
+      this.elements.window[0].ontouchend    = this.touchMove;
+      this.elements.well[0].ontouchstart    = this.touchStart;
+      this.elements.well[0].ontouchmove     = this.touchMove;
+      this.elements.well[0].ontouchend      = this.touchMove;
 
       viewer.$('.DV-descriptionToggle').live('click',function(e){
         e.preventDefault();
@@ -198,13 +201,14 @@ DV.Schema.helpers = {
     touchMove : function(e) {
       e.stopPropagation();
       e.preventDefault();
+      var el    = e.currentTarget;
       var touch = e.changedTouches[0];
       var xDiff = this._touchX - touch.pageX;
       var yDiff = this._touchY - touch.pageY;
-      this.elements.window[0].scrollLeft += xDiff;
-      this.elements.window[0].scrollTop  += yDiff;
-      this._touchX -= xDiff;
-      this._touchY -= yDiff;
+      el.scrollLeft += xDiff;
+      el.scrollTop  += yDiff;
+      this._touchX  -= xDiff;
+      this._touchY  -= yDiff;
     },
 
     // Click to open a page's permalink.
