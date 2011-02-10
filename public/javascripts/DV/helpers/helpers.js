@@ -70,8 +70,8 @@ DV.Schema.helpers = {
 
       viewer.$('.DV-footer').delegate('.DV-fullscreen', 'click', _.bind(this.openFullScreen, this));
 
-      var boundToggle           = DV.jQuery.proxy(this.annotationBridgeToggle, this);
-      var collection            = this.elements.collection;
+      var boundToggle  = DV.jQuery.proxy(this.annotationBridgeToggle, this);
+      var collection   = this.elements.collection;
 
       collection.delegate('.DV-annotationTab','click', boundToggle);
       collection.delegate('.DV-annotationRegion','click', DV.jQuery.proxy(this.annotationBridgeShow, this));
@@ -99,10 +99,13 @@ DV.Schema.helpers = {
       });
 
       // Handle iPad / iPhone scroll events...
-      this._touchX = this._touchY = 0;
-      collection[0].ontouchstart  = _.bind(this.touchStart, this);
-      collection[0].ontouchmove   = _.bind(this.touchMove,  this);
-      collection[0].ontouchend    = _.bind(this.touchMove,  this);
+      _.bindAll(this, 'touchStart', 'touchMove', 'touchEnd');
+      this.elements.window[0].ontouchstart  = this.touchStart;
+      this.elements.window[0].ontouchmove   = this.touchMove;
+      this.elements.window[0].ontouchend    = this.touchEnd;
+      this.elements.well[0].ontouchstart    = this.touchStart;
+      this.elements.well[0].ontouchmove     = this.touchMove;
+      this.elements.well[0].ontouchend      = this.touchEnd;
 
       viewer.$('.DV-descriptionToggle').live('click',function(e){
         e.preventDefault();
@@ -192,20 +195,35 @@ DV.Schema.helpers = {
       e.stopPropagation();
       e.preventDefault();
       var touch = e.changedTouches[0];
+      this._moved  = false;
       this._touchX = touch.pageX;
       this._touchY = touch.pageY;
     },
 
     touchMove : function(e) {
-      e.stopPropagation();
-      e.preventDefault();
+      var el    = e.currentTarget;
       var touch = e.changedTouches[0];
       var xDiff = this._touchX - touch.pageX;
       var yDiff = this._touchY - touch.pageY;
-      this.elements.window[0].scrollLeft += xDiff;
-      this.elements.window[0].scrollTop  += yDiff;
-      this._touchX -= xDiff;
-      this._touchY -= yDiff;
+      el.scrollLeft += xDiff;
+      el.scrollTop  += yDiff;
+      this._touchX  -= xDiff;
+      this._touchY  -= yDiff;
+      if (yDiff != 0 || xDiff != 0) this._moved = true;
+    },
+
+    touchEnd : function(e) {
+      if (!this._moved) {
+        var touch     = e.changedTouches[0];
+        var target    = touch.target;
+        var fakeClick = document.createEvent('MouseEvent');
+        while (target.nodeType !== 1) target = target.parentNode;
+        fakeClick.initMouseEvent('click', true, true, touch.view, 1,
+          touch.screenX, touch.screenY, touch.clientX, touch.clientY,
+          false, false, false, false, 0, null);
+        target.dispatchEvent(fakeClick);
+      }
+      this._moved = false;
     },
 
     // Click to open a page's permalink.
@@ -442,7 +460,15 @@ DV.Schema.helpers = {
 
     handleInitialState: function(){
       var initialRouteMatch = this.viewer.history.loadURL(true);
-      if(!initialRouteMatch) this.viewer.open('ViewDocument');
+      if(!initialRouteMatch) {
+        var opts = this.viewer.options;
+        this.viewer.open('ViewDocument');
+        if (opts.note) {
+          this.viewer.pageSet.showAnnotation(this.viewer.models.annotations.byId[opts.note]);
+        } else if (opts.page) {
+          this.jump(opts.page - 1);
+        }
+      }
     }
 
 };
