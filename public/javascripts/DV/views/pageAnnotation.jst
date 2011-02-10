@@ -33,7 +33,7 @@
       <% if (access == 'public') { %>
         <div class="DV-annotationWarning DV-interface DV-editHidden">This public note is visible to everybody.</div>
       <% } else if (access == 'exclusive') { %>
-        <div class="DV-annotationWarning DV-interface DV-editHidden">This public note is only visible to you and collaborators.</div>
+        <div class="DV-annotationWarning DV-interface DV-editHidden">This draft is only visible to you and collaborators.</div>
       <% } else { %>
         <div class="DV-privateLock DV-editHidden" title="Private note"></div>
         <div class="DV-annotationWarning DV-interface DV-editHidden">This private note is only visible to you.</div>
@@ -41,8 +41,16 @@
       <div class="DV-annotationEditControls DV-editVisible">
         <div class="clearfix">
           <div class="minibutton warn DV-deleteAnnotation float_left">Delete</div>
-          <div class="minibutton default DV-saveAnnotation float_right">Save</div>
-          <div class="minibutton DV-saveAnnotationDraft float_right">Save as Draft</div>
+          <div class="minibutton default DV-saveAnnotation float_right">
+            <% if (access == 'exclusive') { %>
+              Publish
+            <% } else { %>
+              Save
+            <% } %>
+          </div>
+          <% if (access == 'public' || access == 'exclusive') { %>
+            <div class="minibutton DV-saveAnnotationDraft float_right">Save as Draft</div>
+          <% } %>
           <div class="minibutton DV-cancelEdit float_right">Cancel</div>
         </div>
       </div>
