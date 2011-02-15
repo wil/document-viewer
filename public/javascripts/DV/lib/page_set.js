@@ -95,7 +95,7 @@ DV.PageSet.prototype.zoom = function(argHash){
     var args =
     {
       index: this.viewer.models.document.currentIndex(),
-      top: this.viewer.activeAnnotation.y1,
+      top: this.viewer.activeAnnotation.top,
       id: this.viewer.activeAnnotation.id
     };
     this.viewer.activeAnnotation = null;
