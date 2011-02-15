@@ -163,16 +163,19 @@
 }
 
 .DV-chapter,
-.DV-annotationMarker{
-  margin:0 0 12px 0;
-  padding:0;
-  font-family:Arial,Helvetica,sans-serif;
-  font-size:12px;
-  font-weight:bold;
+.DV-annotationMarker {
+  margin: 0 0 12px 0;
+  padding: 0;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 12px;
+  font-weight: bold;
 }
+  .DV-collapsed .DV-annotationMarker {
+    display: none;
+  }
 
 .DV-annotationMarker{
-  margin-left:14px;
+  margin-left: 14px;
 }
 
 .DV-annotationMarker .DV-navPageNumber {
@@ -226,19 +229,22 @@
 }
 
 .DV-navigation div.DV-first span.DV-trigger{
-  font-size:12px;
-  float:left;
-  display:inline;
-  width:210px;
-  margin-left:5px;
+  font-size: 12px;
+  float: left;
+  display: inline;
+  width: 210px;
+  margin-left: 5px;
 }
 
 .DV-navigation .DV-noChildren div.DV-first span.DV-trigger{
   margin-left:0px;
 }
 
+.DV-descriptionToggle, .DV-navigation div.DV-first span.DV-expander {
+  background: url(../../../images/DV/embed/expanders.png) no-repeat 0 5px;
+}
+
 .DV-navigation div.DV-first span.DV-expander{
-  background: url(../../../images/DV/expanders.gif) no-repeat 0 -31px;
   width:7px;
   height:13px;
   padding-right:0;
@@ -248,8 +254,8 @@
   margin:0; padding:0;
 }
 
-.DV-navigation div.DV-expanded div.DV-first span.DV-expander{
-  background: url(../../../images/DV/expanders.gif) no-repeat 0 6px;
+.DV-navigation div.DV-collapsed div.DV-first span.DV-expander{
+  background-position: 0 -31px;
 }
 
 .DV-navigation div span{
@@ -285,11 +291,11 @@
   width:7px;
   height:13px;
   margin-right:6px;
-  background: url(../../../images/DV/expanders.gif) no-repeat 0 -31px;
+  background-position: 0 -31px;
 }
 
 .DV-descriptionToggle.DV-showDescription{
-  background: url(../../../images/DV/expanders.gif) no-repeat 0 6px;
+  background-position: 0 5px;
 }
 
 .DV-descriptionText{

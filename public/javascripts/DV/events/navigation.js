@@ -7,11 +7,27 @@ _.extend(DV.Schema.events, {
     if (!triggerEl.length) return;
 
     if (el.hasClass('DV-expander')) {
-      return chapterEl.toggleClass('DV-expanded');
+      return chapterEl.toggleClass('DV-collapsed');
 
-    } else if(triggerEl.hasClass('DV-first')) {
+    }else if (noteEl.length) {
+      var aid         = noteEl[0].id.replace('DV-annotationMarker-','');
+      var annotation  = this.models.annotations.getAnnotation(aid);
+      var pageNumber  = parseInt(annotation.index,10)+1;
+
+      if(this.viewer.state === 'ViewText'){
+        this.loadText(annotation.index);
+
+        // this.viewer.history.save('text/p'+pageNumber);
+      }else{
+        if (this.viewer.state === 'ViewThumbnails') {
+          this.viewer.open('ViewDocument');
+        }
+        this.viewer.pageSet.showAnnotation(annotation);
+      }
+
+    } else if (chapterEl.length) {
       // its a header, take it to the page
-      chapterEl.addClass('DV-expanded');
+      chapterEl.removeClass('DV-collapsed');
       var cid           = parseInt(chapterEl[0].id.replace('DV-chapter-',''), 10);
       var chapterIndex  = parseInt(this.models.chapters.getChapterPosition(cid),10);
       var pageNumber    = parseInt(chapterIndex,10)+1;
@@ -28,22 +44,6 @@ _.extend(DV.Schema.events, {
         }
       }else{
         return false;
-      }
-
-    }else if (noteEl.length) {
-      var aid         = noteEl[0].id.replace('DV-annotationMarker-','');
-      var annotation  = this.models.annotations.getAnnotation(aid);
-      var pageNumber  = parseInt(annotation.index,10)+1;
-
-      if(this.viewer.state === 'ViewText'){
-        this.loadText(annotation.index);
-
-        // this.viewer.history.save('text/p'+pageNumber);
-      }else{
-        if (this.viewer.state === 'ViewThumbnails') {
-          this.viewer.open('ViewDocument');
-        }
-        this.viewer.pageSet.showAnnotation(annotation);
       }
 
     }else{

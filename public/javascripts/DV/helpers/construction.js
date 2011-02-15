@@ -70,7 +70,7 @@ _.extend(DV.Schema.helpers, {
     var createChapter = function(chapter){
       var selectionRule = "#DV-selectedChapter-" + chapter.id + " #DV-chapter-" + chapter.id;
 
-      bolds.push(selectionRule+" .DV-first span.DV-trigger");
+      bolds.push(selectionRule+" .DV-navChapterTitle");
       return (JST.chapterNav(chapter));
     };
 
