@@ -104,13 +104,13 @@
   .DV-logo a {
     display: block;
     width: 105px; height: 19px;
-    background: url(images/dc_inline_logo.png);
+    background: url(../../../images/DV/embed/dc_inline_logo.png);
   }
 
 .DV-footerLogoLink {
   display: block;
   width: 33px; height: 24px;
-  background: url(images/dc_mini_logo.png) no-repeat center center;
+  background: url(../../../images/DV/embed/dc_mini_logo.png) no-repeat center center;
   position: absolute;
   right: 5px; top: 5px;
 }
