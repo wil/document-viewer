@@ -48,13 +48,15 @@
 }
 
 .DV-previous, .DV-next {
+  border: 1px solid #bbb; border-top-color: #ccc; border-bottom-color: #999;
   background-image:url(../../../images/DV/embed/controlsArrows.png);
   background-repeat: no-repeat;
-  width:34px; height:24px;
+  width:32px; height:22px;
   position:absolute;
   top: 0px;
   cursor:pointer;
   text-indent:-1000em;
+  -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;
 }
 
 .DV-previous{
@@ -63,11 +65,11 @@
 }
 
 .DV-previous:hover{
-  background-position: -34px 0;
+  background-position: -32px 0;
 }
 
 .DV-previous:active {
-  background-position: -68px 0;
+  background-position: -64px 0;
 }
 
 .DV-previous:focus {
@@ -75,16 +77,16 @@
 }
 
 .DV-next{
-  background-position: -102px 0;
+  background-position: -96px 0;
   right: 10px;
 }
 
 .DV-next:hover{
-  background-position: -136px 0;
+  background-position: -128px 0;
 }
 
 .DV-next:active{
-  background-position: -170px 0;
+  background-position: -160px 0;
 }
 
 .DV-next:focus {
@@ -173,16 +175,15 @@
   margin-left:14px;
 }
 
-.DV-annotationMarker .DV-trigger span{
-  visibility:hidden;
+.DV-annotationMarker .DV-navPageNumber {
+  visibility: hidden;
 }
 
-.DV-annotationMarker .DV-trigger:hover span{
+.DV-annotationMarker .DV-trigger:hover .DV-navPageNumber {
   visibility:visible;
 }
 
 .DV-chapter .DV-annotationMarker{
-  display:none;
   margin-left: 14px;
 }
 
@@ -201,7 +202,7 @@
 }
 
 .DV-chapter div.DV-first{
-  margin: 0 0 5px 0;
+  margin: 0 0 3px 0;
   background:none;
   display:block;
   padding:0;
@@ -216,12 +217,9 @@
     visibility: hidden;
 }
 
-.DV-chapter div.DV-first {display: inline-block;}
-
-/* Hides from IE-mac \*/
-* html .DV-chapter div.DV-first {height: 1%;}
-.DV-chapter div.DV-first {display: block;}
-/* End hide from IE-mac */
+.DV-chapter div.DV-first {
+  display: inline-block;
+}
 
 .DV-navigation .DV-expanded div{
   display:block;
@@ -263,15 +261,15 @@
   color:#004276;
 }
 
-.DV-navigation div span:focus{
+.DV-navigation div span:focus {
   outline:0;
 }
 
-.DV-navigation div span:hover{
+.DV-navigation .DV-trigger:hover .DV-navAnnotationTitle {
   text-decoration:underline;
 }
 
-.DV-navigation div span span{
+.DV-navigation .DV-navPageNumber {
   color:#666;
   font-size:10px;
   padding-left:4px;

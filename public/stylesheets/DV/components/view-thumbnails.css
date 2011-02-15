@@ -28,7 +28,7 @@
     padding: 8px 16px;
     text-align: center;
     position: relative;
-  } 
+  }
     .DV-thumbnails .DV-thumbnail .DV-overlay {
       cursor: pointer;
       z-index: 10002;
@@ -45,7 +45,7 @@
       display: block;
       height: 14px;
       z-index: 0;
-    } 
+    }
       .DV-thumbnails .DV-thumbnail .DV-pageNumber .DV-pageNumberText {
         -moz-border-radius: 8px;
         -webkit-border-radius: 8px;
@@ -81,11 +81,11 @@
     .DV-thumbnails .DV-thumbnail .DV-thumbnail-shadow {
       position: absolute;
       top: 6px; left: 6px; right: 0px; bottom: 0px;
-      background-color: #aeaeae;
+      background-color: #d0d0d0;
       margin: 0 auto;
     }
       .DV-thumbnails .DV-thumbnail-page:hover .DV-thumbnail-shadow {
-        background-color: #999;
+        background-color: #bababa;
       }
       .DV-thumbnails .DV-thumbnail.DV-selected .DV-thumbnail-shadow {
         background-color: transparent;
