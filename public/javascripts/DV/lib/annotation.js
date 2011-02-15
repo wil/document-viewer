@@ -178,5 +178,5 @@ DV.Annotation.prototype.showEdit = function() {
 
 // Remove the annotation from the page
 DV.Annotation.prototype.remove = function(){
-  this.viewer.$('#DV-annotation-'+this.id).remove();
+  DV.jQuery('#DV-annotation-'+this.id).remove();
 };
