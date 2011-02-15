@@ -1,10 +1,10 @@
-.DV-controls{
-  background-color:#f0f4f5;
-  height:37px;
-  border-bottom:1px solid #ABABAB;
-  border-top:1px solid #ABABAB;
-  margin-top:10px;
-  position:relative;
+.DV-controls {
+  background-color: #f0f4f5;
+  height: 37px;
+  border-bottom: 1px solid #aaa;
+  border-top: 1px solid #aaa;
+  margin-top: 10px;
+  position: relative;
 }
 
 .DV-views{
