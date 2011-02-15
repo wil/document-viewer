@@ -23,21 +23,23 @@
       </div>
     
       <div class="DV-pages <% if (!options.sidebar) { %>DV-hide-sidebar<% } %>">
-        <div class="DV-thumbnails"></div>
-        <div class="DV-pageCollection">
-          <div class="DV-bar" style=""></div>
-          <div class="DV-allAnnotations">
-          </div>
-          <div class="DV-text">
-            <div class="DV-textSearch clearfix">
-    
+        <div class="DV-paper">
+          <div class="DV-thumbnails"></div>
+          <div class="DV-pageCollection">
+            <div class="DV-bar" style=""></div>
+            <div class="DV-allAnnotations">
             </div>
-            <div class="DV-textPage">
-              <span class="DV-textCurrentPage"></span>
-              <pre class="DV-textContents"></pre>
+            <div class="DV-text">
+              <div class="DV-textSearch clearfix">
+          
+              </div>
+              <div class="DV-textPage">
+                <span class="DV-textCurrentPage"></span>
+                <pre class="DV-textContents"></pre>
+              </div>
             </div>
+            <%= pages %>
           </div>
-          <%= pages %>
         </div>
       </div>
     

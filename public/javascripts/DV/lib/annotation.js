@@ -56,7 +56,7 @@ DV.Annotation.prototype.next = function(){
     return;
   }
 
-  this.page.set.showAnnotation({ index: annotation.index, id: annotation.id, top: annotation.y1 });
+  this.page.set.showAnnotation({ index: annotation.index, id: annotation.id, top: annotation.top });
 };
 
 // Jump to previous annotation
@@ -66,7 +66,7 @@ DV.Annotation.prototype.previous = function(){
   if(!annotation) {
     return;
   }
-  this.page.set.showAnnotation({ index: annotation.index, id: annotation.id, top: annotation.y1 });
+  this.page.set.showAnnotation({ index: annotation.index, id: annotation.id, top: annotation.top });
 };
 
 // Show annotation
@@ -178,5 +178,5 @@ DV.Annotation.prototype.showEdit = function() {
 
 // Remove the annotation from the page
 DV.Annotation.prototype.remove = function(){
-  this.viewer.$('#DV-annotation-'+this.id).remove();
+  DV.jQuery('#DV-annotation-'+this.id).remove();
 };

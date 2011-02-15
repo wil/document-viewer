@@ -111,9 +111,8 @@ DV.Schema.helpers = {
         e.preventDefault();
         e.stopPropagation();
 
-        viewer.$('.DV-descriptionText').slideToggle(300,function(){
-          viewer.$('.DV-descriptionToggle').toggleClass('DV-showDescription');
-        });
+        viewer.$('.DV-descriptionText').toggle();
+        viewer.$('.DV-descriptionToggle').toggleClass('DV-showDescription');
       });
 
       var cleanUp = DV.jQuery.proxy(viewer.pageSet.cleanUp, this);

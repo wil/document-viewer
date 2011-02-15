@@ -31,9 +31,7 @@ stylesheets:
     - public/stylesheets/DV/components/structure.css
     - public/stylesheets/DV/components/ui.css
     - public/stylesheets/DV/components/*.css
-
-  plain:
-    - public/stylesheets/DV/plain.css
+    - public/stylesheets/DV/themes/plain.css
 
   print:
     - public/stylesheets/DV/print.css

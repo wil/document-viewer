@@ -2,7 +2,7 @@
   font-family:Arial,Helvetica,sans-serif;
   font-size:11px;
   float: right;
-  margin: 8px 20px 0 0;
+  margin: 7px 20px 0 0;
   position: relative;
 }
   .DV-narrowControls .DV-zoomControls {
@@ -10,7 +10,7 @@
   }
 
 .DV-zoomLabel{
-  color:#333333;
+  color: #333;
   display:inline;
   float:left;
   font-family:Arial,Helvetica,sans-serif;
@@ -21,7 +21,7 @@
 }
 
 .DV-zoomBox{
-  background: url(../../../images/DV/embed/bar.gif) repeat-x 0 88%;
+  background: url(../../../images/DV/embed/bar.png) repeat-x 0 88%;
   height:20px;
   width:85px;
   float: left;

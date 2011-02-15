@@ -70,7 +70,7 @@ _.extend(DV.Schema.helpers, {
     var createChapter = function(chapter){
       var selectionRule = "#DV-selectedChapter-" + chapter.id + " #DV-chapter-" + chapter.id;
 
-      bolds.push(selectionRule+" .DV-first span.DV-trigger");
+      bolds.push(selectionRule+" .DV-navChapterTitle");
       return (JST.chapterNav(chapter));
     };
 
@@ -81,7 +81,7 @@ _.extend(DV.Schema.helpers, {
       for (var j=0; j<annotations.length; j++) {
         var annotation = annotations[j];
         renderedAnnotations.push(JST.annotationNav(annotation));
-        bolds.push("#DV-selectedAnnotation-" + annotation.id + " #DV-annotationMarker-" + annotation.id + " span.DV-trigger");
+        bolds.push("#DV-selectedAnnotation-" + annotation.id + " #DV-annotationMarker-" + annotation.id + " .DV-navAnnotationTitle");
       }
       return renderedAnnotations.join('');
     };
@@ -141,7 +141,8 @@ _.extend(DV.Schema.helpers, {
     // Hide the overflow of the body, unless we're positioned.
     var position = DV.jQuery(this.viewer.options.container).css('position');
     if (position != 'relative' && position != 'absolute' && !this.viewer.options.fixedSize) {
-      DV.jQuery(document.body).css({overflow : 'hidden'});
+      DV.jQuery("html, body").css({overflow : 'hidden'});
+      this.viewer.elements.viewer.css({border: 0});
     }
 
     // Hide annotations, if there are none:
@@ -190,7 +191,7 @@ _.extend(DV.Schema.helpers, {
 
     // Check if the zoom is showing, and if not, shorten the width of search
     _.defer(_.bind(function() {
-      if (this.elements.viewer.width() <= 650) {
+      if (this.elements.viewer.width() <= 700) {
         this.viewer.$('.DV-controls').addClass('DV-narrowControls');
       }
     }, this));

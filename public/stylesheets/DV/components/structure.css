@@ -6,10 +6,10 @@
 
 .DV-docViewer-Container{
   position:absolute;
-  top: 39px; bottom: 33px; left: 0px; right: 0px;
+  top: 38px; bottom: 33px; left: 0px; right: 0px;
   margin: 0;
   overflow: hidden;
-  border: 1px solid #ababab; border-left: 0; border-right: 0;
+  border: 1px solid #aaa; border-left: 0; border-right: 0;
 }
 
 .DV-printMessage {
@@ -45,7 +45,7 @@
   position:absolute;
   top: 0; right: 0;
   width: 265px; height: 100%;
-  border-left:1px solid #ababab;
+  border-left:1px solid #aaa;
   overflow-y:auto;
   background: white;
 }
@@ -61,7 +61,6 @@
 }
 
 .DV-pages{
-  background-color:#ccc;
   overflow: auto;
   position: absolute;
   left: 0; right: 266px; top: 0; bottom: 0;
