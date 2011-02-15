@@ -6,6 +6,10 @@
   margin-top: 10px;
   position: relative;
 }
+  .DV-collapsibleControls {
+    height: 37px;
+    overflow: hidden;
+  }
 
 .DV-views{
   list-style-type:none;
