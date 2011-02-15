@@ -142,6 +142,7 @@ _.extend(DV.Schema.helpers, {
     var position = DV.jQuery(this.viewer.options.container).css('position');
     if (position != 'relative' && position != 'absolute' && !this.viewer.options.fixedSize) {
       DV.jQuery(document.body).css({overflow : 'hidden'});
+      this.viewer.elements.viewer.css({border: 0});
     }
 
     // Hide annotations, if there are none:

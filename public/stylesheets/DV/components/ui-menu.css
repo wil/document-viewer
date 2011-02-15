@@ -36,7 +36,7 @@
 .DV-views div span{
   display: block;
   padding: 9px 14px 8px;
-  background: blue url(../../../images/DV/embed/tabbg.png);
+  background: #bfbfbf url(../../../images/DV/embed/tabbg.png);
   border: 1px solid #777; border-top-color: #888;
   font: 10px Arial, Helvetica, sans-serif;
   text-decoration: none;
