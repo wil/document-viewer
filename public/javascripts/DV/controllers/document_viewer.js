@@ -80,10 +80,15 @@ DV.DocumentViewer.prototype.open = function(state) {
   var continuation = _.bind(function() {
     this.state = state;
     this.states[state].apply(this, arguments);
+    this.slapIE();
     this.notifyChangedState();
     return true;
   }, this);
   this.confirmStateChange ? this.confirmStateChange(continuation) : continuation();
+};
+
+DV.DocumentViewer.prototype.slapIE = function() {
+  DV.jQuery(this.options.container).css({zoom: 0.99}).css({zoom: 1});
 };
 
 DV.DocumentViewer.prototype.notifyChangedState = function() {

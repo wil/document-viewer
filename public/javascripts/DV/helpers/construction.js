@@ -141,7 +141,7 @@ _.extend(DV.Schema.helpers, {
     // Hide the overflow of the body, unless we're positioned.
     var position = DV.jQuery(this.viewer.options.container).css('position');
     if (position != 'relative' && position != 'absolute' && !this.viewer.options.fixedSize) {
-      DV.jQuery(document.body).css({overflow : 'hidden'});
+      DV.jQuery("html, body").css({overflow : 'hidden'});
       this.viewer.elements.viewer.css({border: 0});
     }
 
