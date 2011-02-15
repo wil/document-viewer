@@ -221,10 +221,6 @@
   display: inline-block;
 }
 
-.DV-navigation .DV-expanded div{
-  display:block;
-}
-
 .DV-navigation .DV-noChildren{
   margin-left:14px;
 }

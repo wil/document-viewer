@@ -81,7 +81,7 @@ _.extend(DV.Schema.helpers, {
       for (var j=0; j<annotations.length; j++) {
         var annotation = annotations[j];
         renderedAnnotations.push(JST.annotationNav(annotation));
-        bolds.push("#DV-selectedAnnotation-" + annotation.id + " #DV-annotationMarker-" + annotation.id + " span.DV-trigger");
+        bolds.push("#DV-selectedAnnotation-" + annotation.id + " #DV-annotationMarker-" + annotation.id + " .DV-navAnnotationTitle");
       }
       return renderedAnnotations.join('');
     };
