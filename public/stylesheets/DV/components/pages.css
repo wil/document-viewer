@@ -89,8 +89,8 @@
   -ms-interpolation-mode: bicubic;
 }
 
-.DV-pages.DV-coverVisible{
-  background:#888;
+.DV-pages.DV-coverVisible .DV-paper{
+  background: #888;
   cursor:pointer;
 }
 

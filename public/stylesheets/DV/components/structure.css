@@ -61,7 +61,6 @@
 }
 
 .DV-pages{
-  background-color:#ccc;
   overflow: auto;
   position: absolute;
   left: 0; right: 266px; top: 0; bottom: 0;
