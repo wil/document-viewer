@@ -99,7 +99,7 @@ DV.model.Annotations.prototype = {
   // The document and list views.
   refreshAnnotation : function(anno) {
     var viewer = this.viewer;
-    viewer.$('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).each(function() {
+    DV.jQuery('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).each(function() {
       viewer.$('.DV-annotationTitleInput', this).val(anno.title);
       viewer.$('.DV-annotationTitle', this).text(anno.title);
       viewer.$('.DV-annotationTextArea', this).val(anno.text);
@@ -113,7 +113,7 @@ DV.model.Annotations.prototype = {
     var i = anno.page - 1;
     this.byPage[i] = _.without(this.byPage[i], anno);
     this.sortAnnotations();
-    this.viewer.$('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).remove();
+    DV.jQuery('#DV-annotation-' + anno.id + ', #DV-listAnnotation-' + anno.id).remove();
     this.viewer.api.redraw(true);
     if (_.isEmpty(this.byId)) this.viewer.open('ViewDocument');
   },
