@@ -92,7 +92,9 @@
       }
     .DV-thumbnails .DV-thumbnail-image {
       position: relative;
-      border: 1px solid #999;
+      border: 1px solid #babbbb;
+      border-top-color: #cfd0d1;
+      border-bottom-color: #9e9e9f;
       background: white;
       display: block;
       min-height: 40px;
@@ -100,8 +102,10 @@
       z-index: 2;
       margin: 0 auto;
     }
-      .DV-thumbnails .DV-thumbnail:hover .DV-thumbnail-image {
-        border-color: #777;
+      .DV-thumbnails .DV-thumbnail-page:hover .DV-thumbnail-image {
+        border: 1px solid #9B9D9D;
+        border-top-color: #B5B6B7;
+        border-bottom-color: #7D7D7E;
       }
       .DV-thumbnails .DV-thumbnail.DV-selected .DV-thumbnail-image {
         border-color: #09f;
