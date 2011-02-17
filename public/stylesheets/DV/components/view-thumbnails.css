@@ -81,7 +81,7 @@
     .DV-thumbnails .DV-thumbnail .DV-thumbnail-shadow {
       position: absolute;
       top: 6px; left: 6px; right: 0px; bottom: 0px;
-      background-color: #d0d0d0;
+      background-color: #cacaca;
       margin: 0 auto;
     }
       .DV-thumbnails .DV-thumbnail-page:hover .DV-thumbnail-shadow {
@@ -92,9 +92,9 @@
       }
     .DV-thumbnails .DV-thumbnail-image {
       position: relative;
-      border: 1px solid #babbbb;
-      border-top-color: #cfd0d1;
-      border-bottom-color: #9e9e9f;
+      border: 1px solid #b0b0b0;
+      border-top-color: #c0c0c0;
+      border-bottom-color: #999;
       background: white;
       display: block;
       min-height: 40px;
@@ -103,9 +103,9 @@
       margin: 0 auto;
     }
       .DV-thumbnails .DV-thumbnail-page:hover .DV-thumbnail-image {
-        border: 1px solid #9B9D9D;
-        border-top-color: #B5B6B7;
-        border-bottom-color: #7D7D7E;
+        border: 1px solid #a0a0a0;
+        border-top-color: #b0b0b0;
+        border-bottom-color: #888;
       }
       .DV-thumbnails .DV-thumbnail.DV-selected .DV-thumbnail-image {
         border-color: #09f;

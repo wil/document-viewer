@@ -60,9 +60,9 @@
   position:relative;
   left:0;
   top:0;
-  border: 1px solid #babbbb;
-  border-top-color: #cfd0d1;
-  border-bottom-color: #9e9e9f;
+  border: 1px solid #b0b0b0;
+  border-top-color: #c0c0c0;
+  border-bottom-color: #999;
   background-color: #fff;
   overflow:visible;
 }
