@@ -557,9 +557,9 @@
 .DV-isOwner .DV-annotation .DV-accessPrivate,
 .DV-isOwner .DV-annotation .DV-accessExclusive,
 .DV-isOwner .DV-annotation .DV-accessPublic,
-.DV-isReviewer .DV-annotation .DV-accessPrivate,
-.DV-isReviewer .DV-annotation .DV-accessExclusive,
-.DV-isReviewer .DV-annotation .DV-accessPublic {
+.DV-isReviewer .DV-annotation.DV-ownsAnnotation .DV-accessPrivate,
+.DV-isReviewer .DV-annotation.DV-ownsAnnotation .DV-accessExclusive,
+.DV-isReviewer .DV-annotation.DV-ownsAnnotation .DV-accessPublic {
   display: block;
 }
 
