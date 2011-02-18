@@ -53,7 +53,6 @@ DV.model.Annotations.prototype = {
     adata.regionHeight            = y2 - y1;
     adata.excerptDSHeight         = adata.excerptHeight - 6;
     adata.DSOffset                = 3;
-    adata.ownsNote                = adata.owns_note;
     
     if (adata.access == 'public')         adata.accessClass = 'DV-accessPublic';
     else if (adata.access =='exclusive')  adata.accessClass = 'DV-accessExclusive';
