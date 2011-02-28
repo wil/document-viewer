@@ -335,7 +335,7 @@ DV.Schema.helpers = {
       this.elements.viewer.removeClass('DV-viewText DV-viewSearch DV-viewDocument DV-viewAnnotations DV-viewThumbnails').addClass('DV-'+toggleClassName);
     },
 
-    jump: function(pageIndex, modifier,forceRedraw){
+    jump: function(pageIndex, modifier, forceRedraw){
       modifier = (modifier) ? parseInt(modifier, 10) : 0;
       var position = this.models.document.getOffset(parseInt(pageIndex, 10))+modifier;
       this.elements.window.scrollTop(position);
@@ -344,7 +344,6 @@ DV.Schema.helpers = {
       if (this.viewer.state === 'ViewThumbnails') {
         this.viewer.thumbnails.highlightCurrentPage();
       }
-
     },
 
     shift: function(argHash){
