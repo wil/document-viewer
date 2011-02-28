@@ -76,9 +76,10 @@
 
 <div id="document-viewer"></div>
 <script type="text/javascript">
-  DV.load('https://www.documentcloud.org/documents/70050-urbina-day-1-in-progress.js', {
-    container: '#document-viewer'
-  });
+  window.currentDocument = DV.load(
+    'https://www.documentcloud.org/documents/70050-urbina-day-1-in-progress.js',
+    {container: '#document-viewer'}
+  );
 </script>
 
 </body>
