@@ -337,7 +337,7 @@ DV.Schema.helpers = {
 
     jump: function(pageIndex, modifier, forceRedraw){
       modifier = (modifier) ? parseInt(modifier, 10) : 0;
-      var position = this.models.document.getOffset(parseInt(pageIndex, 10))+modifier;
+      var position = this.models.document.getOffset(parseInt(pageIndex, 10)) + modifier;
       this.elements.window.scrollTop(position);
       this.models.document.setPageIndex(pageIndex);
       if (forceRedraw) this.viewer.pageSet.redraw(true);
