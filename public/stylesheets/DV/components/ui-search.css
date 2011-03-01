@@ -9,7 +9,7 @@
   line-height: 22px;
 }
 
-.DV-searchBox.clearfix {
+.DV-searchBox.DV-clearfix {
   position: absolute;
   right: 8px; top: 7px;
   display: none;
