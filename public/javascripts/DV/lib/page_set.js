@@ -66,14 +66,9 @@ DV.PageSet.prototype.cleanUp = function(){
 };
 
 DV.PageSet.prototype.zoom = function(argHash){
-  var collection = this.viewer.elements.collection;
-  collection[0].className = collection[0].className.replace(/DV-zoom-\d+\s*/, '');
-  collection.addClass('DV-zoom-' + this.viewer.slider.slider('value') / 24.7);
-    
   if (this.viewer.models.document.zoomLevel === argHash.zoomLevel) return;
 
   var currentPage = this.viewer.models.document.currentIndex();
-  var _index      = currentPage - 1;
   var oldOffset   = this.viewer.models.document.offsets[currentPage];
   var oldZoom     = this.viewer.models.document.zoomLevel*1;
   var scrollPos   = this.viewer.elements.window.scrollTop();
@@ -132,7 +127,6 @@ DV.PageSet.prototype.draw = function(pageCollection){
 };
 
 DV.PageSet.prototype.redraw = function(stopResetOfPosition, redrawAnnotations) {
-  var _index = this.viewer.models.document.currentIndex();
   if (this.pages['p0']) this.pages['p0'].draw({ force: true, forceAnnotationRedraw : redrawAnnotations });
   if (this.pages['p1']) this.pages['p1'].draw({ force: true, forceAnnotationRedraw : redrawAnnotations });
   if (this.pages['p2']) this.pages['p2'].draw({ force: true, forceAnnotationRedraw : redrawAnnotations });
