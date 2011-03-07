@@ -33,7 +33,10 @@
       <% if (access == 'public') { %>
         <div class="DV-annotationWarning DV-interface DV-editHidden">This public note is visible to everybody.</div>
       <% } else if (access == 'exclusive') { %>
-        <div class="DV-annotationWarning DV-interface DV-editHidden">This draft is only visible to you and collaborators.</div>
+        <div class="DV-annotationWarning DV-interface DV-editHidden">
+          <div class="DV-privateLock DV-editHidden" title="Publically hidden note"></div>
+          This draft is only visible to you and collaborators.
+        </div>
       <% } else { %>
         <div class="DV-privateLock DV-editHidden" title="Private note"></div>
         <div class="DV-annotationWarning DV-interface DV-editHidden">This private note is only visible to you.</div>
