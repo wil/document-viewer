@@ -306,12 +306,12 @@
   .DV-annotationDraftLabel {
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 11px;
+    font-size: 10px;
     padding: 0px 4px;
     line-height: 12px;
     border: 2px solid #830C0D;
     color: #830C0D;
-    margin: 0 8px 0 12px;
+    margin: -1px 8px 0 12px;
     text-indent: 0;
     float: left;
   }

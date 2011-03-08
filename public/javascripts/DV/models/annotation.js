@@ -34,7 +34,7 @@ DV.model.Annotations.prototype = {
       adata.top                   = y1 - 5;
     }
 
-    adata.owns_note               = false;
+    adata.owns_note               = adata.owns_note || false;
     adata.width                   = pageModel.width;
     adata.pageNumber              = adata.page;
     adata.author                  = adata.author || "";
