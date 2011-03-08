@@ -1,6 +1,6 @@
 DV.model.Annotations = function(viewer) {
   this.LEFT_MARGIN              = 25;
-  this.PAGE_NOTE_FUDGE          = 44;
+  this.PAGE_NOTE_FUDGE          = window.dc && dc.account && (dc.account.isOwner || dc.account.isReviewer) ? 46 : 26;
   this.viewer                   = viewer;
   this.offsetsAdjustments       = [];
   this.offsetAdjustmentSum      = 0;
