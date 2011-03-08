@@ -34,6 +34,7 @@ DV.model.Annotations.prototype = {
       adata.top                   = y1 - 5;
     }
 
+    adata.owns_note               = false;
     adata.width                   = pageModel.width;
     adata.pageNumber              = adata.page;
     adata.author                  = adata.author || "";
@@ -53,7 +54,7 @@ DV.model.Annotations.prototype = {
     adata.regionHeight            = y2 - y1;
     adata.excerptDSHeight         = adata.excerptHeight - 6;
     adata.DSOffset                = 3;
-    
+
     if (adata.access == 'public')         adata.accessClass = 'DV-accessPublic';
     else if (adata.access =='exclusive')  adata.accessClass = 'DV-accessExclusive';
     else if (adata.access =='private')    adata.accessClass = 'DV-accessPrivate';
