@@ -53,7 +53,7 @@
     <div class="DV-annotationMeta <%= accessClass %>">
       <% if (author) { %>
         <div class="DV-annotationAuthor DV-interface DV-editHidden">
-          Written by: <%= author %>, <i><%= author_organization %></i>
+          Written by: <%= author %><% if (author_organization) { %>, <i><%= author_organization %></i><% } %>
         </div>
       <% } %>
       <% if (access == 'public') { %>
@@ -88,5 +88,3 @@
     </div>
   </div>
 </div>
-
-
