@@ -80,13 +80,6 @@
   .DV-accessPrivate.DV-annotationRegion:hover {
     border: 3px solid rgb(107, 194, 248);
   }
-  .DV-accessExclusive .DV-annotationRegion .DV-annotationRegionExclusive {
-    background-image: url(../../../images/DV/note-draft-bg.png);
-    background-repeat: repeat;
-    background-position: 0 0;
-    opacity: .5;
-    height: 100%;
-  }
   .DV-annotationContent{
     display:none;
     background-color:#fff;
@@ -98,9 +91,6 @@
     cursor:default;
     overflow: hidden;
   }
-    .DV-accessExclusive .DV-annotationContent {
-      background: #fff url(../../../images/DV/note-draft-bg.png) repeat 0 0;
-    }
   .DV-annotationClose{
     padding:7px 9px 0 10px;
     color:#000;
@@ -312,6 +302,19 @@
   .DV-annotationMeta {
     display: none;
   }
+  
+  .DV-annotationDraftLabel {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 0px 4px;
+    line-height: 12px;
+    border: 2px solid #830C0D;
+    color: #830C0D;
+    margin: 0 8px 0 12px;
+    text-indent: 0;
+    float: left;
+  }
   /* ---------------------------------------------------- tabs */
   .DV-annotationTab{
     background: url(../../../images/DV/embed/corner.png) no-repeat right 0;
@@ -325,7 +328,7 @@
     }
 
   .DV-activeAnnotation .DV-annotationTab{
-    margin-top: 36px;
+    margin-top: 37px;
     background-color:rgb(255, 227, 37);
     background-image:none;
     width: 44px;
@@ -336,6 +339,15 @@
   .DV-activeAnnotation.DV-accessPrivate .DV-annotationTab {
     background-color: rgb(107, 194, 248);
   }
+  .DV-annotationTab .DV-annotationDraftDot {    
+    width: 11px;
+    height: 11px;
+    background: transparent url(../../../images/DV/embed/draft_dot.png) no-repeat 0 0;
+    margin: 0 0 0 -3px;
+  }
+    .DV-activeAnnotation .DV-annotationTab .DV-annotationDraftDot {
+      display: none;
+    }
 
   /* ---------------------------------------------------- active annotation */
   .DV-activeAnnotation .DV-page{

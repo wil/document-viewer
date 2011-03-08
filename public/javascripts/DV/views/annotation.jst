@@ -1,7 +1,11 @@
 <div class="DV-annotation <%= orderClass %> <%= accessClass %> <% if (owns_note) { %>DV-ownsAnnotation<% } %>" style="top:<%= top %>px;" id="DV-annotation-<%= id %>" data-id="<%= id %>">
 
   <div class="DV-annotationTab" style="top:<%= tabTop %>px;">
-    <div class="DV-annotationClose DV-trigger"></div>
+    <div class="DV-annotationClose DV-trigger">
+      <% if (access == 'exclusive') { %>
+        <div class="DV-annotationDraftDot DV-editHidden"></div>
+      <% } %>
+    </div>
   </div>
 
   <div class="DV-annotationRegion" style="margin-left:<%= excerptMarginLeft %>px; height:<%= excerptHeight %>px; width:<%= excerptWidth %>px;">
@@ -29,6 +33,9 @@
       <div class="DV-annotationGoto DV-editHidden"><div class="DV-trigger">p. <%= pageNumber %></div></div>
       <div class="DV-annotationTitle DV-editHidden"><%= title %></div>
       <input class="DV-annotationTitleInput DV-editVisible" type="text" placeholder="Annotation Title" value="<%= title %>" />
+      <% if (access == 'exclusive') { %>
+        <div class="DV-annotationDraftLabel DV-editHidden DV-interface">Draft</div>
+      <% } %>
       <span class="DV-permalink DV-editHidden" title="Link to this note"></span>
       <div class="DV-showEdit DV-editHidden <%= accessClass %>"></div>
     </div>
