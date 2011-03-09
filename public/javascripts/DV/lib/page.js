@@ -25,7 +25,6 @@ DV.Page = function(viewer, argHash){
   this.pageNumber       = null;
   this.zoom             = 1;
   this.annotations      = [];
-  this.activeAnnotation = null;
 
   // optimizations
   var m = this.viewer.models;

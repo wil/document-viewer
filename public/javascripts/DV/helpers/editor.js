@@ -25,15 +25,13 @@ _.extend(DV.Schema.helpers,{
     anno.text   = this.viewer.$('.DV-annotationTextArea', annoEl).val();
     if (target.hasClass('DV-saveAnnotationDraft'))  anno.access = 'exclusive';
     else if (annoEl.hasClass('DV-accessExclusive')) anno.access = 'public';
-    if (option == 'onlyIfText' && 
-        (!anno.title || anno.title == 'Untitled Note') && 
-        !anno.text && 
+    if (option == 'onlyIfText' &&
+        (!anno.title || anno.title == 'Untitled Note') &&
+        !anno.text &&
         !anno.server_id) {
       return this.models.annotations.removeAnnotation(anno);
     }
     annoEl.removeClass('DV-editing');
-    this.viewer.api.redraw(true);
-    this.viewer.pageSet.showAnnotation(anno);
     this.models.annotations.fireSaveCallbacks(anno);
   },
   deleteAnnotation : function(e) {
