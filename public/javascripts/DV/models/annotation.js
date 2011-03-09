@@ -38,6 +38,7 @@ DV.model.Annotations.prototype = {
     adata.width                   = pageModel.width;
     adata.pageNumber              = adata.page;
     adata.author                  = adata.author || "";
+    adata.author_organization     = adata.author_organization || "";
     adata.bgWidth                 = adata.width;
     adata.bWidth                  = adata.width - 66;
     adata.excerptWidth            = (x2 - x1) - 9;
