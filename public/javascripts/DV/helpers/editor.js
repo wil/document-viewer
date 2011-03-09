@@ -23,8 +23,8 @@ _.extend(DV.Schema.helpers,{
     if (!anno) return;
     anno.title  = this.viewer.$('.DV-annotationTitleInput', annoEl).val();
     anno.text   = this.viewer.$('.DV-annotationTextArea', annoEl).val();
-    anno.author              = dc.account.name;
-    anno.author_organization = dc.account.organization.name;
+    anno.author              = anno.author || dc.account.name;
+    anno.author_organization = anno.author_organization || dc.account.organization.name;
     anno.owns_note           = anno.unsaved ? true : anno.owns_note;
     if (target.hasClass('DV-saveAnnotationDraft'))  anno.access = 'exclusive';
     else if (annoEl.hasClass('DV-accessExclusive')) anno.access = 'public';
