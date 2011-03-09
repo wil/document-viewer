@@ -23,6 +23,9 @@ _.extend(DV.Schema.helpers,{
     if (!anno) return;
     anno.title  = this.viewer.$('.DV-annotationTitleInput', annoEl).val();
     anno.text   = this.viewer.$('.DV-annotationTextArea', annoEl).val();
+    anno.author              = dc.account.name;
+    anno.author_organization = dc.account.organization.name;
+    anno.owns_note           = anno.unsaved ? true : anno.owns_note;
     if (target.hasClass('DV-saveAnnotationDraft'))  anno.access = 'exclusive';
     else if (annoEl.hasClass('DV-accessExclusive')) anno.access = 'public';
     if (option == 'onlyIfText' &&
@@ -33,6 +36,8 @@ _.extend(DV.Schema.helpers,{
     }
     annoEl.removeClass('DV-editing');
     this.models.annotations.fireSaveCallbacks(anno);
+    this.viewer.api.redraw(true);
+    if (this.viewer.activeAnnotation) this.viewer.pageSet.showAnnotation(anno);
   },
   deleteAnnotation : function(e) {
     var annoEl = this.viewer.$(e.target).closest(this.annotationClassName);
