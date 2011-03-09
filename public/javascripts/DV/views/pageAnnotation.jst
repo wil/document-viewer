@@ -15,6 +15,8 @@
       <input class="DV-annotationTitleInput DV-editVisible" type="text" placeholder="Annotation Title" value="<%= title %>" />
       <% if (access == 'exclusive') { %>
         <div class="DV-annotationDraftLabel DV-editHidden DV-interface">Draft</div>
+      <% } else if (access == 'private') { %>
+        <div class="DV-privateLock DV-editHidden" title="Private note"></div>
       <% } %>
       <span class="DV-permalink DV-editHidden" title="Link to this note"></span>
       <div class="DV-showEdit DV-editHidden <%= accessClass %>"></div>
@@ -31,15 +33,12 @@
           Written by: <%= author %><% if (author_organization) { %>, <i><%= author_organization %></i><% } %>
         </div>
       <% } %>
-      <% if (access == 'public') { %>
-        <div class="DV-annotationWarning DV-interface DV-editHidden">This public note is visible to everybody.</div>
-      <% } else if (access == 'exclusive') { %>
+      <% if (access == 'exclusive') { %>
         <div class="DV-annotationWarning DV-interface DV-editHidden">
           This draft is only visible to you and collaborators.
         </div>
-      <% } else { %>
+      <% } else if (access == 'private') { %>
         <div class="DV-annotationWarning DV-interface DV-editHidden">
-          <div class="DV-privateLock DV-editHidden" title="Private note"></div>
           This private note is only visible to you.
         </div>
       <% } %>
