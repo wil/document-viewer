@@ -21,11 +21,13 @@ _.extend(DV.Schema.helpers,{
     var annoEl = target.closest(this.annotationClassName);
     var anno   = this.getAnnotationModel(annoEl);
     if (!anno) return;
-    anno.title  = this.viewer.$('.DV-annotationTitleInput', annoEl).val();
-    anno.text   = this.viewer.$('.DV-annotationTextArea', annoEl).val();
-    anno.author              = anno.author || dc.account.name;
-    anno.author_organization = anno.author_organization || dc.account.organization.name;
-    anno.owns_note           = anno.unsaved ? true : anno.owns_note;
+    anno.title     = this.viewer.$('.DV-annotationTitleInput', annoEl).val();
+    anno.text      = this.viewer.$('.DV-annotationTextArea', annoEl).val();
+    anno.owns_note = anno.unsaved ? true : anno.owns_note;
+    if (anno.owns_note) {
+      anno.author              = anno.author || dc.account.name;
+      anno.author_organization = anno.author_organization || (dc.account.isReal && dc.account.organization.name);
+    }
     if (target.hasClass('DV-saveAnnotationDraft'))  anno.access = 'exclusive';
     else if (annoEl.hasClass('DV-accessExclusive')) anno.access = 'public';
     if (option == 'onlyIfText' &&
