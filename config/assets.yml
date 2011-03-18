@@ -4,7 +4,7 @@ template_function: _.template
 
 javascripts:
   viewer:
-    - public/javascripts/DV/vendor/jquery-1.5.js
+    - public/javascripts/DV/vendor/jquery-1.5.1.js
     - public/javascripts/DV/vendor/jquery-ui-1.8.1.custom.min.js
     - public/javascripts/DV/vendor/underscore.js
     - public/javascripts/DV/vendor/jquery.acceptInput.js
