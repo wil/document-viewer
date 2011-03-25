@@ -15,7 +15,7 @@ _.extend(DV.Schema.helpers, {
     var footerHTML = JST.footer({options : this.viewer.options});
 
     var pdfURL   = doc.resources.pdf;
-    pdfURL       = pdfURL ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF)</a>' : '';
+    pdfURL       = pdfURL && this.viewer.options.pdf !== false ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF)</a>' : '';
 
     var viewerOptions = {
       options : this.viewer.options,
