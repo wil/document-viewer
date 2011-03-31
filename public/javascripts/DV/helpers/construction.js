@@ -158,7 +158,7 @@ _.extend(DV.Schema.helpers, {
     if (this.viewer.options.text === false) {
       this.viewer.$('.DV-textView').hide();
     } else if (!this.viewer.options.width || this.viewer.options.width >= 540) {
-      this.viewer.elements.viewer.addClass('DV-searchable');
+      this.elements.viewer.addClass('DV-searchable');
       this.viewer.$('input.DV-searchInput', containerEl).placeholder({
         message: 'Search',
         clearClassName: 'DV-searchInput-show-search-cancel'
@@ -195,7 +195,7 @@ _.extend(DV.Schema.helpers, {
 
     // Check if the zoom is showing, and if not, shorten the width of search
     _.defer(_.bind(function() {
-      if (this.viewer.elements.viewer.width() <= 700) {
+      if (this.elements.viewer.width() <= 700) {
         this.viewer.$('.DV-controls').addClass('DV-narrowControls');
       }
     }, this));

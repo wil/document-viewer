@@ -1,8 +1,9 @@
 DV.Elements = function(viewer){
   this._viewer = viewer;
-  _.each(DV.Schema.elements, _.bind(function(el) {
-    this.getElement(el);
-  }, this));
+  var elements = DV.Schema.elements;
+  for (var i=0, elemCount=elements.length; i < elemCount; i++) {
+    this.getElement(elements[i]);
+  }
 };
 
 // Get and store an element reference
