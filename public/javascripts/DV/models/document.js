@@ -35,6 +35,7 @@ DV.model.Document.prototype = {
     this.currentPageIndex = index;
     this.viewer.elements.currentPage.text(this.currentPage());
     this.viewer.helpers.setActiveChapter(this.viewer.models.chapters.getChapterId(index));
+    this.viewer.notifyChangedPage();
     return index;
   },
   currentPage : function() {
