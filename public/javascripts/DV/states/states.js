@@ -8,7 +8,6 @@ DV.Schema.states = {
     this.helpers.renderViewer();
 
     // Assign element references.
-    // window.v = this;
     this.events.elements = this.helpers.elements = this.elements = new DV.Elements(this);
 
     // Render included components, and hide unused portions of the UI.
@@ -16,6 +15,9 @@ DV.Schema.states = {
 
     // Render chapters and notes navigation:
     this.helpers.renderNavigation();
+
+    // Render CSS rules for showing/hiding specific pages:
+    this.helpers.renderSpecificPageCss();
 
     // Instantiate pageset and build accordingly
     this.pageSet = new DV.PageSet(this);

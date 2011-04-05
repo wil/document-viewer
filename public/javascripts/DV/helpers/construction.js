@@ -50,6 +50,16 @@ _.extend(DV.Schema.helpers, {
     this.viewer.$('.DV-supplemental').toggleClass('DV-noNavigation', missing);
   },
 
+  renderSpecificPageCss : function() {
+    var classes = [];
+    for (var i = 1, l = this.models.document.totalPages; i <= l; i++) {
+      classes.push('.DV-page-' + i + ' .DV-pageSpecific-' + i);
+    }
+    var css = classes.join(', ') + ' { display: block; }';
+    var stylesheet = '<style type="text/css" media="all">\n' + css +'\n</style>';
+    DV.jQuery(document.head).append(stylesheet);
+  },
+
   renderNavigation : function() {
     var me = this;
     var chapterViews = [], bolds = [], expandIcons = [], expanded = [], navigationExpander = JST.navigationExpander({}),nav=[],notes = [],chapters = [];

@@ -66,6 +66,9 @@ DV.Page.prototype.draw = function(argHash) {
   var _types = [];
   var source = this.model_pages.imageURL(this.index);
 
+  // Set the page number as a class, for page-dependent elements.
+  this.el[0].className = this.el[0].className.replace(/\s*DV-page-\d+/, '') + ' DV-page-' + (this.index + 1);
+
   if (this.imgSource != source) {
     this.imgSource = source;
     this.loadImage();
