@@ -57,7 +57,7 @@ _.extend(DV.Schema.helpers, {
     }
     var css = classes.join(', ') + ' { display: block; }';
     var stylesheet = '<style type="text/css" media="all">\n' + css +'\n</style>';
-    DV.jQuery(document.head).append(stylesheet);
+    DV.jQuery("head").append(stylesheet);
   },
 
   renderNavigation : function() {
@@ -138,10 +138,10 @@ _.extend(DV.Schema.helpers, {
        chaptersContainer.show() : chaptersContainer.hide();
     this.displayNavigation();
 
-    DV.jQuery('#DV-navigationBolds-' + boldsId, document.head).remove();
+    DV.jQuery('#DV-navigationBolds-' + boldsId, DV.jQuery("head")).remove();
     var boldsContents = bolds.join(", ") + ' { font-weight:bold; color:#000 !important; }';
     var navStylesheet = '<style id="DV-navigationBolds-' + boldsId + '" type="text/css" media="screen,print">\n' + boldsContents +'\n</style>';
-    DV.jQuery(document.head).append(navStylesheet);
+    DV.jQuery("head").append(navStylesheet);
     chaptersContainer = null;
   },
 
