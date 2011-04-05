@@ -28,7 +28,6 @@ DV.DocumentViewer = function(options) {
   this.tracker            = {};
 
   this.onStateChangeCallbacks = [];
-  this.onChangePageCallbacks  = [];
 
   this.events     = _.extend(this.events, {
     viewer      : this,
@@ -94,10 +93,6 @@ DV.DocumentViewer.prototype.slapIE = function() {
 
 DV.DocumentViewer.prototype.notifyChangedState = function() {
   _.each(this.onStateChangeCallbacks, function(c) { c(); });
-};
-
-DV.DocumentViewer.prototype.notifyChangedPage = function() {
-  _.each(this.onChangePageCallbacks, function(c) { c(); });
 };
 
 // Record a hit on this document viewer.
