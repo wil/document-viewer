@@ -91,7 +91,7 @@ DV.PageSet.prototype.zoom = function(argHash){
   // Zoom any drawn redactions.
   if (this.viewer.state === 'ViewDocument') {
     this.viewer.$('.DV-annotationRegion.DV-accessRedact').each(function() {
-      var el = $(this);
+      var el = DV.jQuery(this);
       el.css({
         top    : Math.round(el.position().top  * relativeZoom),
         left   : Math.round(el.position().left * relativeZoom),
