@@ -68,10 +68,11 @@ DV.PageSet.prototype.cleanUp = function(){
 DV.PageSet.prototype.zoom = function(argHash){
   if (this.viewer.models.document.zoomLevel === argHash.zoomLevel) return;
 
-  var currentPage = this.viewer.models.document.currentIndex();
-  var oldOffset   = this.viewer.models.document.offsets[currentPage];
-  var oldZoom     = this.viewer.models.document.zoomLevel*1;
-  var scrollPos   = this.viewer.elements.window.scrollTop();
+  var currentPage  = this.viewer.models.document.currentIndex();
+  var oldOffset    = this.viewer.models.document.offsets[currentPage];
+  var oldZoom      = this.viewer.models.document.zoomLevel*1;
+  var relativeZoom = argHash.zoomLevel / oldZoom;
+  var scrollPos    = this.viewer.elements.window.scrollTop();
 
   this.viewer.models.document.zoom(argHash.zoomLevel);
 
@@ -87,11 +88,23 @@ DV.PageSet.prototype.zoom = function(argHash){
     this.viewer.thumbnails.lazyloadThumbnails();
   }
 
+  // Zoom any drawn redactions.
+  if (this.viewer.state === 'ViewDocument') {
+    this.viewer.$('.DV-annotationRegion.DV-accessRedact').each(function() {
+      var el = $(this);
+      el.css({
+        top    : Math.round(el.position().top  * relativeZoom),
+        left   : Math.round(el.position().left * relativeZoom),
+        width  : Math.round(el.width()         * relativeZoom),
+        height : Math.round(el.height()        * relativeZoom)
+      });
+    });
+  }
+
   if(this.viewer.activeAnnotation != null){
     // FIXME:
 
-    var args =
-    {
+    var args = {
       index: this.viewer.models.document.currentIndex(),
       top: this.viewer.activeAnnotation.top,
       id: this.viewer.activeAnnotation.id
