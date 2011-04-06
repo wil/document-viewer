@@ -61,6 +61,8 @@
     background: #000;
     border: 0;
     border-radius: 0; -moz-border-radius: 0; -webkit-border-radius: 0;
+    filter: none;
+    -ms-filter: none;
   }
   .DV-coverVisible .DV-accessPrivate .DV-annotationRegion {
     background: rgb(107, 194, 248);
