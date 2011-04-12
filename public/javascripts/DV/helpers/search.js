@@ -9,7 +9,9 @@ _.extend(DV.Schema.helpers, {
       this.viewer.$('span.DV-searchQuery').text(response.query);
       if (hasResults) {
         // this.viewer.history.save('search/p'+response.results[0]+'/'+response.query);
-        this.events.loadText(response.results[0] - 1, this.highlightSearchResponses);
+        var currentPage = this.viewer.models.document.currentPage();
+        var page = (_.include(response.results, currentPage)) ? currentPage : response.results[0];
+        this.events.loadText(page - 1, this.highlightSearchResponses);
       } else {
         this.highlightSearchResponses();
       }
