@@ -86,6 +86,10 @@ DV.model.Pages.prototype = {
     if (h === image.height) return;
     this.viewer.models.document.computeOffsets();
     this.viewer.pageSet.simpleReflowPages();
+    if (pageIndex < this.viewer.models.document.currentIndex()) {
+      var diff = image.height - h;
+      this.viewer.elements.window[0].scrollTop += diff;
+    }
   },
 
   // set the real page height

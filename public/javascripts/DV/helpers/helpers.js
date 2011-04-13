@@ -252,8 +252,8 @@ DV.Schema.helpers = {
     },
 
     setDocHeight:   function(height,diff) {
-      this.elements.window[0].scrollTop += diff;
       this.elements.bar.css('height', height);
+      this.elements.window[0].scrollTop += diff;
     },
 
     getWindowDimensions: function(){
@@ -339,7 +339,7 @@ DV.Schema.helpers = {
     jump: function(pageIndex, modifier, forceRedraw){
       modifier = (modifier) ? parseInt(modifier, 10) : 0;
       var position = this.models.document.getOffset(parseInt(pageIndex, 10)) + modifier;
-      this.elements.window.scrollTop(position);
+      this.elements.window[0].scrollTop = position;
       this.models.document.setPageIndex(pageIndex);
       if (forceRedraw) this.viewer.pageSet.redraw(true);
       if (this.viewer.state === 'ViewThumbnails') {

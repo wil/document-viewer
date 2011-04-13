@@ -61,6 +61,7 @@ DV.model.Document.prototype = {
       this.computeOffsets();
     }
   },
+
   computeOffsets: function() {
     var annotationModel  = this.viewer.models.annotations;
     var totalDocHeight   = 0;
