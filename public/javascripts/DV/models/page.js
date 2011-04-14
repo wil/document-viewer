@@ -81,13 +81,13 @@ DV.model.Pages.prototype = {
     var h = this.getPageHeight(pageIndex);
     var height = image.height * (this.zoomLevel > this.BASE_WIDTH ? 0.7 : 1.0);
     this.setPageHeight(pageIndex, height);
-    this.averageHeight = ((this.averageHeight * this.numPagesLoaded) + image.height) / (this.numPagesLoaded + 1);
+    this.averageHeight = ((this.averageHeight * this.numPagesLoaded) + height) / (this.numPagesLoaded + 1);
     this.numPagesLoaded += 1;
-    if (h === image.height) return;
+    if (h === height) return;
     this.viewer.models.document.computeOffsets();
     this.viewer.pageSet.simpleReflowPages();
     if (pageIndex < this.viewer.models.document.currentIndex()) {
-      var diff = image.height - h;
+      var diff = (height - h) * this.zoomLevel();
       this.viewer.elements.window[0].scrollTop += diff;
     }
   },
