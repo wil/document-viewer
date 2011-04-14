@@ -87,7 +87,7 @@ DV.model.Pages.prototype = {
     this.viewer.models.document.computeOffsets();
     this.viewer.pageSet.simpleReflowPages();
     if (pageIndex < this.viewer.models.document.currentIndex()) {
-      var diff = (height - h) * this.zoomLevel();
+      var diff = height * this.zoomFactor() - h;
       this.viewer.elements.window[0].scrollTop += diff;
     }
   },
