@@ -63,7 +63,7 @@ https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json
   }
 
 == Image Sizes and URLs
-Images should be created to match the three sizes needed by the viewer:
+Images should be created to match the three sizes required by the viewer:
 
 * *large*     : 1000px wide
 * *normal*    : 700px wide
