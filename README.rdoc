@@ -21,7 +21,7 @@ Take a peek at the viewer.html template to see how to load in a Document. All yo
 
   DV.load(JSON_FILE, { container: element_selector });
 
-*JSON_FILE*: Either an inline json object, or the path to a remote json object - http://documents.nytimes.com/goldman-sachs-internal-emails.json 
+*JSON_FILE*: Either an inline json object, or the path to a remote json object - https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json 
 
 * *container*: The element to contain the Document Viewer - '#DV-container'
 
@@ -29,7 +29,7 @@ Take a peek at the viewer.html template to see how to load in a Document. All yo
 == Data Formats: Documents
 All data should be formatted as JSON. When provided a cross domain url, DV will attempt a JSONP request. 
 Examples of this in use can be found here:
-http://documents.nytimes.com/goldman-sachs-internal-emails.json
+https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json
 
   {
     title       : DOCUMENT_TITLE,
@@ -62,6 +62,16 @@ http://documents.nytimes.com/goldman-sachs-internal-emails.json
     }
   }
 
+== Image Sizes and URLs
+Images should be created to match the three sizes needed by the viewer:
+
+* *large*     : 1000px wide
+* *normal*    : 700px wide
+* *thumbnail* : 180px wide
+
+The document JSON data should have an image template in the resources.page.image section. The format should match this template:
+
+* http://s3.documentcloud.org/documents/19864/pages/goldman-sachs-internal-emails-p{page}-{size}.gif
 
 == Data Formats: Search
 All data should be formatted as JSON. When provided a cross domain url, the Document Viewer will attempt a JSONP request. 
