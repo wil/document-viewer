@@ -71,7 +71,7 @@ Images should be created to match the three sizes needed by the viewer:
 
 The document JSON data should have an image template in the resources.page.image section. The format should match this template:
 
-* http://s3.documentcloud.org/documents/19864/pages/goldman-sachs-internal-emails-p{page}-{size}.gif
+  http://s3.documentcloud.org/documents/19864/pages/goldman-sachs-internal-emails-p{page}-{size}.gif
 
 == Data Formats: Search
 All data should be formatted as JSON. When provided a cross domain url, the Document Viewer will attempt a JSONP request. 
