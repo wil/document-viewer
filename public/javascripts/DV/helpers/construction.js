@@ -167,7 +167,8 @@ _.extend(DV.Schema.helpers, {
     // Hide the text tab, if it's disabled.
     if (this.viewer.options.text === false) {
       this.viewer.$('.DV-textView').hide();
-    } else if (!this.viewer.options.width || this.viewer.options.width >= 540) {
+    } else if (!(this.viewer.options.search === false) &&
+        (!this.viewer.options.width || this.viewer.options.width >= 540)) {
       this.elements.viewer.addClass('DV-searchable');
       this.viewer.$('input.DV-searchInput', containerEl).placeholder({
         message: 'Search',
