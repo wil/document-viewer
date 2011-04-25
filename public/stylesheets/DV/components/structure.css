@@ -74,13 +74,15 @@
 }
 
 .DV-pageCollection{
-  cursor:  url(../../../images/DV/grab.cur), auto;
   cursor: -moz-grab;
+  cursor: -webkit-grab;
+  cursor: grab;
 }
 
 .DV-pageCollection.DV-dragging {
-  cursor:  url(../../../images/DV/grabbing.cur), auto;
   cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }
 
 .DV-loadingDocument {
