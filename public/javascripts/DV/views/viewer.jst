@@ -1,10 +1,10 @@
-<!--[if lte IE 8]><div class="DV-docViewer DV-clearfix DV-viewDocument DV-ie <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (!options.sidebar) { %>DV-hideSidebar<% } %>"><![endif]-->
-<!--[if (!IE)|(gte IE 9)]><!--><div class="DV-docViewer DV-clearfix DV-viewDocument <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (!options.sidebar) { %>DV-hideSidebar<% } %>"><!-- <![endif]-->
+<!--[if lte IE 8]><div class="DV-docViewer DV-clearfix DV-viewDocument DV-ie <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (!options.sidebar) { %>DV-hideSidebar<% } else { %>DV-hideFooter<% } %>"><![endif]-->
+<!--[if (!IE)|(gte IE 9)]><!--><div class="DV-docViewer DV-clearfix DV-viewDocument <% if (autoZoom) { %>DV-autoZoom<% } %> <% if (!options.sidebar) { %>DV-hideSidebar<% } else { %>DV-hideFooter<% } %>"><!-- <![endif]-->
   
   <div class="DV-docViewerWrapper">
   
     <%= header %>
-    <div class="DV-docViewer-Container <% if (options.sidebar) { %>DV-hide-footer<% } %>">
+    <div class="DV-docViewer-Container">
     
       <div class="DV-searchBarWrapper">
         <div class="DV-searchBar">

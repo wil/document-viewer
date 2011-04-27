@@ -96,6 +96,10 @@
   .DV-hideSidebar .DV-searchBar {
     right: 15px;
   }
+  
+.DV-hideFooter .DV-footer {
+  display: none;
+}
 
 .DV-searchBar ::selection {
   background: transparent;

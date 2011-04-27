@@ -19,8 +19,11 @@
 .DV-docViewer-Container.DV-hide-header{
   top: 0;
 }
-.DV-docViewer-Container.DV-hide-footer{
+.DV-hideFooter .DV-docViewer-Container {
   bottom: 0;
+}
+.DV-hideFooter .DV-footer {
+  display: none;
 }
 
 .DV-bar{

@@ -159,26 +159,37 @@ _.extend(DV.Schema.helpers, {
       }
     }
 
-    // Hide annotations, if there are none:
+    // Hide and show navigation flags:
     var showAnnotations = _.any(this.models.annotations.byId);
+    var showPages       = this.models.document.totalPages > 1;
+    var showSearch      = (this.viewer.options.search !== false) &&
+      (!this.viewer.options.width || this.viewer.options.width >= 540);
+    var noFooter = (!showAnnotations && !showPages && !showSearch && !this.viewer.options.sidebar);
+
+
+    // Hide annotations, if there are none:
     var $annotationsView = this.viewer.$('.DV-annotationView');
     $annotationsView[showAnnotations ? 'show' : 'hide']();
 
     // Hide the text tab, if it's disabled.
-    if (this.viewer.options.text === false) {
-      this.viewer.$('.DV-textView').hide();
-    } else if (!(this.viewer.options.search === false) &&
-        (!this.viewer.options.width || this.viewer.options.width >= 540)) {
+    if (showSearch) {
       this.elements.viewer.addClass('DV-searchable');
       this.viewer.$('input.DV-searchInput', containerEl).placeholder({
         message: 'Search',
         clearClassName: 'DV-searchInput-show-search-cancel'
       });
+    } else {
+      this.viewer.$('.DV-textView').hide();
     }
 
     // Hide the Pages tab if there is only 1 page in the document.
-    if (this.models.document.totalPages <= 1) {
+    if (!showPages) {
       this.viewer.$('.DV-thumbnailsView').hide();
+    }
+
+    // Hide the Documents tab if it's the only tab left.
+    if (!showAnnotations && !showPages && !showSearch) {
+      this.viewer.$('.DV-views').hide();
     }
 
     this.viewer.api.roundTabCorners();
@@ -187,17 +198,25 @@ _.extend(DV.Schema.helpers, {
     var showChapters = this.models.chapters.chapters.length > 0;
 
     // Remove and re-render the nav controls.
+    // Don't show the nav controls if there's no sidebar, and it's a one-page doc.
     this.viewer.$('.DV-navControls').remove();
-    var navControls = JST.navControls({
-      totalPages: this.viewer.schema.data.totalPages,
-      totalAnnotations: this.viewer.schema.data.totalAnnotations
-    });
-    this.viewer.$('.DV-navControlsContainer').html(navControls);
+    if (showPages || this.viewer.options.sidebar) {
+      var navControls = JST.navControls({
+        totalPages: this.viewer.schema.data.totalPages,
+        totalAnnotations: this.viewer.schema.data.totalAnnotations
+      });
+      this.viewer.$('.DV-navControlsContainer').html(navControls);
+    }
 
     this.viewer.$('.DV-fullscreenControl').remove();
     if (this.viewer.schema.document.canonicalURL) {
       var fullscreenControl = JST.fullscreenControl({});
-      this.viewer.$('.DV-fullscreenContainer').html(fullscreenControl);
+      if (noFooter) {
+        this.viewer.$('.DV-collapsibleControls').prepend(fullscreenControl);
+        this.elements.viewer.addClass('DV-hideFooter');
+      } else {
+        this.viewer.$('.DV-fullscreenContainer').html(fullscreenControl);
+      }
     }
 
     if (this.viewer.options.sidebar) {
@@ -206,7 +225,7 @@ _.extend(DV.Schema.helpers, {
 
     // Check if the zoom is showing, and if not, shorten the width of search
     _.defer(_.bind(function() {
-      if (this.elements.viewer.width() <= 700) {
+      if ((this.elements.viewer.width() <= 700) && (showAnnotations || showPages || showSearch)) {
         this.viewer.$('.DV-controls').addClass('DV-narrowControls');
       }
     }, this));

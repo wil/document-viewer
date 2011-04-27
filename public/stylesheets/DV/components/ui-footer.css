@@ -13,7 +13,7 @@
   .DV-footer.DV-hide {
     display: none;
   }
-  .DV-footer .DV-trigger, .DV-footer .DV-fullscreen {
+  .DV-footer .DV-trigger, .DV-fullscreen {
     border: 1px solid #888; border-top-color: #999; border-bottom-color: #666;
     -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;
   }
@@ -38,6 +38,9 @@
     width: 22px; height: 22px;
     background: url(../../../images/DV/embed/fullscreen.png) no-repeat 0 0;
   }
+    .DV-header .DV-fullscreen {
+      left: 6px; top: 6px;
+    }
     .DV-fullscreen:hover {
       background-position: -22px 0;
     }
