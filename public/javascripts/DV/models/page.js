@@ -43,7 +43,7 @@ DV.model.Pages.prototype = {
     if (this.viewer.schema.document.resources.page.zeropad) pageNumber = this.zeroPad(pageNumber, 5);
     url = url.replace(/\{size\}/, size);
     url = url.replace(/\{page\}/, pageNumber);
-    return url;
+    return url + '?' + this.viewer.schema.document.updated_timestamp;
   },
 
   zeroPad : function(num, count) {

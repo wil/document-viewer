@@ -102,9 +102,8 @@ DV.DocumentViewer.prototype.recordHit = function(hitUrl) {
   if (url.match(/^file:/)) return false;
   url = url.replace(/[\/]+$/, '');
   var id   = parseInt(this.api.getId(), 10);
-  var key  = encodeURIComponent(id + ':' + url);
-  var type = 'document';
-  DV.jQuery(document.body).append('<img alt="" width="1" height="1" src="' + hitUrl + '?type='+type+'&key=' + key + '" />');
+  var key  = encodeURIComponent('document:' + id + ':' + url);
+  DV.jQuery(document.body).append('<img alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />');
 };
 
 // jQuery object, scoped to this viewer's container.
