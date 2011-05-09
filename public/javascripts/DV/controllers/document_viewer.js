@@ -98,11 +98,11 @@ DV.DocumentViewer.prototype.notifyChangedState = function() {
 // Record a hit on this document viewer.
 DV.DocumentViewer.prototype.recordHit = function(hitUrl) {
   var loc = window.location;
-  var url = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
+  var url = loc.protocol + '//' + loc.host + loc.pathname;
   if (url.match(/^file:/)) return false;
   url = url.replace(/[\/]+$/, '');
-  var id  = parseInt(this.api.getId(), 10);
-  var key = encodeURIComponent(id + ':' + url);
+  var id   = parseInt(this.api.getId(), 10);
+  var key  = encodeURIComponent('document:' + id + ':' + url);
   DV.jQuery(document.body).append('<img alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />');
 };
 
