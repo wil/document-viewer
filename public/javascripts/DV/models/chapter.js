@@ -19,7 +19,7 @@ DV.model.Chapters.prototype = {
         sectionIndex += 1;
         section = nextSection;
       }
-      if (section) chapters[i] = section.id;
+      if (section && !(section.page > i + 1)) chapters[i] = section.id;
     }
   },
 
