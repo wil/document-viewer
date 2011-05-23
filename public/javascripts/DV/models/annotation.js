@@ -16,7 +16,6 @@ DV.model.Annotations.prototype = {
   // Render an annotation model to HTML, calculating all of the dimenstions
   // and offsets, and running a template function.
   render: function(annotation){
-    console.log(annotation.x1, annotation.x2);
     var documentModel             = this.viewer.models.document;
     var pageModel                 = this.viewer.models.pages;
     var zoom                      = pageModel.zoomFactor();
