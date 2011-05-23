@@ -1,8 +1,8 @@
 
  .DV-annotations{
     position:relative;
-    left:0;
-    top:0;
+    left:1px;
+    top:1px;
     z-index:10001;
   }
 
@@ -14,8 +14,6 @@
     -webkit-border-radius: 3px;
     -moz-border-radius:  3px;
     border-radius:  3px;
-    margin-left:10px;
-    margin-right:10px;
   }
   .DV-annotationRegion {
     background: rgb(255, 227, 37);
@@ -29,6 +27,8 @@
     border-radius:3px;
 
     position:relative;
+    left: -2px;
+    top: -1px;
 
     z-index: 5;
 
@@ -127,7 +127,7 @@
     -webkit-border-radius: 3px;
     -moz-border-radius:  3px;
     border-radius:  3px;
-    margin: -37px 10px 0 11px;
+    margin: -37px -14px 0 -14px;
     z-index:10003;
 
     -webkit-box-shadow: 1px 1px 3px rgb(0,0,0);
@@ -233,11 +233,10 @@
 
   .DV-annotationExcerptImageTop{
     position:absolute;
-    top:2px;
-    left:0;
+    top:0;
     z-index:15000;
     overflow:hidden;
-    margin-left:-10px;
+/*    margin-left:-10px;*/
 /*    -moz-box-shadow: inset 0 0 5px rgb(0,0,0);
     -moz-box-shadow: inset 0 0 5px rgba(0,0,0,.3);
 */
@@ -253,15 +252,15 @@
 
   }
   .DV-annotationExcerptImageTop img{
-    margin-left:-16px;
+/*    margin-left:-16px;*/
   }
   .DV-annotationExcerptImage img{
-    left:-25px;
+/*    left:-25px;*/
+      left: -1px;
   }
 
   .DV-annotationExcerptImage{
     left:0;
-    top:-1px;
   }
   .DV-annotationExcerptImage img,
   .DV-annotationExcerptImageTop img{
@@ -318,7 +317,7 @@
     background: url(../../../images/DV/embed/tabs.png) no-repeat 0 0;
     height:26px;
     position:absolute;
-    left: -44px;
+    left: -35px;
     width: 50px;
   }
     .DV-accessPrivate .DV-annotationTab {
@@ -327,6 +326,7 @@
   .DV-activeAnnotation .DV-annotationTab{
     background-position: 0 -52px;
     margin-top: 37px;
+    left: -30px;
   }
   .DV-activeAnnotation.DV-accessPrivate .DV-annotationTab {
     background-position: 0 -78px;
@@ -429,6 +429,8 @@
   left:0;
   top:0;
   cursor: default !important;
+  margin-left: 10px;
+  margin-right: 10px;
   margin-bottom:20px;
 
   background: rgb(255, 227, 37);

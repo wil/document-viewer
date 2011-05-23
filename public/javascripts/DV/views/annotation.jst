@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <div class="DV-annotationRegion" style="margin-left:<%= excerptMarginLeft %>px; height:<%= excerptHeight %>px; width:<%= excerptWidth %>px;">
+  <div class="DV-annotationRegion" style="margin-left:<%= excerptMarginLeft - 4 %>px; height:<%= excerptHeight %>px; width:<%= excerptWidth - 1 %>px;">
     <div class="<%= accessClass %>">
       <div class="DV-annotationEdge DV-annotationEdgeTop"></div>
       <div class="DV-annotationEdge DV-annotationEdgeRight"></div>
@@ -44,13 +44,13 @@
 
 
     <div class="DV-annotationExcerpt" style="height:<%= excerptHeight %>px;">
-      <div class="DV-annotationExcerptImageTop" style="height:<%= excerptHeight %>px; width:<%= excerptWidth %>px;left:<%= excerptMarginLeft %>px;">
+      <div class="DV-annotationExcerptImageTop" style="height:<%= excerptHeight %>px; width:<%= excerptWidth %>px;left:<%= excerptMarginLeft - 1 %>px;">
 
-        <img src="<%= image %>" style="left:-<%= excerptMarginLeft %>px; top:-<%= imageTop %>px;" width="<%= imageWidth %>" />
+        <img src="<%= image %>" style="left:<%= -(excerptMarginLeft + 1) %>px; top:-<%= imageTop %>px;" width="<%= imageWidth %>" />
 
       </div>
       <div class="DV-annotationExcerptImage" style="height:<%= excerptHeight %>px;">
-        <img src="<%= image %>" style="top:-<%= imageTop - 2 %>px;" width="<%= imageWidth %>" />
+        <img src="<%= image %>" style="top:-<%= imageTop %>px;" width="<%= imageWidth %>" />
       </div>
     </div>
 

@@ -16,6 +16,7 @@ DV.model.Annotations.prototype = {
   // Render an annotation model to HTML, calculating all of the dimenstions
   // and offsets, and running a template function.
   render: function(annotation){
+    console.log(annotation.x1, annotation.x2);
     var documentModel             = this.viewer.models.document;
     var pageModel                 = this.viewer.models.pages;
     var zoom                      = pageModel.zoomFactor();
@@ -41,12 +42,12 @@ DV.model.Annotations.prototype = {
     adata.author_organization     = adata.author_organization || "";
     adata.bgWidth                 = adata.width;
     adata.bWidth                  = adata.width - 66;
-    adata.excerptWidth            = (x2 - x1) - 9;
-    adata.excerptMarginLeft       = x1 - 18;
+    adata.excerptWidth            = (x2 - x1) - 8;
+    adata.excerptMarginLeft       = x1 - 3;
     adata.excerptHeight           = y2 - y1;
     adata.index                   = adata.page - 1;
     adata.image                   = pageModel.imageURL(adata.index);
-    adata.imageTop                = y1 + 2;
+    adata.imageTop                = y1 + 1;
     adata.tabTop                  = (y1 < 35 ? 35 - y1 : 0) + 8;
     adata.imageWidth              = pageModel.width;
     adata.imageHeight             = Math.round(pageModel.height * zoom);
