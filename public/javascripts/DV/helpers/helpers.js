@@ -146,6 +146,15 @@ DV.Schema.helpers = {
 
     },
 
+    // We're entering the Notes tab -- make sure that there are no data-src
+    // attributes remaining.
+    ensureAnnotationImages : function() {
+      this.viewer.$(".DV-img[data-src]").each(function() {
+        var el = DV.jQuery(this);
+        el.attr('src', el.attr('data-src'));
+      });
+    },
+
     startCheckTimer: function(){
       var _t = this.viewer;
       var _check = function(){

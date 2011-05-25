@@ -91,7 +91,9 @@ DV.model.Annotations.prototype = {
   // Renders each annotation for the "Annotation List" tab, in order.
   renderAnnotationsByIndex: function(){
     var rendered  = _.map(this.bySortOrder, function(anno){ return anno.html; });
-    var html      = rendered.join('').replace(/id="DV-annotation-(\d+)"/g, function(match, id) {
+    var html      = rendered.join('')
+                    .replace(/src="/g, 'data-src="')
+                    .replace(/id="DV-annotation-(\d+)"/g, function(match, id) {
       return 'id="DV-listAnnotation-' + id + '" rel="aid-' + id + '"';
     });
 

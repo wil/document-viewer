@@ -38,6 +38,7 @@ DV.Schema.states = {
 
   ViewAnnotation: function(){
     this.helpers.reset();
+    this.helpers.ensureAnnotationImages();
     this.activeAnnotationId = null;
     this.acceptInput.deny();
     // Nudge IE to force the annotations to repaint.

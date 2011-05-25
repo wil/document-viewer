@@ -111,8 +111,15 @@ DV.Page.prototype.draw = function(argHash) {
           this.hasLayerRegional = true;
         }
 
+        var html = this.viewer.$('.DV-allAnnotations .DV-annotation[rel=aid-'+anno.id+']').clone();
+        html.attr('id','DV-annotation-' + anno.id);
+        html.find('.DV-img').each(function() {
+          var el = DV.jQuery(this);
+          el.attr('src', el.attr('data-src'));
+        });
+
         var newAnno = new DV.Annotation({
-          renderedHTML: this.viewer.$('.DV-allAnnotations .DV-annotation[rel=aid-'+anno.id+']').clone().attr('id','DV-annotation-'+anno.id),
+          renderedHTML: html,
           id:           anno.id,
           page:         this,
           pageEl:       this.pageEl,
