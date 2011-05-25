@@ -45,10 +45,12 @@
 
     <div class="DV-annotationExcerpt" style="height:<%= excerptHeight %>px;">
       <div class="DV-annotationExcerptImageTop" style="height:<%= excerptHeight %>px; width:<%= excerptWidth %>px;left:<%= excerptMarginLeft - 1 %>px;">
-        <div class="DV-img" style="background:url(<%= image %>); left:<%= -(excerptMarginLeft + 1) %>px; top:-<%= imageTop %>px; width: <%= imageWidth %>px; height: <%= imageHeight %>px;"></div>
+
+        <img src="<%= image %>" style="left:<%= -(excerptMarginLeft + 1) %>px; top:-<%= imageTop %>px;" width="<%= imageWidth %>" />
+
       </div>
       <div class="DV-annotationExcerptImage" style="height:<%= excerptHeight %>px;">
-        <div class="DV-img" style="background:url(<%= image %>); top:-<%= imageTop %>px; width: <%= imageWidth %>px; height: <%= imageHeight %>px;"></div>
+        <img src="<%= image %>" style="top:-<%= imageTop %>px;" width="<%= imageWidth %>" />
       </div>
     </div>
 
