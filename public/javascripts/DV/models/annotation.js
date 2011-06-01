@@ -101,6 +101,10 @@ DV.model.Annotations.prototype = {
 
     this.renderAnnotationsByIndex.rendered  = true;
     this.renderAnnotationsByIndex.zoomLevel = this.zoomLevel;
+
+    // TODO: This is hacky, but seems to be necessary. When fixing, be sure to
+    // test with both autozoom and page notes.
+    this.updateAnnotationOffsets();
     _.defer(_.bind(this.updateAnnotationOffsets, this));
   },
 
