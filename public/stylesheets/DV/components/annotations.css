@@ -365,6 +365,12 @@
   background-color:#fff;
   font-family:Arial,Helvetica,sans-serif;
 }
+  .DV-annotation .DV-pagination {
+    display: none;
+  }
+  .DV-activeAnnotation .DV-pagination {
+    display: block;
+  }
 
 .DV-pagination .DV-trigger
 {

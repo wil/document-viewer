@@ -101,7 +101,7 @@ DV.model.Annotations.prototype = {
 
     this.renderAnnotationsByIndex.rendered  = true;
     this.renderAnnotationsByIndex.zoomLevel = this.zoomLevel;
-    this.updateAnnotationOffsets();
+    _.defer(_.bind(this.updateAnnotationOffsets, this));
   },
 
   // Refresh the annotation's title and content from the model, in both
