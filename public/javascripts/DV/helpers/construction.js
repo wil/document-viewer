@@ -163,7 +163,8 @@ _.extend(DV.Schema.helpers, {
     var showAnnotations = _.any(this.models.annotations.byId);
     var showPages       = this.models.document.totalPages > 1;
     var showSearch      = (this.viewer.options.search !== false) &&
-      (!this.viewer.options.width || this.viewer.options.width >= 540);
+                          (this.viewer.options.text !== false) &&
+                          (!this.viewer.options.width || this.viewer.options.width >= 540);
     var noFooter = (!showAnnotations && !showPages && !showSearch && !this.viewer.options.sidebar);
 
 
