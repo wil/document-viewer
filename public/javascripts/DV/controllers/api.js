@@ -13,8 +13,7 @@ DV.Api.prototype = {
   
   // Set the current page of the document.
   setCurrentPage : function(page) {
-    this.viewer.models.document.setPageIndex(page + 1);
-    this.viewer.pageSet.redraw(true);
+    this.viewer.helpers.jump(page - 1);
   },
   
   // Register a callback for when the page is changed.
