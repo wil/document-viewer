@@ -211,6 +211,10 @@ DV.Api.prototype = {
   onChangeState : function(callback) {
     this.viewer.onStateChangeCallbacks.push(callback);
   },
+  
+  getState : function() {
+    return this.viewer.state;
+  },
 
   resetRemovedPages : function() {
     this.viewer.models.document.resetRemovedPages();
