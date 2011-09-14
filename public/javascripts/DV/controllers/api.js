@@ -256,6 +256,7 @@ DV.Api.prototype = {
   
   // Clobber DV's existing history hooks
   clearHashListeners : function() {
+    this.viewer.history.defaultCallback = null;
     this.viewer.history.handlers = [];
   },
 
