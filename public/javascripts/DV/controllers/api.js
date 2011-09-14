@@ -248,6 +248,16 @@ DV.Api.prototype = {
     tabs.first().addClass('DV-first');
     tabs.last().addClass('DV-last');
   },
+  
+  // Register hooks into DV's hash history
+  registerHashListener : function(matcher, callback) {
+    this.viewer.history.register(matcher, callback);
+  },
+  
+  // Clobber DV's existing history hooks
+  clearHashListeners : function() {
+    this.viewer.history.handlers = [];
+  },
 
   // ---------------------- Enter/Leave Edit Modes -----------------------------
 
