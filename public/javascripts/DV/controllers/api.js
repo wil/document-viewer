@@ -184,6 +184,18 @@ DV.Api.prototype = {
       this.viewer.pageSet.reflowPages();
     }
   },
+  
+  getAnnotationsBySortOrder : function() {
+    return this.viewer.models.bySortOrder;
+  },
+  
+  getAnnotationsByPage : function(page) {
+    return this.viewer.models.annotations.byPage[page];
+  },
+  
+  getAnnotationById : function(id) {
+    return this.viewer.models.annotations.ById[id];
+  },
 
   // Add a new annotation to the document, prefilled to any extent.
   addAnnotation : function(anno) {
