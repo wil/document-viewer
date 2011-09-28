@@ -61,6 +61,11 @@
               <% if (pdf_url) { %>
                 <div class="DV-pdfLink"><%= pdf_url %></div>
               <% } %>
+              <% if (print_notes_url) { %>
+                <div class="DV-printNotesLink">
+                  <a target="_blank" href="<%= print_notes_url %>">Print Notes &raquo;</a>
+                </div>
+              <% } %>
               <div class="DV-storyLink" style="<%= story_url ? '' : 'display:none' %>">
                 <a target="_blank" href="<%= story_url %>">Related Article &raquo;</a>
               </div>

@@ -20,8 +20,11 @@ _.extend(DV.Schema.helpers, {
     });
     var footerHTML = JST.footer({options : this.viewer.options});
 
-    var pdfURL   = doc.resources.pdf;
-    pdfURL       = pdfURL && this.viewer.options.pdf !== false ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF)</a>' : '';
+    var pdfURL = doc.resources.pdf;
+    pdfURL = pdfURL && this.viewer.options.pdf !== false ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF) &raquo;</a>' : '';
+
+    var showAnnotations = _.any(this.models.annotations.byId);
+    var printNotesURL = (showAnnotations) && doc.resources.print_annotations;
 
     var viewerOptions = {
       options : this.viewer.options,
@@ -30,6 +33,7 @@ _.extend(DV.Schema.helpers, {
       footer: footerHTML,
       pdf_url: pdfURL,
       story_url: storyURL,
+      print_notes_url: printNotesURL,
       descriptionContainer: JST.descriptionContainer({ description: description}),
       autoZoom: this.viewer.options.zoom == 'auto'
     };

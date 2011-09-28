@@ -25,13 +25,15 @@
   }
 
 .DV-storyLink,
-.DV-pdfLink {
+.DV-pdfLink,
+.DV-printNotesLink {
   padding-left: 0;
   padding-bottom: 4px;
 }
 
 .DV-storyLink a,
 .DV-pdfLink a,
+.DV-printNotesLink a,
 .DV-contributor {
   font: normal 11px Arial, sans-serif;
   text-decoration: none;
@@ -43,7 +45,8 @@
 }
 
 .DV-storyLink a:hover,
-.DV-pdfLink a:hover {
+.DV-pdfLink a:hover,
+.DV-printNotesLink a:hover {
   text-decoration:underline;
 }
 
