@@ -97,10 +97,13 @@ _.extend(DV.Schema.helpers, {
     };
     /* ---------------------------------------------------- end the nav helper methods */
 
-    for(var i = 0,len = this.models.document.totalPages; i < len;i++){
-      if(this.viewer.schema.data.annotationsByPage[i]){
-        nav[i]   = createNavAnnotations(i);
-        notes[i] = nav[i];
+    if ( _.isUndefined(this.viewer.options.showAnnotations) || 
+        (!_.isUndefined(this.viewer.options.showAnnotations) && this.viewer.options.showAnnotations !== false)) {    
+      for(var i = 0,len = this.models.document.totalPages; i < len;i++){
+        if(this.viewer.schema.data.annotationsByPage[i]){
+          nav[i]   = createNavAnnotations(i);
+          notes[i] = nav[i];
+        }
       }
     }
 
@@ -145,7 +148,7 @@ _.extend(DV.Schema.helpers, {
     chaptersContainer = null;
   },
 
-  // Hide or show all of the comoponents on the page that may or may not be
+  // Hide or show all of the components on the page that may or may not be
   // present, depending on what the document provides.
   renderComponents : function() {
     // Hide the overflow of the body, unless we're positioned.
@@ -160,7 +163,9 @@ _.extend(DV.Schema.helpers, {
     }
 
     // Hide and show navigation flags:
-    var showAnnotations = _.any(this.models.annotations.byId);
+    var showAnnotations = _.any(this.models.annotations.byId) && 
+                          (!_.isUndefined(this.viewer.options.showAnnotations) 
+                          && this.viewer.options.showAnnotations !== false);
     var showPages       = this.models.document.totalPages > 1;
     var showSearch      = (this.viewer.options.search !== false) &&
                           (this.viewer.options.text !== false) &&
