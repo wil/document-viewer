@@ -1,5 +1,11 @@
  // Renders the navigation sidebar for chapters and annotations.
 _.extend(DV.Schema.helpers, {
+  showAnnotations : function() {
+    if ((!_.isUndefined(this.viewer.options.showAnnotations) 
+         && this.viewer.options.showAnnotations === false)) return false;
+    return _.any(this.models.annotations.byId);
+  },
+  
   renderViewer: function(){
     var doc         = this.viewer.schema.document;
     var pagesHTML   = this.constructPages();
@@ -97,8 +103,7 @@ _.extend(DV.Schema.helpers, {
     };
     /* ---------------------------------------------------- end the nav helper methods */
 
-    if ( _.isUndefined(this.viewer.options.showAnnotations) || 
-        (!_.isUndefined(this.viewer.options.showAnnotations) && this.viewer.options.showAnnotations !== false)) {    
+    if (this.showAnnotations()) { 
       for(var i = 0,len = this.models.document.totalPages; i < len;i++){
         if(this.viewer.schema.data.annotationsByPage[i]){
           nav[i]   = createNavAnnotations(i);
@@ -163,19 +168,16 @@ _.extend(DV.Schema.helpers, {
     }
 
     // Hide and show navigation flags:
-    var showAnnotations = _.any(this.models.annotations.byId) && 
-                          (!_.isUndefined(this.viewer.options.showAnnotations) 
-                          && this.viewer.options.showAnnotations !== false);
     var showPages       = this.models.document.totalPages > 1;
     var showSearch      = (this.viewer.options.search !== false) &&
                           (this.viewer.options.text !== false) &&
                           (!this.viewer.options.width || this.viewer.options.width >= 540);
-    var noFooter = (!showAnnotations && !showPages && !showSearch && !this.viewer.options.sidebar);
+    var noFooter = (!this.showAnnotations() && !showPages && !showSearch && !this.viewer.options.sidebar);
 
 
     // Hide annotations, if there are none:
     var $annotationsView = this.viewer.$('.DV-annotationView');
-    $annotationsView[showAnnotations ? 'show' : 'hide']();
+    $annotationsView[this.showAnnotations() ? 'show' : 'hide']();
 
     // Hide the text tab, if it's disabled.
     if (showSearch) {
@@ -194,7 +196,7 @@ _.extend(DV.Schema.helpers, {
     }
 
     // Hide the Documents tab if it's the only tab left.
-    if (!showAnnotations && !showPages && !showSearch) {
+    if (!this.showAnnotations() && !showPages && !showSearch) {
       this.viewer.$('.DV-views').hide();
     }
 
@@ -231,7 +233,7 @@ _.extend(DV.Schema.helpers, {
 
     // Check if the zoom is showing, and if not, shorten the width of search
     _.defer(_.bind(function() {
-      if ((this.elements.viewer.width() <= 700) && (showAnnotations || showPages || showSearch)) {
+      if ((this.elements.viewer.width() <= 700) && (this.showAnnotations() || showPages || showSearch)) {
         this.viewer.$('.DV-controls').addClass('DV-narrowControls');
       }
     }, this));
