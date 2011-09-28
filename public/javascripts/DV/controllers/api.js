@@ -186,15 +186,15 @@ DV.Api.prototype = {
   },
   
   getAnnotationsBySortOrder : function() {
-    return this.viewer.models.bySortOrder;
+    return this.viewer.models.annotations.sortAnnotations();
   },
   
   getAnnotationsByPage : function(page) {
-    return this.viewer.models.annotations.byPage[page];
+    return this.viewer.models.annotations.getAnnotations(page - 1);
   },
   
-  getAnnotationById : function(id) {
-    return this.viewer.models.annotations.ById[id];
+  getAnnotation : function(aid) {
+    return this.viewer.models.annotations.getAnnotation(aid);
   },
 
   // Add a new annotation to the document, prefilled to any extent.

@@ -1,8 +1,7 @@
  // Renders the navigation sidebar for chapters and annotations.
 _.extend(DV.Schema.helpers, {
   showAnnotations : function() {
-    if ((!_.isUndefined(this.viewer.options.showAnnotations) 
-         && this.viewer.options.showAnnotations === false)) return false;
+    if (this.viewer.options.showAnnotations === false) return false;
     return _.any(this.models.annotations.byId);
   },
   
