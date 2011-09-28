@@ -186,11 +186,12 @@ DV.Api.prototype = {
   },
   
   getAnnotationsBySortOrder : function() {
-    return this.viewer.models.annotations.sortAnnotations();
+    if (this.sortedAnnotations) return this.sortedAnnotations;
+    return this.sortedAnnotations = this.viewer.models.annotations.sortAnnotations();
   },
   
-  getAnnotationsByPage : function(page) {
-    return this.viewer.models.annotations.getAnnotations(page - 1);
+  getAnnotationsByPageIndex : function(idx) {
+    return this.viewer.models.annotations.getAnnotations(idx);
   },
   
   getAnnotation : function(aid) {
