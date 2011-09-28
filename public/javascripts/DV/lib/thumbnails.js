@@ -23,13 +23,7 @@ DV.Thumbnails.prototype.render = function() {
   this.el = this.viewer.$('.DV-thumbnails');
   this.getCurrentIndex();
   this.getZoom();
-  if (this.pageCount <= 100 || this.currentIndex >= 100) {
-    this.buildThumbnails(1, this.pageCount);
-  } else {
-    this.buildThumbnails(1, 100);
-    // NB: This 100 millisecond delay is questionable.
-    _.delay(_.bind(this.buildThumbnails, this, 101, this.pageCount), 100);
-  }
+  this.buildThumbnails(1, this.pageCount);
   this.setZoom();
   this.viewer.elements.window.unbind('scroll.thumbnails').bind('scroll.thumbnails', this.lazyloadThumbnails);
   var resizeEvent = 'resize.thumbnails-' + this.resizeId;
@@ -56,7 +50,7 @@ DV.Thumbnails.prototype.getCurrentIndex = function() {
 DV.Thumbnails.prototype.highlightCurrentPage = function() {
   this.currentIndex = this.viewer.models.document.currentIndex();
   this.viewer.$('.DV-thumbnail.DV-selected').removeClass('DV-selected');
-  
+
   var currentThumbnail = this.viewer.$('.DV-thumbnail:eq('+this.currentIndex+')');
   if (currentThumbnail.length) {
     currentThumbnail.addClass('DV-selected');
