@@ -200,7 +200,7 @@ _.extend(DV.Schema.helpers, {
     }
 
     // Hide the Documents tab if it's the only tab left.
-    if (!this.showAnnotations() && !showPages && !showSearch) {
+    if (!showAnnotations && !showPages && !showSearch) {
       this.viewer.$('.DV-views').hide();
     }
 
