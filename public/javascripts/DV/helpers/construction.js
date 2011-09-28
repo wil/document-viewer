@@ -22,7 +22,7 @@ _.extend(DV.Schema.helpers, {
     var pdfURL = doc.resources.pdf;
     pdfURL = pdfURL && this.viewer.options.pdf !== false ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF) &raquo;</a>' : '';
 
-    var showAnnotations = _.any(this.models.annotations.byId);
+    var showAnnotations = this.showAnnotations();
     var printNotesURL = (showAnnotations) && doc.resources.print_annotations;
 
     var viewerOptions = {
@@ -171,16 +171,17 @@ _.extend(DV.Schema.helpers, {
     }
 
     // Hide and show navigation flags:
+    var showAnnotations = this.showAnnotations();
     var showPages       = this.models.document.totalPages > 1;
     var showSearch      = (this.viewer.options.search !== false) &&
                           (this.viewer.options.text !== false) &&
                           (!this.viewer.options.width || this.viewer.options.width >= 540);
-    var noFooter = (!this.showAnnotations() && !showPages && !showSearch && !this.viewer.options.sidebar);
+    var noFooter = (!showAnnotations && !showPages && !showSearch && !this.viewer.options.sidebar);
 
 
     // Hide annotations, if there are none:
     var $annotationsView = this.viewer.$('.DV-annotationView');
-    $annotationsView[this.showAnnotations() ? 'show' : 'hide']();
+    $annotationsView[showAnnotations ? 'show' : 'hide']();
 
     // Hide the text tab, if it's disabled.
     if (showSearch) {
@@ -236,7 +237,7 @@ _.extend(DV.Schema.helpers, {
 
     // Check if the zoom is showing, and if not, shorten the width of search
     _.defer(_.bind(function() {
-      if ((this.elements.viewer.width() <= 700) && (this.showAnnotations() || showPages || showSearch)) {
+      if ((this.elements.viewer.width() <= 700) && (showAnnotations || showPages || showSearch)) {
         this.viewer.$('.DV-controls').addClass('DV-narrowControls');
       }
     }, this));
