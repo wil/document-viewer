@@ -298,7 +298,19 @@ DV.Schema.helpers = {
 
     openFullScreen : function() {
       var doc = this.viewer.schema.document;
-      window.open(doc.canonicalURL, "documentviewer", "toolbar=no,resizable=yes,scrollbars=no,status=no");
+      var url = doc.canonicalURL.replace(/#\S+$/,"");
+      if (this.viewer.state === 'ViewAnnotations') {
+        url += '#annotation/a' + Object.keys(this.models.annotations.byId[0]);
+      } else if (this.viewer.state === 'ViewDocument') {
+        url += '#document/p' + this.models.document.currentPage();
+      } else if (this.viewer.state === 'ViewSearch') {
+        url += '#search/p' + this.models.document.currentPage() + '/' + encodeURIComponent(this.elements.searchInput.val());
+      } else if (this.viewer.state === 'ViewText') {
+        url += '#text/p' + this.models.document.currentPage();
+      } else if (this.viewer.state === 'ViewThumbnails') { 
+        url += '#pages/p' + this.models.document.currentPage(); // need to set up a route to catch this.
+      } 
+      window.open(url, "documentviewer", "toolbar=no,resizable=yes,scrollbars=no,status=no");
     },
 
     // Determine the correct DOM page ordering for a given page index.
