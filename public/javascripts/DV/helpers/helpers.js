@@ -299,8 +299,8 @@ DV.Schema.helpers = {
     openFullScreen : function() {
       var doc = this.viewer.schema.document;
       var url = doc.canonicalURL.replace(/#\S+$/,"");
-      var currentPage = this.models.document.currentPage()
-      
+      var currentPage = this.models.document.currentPage();
+
       // construct url fragment based on current viewer state
       switch (this.viewer.state) {
         case 'ViewAnnotation':
