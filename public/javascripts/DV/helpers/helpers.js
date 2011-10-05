@@ -299,16 +299,25 @@ DV.Schema.helpers = {
     openFullScreen : function() {
       var doc = this.viewer.schema.document;
       var url = doc.canonicalURL.replace(/#\S+$/,"");
-      if (this.viewer.state === 'ViewAnnotations') {
-        url += '#annotation/a' + Object.keys(this.models.annotations.byId[0]);
-      } else if (this.viewer.state === 'ViewDocument') {
-        url += '#document/p' + this.models.document.currentPage();
-      } else if (this.viewer.state === 'ViewSearch') {
-        url += '#search/p' + this.models.document.currentPage() + '/' + encodeURIComponent(this.elements.searchInput.val());
-      } else if (this.viewer.state === 'ViewText') {
-        url += '#text/p' + this.models.document.currentPage();
-      } else if (this.viewer.state === 'ViewThumbnails') { 
-        url += '#pages/p' + this.models.document.currentPage(); // need to set up a route to catch this.
+      var currentPage = this.models.document.currentPage()
+      
+      // construct url fragment based on current viewer state
+      switch (this.viewer.state) {
+        case 'ViewAnnotation':
+          url += '#annotation/a' + this.viewer.activeAnnotationId; // default to the top of the annotations page.
+          break;
+        case 'ViewDocument':
+          url += '#document/p' + currentPage;
+          break;
+        case 'ViewSearch':
+          url += '#search/p' + currentPage + '/' + encodeURIComponent(this.elements.searchInput.val());
+          break;
+        case 'ViewText':
+          url += '#text/p' + currentPage;
+          break;
+        case 'ViewThumbnails':
+          url += '#pages/p' + currentPage; // need to set up a route to catch this.
+          break;
       } 
       window.open(url, "documentviewer", "toolbar=no,resizable=yes,scrollbars=no,status=no");
     },
