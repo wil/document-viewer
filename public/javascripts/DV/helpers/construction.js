@@ -1,10 +1,11 @@
  // Renders the navigation sidebar for chapters and annotations.
 _.extend(DV.Schema.helpers, {
+
   showAnnotations : function() {
     if (this.viewer.options.showAnnotations === false) return false;
-    return _.any(this.models.annotations.byId);
+    return _.size(this.models.annotations.byId) > 0;
   },
-  
+
   renderViewer: function(){
     var doc         = this.viewer.schema.document;
     var pagesHTML   = this.constructPages();
@@ -106,7 +107,7 @@ _.extend(DV.Schema.helpers, {
     };
     /* ---------------------------------------------------- end the nav helper methods */
 
-    if (this.showAnnotations()) { 
+    if (this.showAnnotations()) {
       for(var i = 0,len = this.models.document.totalPages; i < len;i++){
         if(this.viewer.schema.data.annotationsByPage[i]){
           nav[i]   = createNavAnnotations(i);
