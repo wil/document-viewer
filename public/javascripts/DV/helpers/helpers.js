@@ -164,7 +164,7 @@ DV.Schema.helpers = {
     },
 
     stopCheckTimer: function(){
-      clearTimeout(this.viewer.checkTimer);
+      clearInterval(this.viewer.checkTimer);
     },
 
     blurWindow: function(){

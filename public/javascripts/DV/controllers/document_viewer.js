@@ -166,6 +166,18 @@ DV.load = function(documentRep, options) {
   return viewer;
 };
 
+// unload is a bit shonky.  A correct unload function should disable all of 
+// the event handlers on each viewer before deleting the viewer object.
+// Unfortunately references to these handlers are not retained w/in each
+// viewer.
+//
+// This is a somewhat satisfactory substitute.
+DV.unload = function(viewer) {
+  _.each(viewer.observers, function(obs){ viewer.helpers.removeObserver(obs); });
+  DV.jQuery(viewer.options.container).remove('div');
+  delete DV.viewers[viewer.schema.document.id];
+};
+
 // If the document viewer has been loaded dynamically, allow the external
 // script to specify the onLoad behavior.
 if (DV.onload) _.defer(DV.onload);
