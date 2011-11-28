@@ -1,10 +1,11 @@
 DV.DocumentViewer = function(options) {
-  this.options    = options;
-  this.window     = window;
-  this.$          = this.jQuery;
-  this.schema     = new DV.Schema();
-  this.api        = new DV.Api(this);
-  this.history    = new DV.History(this);
+  this.options        = options;
+  this.window         = window;
+  this.$              = this.jQuery;
+  this.schema         = new DV.Schema();
+  this.api            = new DV.Api(this);
+  this.history        = new DV.History(this);
+  this.handlerProxies = {};
 
   // Build the data models
   this.models     = this.schema.models;

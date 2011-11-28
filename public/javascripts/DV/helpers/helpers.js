@@ -129,16 +129,22 @@ DV.Schema.helpers = {
         }
       );
 
+      viewer.handlerProxies.focusWindow = DV.jQuery.proxy(this.focusWindow,this);
+      viewer.handlerProxies.focusOut    = DV.jQuery.proxy(this.focusOut,this);
+      viewer.handlerProxies.blurWindow  = DV.jQuery.proxy(this.blurWindow,this);
+      
       if(DV.jQuery.browser.msie == true){
-        this.elements.browserDocument.bind('focus',DV.jQuery.proxy(this.focusWindow,this));
-        this.elements.browserDocument.bind('focusout',DV.jQuery.proxy(this.focusOut,this));
+        this.elements.browserDocument.bind('focus',viewer.handlerProxies.focusWindow);
+        this.elements.browserDocument.bind('focusout',viewer.handlerProxies.focusOut);
       }else{
-        this.elements.browserWindow.bind('focus',DV.jQuery.proxy(this.focusWindow,this));
-        this.elements.browserWindow.bind('blur',DV.jQuery.proxy(this.blurWindow,this));
+        this.elements.browserWindow.bind('focus',viewer.handlerProxies.focusWindow);
+        this.elements.browserWindow.bind('blur',viewer.handlerProxies.blurWindow);
       }
 
+      viewer.handlerProxies.scroll = DV.jQuery.proxy(this.focusWindow, this);
+
       // When the document is scrolled, even in the background, resume polling.
-      this.elements.window.bind('scroll', DV.jQuery.proxy(this.focusWindow, this));
+      this.elements.window.bind('scroll', viewer.handlerProxies.scroll);
 
       this.elements.coverPages.live('mousedown', cleanUp);
 
