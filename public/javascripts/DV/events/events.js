@@ -49,8 +49,6 @@ DV.Schema.events = {
     var viewer = this.viewer;
     if(viewer.busy === false){
       viewer.busy = true;
-
-      if (viewer.loud != undefined && viewer.loud != null) {console.log('checking for ' + viewer.options.container + '!');};
       for(var i = 0; i < this.viewer.observers.length; i++){
         this[viewer.observers[i]].call(this);
       }

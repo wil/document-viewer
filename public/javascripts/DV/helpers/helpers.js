@@ -129,27 +129,38 @@ DV.Schema.helpers = {
         }
       );
 
-      viewer.handlerProxies.focusWindow = DV.jQuery.proxy(this.focusWindow,this);
-      viewer.handlerProxies.focusOut    = DV.jQuery.proxy(this.focusOut,this);
-      viewer.handlerProxies.blurWindow  = DV.jQuery.proxy(this.blurWindow,this);
-      
+      var docId = viewer.schema.document.id;
+
       if(DV.jQuery.browser.msie == true){
-        this.elements.browserDocument.bind('focus',viewer.handlerProxies.focusWindow);
-        this.elements.browserDocument.bind('focusout',viewer.handlerProxies.focusOut);
+        this.elements.browserDocument.bind('focus.' + docId, DV.jQuery.proxy(this.focusWindow,this));
+        this.elements.browserDocument.bind('focusout.' + docId, DV.jQuery.proxy(this.focusOut,this));
       }else{
-        this.elements.browserWindow.bind('focus',viewer.handlerProxies.focusWindow);
-        this.elements.browserWindow.bind('blur',viewer.handlerProxies.blurWindow);
+        this.elements.browserWindow.bind('focus.' + docId, DV.jQuery.proxy(this.focusWindow,this));
+        this.elements.browserWindow.bind('blur.' + docId, DV.jQuery.proxy(this.blurWindow,this));
       }
 
-      viewer.handlerProxies.scroll = DV.jQuery.proxy(this.focusWindow, this);
-
       // When the document is scrolled, even in the background, resume polling.
-      this.elements.window.bind('scroll', viewer.handlerProxies.scroll);
+      this.elements.window.bind('scroll.' + docId, DV.jQuery.proxy(this.focusWindow, this));
 
       this.elements.coverPages.live('mousedown', cleanUp);
 
       viewer.acceptInput = this.elements.currentPage.acceptInput({ changeCallBack: DV.jQuery.proxy(this.acceptInputCallBack,this) });
 
+    },
+
+    // Unbind jQuery events that have been bound to objects outside of the viewer.
+    unbindEvents: function() {
+      var viewer = this.viewer;
+      var docId = viewer.schema.document.id;
+      if(DV.jQuery.browser.msie == true){
+        this.elements.browserDocument.unbind('focus.' + docId);
+        this.elements.browserDocument.unbind('focusout.' + docId);
+      }else{
+        viewer.helpers.elements.browserWindow.unbind('focus.' + docId);
+        viewer.helpers.elements.browserWindow.unbind('blur.' + docId);
+      }
+      viewer.helpers.elements.browserWindow.unbind('scroll.' + docId);
+      _.each(viewer.observers, function(obs){ viewer.helpers.removeObserver(obs); });
     },
 
     // We're entering the Notes tab -- make sure that there are no data-src
@@ -324,7 +335,7 @@ DV.Schema.helpers = {
         case 'ViewThumbnails':
           url += '#pages/p' + currentPage; // need to set up a route to catch this.
           break;
-      } 
+      }
       window.open(url, "documentviewer", "toolbar=no,resizable=yes,scrollbars=no,status=no");
     },
 

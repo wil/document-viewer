@@ -10,12 +10,12 @@ DV.Api.prototype = {
   currentPage : function() {
     return this.viewer.models.document.currentPage();
   },
-  
+
   // Set the current page of the document.
   setCurrentPage : function(page) {
     this.viewer.helpers.jump(page - 1);
   },
-  
+
   // Register a callback for when the page is changed.
   onPageChange : function(callback) {
     this.viewer.models.document.onPageChangeCallbacks.push(callback);
@@ -184,15 +184,15 @@ DV.Api.prototype = {
       this.viewer.pageSet.reflowPages();
     }
   },
-  
+
   getAnnotationsBySortOrder : function() {
     return this.viewer.models.annotations.sortAnnotations();
   },
-  
+
   getAnnotationsByPageIndex : function(idx) {
     return this.viewer.models.annotations.getAnnotations(idx);
   },
-  
+
   getAnnotation : function(aid) {
     return this.viewer.models.annotations.getAnnotation(aid);
   },
@@ -223,11 +223,11 @@ DV.Api.prototype = {
   onChangeState : function(callback) {
     this.viewer.onStateChangeCallbacks.push(callback);
   },
-  
+
   getState : function() {
     return this.viewer.state;
   },
-  
+
   // set the state. This takes "ViewDocument," "ViewThumbnails", "ViewText"
   setState : function(state) {
     this.viewer.open(state);
@@ -265,16 +265,24 @@ DV.Api.prototype = {
     tabs.first().addClass('DV-first');
     tabs.last().addClass('DV-last');
   },
-  
+
   // Register hooks into DV's hash history
   registerHashListener : function(matcher, callback) {
     this.viewer.history.register(matcher, callback);
   },
-  
+
   // Clobber DV's existing history hooks
   clearHashListeners : function() {
     this.viewer.history.defaultCallback = null;
     this.viewer.history.handlers = [];
+  },
+
+  // Unload the viewer.
+  unload: function(viewer) {
+    this.viewer.helpers.unbindEvents();
+    DV.jQuery(this.viewer.options.container).remove('div');
+    this.viewer.helpers.stopCheckTimer();
+    delete DV.viewers[this.viewer.schema.document.id];
   },
 
   // ---------------------- Enter/Leave Edit Modes -----------------------------
