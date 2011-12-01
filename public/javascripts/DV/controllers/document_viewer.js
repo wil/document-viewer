@@ -173,9 +173,24 @@ DV.load = function(documentRep, options) {
 // viewer.
 //
 // This is a somewhat satisfactory substitute.
+// _.each(DV.viewers, function(v,k){ 
+//  v.helpers.stopCheckTimer(); 
+//  v.$(v.window).unbind('focus', v.handlerProxies.focusWindow); 
+//  v.$(v.window).unbind('scroll', v.handlerProxies.scroll); 
+//  v.helpers.stopCheckTimer(); DV.unload(v) 
+// })
 DV.unload = function(viewer) {
+  if(DV.jQuery.browser.msie == true){
+    viewer.helpers.elements.browserDocument.unbind('focus',viewer.handlerProxies.focusWindow);
+    viewer.helpers.elements.browserDocument.unbind('focusout',viewer.handlerProxies.focusOut);
+  }else{
+    viewer.helpers.elements.browserWindow.unbind('focus',viewer.handlerProxies.focusWindow);
+    viewer.helpers.elements.browserWindow.unbind('blur',viewer.handlerProxies.blurWindow);
+  }
+  viewer.helpers.elements.browserWindow.unbind('scroll', viewer.handlerProxies.scroll);
   _.each(viewer.observers, function(obs){ viewer.helpers.removeObserver(obs); });
   DV.jQuery(viewer.options.container).remove('div');
+  viewer.helpers.stopCheckTimer();
   delete DV.viewers[viewer.schema.document.id];
 };
 
