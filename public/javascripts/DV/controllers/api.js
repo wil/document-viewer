@@ -280,7 +280,7 @@ DV.Api.prototype = {
   // Unload the viewer.
   unload: function(viewer) {
     this.viewer.helpers.unbindEvents();
-    DV.jQuery(this.viewer.options.container).remove('div');
+    DV.jQuery('.DV-docViewer', this.viewer.options.container).remove();
     this.viewer.helpers.stopCheckTimer();
     delete DV.viewers[this.viewer.schema.document.id];
   },
