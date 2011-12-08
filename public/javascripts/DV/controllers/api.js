@@ -60,7 +60,7 @@ DV.Api.prototype = {
     return this.viewer.models.document.totalPages;
   },
 
-  // Return the name of the conributor, if available.
+  // Return the name of the contributor, if available.
   getContributor : function() {
     return this.viewer.schema.document.contributor;
   },
