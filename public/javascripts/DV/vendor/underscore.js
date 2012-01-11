@@ -1,4 +1,4 @@
-//     Underscore.js 1.2.4
+//     Underscore.js 1.3.0
 //     (c) 2009-2012 Jeremy Ashkenas, DocumentCloud Inc.
 //     Underscore is freely distributable under the MIT license.
 //     Portions of Underscore are inspired or borrowed from Prototype,
@@ -48,12 +48,21 @@
   // Create a safe reference to the Underscore object for use below.
   var _ = function(obj) { return new wrapper(obj); };
 
-  // If we're in the browser, add `_` as a global object via a string identifier,
+  // Export the Underscore object for **Node.js**, with
+  // backwards-compatibility for the old `require()` API. If we're in
+  // the browser, add `_` as a global object via a string identifier,
   // for Closure Compiler "advanced" mode.
-  root['_'] = _;
+  if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = _;
+    }
+    exports._ = _;
+  } else {
+    root['_'] = _;
+  }
 
   // Current version.
-  _.VERSION = '1.2.4';
+  _.VERSION = '1.3.0';
 
   // Collection Functions
   // --------------------
