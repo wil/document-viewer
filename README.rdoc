@@ -49,8 +49,8 @@ https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json
     
     sections    : 
     [
-      { title     : CHAPTER_TITLE, pages: "1-10" },
-      { title     : CHAPTER_TITLE, pages: "11-20" }
+      { title     : CHAPTER_TITLE, page: 1 },
+      { title     : CHAPTER_TITLE, page: 11 }
     ],
     
     resources   : 
